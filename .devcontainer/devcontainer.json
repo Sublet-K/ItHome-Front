@@ -8,7 +8,7 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "node": {
-      "version": "lts",
+      "version": "20.11.1",
       "nodeGypDependencies": true
     }
   },
