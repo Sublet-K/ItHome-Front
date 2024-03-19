@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, useRef } from "react";
 
 export const useTitle = (initialTitle: string) => {
@@ -9,8 +11,7 @@ export const useTitle = (initialTitle: string) => {
   const updateTitle = () => {
     const htmlTitle = document.querySelector("title");
     if (!htmlTitle) {
-      console.error("ERROR: htmlTitle document is NULL");
-      throw Error();
+      throw Error("ERROR: htmlTitle document is NULL");
     }
     htmlTitle.innerText = title;
   };

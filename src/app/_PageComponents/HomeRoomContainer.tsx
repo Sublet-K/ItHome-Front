@@ -1,8 +1,10 @@
+"use client";
+
 import styled from "styled-components";
 import { RoomProfile } from "./RoomProfile";
 
 import type { Room } from "./RoomType";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const Layout = styled.div`
   display: 'grid'
@@ -11,15 +13,9 @@ const Layout = styled.div`
   fontSize: '1em'
 `;
 
-export const HomeRoomContainer = ({
-  roomsData,
-  likes,
-  setLikes,
-}: {
-  roomsData: Room[];
-  likes: { [key: number]: Room };
-  setLikes: Dispatch<SetStateAction<{ [key: number]: Room }>>;
-}) => {
+export const HomeRoomContainer = ({ roomsData }: { roomsData: Room[] }) => {
+  const [likes, setLikes] = useState<{ [key: number]: Room }>({});
+
   if (!roomsData) return <Layout></Layout>;
 
   return (
