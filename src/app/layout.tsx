@@ -4,14 +4,15 @@ import "./globals.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
 import Header from "./_PageComponents/Header";
-import { MobileHeader } from "./_PageComponents/MobileHeader";
+// import { MobileHeader } from "./_PageComponents/MobileHeader";
 
 export const Mobile = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMediaQuery("(max-width:743px)");
   return isMobile ? children : null;
 };
 export const Desktop = ({ children }: { children: React.ReactNode }) => {
-  const isDesktop = useMediaQuery("(min-width:744px)");
+  // const isDesktop = useMediaQuery("(min-width:744px)");
+  const isDesktop = true;
   return isDesktop ? children : null;
 };
 
@@ -27,13 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Desktop>
-        <Header />
-      </Desktop>
-      <Mobile>
+      {/*<Desktop>*/}
+
+      {/*</Desktop>*/}
+      {/*<Mobile>
         <MobileHeader />
-      </Mobile>
-      <body>{children}</body>
+  </Mobile>*/}
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

@@ -6,7 +6,8 @@ import {
   useState,
 } from "react";
 import { notFoundError, raiseError } from "./StaticComponents";
-import { RequestRoom, Reservation, Room, SignUpInfo, User } from "./RoomType";
+import { RequestRoom, Reservation, Room } from "../RoomType";
+import { User, SignUpInfo } from "../UserType";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -179,7 +180,7 @@ async function FetchLogin({
 }: {
   id: string;
   password: string;
-  setUserInfo: Dispatch<SetStateAction<User>>;
+  setUserInfo: (newUserInfo: User) => void;
 }) {
   fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
@@ -203,7 +204,7 @@ async function FetchLogout() {
 
 async function FetchImage(formData: FormData) {
   console.log("x", formData);
-  await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/image`, {
+  return await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/image`, {
     ...headerOptions("PUT", "image/jpeg"),
     body: formData,
   });
@@ -327,7 +328,7 @@ async function FetchVerifyUser({
 }: {
   method: string;
   tokenKey: string;
-  verifyToken: string;
+  verifyToken: number;
 }) {
   // 학교 인증은 우리가 확인(김과외처럼)
   const URL = `${process.env.REACT_APP_BACKEND_URL}/user/verifyUser`;
@@ -347,7 +348,7 @@ async function FetchVerifyUser({
 async function FetchResetPassword(
   userId: string,
   tokenKey: string,
-  verifyToken: string
+  verifyToken: number
 ) {
   // 학교 인증은 우리가 확인(김과외처럼)
   const link = `${process.env.REACT_APP_BACKEND_URL}/user/resetpassword`;

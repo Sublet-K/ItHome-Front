@@ -2,10 +2,10 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { toggleLikes } from "./FetchList";
 import { RoomSpan } from "./RoomSpan";
-import { Image } from "./Public.styles";
+import { Image } from "../_Styles/Public.styles";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { Room } from "./RoomType";
+import { Room } from "../RoomType";
 import { Dispatch, SetStateAction } from "react";
 
 export const RoomProfile = ({

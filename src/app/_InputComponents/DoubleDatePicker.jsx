@@ -11,6 +11,7 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
         <DatePicker
           value={dayjs(dateData[0])}
           onChange={(newDate) => {
+            if (!newDate) return;
             if (newDate.$d > dateData[1]) {
               setDateData(newDate.$d, newDate.$d);
             } else {
@@ -24,6 +25,7 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
         <DatePicker
           value={dayjs(dateData[1])}
           onChange={(newDate) => {
+            if (!newDate) return;
             if (dateData[0] > newDate.$d) {
               setDateData(newDate.$d, newDate.$d);
             } else {

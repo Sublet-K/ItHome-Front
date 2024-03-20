@@ -1,10 +1,10 @@
 import React, { useState, useRef, CSSProperties } from "react";
 import BarChartIcon from "@mui/icons-material/BarChart";
 // import { BarChart } from "@mui/x-charts";
-import { useSearchPriceStore } from "./SearchPriceStore";
-import * as headerStyle from "./Header.styles.js";
-import { DoubleSlideInput } from "./DoubleSlideInput.js";
-import { MoneyRangeViewer } from "./ValueViewer.js";
+import { useSearchPriceStore } from "../_Store/SearchPriceStore";
+import * as headerStyle from "../_Styles/Header.styles";
+import { DoubleSlideInput } from "../_InputComponents/DoubleSlideInput";
+import { MoneyRangeViewer } from "./ValueViewer";
 
 const SearchPriceRange = () => {
   const priceRangeMinMax: [number, number] = [0, 5000000]; // tempData

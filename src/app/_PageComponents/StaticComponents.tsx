@@ -1,5 +1,5 @@
 import "animate.css";
-import * as s from "./Public.styles";
+import * as s from "../_Styles/Public.styles";
 import type { Dispatch, SetStateAction } from "react";
 
 const setStateOnandOff = (
@@ -51,7 +51,7 @@ export function checkEmailFormat(target: string, school: string) {
   return false;
 }
 
-export function priceToString(price: number) {
+export function priceToString(price: string | number) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -228,7 +228,13 @@ export function StyleComponent({ content }: { content: string }) {
   }
 }
 
-export function Information({ title, info }: { title: string; info: string }) {
+export function Information({
+  title,
+  info,
+}: {
+  title: string;
+  info: string | number;
+}) {
   return (
     <div>
       <p className="ml-1 text-m font-bold">• {title}</p>

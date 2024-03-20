@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import { RoomProfile } from "./RoomProfile";
 
-import type { Room } from "./RoomType";
+import type { Room } from "../RoomType";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const Layout = styled.div`

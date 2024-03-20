@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+"use client";
+
+import { useState, useRef, useEffect, CSSProperties } from "react";
 import { Dialog, Popover } from "@headlessui/react";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,21 +9,23 @@ import SearchPriceRange from "./SearchPriceRange";
 import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
-// import { Link, useLocation } from "react-router-dom";
-import { LoginDialog } from "@shared/components/Popup/Popup.js";
+// import { useLocation } from "react-router-dom";
+import { LoginDialog } from "../_Components/PopUp";
 
 import Button from "@mui/material/Button";
-import SearchLocation from "./components/SearchLocation.js";
-import { useUserInfoStore } from "@core/store/UserInfoStore.js";
+import SearchLocation from "./SearchLocation";
+import { useUserInfoStore } from "../_Store/UserInfoStore";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
   const [searchBoxContainerSize, setSearchBoxContainer] = useState(2);
   const { userInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
-  const inputRef = useRef(null);
-  const location = useLocation();
+  const inputRef = useRef<HTMLInputElement>(null);
+  // const location = useLocation();
+  const router = useRouter();
 
-  const styles = {
+  const styles: { [key: string]: CSSProperties } = {
     container: {
       borderBottom: "1px solid gray",
       marginBottom: "0.5em",
@@ -52,7 +56,7 @@ const Header = () => {
       borderRadius: "5px",
       padding: "1em",
       fontSize: "1.3em",
-      flex: { searchBoxContainerSize },
+      flex: searchBoxContainerSize,
     },
     searchByKeywordContainer: {
       display: "flex",
@@ -102,6 +106,7 @@ const Header = () => {
 
   useEffect(() => {
     if (searchButtonClicked) {
+      if (!inputRef.current) return;
       inputRef.current.focus();
     }
   }, [searchButtonClicked]);
@@ -121,6 +126,8 @@ const Header = () => {
       window.location.href = "/SearchSubletInfo";
     }
   };
+
+  return <>Header!</>;
 
   return (
     <header className="bg-white" style={styles.container}>
@@ -155,7 +162,7 @@ const Header = () => {
             <SearchDate />
           </span>
           <IconButton className="font-semibold leading-6 text-gray-900">
-            <SearchPriceRange />
+            {/*<SearchPriceRange />*/}
           </IconButton>
           <Button component={Link} onClick={doSearch} style={styles.searchIcon}>
             <SearchIcon />
@@ -166,14 +173,14 @@ const Header = () => {
             <div style={styles.rightNavigation}>
               <span>
                 <IconButton style={styles.favorite}>
-                  <Link to={"/SaveSublet"}>
+                  <Link href={"/SaveSublet"}>
                     <Favorite />
                     {/* <div style={styles.favoriteCount}>{33 + 1}</div> */}
                   </Link>
                 </IconButton>
               </span>
               <IconButton>
-                <Link to={"/Profile/me"} style={styles.profile}>
+                <Link href={"/Profile/me"} style={styles.profile}>
                   <PersonIcon />
                 </Link>
               </IconButton>
@@ -183,7 +190,8 @@ const Header = () => {
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              <LoginDialog style={styles.profile} />
+              <LoginDialog //style={styles.profile}
+              />
             </a>
           )}
         </div>
