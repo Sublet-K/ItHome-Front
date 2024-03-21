@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, CSSProperties } from "react";
 import BarChartIcon from "@mui/icons-material/BarChart";
 // import { BarChart } from "@mui/x-charts";
@@ -11,7 +13,7 @@ const SearchPriceRange = () => {
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const [tempPriceRange, setTempPriceRange] = useState(priceRange); // 그래프 표현을 위한 이중화. 실제 값은 priceRange에 저장
   const [isListVisible, setIsListVisible] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const styles: { [key: string]: React.CSSProperties } = {
     priceRangeStyle: {
@@ -86,12 +88,12 @@ const SearchPriceRange = () => {
 
   return (
     <div>
-      <button ref={buttonRef} onClick={togglePriceFilter}>
+      <div ref={buttonRef} onClick={togglePriceFilter}>
         <headerStyle.blackBoldFont>
           가격 범위
           <BarChartIcon />
         </headerStyle.blackBoldFont>
-      </button>
+      </div>
       {isListVisible && (
         <div style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>

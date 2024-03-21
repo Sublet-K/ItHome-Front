@@ -181,7 +181,7 @@ async function FetchLogin({
 }: {
   id: string;
   password: string;
-  setUserInfo: (newUserInfo: User) => void;
+  setUserInfo: (newUserInfo: any) => void;
 }) {
   fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
