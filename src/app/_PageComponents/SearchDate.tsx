@@ -1,11 +1,18 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, CSSProperties } from "react";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import { IconButton } from "@mui/material";
 import { useSearchDateStore } from "../_Store/SearchDateStore";
 import * as s from "../_Styles/Header.styles";
 import { DoubleDatePicker } from "../_InputComponents/DoubleDatePicker";
+import styled from "styled-components";
+
+const Layout = styled.div`
+justifyContent: center
+textAlign: center
+display: flex
+flexDirection: row`;
 
 const SearchDate = () => {
   const [isListVisible, setIsListVisible] = useState(false);
@@ -18,46 +25,55 @@ const SearchDate = () => {
   } = useSearchDateStore(); // useState([null, null]); // [start, end]
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const styles = {
-    calandersContainer: {
-      justifyContent: "center",
-      textAlign: "center",
-      display: "flex",
-      flexDirection: "row",
-    },
-    serachByDate: {
-      fontWeight: "bold",
-      color: "rgba(0, 0, 0, 1)",
-    },
-    calanderStyle: {
-      backgroundColor: "white",
-      border: "1px solid black",
-      position: "absolute",
-      top: `${
-        buttonRef.current
-          ? buttonRef.current.offsetTop + buttonRef.current.offsetHeight
-          : 0
-      }px`,
-      left: `${buttonRef.current ? buttonRef.current.offsetLeft : 0}px`,
-      zIndex: 101,
-    },
-  } as { [key: string]: React.CSSProperties };
+  // const styles: { [key: string]: CSSProperties } = {
+  //   calandersContainer: {
+  //     justifyContent: "center",
+  //     textAlign: "center",
+  //     display: "flex",
+  //     flexDirection: "row",
+  //   },
+  //   serachByDate: {
+  //     fontWeight: "bold",
+  //     color: "rgba(0, 0, 0, 1)",
+  //   },
+  //   calanderStyle: {
+  //     backgroundColor: "white",
+  //     border: "1px solid black",
+  //     position: "absolute",
+  //     top: `${
+  //       buttonRef.current
+  //         ? buttonRef.current.offsetTop + buttonRef.current.offsetHeight
+  //         : 0
+  //     }px`,
+  //     left: `${buttonRef.current ? buttonRef.current.offsetLeft : 0}px`,
+  //     zIndex: 101,
+  //   },
+  // };
 
   const toggleCalander = () => {
     setIsListVisible(!isListVisible);
   };
+
   /* range로 해야 좋은데 계속 깨져서, 이걸로 임시 대체 합니다. */
-  return isListVisible ? (
-    <div style={styles.calandersContainer}>
-      <DoubleDatePicker dateData={searchDate} setDateData={setSearchDate} />
-    </div>
-  ) : (
-    <IconButton ref={buttonRef} onClick={toggleCalander}>
-      <s.blackBoldFont>
-        날짜
-        <DateRangeOutlinedIcon />
-      </s.blackBoldFont>
-    </IconButton>
+  if (isListVisible) {
+    return (
+      <span className="font-semibold leading-6 text-gray-900">
+        <Layout>
+          <DoubleDatePicker dateData={searchDate} setDateData={setSearchDate} />
+        </Layout>
+      </span>
+    );
+  }
+
+  return (
+    <span className="font-semibold leading-6 text-gray-900">
+      <IconButton ref={buttonRef} onClick={toggleCalander}>
+        <s.blackBoldFont>
+          날짜
+          <DateRangeOutlinedIcon />
+        </s.blackBoldFont>
+      </IconButton>
+    </span>
   );
 };
 export default SearchDate;
