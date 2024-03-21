@@ -23,7 +23,7 @@ const Header = () => {
   const { userInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const inputRef = useRef<HTMLInputElement>(null);
   // const location = useLocation();
-  const router = useRouter();
+  // const router = useRouter();
 
   const styles: { [key: string]: CSSProperties } = {
     container: {
@@ -119,18 +119,16 @@ const Header = () => {
     }
   };
 
-  const doSearch = () => {
-    if (location.pathname === "/SearchSubletInfo") {
-      window.location.reload();
-    } else {
-      window.location.href = "/SearchSubletInfo";
-    }
-  };
-
-  return <>Header!</>;
+  // const doSearch = () => {
+  //   if (location.pathname === "/SearchSubletInfo") {
+  //     window.location.reload();
+  //   } else {
+  //     window.location.href = "/SearchSubletInfo";
+  //   }
+  // };
 
   return (
-    <header className="bg-white" style={styles.container}>
+    <div className="bg-white" style={styles.container}>
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -155,16 +153,17 @@ const Header = () => {
           style={styles.searchBoxContainer}
           className="hidden lg:flex lg:gap-x-12"
         >
-          <span className="font-semibold leading-6 text-gray-900">
-            <SearchLocation />
-          </span>
-          <span className="font-semibold leading-6 text-gray-900">
-            <SearchDate />
-          </span>
+          <SearchLocation />
+          <SearchDate />
           <IconButton className="font-semibold leading-6 text-gray-900">
-            {/*<SearchPriceRange />*/}
+            <SearchPriceRange />
           </IconButton>
-          <Button component={Link} onClick={doSearch} style={styles.searchIcon}>
+          <Button
+            component={Link}
+            // onClick={doSearch}
+            style={styles.searchIcon}
+            href="/SearchSubletInfo"
+          >
             <SearchIcon />
           </Button>
         </Popover.Group>
@@ -173,14 +172,14 @@ const Header = () => {
             <div style={styles.rightNavigation}>
               <span>
                 <IconButton style={styles.favorite}>
-                  <Link href={"/SaveSublet"}>
+                  <Link href="/SaveSublet">
                     <Favorite />
                     {/* <div style={styles.favoriteCount}>{33 + 1}</div> */}
                   </Link>
                 </IconButton>
               </span>
               <IconButton>
-                <Link href={"/Profile/me"} style={styles.profile}>
+                <Link href="/Profile/me" style={styles.profile}>
                   <PersonIcon />
                 </Link>
               </IconButton>
@@ -196,7 +195,7 @@ const Header = () => {
           )}
         </div>
       </nav>
-    </header>
+    </div>
   );
 };
 
