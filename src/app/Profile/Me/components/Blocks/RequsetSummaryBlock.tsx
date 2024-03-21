@@ -2,11 +2,11 @@ import {
   DeleteButton,
   InfoButton,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { RequestDeleteDialog } from "../Dialog/RequestDeleteDialog";
 import { RequestDetailDialog } from "../Dialog/RequestDetailDialog";
 import { RequestRespondDialog } from "../Dialog/RequestRespondDialog";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { RequestForm } from "@/app/RequestType";
 
 export function RequsetSummaryBlock({
@@ -32,10 +32,11 @@ export function RequsetSummaryBlock({
     detailPopUpState: "상세 정보",
     respondPopUpState: "응답 리스트",
   };
-  const onChange = (e) => {
+  const onChange: MouseEventHandler<HTMLButtonElement> = (e) => {
     setInputs({
       ...inputs,
-      [e.currentTarget.name]: !inputs[e.currentTarget.name],
+      [e.currentTarget.name]:
+        !inputs[e.currentTarget.name as keyof typeof inputs],
     });
   };
 
@@ -52,10 +53,15 @@ export function RequsetSummaryBlock({
       </div>
       {/* 공개 변경 버튼 추가 */}
       <div className="block">
-        {Object.keys(infoButtonList).map((k) => {
+        {Object.keys(infoButtonList).map((k, index) => {
           return (
-            <InfoButton className="ml-4" name={k} onClick={onChange}>
-              {infoButtonList[k]}
+            <InfoButton
+              key={index}
+              className="ml-4"
+              name={k}
+              onClick={onChange}
+            >
+              {infoButtonList[k as keyof typeof infoButtonList]}
             </InfoButton>
           );
         })}
@@ -80,9 +86,9 @@ export function RequsetSummaryBlock({
       />
 
       <RequestDeleteDialog
+        key={request.key.toString()}
         deletePopUpState={deletePopUpState}
         onChange={onChange}
-        key={request.key}
       />
     </div>
   );

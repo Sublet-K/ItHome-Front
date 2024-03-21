@@ -3,7 +3,7 @@ import "./globals.css";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
-import Header from "./_PageComponents/Header";
+import Header from "@core/Header/Desktop/Header";
 // import { MobileHeader } from "./_PageComponents/MobileHeader";
 
 export const Mobile = ({ children }: { children: React.ReactNode }) => {

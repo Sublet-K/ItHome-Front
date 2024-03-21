@@ -8,7 +8,7 @@ import {
   DetailParagraph,
   InfoButton,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
 import { useState } from "react";
 import { Room } from "@/app/RoomType";
@@ -21,9 +21,9 @@ export function PostSummaryBlock({
   price,
   address,
 }: {
-  room: Room;
+  room: Post;
   guestMode: boolean;
-  postDate: Date;
+  postDate: string;
   price: string;
   address: string;
 }) {
@@ -94,9 +94,14 @@ export function PostSummaryBlock({
         <div className="block">
           {guestMode && (
             <>
-              {Object.keys(infoButtonList).map((k) => {
+              {Object.keys(infoButtonList).map((k, index) => {
                 return (
-                  <InfoButton className="ml-4" name={k} onClick={onChange}>
+                  <InfoButton
+                    key={index}
+                    className="ml-4"
+                    name={k}
+                    onClick={onChange}
+                  >
                     {infoButtonList[k]}
                   </InfoButton>
                 );
