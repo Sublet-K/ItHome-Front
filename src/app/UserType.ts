@@ -1,3 +1,5 @@
+import { ChatRoom, Chat } from "./ChatType";
+import { Post } from "./PostType";
 import { Reservation } from "./ReservationType";
 
 export type User = {

@@ -6,7 +6,8 @@ import {
   useState,
 } from "react";
 import { notFoundError, raiseError } from "./StaticComponents";
-import { RequestRoom, Reservation, Room } from "../RoomType";
+import { Reservation } from "../ReservationType";
+import { Room, RequestRoom } from "../RoomType";
 import { User, SignUpInfo } from "../UserType";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (

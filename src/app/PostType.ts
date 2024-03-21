@@ -1,3 +1,6 @@
+import { ChatRoom } from "./ChatType";
+import { Reservation } from "./ReservationType";
+import { RequestRoom } from "./RoomType";
 import { UserForm } from "./UserType";
 export type Post = {
   id: string;
