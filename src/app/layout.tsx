@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import useMediaQuery from "@mui/material/useMediaQuery";
+import React from "react";
+import Header from "./_PageComponents/Header";
+// import { MobileHeader } from "./_PageComponents/MobileHeader";
+
+export const Mobile = ({ children }: { children: React.ReactNode }) => {
+  const isMobile = useMediaQuery("(max-width:743px)");
+  return isMobile ? children : null;
+};
+export const Desktop = ({ children }: { children: React.ReactNode }) => {
+  // const isDesktop = useMediaQuery("(min-width:744px)");
+  const isDesktop = true;
+  return isDesktop ? children : null;
+};
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      {/*<Desktop>*/}
+
+      {/*</Desktop>*/}
+      {/*<Mobile>
+        <MobileHeader />
+  </Mobile>*/}
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
