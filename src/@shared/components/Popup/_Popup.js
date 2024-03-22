@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import {
   InputEmail,
   InputTelePhone,
@@ -8,10 +8,10 @@ import {
   TextInputTag,
   InputTextArea,
   InputInteger,
-} from '../Input/TextInputTag.js';
-import * as psd from '../styles/PostUploadDialog.styles.js';
-import DialogContent from '@mui/material/DialogContent';
-import Dialog from '@mui/material/Dialog';
+} from "../Input/TextInputTag.js";
+import * as psd from "../styles/PostUploadDialog.styles.js";
+import DialogContent from "@mui/material/DialogContent";
+import Dialog from "@mui/material/Dialog";
 import {
   FetchChangeEmail,
   FetchChangePhone,
@@ -19,7 +19,7 @@ import {
   FetchLogin,
   FetchSignUp,
   FetchUploadPost,
-} from '../FetchList/FetchList.js';
+} from "../FetchList/FetchList.js";
 
 import {
   Alert,
@@ -29,7 +29,7 @@ import {
   checkEmailFormat,
   notFoundError,
   raiseError,
-} from '../StaticComponents/StaticComponents.js';
+} from "../StaticComponents/StaticComponents.js";
 import {
   DialogTitle,
   DialogActions,
@@ -39,30 +39,30 @@ import {
   FormControl,
   Select,
   MenuItem,
-} from '@mui/material';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleButton } from '../loginComponents/Google.js';
-import NaverLogin from '../loginComponents/Naver.js';
-import { VerifyEmailComponents } from '../verifyComponents/Email.js';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
+} from "@mui/material";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleButton } from "../loginComponents/Google.js";
+import NaverLogin from "../loginComponents/Naver.js";
+import { VerifyEmailComponents } from "../verifyComponents/Email.js";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
-import DropBoxSelect from '../Input/DropBoxSelect.js';
-import { DoubleSlideInput } from '../Input/DoubleSlideInput.js';
-import { SingleSlideInput } from '../Input/SingleSlideInput.js';
+import DropBoxSelect from "../Input/DropBoxSelect.js";
+import { DoubleSlideInput } from "../Input/DoubleSlideInput.js";
+import { SingleSlideInput } from "../Input/SingleSlideInput.js";
 import {
   SingleValueViewer,
   ValueRangeViewer,
-} from '@shared/components/Input/ValueViewer.js';
+} from "@shared/components/Input/ValueViewer.js";
 
-import { LocationInput } from '../Input/LocationInput.js';
-import { DoubleDatePicker } from '../Input/DoubleDatePicker.js';
-import { priceToString } from '../StaticComponents/StaticComponents.js';
-import { ImageUploadComponent } from '../Input/ImageInput.js';
-import { useUserInfoStore } from '@core/store/UserInfoStore.js';
-import { guestInfoPopUpStore } from './store/guestInfoStore.js';
+import { LocationInput } from "../Input/LocationInput.js";
+import { DoubleDatePicker } from "../Input/DoubleDatePicker.js";
+import { priceToString } from "../StaticComponents/StaticComponents.js";
+import { ImageUploadComponent } from "../Input/ImageInput.js";
+import { useUserInfoStore } from "@core/store/UserInfoStore.js";
+import { guestInfoPopUpStore } from "./store/guestInfoStore.js";
 import {
   DisableButton,
   Horizon,
@@ -73,10 +73,10 @@ import {
   PolicyText,
   SecondHead,
   SvgHoverButton,
-} from '../styles/Public.styles.js';
+} from "../styles/Public.styles.js";
 
 export function DialogForm({
-  name = '',
+  name = "",
   openState,
   handleClose,
   children,
@@ -85,7 +85,8 @@ export function DialogForm({
   return (
     <Dialog
       open={openState}
-      className="border border-gray-300 shadow-xl rounded-lg">
+      className="border border-gray-300 shadow-xl rounded-lg"
+    >
       <DialogTitle>
         {render()}
         <SvgHoverButton name={name} type="button" onClick={handleClose}>
@@ -99,13 +100,13 @@ export function DialogForm({
 
 export function ImageDialog() {
   const { setImagePopUpState, imagePopUpState } = guestInfoPopUpStore(
-    state => ({
+    (state) => ({
       setImagePopUpState: state.setImagePopUpState,
       imagePopUpState: state.imagePopUpState,
-    }),
+    })
   );
-  const [imgFile, setImgFile] = useState('');
-  const [imageUpload, setImageUpload] = useState('');
+  const [imgFile, setImgFile] = useState("");
+  const [imageUpload, setImageUpload] = useState("");
   const imgRef = useRef();
 
   const [successState, setSuccessState] = useState(false);
@@ -126,13 +127,13 @@ export function ImageDialog() {
 
   const handleClose = () => {
     setImagePopUpState(true);
-    setImgFile('');
+    setImgFile("");
   };
-  formData.append('file', imageUpload);
+  formData.append("file", imageUpload);
   const onClick = () => {
     FetchImage(formData)
-      .then(res => notFoundError(res, true, setSuccessState))
-      .catch(raiseError('ImageDialog', true, setFailState));
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("ImageDialog", true, setFailState));
   };
   return (
     <DialogForm
@@ -141,20 +142,24 @@ export function ImageDialog() {
       render={() => (
         <label
           htmlFor="test"
-          className="block mb-2 text-sm font-medium text-gray-900 float-left">
+          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+        >
           test
         </label>
-      )}>
+      )}
+    >
       <DialogContent
         sx={{ height: 512, width: 512 }}
-        className="font-black text-center">
+        className="font-black text-center"
+      >
         <div className="clear-both h-56 w-75 flex items-center justify-center">
           {imgFile ? (
             <img src={imgFile} alt="프로필 이미지" />
           ) : (
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100">
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
+            >
               <StyleComponent content="ImageDrop" />
 
               <input
@@ -169,7 +174,7 @@ export function ImageDialog() {
           )}
         </div>
         <div className="mt-8">
-          {imgFile !== '' ? (
+          {imgFile !== "" ? (
             <NormalButton onClick={onClick}>업로드하기</NormalButton>
           ) : (
             <DisableButton disabled>업로드하기</DisableButton>
@@ -187,7 +192,7 @@ export function ImageDialog() {
 
 export function VerifyEmailDialog({ email }) {
   const { setVerifyEmailPopUpState, verifyEmailPopUpState } =
-    guestInfoPopUpStore(state => ({
+    guestInfoPopUpStore((state) => ({
       setVerifyEmailPopUpState: state.setVerifyEmailPopUpState,
       verifyEmailPopUpState: state.verifyEmailPopUpState,
     }));
@@ -201,10 +206,12 @@ export function VerifyEmailDialog({ email }) {
       render={() => (
         <label
           htmlFor="VerifyEmail"
-          className="block mb-2 text-sm font-medium text-gray-900 float-left">
+          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+        >
           이메일 인증
         </label>
-      )}>
+      )}
+    >
       <DialogContent sx={{ height: 300, width: 300 }} className="text-center">
         <VerifyEmailComponents email={email} />
       </DialogContent>
@@ -216,10 +223,10 @@ export function VerifyEmailDialog({ email }) {
 // .catch(raiseError('ImageDialog', true,setFailState));
 export function EmailDialog({ originalEmail, schoolState }) {
   const { setEmailPopUpState, emailPopUpState } = guestInfoPopUpStore(
-    state => ({
+    (state) => ({
       setEmailPopUpState: state.setEmailPopUpState,
       emailPopUpState: state.emailPopUpState,
-    }),
+    })
   );
   const [successState, setSuccessState] = useState(false);
   const [failState, setFailState] = useState(false);
@@ -230,12 +237,12 @@ export function EmailDialog({ originalEmail, schoolState }) {
 
   const onClick = async () => {
     FetchChangeEmail(emailState)
-      .then(res => notFoundError(res, true, setSuccessState))
-      .catch(raiseError('EmailDialog', true, setFailState));
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("EmailDialog", true, setFailState));
   };
 
-  const inputHandle = e => {
-    if (e.currentTarget.name === 'emailState') {
+  const inputHandle = (e) => {
+    if (e.currentTarget.name === "emailState") {
       setEmailFormatState(checkEmailFormat(e.currentTarget.value, schoolState));
     }
     setEmailState(e.currentTarget.value);
@@ -249,10 +256,12 @@ export function EmailDialog({ originalEmail, schoolState }) {
         render={() => (
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 float-left">
+            className="block mb-2 text-sm font-medium text-gray-900 float-left"
+          >
             Email address
           </label>
-        )}>
+        )}
+      >
         <DialogContent className="text-center" sx={{ height: 120, width: 312 }}>
           <InputEmail
             emailFormatState={emailFormatState}
@@ -274,10 +283,10 @@ export function EmailDialog({ originalEmail, schoolState }) {
 
 export function PhoneDialog({ originalPhone }) {
   const { setPhonePopUpState, phonePopUpState } = guestInfoPopUpStore(
-    state => ({
+    (state) => ({
       setPhonePopUpState: state.setPhonePopUpState,
       phonePopUpState: state.phonePopUpState,
-    }),
+    })
   );
   const [successState, setSuccessState] = useState(false);
   const [failState, setFailState] = useState(false);
@@ -285,14 +294,14 @@ export function PhoneDialog({ originalPhone }) {
 
   const handleClose = () => setPhonePopUpState(false);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setPhoneState(e.target.value);
   };
 
   const onClick = () => {
-    FetchChangePhone(phoneState.replace(/-/gi, '').replace('010', '+8210'))
-      .then(res => notFoundError(res, true, setSuccessState))
-      .catch(raiseError('PhoneDialog', true, setFailState));
+    FetchChangePhone(phoneState.replace(/-/gi, "").replace("010", "+8210"))
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("PhoneDialog", true, setFailState));
   };
   return (
     <>
@@ -302,10 +311,12 @@ export function PhoneDialog({ originalPhone }) {
         render={() => (
           <label
             htmlFor="tel"
-            className="block mb-2 text-sm font-medium text-gray-900 float-left">
+            className="block mb-2 text-sm font-medium text-gray-900 float-left"
+          >
             Phone number
           </label>
-        )}>
+        )}
+      >
         <DialogContent sx={{ height: 120, width: 312 }} className="text-center">
           <form>
             <InputTelePhone onChange={onChange} value={phoneState} />
@@ -330,18 +341,18 @@ export function ShareDialog({ description, title, image_id }) {
   // 로컬 주소 (localhost 3000 같은거)
   const resultUrl = window.location.href;
   const { Kakao } = window;
-  const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/public/${image_id[0]}.jpg`;
+  const imageUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id[0]}.jpg`;
   // 재랜더링시에 실행되게 해준다.
   useEffect(() => {
     // init 해주기 전에 clean up 을 해준다.
     Kakao.cleanup();
     // 자신의 js 키를 넣어준다.
-    Kakao.init(process.env.REACT_APP_KAKAO_JS);
+    Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS);
   }, []);
 
   const shareKakao = () => {
     Kakao.Share.sendDefault({
-      objectType: 'feed',
+      objectType: "feed",
       content: {
         title: title,
         description: description,
@@ -392,7 +403,8 @@ export function ShareDialog({ description, title, image_id }) {
           className="ml-2"
           onClick={() => {
             shareKakao();
-          }}>
+          }}
+        >
           카카오 공유하기
         </NormalButton>
       </div>
@@ -411,7 +423,7 @@ export function RequestSummaryDetailDialog({
   endDate,
 }) {
   const info_list = {
-    '숙소 유형': request.accomodation_type,
+    "숙소 유형": request.accomodation_type,
     요금: price,
     체크인: startDate,
     체크아웃: endDate,
@@ -427,7 +439,7 @@ export function RequestSummaryDetailDialog({
       ) : (
         <p>계약 안된 매물도 확인</p>
       )}
-      {Object.keys(info_list).map(k => (
+      {Object.keys(info_list).map((k) => (
         <Information title={k} info={info_list[k]} />
       ))}
     </>
@@ -436,7 +448,7 @@ export function RequestSummaryDetailDialog({
 
 export function PostSummaryDetailDialog({ room, postDate, price, address }) {
   const info_list = {
-    '숙소 유형': room.accomodation_type,
+    "숙소 유형": room.accomodation_type,
     게시일: postDate,
     요금: price,
     주소: address,
@@ -458,7 +470,7 @@ export function PostSummaryDetailDialog({ room, postDate, price, address }) {
       )}
       {/* 공개 변경 버튼 추가 */}
       <hr className="h-px bg-gray-200 border-0" />
-      {Object.keys(info_list).map(k => (
+      {Object.keys(info_list).map((k) => (
         <Information title={k} info={info_list[k]} />
       ))}
     </>
@@ -467,23 +479,23 @@ export function PostSummaryDetailDialog({ room, postDate, price, address }) {
 
 export function SignUpDialog() {
   const { signUpPopUpState, setSignUpPopUpState } = guestInfoPopUpStore(
-    state => ({
+    (state) => ({
       setSignUpPopUpState: state.setSignUpPopUpState,
       signUpPopUpState: state.signUpPopUpState,
-    }),
+    })
   );
   const [emailFormatState, setEmailFormatState] = useState(true);
 
   const [inputs, setInputs] = useState({
-    idState: '',
-    passwordState: '',
-    userNameState: '',
-    emailState: '',
-    phoneState: '',
-    schoolState: '고려대학교',
-    genderState: '여',
-    studentIdState: '24',
-    jobState: '학생',
+    idState: "",
+    passwordState: "",
+    userNameState: "",
+    emailState: "",
+    phoneState: "",
+    schoolState: "고려대학교",
+    genderState: "여",
+    studentIdState: "24",
+    jobState: "학생",
   });
   const [birthState, setBirthState] = useState(Date.now());
   const {
@@ -498,8 +510,8 @@ export function SignUpDialog() {
     jobState,
   } = inputs;
 
-  const inputHandle = e => {
-    if (e.currentTarget.name === 'emailState') {
+  const inputHandle = (e) => {
+    if (e.currentTarget.name === "emailState") {
       setEmailFormatState(checkEmailFormat(e.currentTarget.value, schoolState));
     }
     setInputs({
@@ -517,7 +529,7 @@ export function SignUpDialog() {
         password: passwordState,
         username: userNameState,
         email: emailState,
-        phone: phoneState.replace(/-/gi, '').replace('010', '+8210'),
+        phone: phoneState.replace(/-/gi, "").replace("010", "+8210"),
         school: schoolState,
         gender: genderState,
         jobState: jobState,
@@ -526,7 +538,7 @@ export function SignUpDialog() {
       });
       setSignUpPopUpState();
     } else {
-      console.log('잘못된 이메일 양식입니다.', emailFormatState);
+      console.log("잘못된 이메일 양식입니다.", emailFormatState);
       setEmailFormatState(false);
     }
 
@@ -535,7 +547,7 @@ export function SignUpDialog() {
       password: passwordState,
       username: userNameState,
       email: emailState,
-      phone: phoneState.replace(/-/gi, '').replace('010', '+8210'),
+      phone: phoneState.replace(/-/gi, "").replace("010", "+8210"),
       school: schoolState,
       gender: genderState,
       birth: birth.toISOString(),
@@ -552,10 +564,12 @@ export function SignUpDialog() {
       render={() => (
         <label
           htmlFor="test"
-          className="block mb-2 text-sm font-medium text-gray-900 float-left">
+          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+        >
           test
         </label>
-      )}>
+      )}
+    >
       <DialogContent>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <JustifyBlock>
@@ -600,7 +614,7 @@ export function SignUpDialog() {
               <LocalizationProvider dateAdapter={AdapterDayjs} required>
                 <DatePicker
                   name="birthState"
-                  onChange={newDate => setBirthState(newDate)}
+                  onChange={(newDate) => setBirthState(newDate)}
                   value={dayjs(birthState)}
                 />
               </LocalizationProvider>
@@ -626,7 +640,8 @@ export function SignUpDialog() {
               name="jobState"
               value={jobState}
               onChange={inputHandle}
-              required>
+              required
+            >
               <FormControlLabel value="학생" control={<Radio />} label="학생" />
               <FormControlLabel
                 value="사업자"
@@ -635,7 +650,7 @@ export function SignUpDialog() {
               />
             </RadioGroup>
           </FormControl>
-          {jobState === '학생' ? (
+          {jobState === "학생" ? (
             <>
               <div>
                 <div className="mt-2 flex items-center justify-between">
@@ -648,7 +663,8 @@ export function SignUpDialog() {
                     id="demo-simple-select-required"
                     value={schoolState}
                     label="대학교 *"
-                    onChange={inputHandle}>
+                    onChange={inputHandle}
+                  >
                     <MenuItem value="고려대학교">고려대학교</MenuItem>
                   </Select>
                 </div>
@@ -716,7 +732,8 @@ export function SignUpDialog() {
                   name="genderState"
                   value={genderState}
                   onChange={inputHandle}
-                  required>
+                  required
+                >
                   <FormControlLabel value="여" control={<Radio />} label="여" />
                   <FormControlLabel value="남" control={<Radio />} label="남" />
                 </RadioGroup>
@@ -729,7 +746,8 @@ export function SignUpDialog() {
         <NormalButton
           type="submit"
           onClick={signUpHandled}
-          className="flex w-full justify-center my-2">
+          className="flex w-full justify-center my-2"
+        >
           회원가입
         </NormalButton>
       </DialogActions>
@@ -738,14 +756,14 @@ export function SignUpDialog() {
 }
 
 export function LoginDialog() {
-  const { setSignUpPopUpState } = guestInfoPopUpStore(state => ({
+  const { setSignUpPopUpState } = guestInfoPopUpStore((state) => ({
     setSignUpPopUpState: state.setSignUpPopUpState,
   }));
   const { setUserInfo } = useUserInfoStore();
 
   const [inputs, setInputs] = useState({
-    idState: '',
-    passwordState: '',
+    idState: "",
+    passwordState: "",
   });
   const { idState, passwordState } = inputs;
   const [popUpState, setPopUpState] = useState(false);
@@ -754,7 +772,7 @@ export function LoginDialog() {
     setPopUpState(!popUpState);
   };
 
-  const inputHandle = e => {
+  const inputHandle = (e) => {
     setInputs({
       ...inputs,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -772,7 +790,7 @@ export function LoginDialog() {
   };
 
   const idList = {
-    google: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+    google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   };
 
   return (
@@ -786,10 +804,12 @@ export function LoginDialog() {
         render={() => (
           <label
             htmlFor="test"
-            className="block mb-2 text-sm font-medium text-gray-900 float-left">
+            className="block mb-2 text-sm font-medium text-gray-900 float-left"
+          >
             test
           </label>
-        )}>
+        )}
+      >
         <DialogContent>
           <div className="float-left">
             <SecondHead>로그인</SecondHead>
@@ -808,7 +828,7 @@ export function LoginDialog() {
                   value={idState}
                 />
               </div>
-            </div>{' '}
+            </div>{" "}
             {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
             <div>
               <div className="mt-2 flex items-center justify-between">
@@ -822,14 +842,15 @@ export function LoginDialog() {
               <div className="mt-2">
                 <InputPassword onChange={inputHandle} value={passwordState} />
               </div>
-            </div>{' '}
+            </div>{" "}
             {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
           </div>
           <div>
             <NormalButton
               type="submit"
               onClick={loginHandled}
-              className="flex w-full justify-center mt-5">
+              className="flex w-full justify-center mt-5"
+            >
               로그인 하기
             </NormalButton>
           </div>
@@ -837,7 +858,8 @@ export function LoginDialog() {
             <PolicyText
               className="mt-2 ml-1 text-m font-bold"
               href="#"
-              onClick={signUpHandled}>
+              onClick={signUpHandled}
+            >
               회원가입
             </PolicyText>
           </div>
@@ -854,49 +876,51 @@ export function LoginDialog() {
               <NaverLogin />
             </div>
           </div>
-        </DialogActions>{' '}
+        </DialogActions>{" "}
       </DialogForm>
       <SignUpDialog />
     </div>
   );
 }
 
-export const PostUploadDialog = props => {
-  const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(state => ({
-    setPostPopUpState: state.setPostPopUpState,
-    postPopUpState: state.postPopUpState,
-  }));
+export const PostUploadDialog = (props) => {
+  const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
+    (state) => ({
+      setPostPopUpState: state.setPostPopUpState,
+      postPopUpState: state.postPopUpState,
+    })
+  );
   const { userInfo } = useUserInfoStore();
   const [duration, setDuration] = useState([1, 730]); // minDuration, maxDuration
 
   const [postState, setPostState] = useState({
-    accomodationType: '',
+    accomodationType: "",
     limitPeople: 1,
-    buildingType: '',
+    buildingType: "",
     numberBathroom: 1,
     numberRoom: 1,
     numberBedroom: 1,
-    title: '',
-    basicInfo: '',
+    title: "",
+    basicInfo: "",
     pos: [37.574583, 126.994143], // xCoordinate, yCoordinate // 추후 위치 기반으로 초기화.,
-    fullAddress: '테스트',
-    city: '서울', // 테스트 데이터,
-    gu: '은평구', // 테스트 데이터,
-    dong: '갈현동', // 테스트 데이터,
-    street: '갈현로', // 테스트 데이터,
-    streetNumber: '39가길', // 테스트 데이터,
-    postCode: '123123', // 테스트 데이터,
+    fullAddress: "테스트",
+    city: "서울", // 테스트 데이터,
+    gu: "은평구", // 테스트 데이터,
+    dong: "갈현동", // 테스트 데이터,
+    street: "갈현로", // 테스트 데이터,
+    streetNumber: "39가길", // 테스트 데이터,
+    postCode: "123123", // 테스트 데이터,
     startEndDay: [
       new Date(),
       new Date().setFullYear(new Date().getFullYear() + 1),
     ], // new Date().setFullYear(new Date().getFullYear() + 1) // 2024년 2월 29일에 누르면, 2025년 2월 30일이 나오지는 않는지 확인 필요.
-    tempDuration: [duration[0] + '일', duration[1] + '일'],
-    price: '10,000',
+    tempDuration: [duration[0] + "일", duration[1] + "일"],
+    price: "10,000",
     imageFiles: [],
-    rule: '규칙',
-    benefit: '혜택',
-    refundPolicy: '환불정책',
-    contract: '계약', // ?
+    rule: "규칙",
+    benefit: "혜택",
+    refundPolicy: "환불정책",
+    contract: "계약", // ?
   });
 
   const {
@@ -926,12 +950,12 @@ export const PostUploadDialog = props => {
     imageFiles,
   } = postState;
 
-  const onChange = e => {
+  const onChange = (e) => {
     setPostState({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const updatePostState = (key, value) => {
-    setFormState(prev => ({ ...prev, [key]: value }));
+    setFormState((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleClose = () => confirmAction();
@@ -949,35 +973,35 @@ export const PostUploadDialog = props => {
     const formData = new FormData();
 
     // 뭔가 개선이 가능해 보이긴하나..
-    formData.append('title', postState['title']);
-    formData.append('price', postState['price'].replace(/,/gi, ''));
-    formData.append('basic_info', postState['basicInfo']);
-    formData.append('benefit', postState['benefit']);
-    formData.append('start_day', postState['startEndDay'][0]);
-    formData.append('end_day', postState['startEndDay'][1]);
-    formData.append('min_duration', postState['duration'][0]);
-    formData.append('max_duration', postState['duration'][1]);
-    formData.append('position', postState['fullAddress']);
-    formData.append('refund_policy', postState['refundPolicy']);
-    formData.append('rule', postState['rule']);
-    formData.append('limit_people', postState['limitPeople']);
-    formData.append('number_room', postState['numberRoom']);
-    formData.append('number_bathroom', postState['numberBathroom']);
-    formData.append('number_bedroom', postState['numberBedroom']);
-    formData.append('accomodation_type', postState['accomodationType']);
-    formData.append('building_type', postState['buildingType']);
-    formData.append('x_coordinate', postState['pos'][0]);
-    formData.append('y_coordinate', postState['pos'][1]);
-    formData.append('city', 'city');
-    formData.append('gu', 'gu');
-    formData.append('dong', 'dong');
-    formData.append('street', 'street');
-    formData.append('street_number', 'streetNumber');
-    formData.append('post_code', 'postCode');
-    formData.append('school', userInfo.school); // 사용자 정보에 따라서 해야함.
-    formData.append('contract', true); // 계약 관련
-    formData.append('description', 'description'); // basic_info와 중복?
-    formData.append('extra_info', 'extra_info'); // basic_info와 중복?
+    formData.append("title", postState["title"]);
+    formData.append("price", postState["price"].replace(/,/gi, ""));
+    formData.append("basic_info", postState["basicInfo"]);
+    formData.append("benefit", postState["benefit"]);
+    formData.append("start_day", postState["startEndDay"][0]);
+    formData.append("end_day", postState["startEndDay"][1]);
+    formData.append("min_duration", postState["duration"][0]);
+    formData.append("max_duration", postState["duration"][1]);
+    formData.append("position", postState["fullAddress"]);
+    formData.append("refund_policy", postState["refundPolicy"]);
+    formData.append("rule", postState["rule"]);
+    formData.append("limit_people", postState["limitPeople"]);
+    formData.append("number_room", postState["numberRoom"]);
+    formData.append("number_bathroom", postState["numberBathroom"]);
+    formData.append("number_bedroom", postState["numberBedroom"]);
+    formData.append("accomodation_type", postState["accomodationType"]);
+    formData.append("building_type", postState["buildingType"]);
+    formData.append("x_coordinate", postState["pos"][0]);
+    formData.append("y_coordinate", postState["pos"][1]);
+    formData.append("city", "city");
+    formData.append("gu", "gu");
+    formData.append("dong", "dong");
+    formData.append("street", "street");
+    formData.append("street_number", "streetNumber");
+    formData.append("post_code", "postCode");
+    formData.append("school", userInfo.school); // 사용자 정보에 따라서 해야함.
+    formData.append("contract", true); // 계약 관련
+    formData.append("description", "description"); // basic_info와 중복?
+    formData.append("extra_info", "extra_info"); // basic_info와 중복?
     // formData.append("content", "content"); // ?
     // formData.append("category", "category"); // ?
     // formData.append("postuser_id", "test"); // 사용자 정보에 따라서 해야함.
@@ -985,12 +1009,12 @@ export const PostUploadDialog = props => {
     // formData.append("images", imageFiles[0]);
 
     imageFiles.forEach((file, index) => {
-      formData.append('images', file);
+      formData.append("images", file);
     });
 
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
-      if (value === '' || value === null || value === undefined) {
+      if (value === "" || value === null || value === undefined) {
         return null;
       }
     }
@@ -1000,16 +1024,16 @@ export const PostUploadDialog = props => {
   const uploadPost = async () => {
     const formData = makeFormData();
     if (formData === null) {
-      alert('모든 정보를 입력해주세요.');
+      alert("모든 정보를 입력해주세요.");
       return;
     }
-    formData.append('local_save', false);
+    formData.append("local_save", false);
     FetchUploadPost(formData);
   };
 
-  const handlePostTextState = event => {
+  const handlePostTextState = (event) => {
     const { name, value } = event.target;
-    setPostState(prevState => ({
+    setPostState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -1031,7 +1055,7 @@ export const PostUploadDialog = props => {
 
   const handleDuration = (event, newValue) => {
     setDuration(newValue);
-    setTempDuration([duration[0] + '일', duration[1] + '일']);
+    setTempDuration([duration[0] + "일", duration[1] + "일"]);
   };
 
   // const handleCity = (event) => {
@@ -1062,12 +1086,14 @@ export const PostUploadDialog = props => {
     <>
       <Dialog
         open={postPopUpState}
-        className="border border-gray-300 shadow-xl rounded-lg">
-        <DialogContent sx={{ width: '500px' }} className="text-center">
+        className="border border-gray-300 shadow-xl rounded-lg"
+      >
+        <DialogContent sx={{ width: "500px" }} className="text-center">
           <s.SvgHoverButton
             type="button"
             className="float-right"
-            onClick={handleClose}>
+            onClick={handleClose}
+          >
             <StyleComponent content="CloseButton" />
           </s.SvgHoverButton>
           {/* <p>
@@ -1084,17 +1110,17 @@ export const PostUploadDialog = props => {
                 labelId="accomodation_type"
                 id="accomodation_type"
                 menuItems={[
-                  '전대(sublet)',
-                  '전대(sublease)',
-                  '임대(lease)',
-                  '룸메이트',
+                  "전대(sublet)",
+                  "전대(sublease)",
+                  "임대(lease)",
+                  "룸메이트",
                 ]}
               />
 
               <div>
                 <div>
                   <SingleValueViewer
-                    value={'최대인원: ' + limitPeople + '명'}
+                    value={"최대인원: " + limitPeople + "명"}
                   />
                   <SingleSlideInput
                     name="limitPeople"
@@ -1110,12 +1136,12 @@ export const PostUploadDialog = props => {
                   labelName="건물 유형"
                   labelId="building_type"
                   id="building_type"
-                  menuItems={['오피스텔', '원룸', '아파트', '빌라', '기타']}
+                  menuItems={["오피스텔", "원룸", "아파트", "빌라", "기타"]}
                 />
               </div>
               <div>
                 <div>
-                  <SingleValueViewer value={'욕실 개수: ' + numberBathroom} />
+                  <SingleValueViewer value={"욕실 개수: " + numberBathroom} />
                   <SingleSlideInput
                     name="numberBathroom"
                     value={numberBathroom}
@@ -1124,7 +1150,7 @@ export const PostUploadDialog = props => {
                   />
                 </div>
                 <div>
-                  <SingleValueViewer value={'침실 개수: ' + numberBedroom} />
+                  <SingleValueViewer value={"침실 개수: " + numberBedroom} />
                   <SingleSlideInput
                     name="numberBedroom"
                     value={numberBedroom}
@@ -1217,7 +1243,7 @@ export const PostUploadDialog = props => {
                 currentPos={pos}
                 name="pos"
                 onChange={onChange}
-              />{' '}
+              />{" "}
               {/* 이렇게만 하면 안되고, 직접 친 후에 맵을 띄울 수도 있어야함. 위 주석 참고. */}
             </p>
 
@@ -1234,14 +1260,14 @@ export const PostUploadDialog = props => {
                 label="가격"
                 name="price"
                 placeholder="가격을 입력해주세요."
-                value={priceToString(price.replace(/,/gi, ''))} // 숫자에 ,를 넣어주는 함수 필요
+                value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
                 handleState={onChange}
                 required={true}
               />
 
               <p>
-                최소-최대 계약 가능 기간 :{' '}
-                <ValueRangeViewer arr={postState['tempDuration']} />
+                최소-최대 계약 가능 기간 :{" "}
+                <ValueRangeViewer arr={postState["tempDuration"]} />
               </p>
               <DoubleSlideInput
                 value={duration}
@@ -1279,20 +1305,22 @@ export const PostUploadDialog = props => {
   );
 };
 
-export const PostEditDialog = post => {
+export const PostEditDialog = (post) => {
   const image = [];
 
-  post.post.image_id.map(id => {
+  post.post.image_id.map((id) => {
     const i = FetchConverURLtoFile(id);
     image.push(i.results);
   });
 
   const [imageFiles, setImageFiles] = useState(image);
   //image객체가 생성되어 속성들을 추가할수 있음    })]
-  const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(state => ({
-    setPostPopUpState: state.setPostPopUpState,
-    postPopUpState: state.postPopUpState,
-  }));
+  const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
+    (state) => ({
+      setPostPopUpState: state.setPostPopUpState,
+      postPopUpState: state.postPopUpState,
+    })
+  );
 
   const [inputs, setInputs] = useState({
     limitPeople: post.post.limit_people,
@@ -1323,7 +1351,7 @@ export const PostEditDialog = post => {
     benefit,
   } = inputs;
 
-  const onChange = e => {
+  const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
   const onClick = async () => {
@@ -1335,24 +1363,24 @@ export const PostEditDialog = post => {
 
     // 모든 데이터가 적절히 입력되었는지 확인하고 아니라면 alert 띄워주기.
 
-    formData.append('title', title);
-    formData.append('price', price.replace(/,/gi, ''));
-    formData.append('basic_info', basicInfo);
-    formData.append('benefit', benefit);
-    formData.append('end_day', new Date().toISOString());
+    formData.append("title", title);
+    formData.append("price", price.replace(/,/gi, ""));
+    formData.append("basic_info", basicInfo);
+    formData.append("benefit", benefit);
+    formData.append("end_day", new Date().toISOString());
     // formData.append('min_duration', duration[0]);
     // formData.append('max_duration', duration[1]);
     // formData.append('position', fullAddress);
     // formData.append('refund_policy', refundPolicy);
     // formData.append('rule', rule);
     // formData.append('start_day', (new Date()).toISOString());
-    formData.append('limit_people', limitPeople);
-    formData.append('number_room', numberRoom);
-    formData.append('number_bathroom', numberBathroom);
-    formData.append('number_bedroom', numberBedroom);
+    formData.append("limit_people", limitPeople);
+    formData.append("number_room", numberRoom);
+    formData.append("number_bathroom", numberBathroom);
+    formData.append("number_bedroom", numberBedroom);
 
     imageFiles.forEach((file, index) => {
-      formData.append('images', file);
+      formData.append("images", file);
     });
 
     return formData;
@@ -1371,7 +1399,7 @@ export const PostEditDialog = post => {
   return (
     <>
       <DialogTitle></DialogTitle>
-      <DialogContent sx={{ width: '500px' }} className="text-center">
+      <DialogContent sx={{ width: "500px" }} className="text-center">
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
           </p> */}
@@ -1381,7 +1409,7 @@ export const PostEditDialog = post => {
 
             <div>
               <div>
-                <SingleValueViewer value={'최대인원: ' + limitPeople + '명'} />
+                <SingleValueViewer value={"최대인원: " + limitPeople + "명"} />
                 <SingleSlideInput
                   name="limitPeople"
                   value={limitPeople}
@@ -1392,7 +1420,7 @@ export const PostEditDialog = post => {
             </div>
             <div>
               <div>
-                <SingleValueViewer value={'욕실 개수: ' + numberBathroom} />
+                <SingleValueViewer value={"욕실 개수: " + numberBathroom} />
                 <SingleSlideInput
                   name="numberBathroom"
                   value={numberBathroom}
@@ -1401,7 +1429,7 @@ export const PostEditDialog = post => {
                 />
               </div>
               <div>
-                <SingleValueViewer value={'침실 개수: ' + numberBedroom} />
+                <SingleValueViewer value={"침실 개수: " + numberBedroom} />
                 <SingleSlideInput
                   name="numberBedroom"
                   value={numberBedroom}
@@ -1447,7 +1475,7 @@ export const PostEditDialog = post => {
               label="가격"
               placeholder="가격을 입력해주세요."
               name="price"
-              value={priceToString(price.replace(/,/gi, ''))} // 숫자에 ,를 넣어주는 함수 필요
+              value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
               handleState={onChange}
               required={true}
             />

@@ -1,4 +1,3 @@
-import { guestInfoPopUpStore } from "@shared/components/Popup/store/guestInfoStore.js";
 import { useEffect, useState } from "react";
 import {
   NormalButton,
@@ -12,6 +11,7 @@ import {
 import { FetchGetPost } from "@shared/components/FetchList/FetchList.js";
 import { PostSummaryBlock } from "../Blocks/PostSummaryBlock.js";
 import { Post } from "@app/PostType.js";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore.js";
 
 function PostListComponent({
   userId,

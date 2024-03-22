@@ -33,8 +33,8 @@ const bodyData = (data: any) => ({
 });
 
 async function FetchChangeEmail(emailState: string) {
-  const UpdateURL = `${process.env.REACT_APP_BACKEND_URL}/user/update`;
-  const ChangeVerifyURL = `${process.env.REACT_APP_BACKEND_URL}/user/verifyupdate`;
+  const UpdateURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update`;
+  const ChangeVerifyURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/verifyupdate`;
   return await fetch(UpdateURL, {
     ...headerOptions("PUT"),
     body: JSON.stringify({
@@ -51,8 +51,8 @@ async function FetchChangeEmail(emailState: string) {
 }
 
 async function FetchChangePhone(phoneState: string) {
-  const UpdateURL = `${process.env.REACT_APP_BACKEND_URL}/user/update`;
-  const ChangeVerifyURL = `${process.env.REACT_APP_BACKEND_URL}/user/verifyupdate`;
+  const UpdateURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update`;
+  const ChangeVerifyURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/verifyupdate`;
   return await fetch(UpdateURL, {
     ...headerOptions("PUT"),
     body: JSON.stringify({
@@ -74,7 +74,7 @@ async function FetchGetPost(
   userId: string,
   setPostInfo: Dispatch<SetStateAction<Post[]>>
 ) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/user/post/${userId}`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/post/${userId}`;
   const getPostInfo = async () => {
     const json: Post[] = await fetch(URL, headerOptions("GET"))
       .then(notFoundError)
@@ -86,7 +86,7 @@ async function FetchGetPost(
 }
 
 async function FetchUploadPost(formData: FormData) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/post`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
   await fetch(URL, {
     ...headerOptions("POST"),
     ...formData,
@@ -96,7 +96,7 @@ async function FetchUploadPost(formData: FormData) {
 }
 
 async function FetchEditPost(postKey: number, formData: FormData) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/post/${postKey}`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
   await fetch(URL, {
     ...headerOptions("PUT"),
     ...formData,
@@ -110,7 +110,7 @@ async function FetchReservation(
 ) {
   const getReservationInfo = async () => {
     const json: Reservation[] = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/reservation`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`,
       headerOptions("GET")
     )
       .then(notFoundError)
@@ -127,9 +127,9 @@ async function FetchReservation(
 async function FetchReservationByPostKey(
   setReservationInfo: Dispatch<SetStateAction<Reservation[]>>,
   reservationInfo: Reservation[],
-  postKey: number
+  postKey: string
 ) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/reservation/post?key=${postKey}`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation/post?key=${postKey}`;
 
   const json: Reservation[] = await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
@@ -141,7 +141,7 @@ async function FetchReservationByPostKey(
 }
 
 async function FetchDeleteReservation(keyNum: number) {
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/reservation`, {
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("DELETE"),
     body: JSON.stringify({
       key: keyNum,
@@ -153,12 +153,12 @@ async function FetchDeleteReservation(keyNum: number) {
 
 async function FetchReservationPost(
   userID: string,
-  postKey: number,
-  startDay: Date,
-  endDay: Date,
+  postKey: string,
+  startDay: string,
+  endDay: string,
   pay: number
 ) {
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/reservation`, {
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("POST"),
     body: JSON.stringify({
       user_id: userID,
@@ -173,7 +173,7 @@ async function FetchReservationPost(
 }
 
 async function FetchDeletePost(key: number) {
-  const link = `${process.env.REACT_APP_BACKEND_URL}/post/${key}`;
+  const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${key}`;
   fetch(link, headerOptions("DELETE"))
     .then(notFoundError)
     .catch(raiseError("FetchDeletePost"));
@@ -188,7 +188,7 @@ async function FetchLogin({
   password: string;
   setUserInfo: (newUserInfo: any) => void;
 }) {
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
     body: JSON.stringify({
       id: id,
@@ -201,7 +201,7 @@ async function FetchLogin({
 
 async function FetchLogout() {
   await fetch(
-    `${process.env.REACT_APP_BACKEND_URL}/auth/logout`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
     headerOptions("POST")
   )
     .then(notFoundError)
@@ -210,14 +210,14 @@ async function FetchLogout() {
 
 async function FetchImage(formData: FormData) {
   console.log("x", formData);
-  return await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/image`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/image`, {
     ...headerOptions("PUT", "image/jpeg"),
     body: formData,
   });
 }
 
 async function FetchGetMyUser(setUserInfo: Dispatch<SetStateAction<UserForm>>) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/user/profile`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`;
 
   const json: UserForm = await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
@@ -227,9 +227,9 @@ async function FetchGetMyUser(setUserInfo: Dispatch<SetStateAction<UserForm>>) {
 
 async function FetchGetOneUser(
   userId: string,
-  setUserInfo: Dispatch<SetStateAction<UserForm | undefined>>
+  setUserInfo: Dispatch<SetStateAction<UserForm>>
 ) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/user/${userId}`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`;
 
   const getUserInfo = async () => {
     const json: UserForm = await fetch(URL, headerOptions("GET"))
@@ -246,7 +246,7 @@ async function FetchGetOneUser(
 async function FetchGetRequest(
   setRequestInfo: Dispatch<SetStateAction<RequestForm[]>>
 ) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/request`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request`;
 
   const getRequestInfo = async () => {
     const json: RequestForm[] = await fetch(URL, headerOptions("GET"))
@@ -288,16 +288,16 @@ function FetchSignUp({
     path: "/",
   };
 
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/user/`, requestOptions)
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/`, requestOptions)
     .then(notFoundError)
     .catch(raiseError("FetchSignUp"));
 }
 
 async function FetchGetRequestByRequestId(
   idList: string[],
-  setRequestInfo: Dispatch<SetStateAction<RequestRoom[]>>
+  setRequestInfo: Dispatch<SetStateAction<RequestForm[]>>
 ) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/request/requestId`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/requestId`;
 
   const getRequestInfo = async () => {
     const json = await fetch(URL, {
@@ -316,7 +316,7 @@ async function FetchGetRequestByRequestId(
   }, []);
 }
 async function FetchVerifyEmail(email: string) {
-  const link = `${process.env.REACT_APP_BACKEND_URL}/user/email`;
+  const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/email`;
   return await fetch(link, {
     ...headerOptions("POST"),
     body: JSON.stringify({
@@ -337,7 +337,7 @@ async function FetchVerifyUser({
   verifyToken: number;
 }) {
   // 학교 인증은 우리가 확인(김과외처럼)
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/user/verifyUser`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/verifyUser`;
   const json = {
     verify_email: method === "email" ? "true" : "false",
     verify_phone: method === "phone" ? "true" : "false",
@@ -357,7 +357,7 @@ async function FetchResetPassword(
   verifyToken: number
 ) {
   // 학교 인증은 우리가 확인(김과외처럼)
-  const link = `${process.env.REACT_APP_BACKEND_URL}/user/resetpassword`;
+  const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/resetpassword`;
   console.log(tokenKey, verifyToken);
 
   const requestOptions = {
@@ -375,7 +375,7 @@ async function FetchResetPassword(
 
 async function FetchChangePassword(userId: string, newPassword: string) {
   // 학교 인증은 우리가 확인(김과외처럼)
-  const link = `${process.env.REACT_APP_BACKEND_URL}/user/changepassword`;
+  const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/changepassword`;
   console;
 
   return await fetch(link, {
@@ -387,8 +387,8 @@ async function FetchChangePassword(userId: string, newPassword: string) {
   });
 }
 
-async function FetchDeleteRequest(keyNum: number) {
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/request`, {
+async function FetchDeleteRequest(keyNum: string) {
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/request`, {
     ...headerOptions("DELETE"),
     body: JSON.stringify({
       key: keyNum,
@@ -397,7 +397,7 @@ async function FetchDeleteRequest(keyNum: number) {
 }
 
 function FetchConnectRequestPost(requestKey: number, postKey: number) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/request/post/${postKey}`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/post/${postKey}`;
 
   fetch(URL, {
     ...headerOptions("POST"),
@@ -410,7 +410,7 @@ function FetchConnectRequestPost(requestKey: number, postKey: number) {
 }
 
 async function FetchConverURLtoFile(id: string) {
-  const URL = `${process.env.REACT_APP_BACKEND_URL}/public/${id}.jpg`;
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${id}.jpg`;
   const response = await fetch(URL, headerOptions("GET"));
   const data = await response.blob();
   const ext = URL.split(".").pop(); // url 구조에 맞게 수정할 것
@@ -428,7 +428,7 @@ const toggleLikes =
   () => {
     if (!(item.key in likes)) {
       setLikes({ ...likes, [item.key]: item });
-      fetch(process.env.REACT_APP_BACKEND_URL + "/post/like", {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
         ...headerOptions("POST"),
         body: JSON.stringify({
           post_key: item.key,
@@ -443,7 +443,7 @@ const toggleLikes =
         }
       });
       setLikes(newLikes);
-      fetch(process.env.REACT_APP_BACKEND_URL + "/post/like", {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
         ...headerOptions("DELETE"),
         body: JSON.stringify({
           post_key: item.key,

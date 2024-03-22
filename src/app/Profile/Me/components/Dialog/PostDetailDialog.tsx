@@ -4,26 +4,28 @@ import {
 } from "@shared/components/Popup/Popup";
 import { DialogContent } from "@mui/material";
 import { Post } from "@/app/PostType";
+import { MouseEventHandler } from "react";
+import { RequestRoom } from "@app/RoomType";
 
 export const PostDetailDialog = ({
   detailDialogShow,
-  onChange,
+  onClick,
   room,
   postDate,
   price,
   address,
 }: {
   detailDialogShow: boolean;
-  onChange: React.ChangeEvent<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   room: Post;
-  postDate: Date;
+  postDate: string;
   price: string;
   address: string;
 }) => {
   return (
     <DialogForm
       openState={detailDialogShow}
-      handleClose={onChange}
+      handleClose={onClick}
       name="detailDialogShow"
       render={() => (
         <label

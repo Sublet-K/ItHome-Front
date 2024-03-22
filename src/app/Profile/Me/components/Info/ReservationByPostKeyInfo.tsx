@@ -1,3 +1,4 @@
+import { Reservation } from "@app/ReservationType";
 import { FetchReservationByPostKey } from "@shared/components/FetchList/FetchList";
 import {
   DateFormat,
@@ -8,25 +9,27 @@ import {
   Horizon,
   NormalText,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { useState } from "react";
 
 export function ReservationByPostKeyInfo({
   requestKey,
 }: {
-  requestKey: string,
+  requestKey: string;
 }) {
-  const [reservationInfo, setReservationInfo] = useState([]);
+  const [reservationInfo, setReservationInfo] = useState<Reservation[]>(
+    [] as Reservation[]
+  );
 
-  FetchReservationByPostKey(setReservationInfo, requestKey);
+  FetchReservationByPostKey(setReservationInfo, reservationInfo, requestKey);
   return (
     <div className="mb-4">
       <SecondHead>예약 현황</SecondHead>
       <Horizon />
       {reservationInfo.length > 0 ? (
-        reservationInfo.map((res) => {
+        reservationInfo.map((res, index) => {
           return (
-            <>
+            <div key={index}>
               <DetailParagraph>게스트: {res.User.username}</DetailParagraph>
               <DetailParagraph>
                 기간: {DateFormat(res.r_start_day)} ~{" "}
@@ -34,7 +37,7 @@ export function ReservationByPostKeyInfo({
               </DetailParagraph>
               <DetailParagraph>비용: {priceToString(res.pay)}</DetailParagraph>
               <Horizon />
-            </>
+            </div>
           );
         })
       ) : (

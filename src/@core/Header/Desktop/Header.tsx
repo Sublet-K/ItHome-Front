@@ -56,7 +56,7 @@ const Header = () => {
       borderRadius: "5px",
       padding: "1em",
       fontSize: "1.3em",
-      flex: searchBoxContainerSize,
+      flex: 2,
     },
     searchByKeywordContainer: {
       display: "flex",
@@ -167,14 +167,13 @@ const Header = () => {
             <SearchIcon />
           </Button>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="lg:flex lg:flex-1 lg:justify-end">
           {userInfo.id ? (
             <div style={styles.rightNavigation}>
               <span>
                 <IconButton style={styles.favorite}>
                   <Link href="/SaveSublet">
                     <Favorite />
-                    {/* <div style={styles.favoriteCount}>{33 + 1}</div> */}
                   </Link>
                 </IconButton>
               </span>
@@ -189,8 +188,9 @@ const Header = () => {
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              <LoginDialog //style={styles.profile}
-              />
+              <div style={styles.profile}>
+                <LoginDialog />
+              </div>
             </a>
           )}
         </div>

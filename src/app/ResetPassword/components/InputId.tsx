@@ -14,7 +14,7 @@ export function InputId({
   idVeriftyState: boolean;
   inputHandle: ChangeEventHandler<HTMLInputElement>;
   idState: string;
-  setUserInfo: Dispatch<SetStateAction<UserForm | undefined>>;
+  setUserInfo: Dispatch<SetStateAction<UserForm>>;
   setCheckingEmail: Dispatch<SetStateAction<boolean>>;
   setIdVerifyState: Dispatch<SetStateAction<boolean>>;
 }) {

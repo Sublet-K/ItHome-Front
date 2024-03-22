@@ -1,11 +1,13 @@
-import { NormalText, SecondHead } from "@shared/styles/Public.styles";
-import { verifyFrame } from "@app/GuestInfo/button-frames/UserImageFrame";
-import { VerifyList } from "@app/GuestInfo/components/Info/VerifyList";
+import { verifyFrame } from "@app/Profile/Me/button-frames/UserImageFrame";
+import { VerifyList } from "@app/Profile/Me/components/Info/VerifyList";
 import { UserForm } from "@app/UserType";
+import { NormalText, SecondHead } from "@shared/styles/Public.styles";
+// import { verifyFrame } from 'pages/GuestInfo/button-frames/UserImageFrame';
+// import { VerifyList } from 'pages/GuestInfo/components/Info/VerifyList';
 
 export const UserBaseComponent = ({ user }: { user: UserForm }) => {
   const frame = verifyFrame(user);
-  const imageLink = `${process.env.REACT_APP_BACKEND_URL}/public_user/${user.image_id}.jpg`;
+  const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
 
   return (
     <>

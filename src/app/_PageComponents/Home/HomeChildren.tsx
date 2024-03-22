@@ -4,8 +4,8 @@ import { useState } from "react";
 import { HomeMoreRoomButton } from "./components/HomeMoreRoomButton";
 import { HomeRoomContainer } from "./components/HomeRoomContainer";
 import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
-import { Room } from "../RoomType";
-import { useTitle } from "../_PageComponents/UseTitle";
+import { Room } from "@RoomType";
+import { useTitle } from "../UseTitle";
 
 export const HomeChildren = ({
   roomsData: initRoomsData,

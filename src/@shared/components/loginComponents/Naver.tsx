@@ -10,8 +10,8 @@ export default function NaverLogin() {
   const { setUserInfo } = useUserInfoStore();
 
   const naverLogin = new naver.LoginWithNaverId({
-    clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-    callbackUrl: process.env.REACT_APP_NAVER_REDIRECT_URI,
+    clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
+    callbackUrl: process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI,
     isPopup: true,
     loginButton: {
       color: "green",

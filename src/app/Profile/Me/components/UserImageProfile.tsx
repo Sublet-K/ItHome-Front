@@ -3,15 +3,14 @@ import {
   ImageUploadButton,
   NormalText,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { verifyFrame } from "../button-frames/UserImageFrame";
 import { VerifyList } from "./Info/VerifyList";
-import { guestInfoPopUpStore } from "@shared/components/Popup/store/guestInfoStore";
 import { UserForm } from "@/app/UserType";
-
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 export function UserBaseComponent({ user }: { user: UserForm }) {
   const frame = verifyFrame(user);
-  const imageLink = `${process.env.REACT_APP_BACKEND_URL}/public_user/${user.image_id}.jpg`;
+  const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
   const { setImagePopUpState } = guestInfoPopUpStore((state) => ({
     setImagePopUpState: state.setImagePopUpState,
   }));
@@ -32,8 +31,10 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
 
       <SecondHead className="mt-3">{user.username}</SecondHead>
       <NormalText className="underline">{user.school}</NormalText>
-      {Object.keys(frame).map((k: string) => {
-        return <VerifyList k={k} v={frame[k]} />;
+      {Object.keys(frame).map((k, index) => {
+        return (
+          <VerifyList key={index} k={k} v={frame[k as keyof typeof frame]} />
+        );
       })}
     </div>
   );

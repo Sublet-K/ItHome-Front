@@ -16,8 +16,8 @@ export function RequsetSummaryBlock({
   price,
 }: {
   request: RequestForm;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   price: string;
 }) {
   const address = request.city + " " + request.gu + " " + request.dong;

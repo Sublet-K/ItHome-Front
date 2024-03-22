@@ -32,7 +32,7 @@ export function RequestListComponent() {
               request={res}
               startDate={startDate}
               endDate={endDate}
-              pay={price}
+              price={price}
             />
           );
         })

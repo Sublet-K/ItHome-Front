@@ -12,10 +12,14 @@ import { InputVerificationNumber } from "./components/InputVerificationNumber";
 import { InputResetPassword } from "./components/InputResetPassword";
 import { Label, NormalText, SecondHead } from "@shared/styles/Public.styles";
 import { InputId } from "./components/InputId";
-import { UserForm } from "@app/UserType";
+import { User, UserForm } from "@app/UserType";
+import { useRouter } from "next/navigation";
 
 export default function ResetPassword() {
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<{
+    idState: string;
+    passwordState: string;
+  }>({
     idState: "",
     passwordState: "",
   });
@@ -24,7 +28,7 @@ export default function ResetPassword() {
   const [idVeriftyState, setIdVerifyState] = useState(true);
   const [checkingEmail, setCheckingEmail] = useState(false);
   const { idState, passwordState } = inputs;
-  const [userInfo, setUserInfo] = useState<UserForm>();
+  const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
   const { verifyPasswordEmail, setVerifyPasswordEmail } = verifyStore(
     (state) => ({
       verifyPasswordEmail: state.verifyPasswordEmail,
@@ -32,6 +36,7 @@ export default function ResetPassword() {
     })
   );
   // const navigate = useNavigate();
+  const router = useRouter();
 
   const inputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs({
@@ -46,7 +51,7 @@ export default function ResetPassword() {
       .then((res) => notFoundError(res, true, setSuccessState))
       .then(() => {
         setVerifyPasswordEmail();
-        navigate(`/`);
+        router.push(`/`);
       })
       .catch(raiseError("FetchChangePassword", true, setFailState));
   };
