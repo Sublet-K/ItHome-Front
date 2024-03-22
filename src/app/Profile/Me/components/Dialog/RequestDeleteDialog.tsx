@@ -1,12 +1,12 @@
 import { FetchDeleteRequest } from "@shared/components/FetchList/FetchList";
-import { DialogForm } from "@shared/components/Popup/PopUp";
-import { Information } from "@shared/components/StaticComponents/StaticComponents";
 import {
   DeleteButton,
   NormalText,
-} from "@shared/components/styles/Public.styles";
+  PolicyText,
+} from "@shared/styles/Public.styles";
 import { DialogActions, DialogContent } from "@mui/material";
 import React from "react";
+import { DialogForm } from "@shared/components/Popup/Popup";
 
 export const RequestDeleteDialog = ({
   deletePopUpState,
@@ -33,7 +33,7 @@ export const RequestDeleteDialog = ({
     >
       <DialogContent className="font-black text-center">
         <NormalText>요청서를 삭제하시겠습니까?</NormalText>
-        <Information>삭제를 하실 경우 요청서 내역은 사라집니다.</Information>
+        <PolicyText>삭제를 하실 경우 요청서 내역은 사라집니다.</PolicyText>
       </DialogContent>
       <DialogActions>
         <form>

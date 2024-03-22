@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
+// import { PostUploadDialog } from '@shared/components/Popup/Popup';
 
 import { RequestListComponent } from "./components/UserProfile/RequsetListComponent";
 import { UserPrivateComponent } from "./components/UserProfile/UserPrivateComponent";
 import { Horizon, Wrapper } from "@shared/styles/Public.styles";
 import { ReservationInfo } from "./components/Info/ReservationInfo";
-import { PostUploadDialog } from "@shared/components/Popup/Popup";
 import { PostListComponent } from "./components/UserProfile/PostListComponent";
 import { FetchGetMyUser } from "@shared/components/FetchList/FetchList";
 import { UserBaseComponent } from "./components/UserImageProfile";
 import { UserForm } from "@app/UserType";
 
 function GuestInfo() {
-  const [userInfo, setUserInfo] = useState<UserForm>({} as U);
+  const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
   FetchGetMyUser(setUserInfo);
   // useTitle('프로필 | ItHome');
   return (
@@ -33,7 +33,7 @@ function GuestInfo() {
           <Horizon className="mt-4 md-2" />
 
           <PostListComponent userId={userInfo.user_id} />
-          <PostUploadDialog />
+          {/* <PostUploadDialog /> */}
           <Horizon className="my-2" />
 
           <RequestListComponent />

@@ -1,25 +1,34 @@
 import { FetchGetRequestByRequestId } from "@shared/components/FetchList/FetchList";
 import { DialogForm } from "@shared/components/Popup/Popup";
 import { DialogContent } from "@mui/material";
-import React, { useState } from "react";
+import React, {
+  Dispatch,
+  MouseEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 import { PostRequest } from "../Info/GetPostRequest";
+import { RequestForm } from "@app/RequestType";
+import { RequestRoom } from "@app/RoomType";
 
 export function PostRequestDialog({
   requestDialogShow,
-  onChange,
+  onClick,
   requestKey,
 }: {
   requestDialogShow: boolean;
-  onChange: React.ChangeEvent<HTMLInputElement>;
-  requestKey: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  requestKey: string[];
 }) {
-  const [requestInfo, setRequestInfo] = useState([]);
+  const [requestInfo, setRequestInfo] = useState<RequestForm[]>(
+    [] as RequestForm[]
+  );
 
   FetchGetRequestByRequestId(requestKey, setRequestInfo);
   return (
     <DialogForm
       openState={requestDialogShow}
-      handleClose={onChange}
+      handleClose={onClick}
       name="requestDialogShow"
       render={() => (
         <label

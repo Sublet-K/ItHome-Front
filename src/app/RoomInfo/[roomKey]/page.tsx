@@ -7,7 +7,7 @@ import * as s from "@shared/styles/Public.styles";
 import { ShareDialog } from "@shared/components/Popup/Popup";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
 import { bookingPopUpStore } from "@store/BookingPopUpStore";
-import { useSearchDateStore } from "@store/SearchDateStore";
+import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import {
   RoomHost,
   RoomReservation,
@@ -18,7 +18,7 @@ import {
 import { RoomTitle } from "@shared/styles/RoomInfo.styles";
 import {
   FetchGetMyUser,
-  FetchIsLogin,
+  FetchLogin,
 } from "@shared/components/FetchList/FetchList";
 import { Post } from "@app/PostType";
 
@@ -59,23 +59,23 @@ export default function RoomInfo() {
     }));
   const { searchDate } = useSearchDateStore();
   const [userInfo, setUserInfo] = useState();
-  const IsLogin = async () => {
-    const json = FetchIsLogin(setUserInfo);
+  // const IsLogin = async () => {
+  //   const json = FetchIsLogin(setUserInfo);
 
-    if (json.statusCode === 403) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  //   if (json.statusCode === 403) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
   const moveToBooking = () => {
     //로그인 되어 있으면 booking.js로 넘기고, 로그인이 안 되어 있으면 로그인 모달 창 띄우기
     //console.log(IsLogin()); //몰루겟다
-    console.log(
-      IsLogin().then((result) => {
-        return result;
-      })
-    );
+    // console.log(
+    //   IsLogin().then((result) => {
+    //     return result;
+    //   })
+    // );
     // if (IsLogin().then((result) => { return result; })) {
     //   setStartDay(searchDate[0]);
     //   setEndDay(searchDate[1]);
@@ -97,7 +97,7 @@ export default function RoomInfo() {
             ?.image_id.map((image_id, index) => (
               <img
                 key={index}
-                src={`${process.env.REACT_APP_BACKEND_URL}/public/${image_id}.jpg`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                 alt={`image ${index}`}
                 className="h-full object-cover m-auto"
               />

@@ -1,7 +1,7 @@
 import { Post } from "@app/PostType";
 import { create } from "zustand";
 
-const URL = process.env.REACT_APP_BACKEND_URL + `/post?maxPost=6&page=`;
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL + `/post?maxPost=6&page=`;
 
 export const SubletPostStore = create<{
   post: Post[];

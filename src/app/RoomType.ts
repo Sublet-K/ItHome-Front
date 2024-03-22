@@ -26,8 +26,6 @@ export type Room = {
   contract: string;
 };
 
-export type Reservation = {};
-
 export type RequestRoom = {
   accomodation_type: string;
   request_text: string;

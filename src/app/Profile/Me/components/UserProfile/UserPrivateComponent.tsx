@@ -4,15 +4,15 @@ import {
   VerifyEmailDialog,
 } from "@shared/components/Popup/Popup";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
-import { guestInfoPopUpStore } from "@shared/components/Popup/store/guestInfoStore";
 import {
   Label,
   NormalButton,
   NormalText,
   SecondHead,
   SvgHoverButton,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { UserForm } from "@app/UserType";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
   const { setEmailPopUpState, setPhonePopUpState, setVerifyEmailPopUpState } =
     guestInfoPopUpStore((state) => ({
@@ -80,5 +80,4 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
   } else {
     return;
   }
-  console.log(phoneNumber, user.phone);
 };

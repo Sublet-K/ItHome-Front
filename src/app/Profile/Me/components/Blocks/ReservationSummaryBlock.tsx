@@ -27,7 +27,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
     setCheckState(false);
   };
 
-  const imageLink = `${process.env.REACT_APP_BACKEND_URL}/public/${room.Post.image_id[0]}.jpg`;
+  const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.Post.image_id[0]}.jpg`;
 
   const MoveToRoomInfo = ({ room }: { room: Reservation }) => {
     // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.

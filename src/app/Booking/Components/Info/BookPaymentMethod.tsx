@@ -1,26 +1,28 @@
-import {
-  Horizon,
-  NormalText,
-  SecondHead,
-} from '@shared/components/styles/Public.styles';
+import { Horizon, NormalText, SecondHead } from "@shared/styles/Public.styles";
 import {
   Box,
   Checkbox,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
-} from '@mui/material';
-import { FormControl } from 'react-bootstrap';
-import PaymentForm from '../Pay/Payment';
-import { AccountPayment } from '../Pay/AccountPayment.js';
-import { BookPaymentForm } from './BookPaymentForm.js';
+} from "@mui/material";
+import PaymentForm from "../Pay/Payment";
+import { AccountPayment } from "../Pay/AccountPayment.js";
+import { BookPaymentForm } from "./BookPaymentForm.js";
+import { ChangeEvent } from "react";
 
 export const BookPaymentMethod = ({
   paySelect,
   onPaySelectHandle,
   checkState,
   checkHandled,
+}: {
+  paySelect: string;
+  onPaySelectHandle: SelectChangeEvent<any>;
+  checkState: boolean;
+  checkHandled: ChangeEvent<HTMLInputElement> | undefined;
 }) => {
   return (
     <>
@@ -34,7 +36,7 @@ export const BookPaymentMethod = ({
             paySelect={paySelect}
             onPaySelectHandle={onPaySelectHandle}
           />
-          {paySelect === 'account' ? <AccountPayment /> : <PaymentForm />}
+          {paySelect === "account" ? <AccountPayment /> : <PaymentForm />}
           <NormalText className="mt-2">
             <Checkbox
               type="checkbox"

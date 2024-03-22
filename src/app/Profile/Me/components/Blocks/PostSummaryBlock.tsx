@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { PostDeleteDialog } from "../Dialog/PostDeleteDialog";
 import { PostDetailDialog } from "../Dialog/PostDetailDialog";
 import { PostRequestDialog } from "../Dialog/PostRequestDialog";
@@ -10,9 +9,10 @@ import {
   SecondHead,
 } from "@shared/styles/Public.styles";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { Room } from "@/app/RoomType";
 import { Post } from "@/app/PostType";
+import { useRouter } from "next/navigation";
 
 export function PostSummaryBlock({
   room,
@@ -27,9 +27,15 @@ export function PostSummaryBlock({
   price: string;
   address: string;
 }) {
-  const imageLink = `${process.env.REACT_APP_BACKEND_URL}/public/${room.image_id[0]}.jpg`;
+  const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.image_id[0]}.jpg`;
   const key = room.key;
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<{
+    detailDialogShow: boolean;
+    reservationDialogShow: boolean;
+    deletelDialogShow: boolean;
+    requestDialogShow: boolean;
+    editRoomDialogShow: boolean;
+  }>({
     detailDialogShow: false,
     reservationDialogShow: false,
     deletelDialogShow: false,
@@ -45,26 +51,36 @@ export function PostSummaryBlock({
     editRoomDialogShow,
   } = inputs;
 
-  const infoButtonList = {
+  const infoButtonList: {
+    detailDialogShow: string;
+    requestDialogShow: string;
+    reservationDialogShow: string;
+    editRoomDialogShow: string;
+  } = {
     detailDialogShow: "상세 정보",
     requestDialogShow: "받은 요청서",
     reservationDialogShow: "예약현황",
     editRoomDialogShow: "방 수정하기",
   };
-  const onChange = (e) => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setInputs({
       ...inputs,
-      [e.currentTarget.name]: !inputs[e.currentTarget.name],
+      [e.currentTarget.name]:
+        !inputs[e.currentTarget.name as keyof typeof inputs],
     });
   };
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const MoveToRoomInfo = ({ room }: { room: Post }) => {
     // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.
-    navigate(`/roominfo/${room.key}`, {
-      room: room,
-    });
+
+    router.push(`/roominfo/${room.key}`);
+
+    // navigate(`/roominfo/${room.Post.key}`, {
+    //   room: room.Post,
+    // });
   };
+
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
@@ -100,9 +116,9 @@ export function PostSummaryBlock({
                     key={index}
                     className="ml-4"
                     name={k}
-                    onClick={onChange}
+                    onClick={onClick}
                   >
-                    {infoButtonList[k]}
+                    {infoButtonList[k as keyof typeof infoButtonList]}
                   </InfoButton>
                 );
               })}
@@ -110,13 +126,13 @@ export function PostSummaryBlock({
               <DeleteButton
                 className="ml-4"
                 name="deletelDialogShow"
-                onClick={onChange}
+                onClick={onClick}
               >
                 삭제하기
               </DeleteButton>
               <PostDetailDialog
                 detailDialogShow={detailDialogShow}
-                onChange={onChange}
+                onClick={onClick}
                 room={room}
                 postDate={postDate}
                 price={price}
@@ -124,19 +140,19 @@ export function PostSummaryBlock({
               />
               <PostReservationDialog
                 reservationDialogShow={reservationDialogShow}
-                onChange={onChange}
+                onClick={onClick}
                 requestKey={key}
               />
 
               <PostDeleteDialog
                 deletelDialogShow={deletelDialogShow}
-                onChange={onChange}
+                onClick={onClick}
                 requestKey={key}
               />
 
               <PostRequestDialog
                 requestDialogShow={requestDialogShow}
-                onChange={onChange}
+                onClick={onClick}
                 requestKey={room.requestIDs}
               />
             </>

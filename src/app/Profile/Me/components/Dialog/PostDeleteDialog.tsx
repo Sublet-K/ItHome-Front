@@ -1,20 +1,21 @@
 import { DialogForm } from "@shared/components/Popup/Popup";
-import { DeleteButton } from "@shared/components/styles/Public.styles";
+import { DeleteButton } from "@shared/styles/Public.styles";
 import { DialogActions, DialogContent } from "@mui/material";
-import React from "react";
+import React, { MouseEventHandler } from "react";
+import { FetchDeletePost } from "@shared/components/FetchList/FetchList";
 export const PostDeleteDialog = ({
-  onChange,
+  onClick,
   deletelDialogShow,
   requestKey,
 }: {
   deletelDialogShow: boolean;
-  requestKey: string;
-  onChange: React.ChangeEvent<HTMLInputElement>;
+  requestKey: number;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
     <DialogForm
       openState={deletelDialogShow}
-      handleClose={onChange}
+      handleClose={onClick}
       name="deletelDialogShow"
       render={() => (
         <label

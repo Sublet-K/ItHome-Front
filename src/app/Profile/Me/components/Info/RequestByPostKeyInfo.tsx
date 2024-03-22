@@ -1,19 +1,21 @@
 import {
   DetailParagraph,
   Horizon,
+  NormalButton,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { Post } from "@/app/PostType";
+import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 
-export function RequestByPostKeyInfo({ Post }: { Post: Post }) {
+export function RequestByPostKeyInfo({ Post }: { Post: Post[] }) {
   return (
     <div className="mb-4">
       <SecondHead>응답 현황</SecondHead>
       <Horizon />
-      {Post.map((res) => {
-        const imageLink = `${process.env.REACT_APP_BACKEND_URL}/public/${res.image_id[0]}.jpg`;
+      {Post.map((res, index) => {
+        const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${res.image_id[0]}.jpg`;
         return (
-          <>
+          <div key={index}>
             <div className="mt-2 grid grid-cols-4">
               <div>
                 <img
@@ -36,7 +38,7 @@ export function RequestByPostKeyInfo({ Post }: { Post: Post }) {
               </div>
             </div>
             <Horizon className="mt-2" />
-          </>
+          </div>
         );
       })}
     </div>

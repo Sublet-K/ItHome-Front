@@ -1,20 +1,20 @@
 import { DialogForm } from "@shared/components/Popup/Popup";
 import { ReservationByPostKeyInfo } from "../Info/ReservationByPostKeyInfo";
 import { DialogContent } from "@mui/material";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 export function PostReservationDialog({
-  onChange,
+  onClick,
   reservationDialogShow,
   requestKey,
 }: {
-  onChange: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   reservationDialogShow: boolean;
-  requestKey: string;
+  requestKey: number;
 }) {
   return (
     <DialogForm
       openState={reservationDialogShow}
-      handleClose={onChange}
+      handleClose={onClick}
       name="reservationDialogShow"
       render={() => (
         <label
@@ -26,7 +26,7 @@ export function PostReservationDialog({
       )}
     >
       <DialogContent sx={{ width: 512 }} className="text-left">
-        <ReservationByPostKeyInfo requestKey={requestKey} />
+        <ReservationByPostKeyInfo requestKey={String(requestKey)} />
       </DialogContent>
     </DialogForm>
   );
