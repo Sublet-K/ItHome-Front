@@ -4,7 +4,7 @@ import {
   DeleteButton,
   DisableButton,
   NormalText,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { Checkbox, DialogActions, DialogContent } from "@mui/material";
 import React from "react";
 
@@ -18,8 +18,8 @@ export function CancleReservationDialog({
   popupState: boolean;
   clickHandler: React.MouseEventHandler<HTMLButtonElement>;
   checkState: boolean;
-  checkHandled: React.SetStateAction<boolean>;
-  key: string;
+  checkHandled: React.Dispatch<React.SetStateAction<boolean>>;
+  key: number;
 }) {
   return (
     <DialogForm
@@ -41,9 +41,8 @@ export function CancleReservationDialog({
         </p>
         <NormalText className="mt-3 ">
           <Checkbox
-            type="checkbox"
             checked={checkState}
-            onChange={checkHandled}
+            onChange={(_, checked) => checkHandled(checked)}
           />
           환불규정을 확인하였습니다.
         </NormalText>

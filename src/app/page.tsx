@@ -1,5 +1,5 @@
-import { HomeLayout } from "./_PageComponents/HomeLayout";
-import { HomeChildren } from "./_PageComponents/HomeChildren";
+import { HomeLayout } from "./Home/HomeLayout";
+import { HomeChildren } from "./Home/HomeChildren";
 
 export default async function Home() {
   const getBackendURL = (listRoomAmount: number, listPageAmount: number) => {
@@ -19,7 +19,6 @@ export default async function Home() {
 
   return (
     <HomeLayout>
-      Start!
       <HomeChildren roomsData={roomsData} preRoomsData={preRoomsData} />
     </HomeLayout>
   );

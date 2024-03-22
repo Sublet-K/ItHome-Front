@@ -4,21 +4,23 @@ import {
   Image,
   InfoButton,
   SecondHead,
-} from "@shared/components/styles/Public.styles";
+} from "@shared/styles/Public.styles";
 import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
 import { useState } from "react";
 import {
   DateFormat,
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
-import { useNavigate } from "react-router-dom";
-import { Post } from "@/app/PostType";
-import { Reservation } from "@/app/ReservationType";
+// import { useNavigate } from "react-router-dom";
+import { Post } from "@app/PostType";
+import { Reservation } from "@app/ReservationType";
+import { useRouter } from "next/navigation";
 
 export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   const [popupState, setpopupState] = useState(false);
-  const [checkState, setCheckState] = useState(false);
-  const navigate = useNavigate();
+  const [checkState, setCheckState] = useState<boolean>(false);
+  // const navigate = useNavigate();
+  const router = useRouter();
 
   const clickHandler = () => {
     setpopupState(!popupState);
@@ -29,14 +31,17 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
 
   const MoveToRoomInfo = ({ room }: { room: Reservation }) => {
     // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.
-    navigate(`/roominfo/${room.Post.key}`, {
-      room: room.Post,
-    });
+
+    router.push(`/roominfo/${room.Post.key}`);
+
+    // navigate(`/roominfo/${room.Post.key}`, {
+    //   room: room.Post,
+    // });
   };
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
-        <Image src={imageLink}></Image>
+        <Image alt="" src={imageLink}></Image>
       </div>
       <div className="mb-2 ml-3 col-span-4">
         <SecondHead>
