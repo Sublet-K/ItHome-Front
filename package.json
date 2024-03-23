@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.13",
     "@mui/x-date-pickers": "^6.19.7",
     "@react-oauth/google": "^0.12.1",
+    "@types/navermaps": "^3.7.4",
     "animate.css": "^4.1.1",
     "dayjs": "^1.11.10",
     "next": "14.1.3",

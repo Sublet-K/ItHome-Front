@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { SubletPostStore } from "../../../@store/SubletPostStore";
 import { CustomWindow, Room } from "../../../app/RoomType";
 
@@ -33,7 +33,7 @@ function markerHTML(price: number) {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span></div>`;
 }
 
-function searchAddressToCoordinate(address: string, map: string) {
+function searchAddressToCoordinate(address: string, map: string | null) {
   // const infoWindow = new window.naver.maps.InfoWindow({
   //   anchorSkew: true,
   // });
@@ -121,19 +121,23 @@ export default function Map(props: Room) {
 
   function createMarker() {
     postAll?.map((post) => {
-      let coordinate = searchAddressToCoordinate(post.position, mapRef.current);
+      let coordinate: { x: number; y: number } | undefined =
+        searchAddressToCoordinate(post.position, mapRef.current);
       if (coordinate === undefined && mapRef.current) {
         coordinate = searchAddressToCoordinate(
           `${props.city} ${props.gu} ${props.dong} ${props.street} ${props.street_number}`,
           mapRef.current
         );
         if (coordinate === undefined) {
-          coordinate = { x: post.x_coordinate, y: post.y_coordinate };
+          coordinate = {
+            x: post.x_coordinate,
+            y: post.y_coordinate,
+          };
         }
       }
-
+      const newCoordinate = coordinate as { x: number; y: number };
       markerRef.current = new naver.maps.Marker({
-        position: new naver.maps.LatLng(coordinate.y, coordinate.x),
+        position: new naver.maps.LatLng(newCoordinate.y, newCoordinate.x),
         map: mapRef.current,
         icon: {
           content: markerHTML(post.price),
@@ -151,14 +155,18 @@ export default function Map(props: Room) {
 
   function markerClickEvent(marker: any, post: any) {
     const { naver } = window as CustomWindow;
-    naver.maps.Event.addListener(marker, "click", (e) => {
-      const mapLatLng = new naver.maps.LatLng(
-        Number(post?.y_coordinate),
-        Number(post?.x_coordinate)
-      );
-      // 부드럽게 이동하기
-      mapRef.current.panTo(mapLatLng, e?.coord);
-    });
+    naver.maps.Event.addListener(
+      marker,
+      "click",
+      (e: { coord: { duratiob: number; easing: string } }) => {
+        const mapLatLng = new naver.maps.LatLng(
+          Number(post?.y_coordinate),
+          Number(post?.x_coordinate)
+        );
+        // 부드럽게 이동하기
+        mapRef.current.panTo(mapLatLng, e?.coord);
+      }
+    );
   }
 
   const searchingByDragAdd = () => {

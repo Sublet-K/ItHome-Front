@@ -23,6 +23,19 @@ const HoverNewPageDiv = styled.div`
     background-color: #ceffc8;
   }
 `;
+const WebkitScrollbar = styled.div`
+&::-webkit-scrollbar: {
+  width: "5px",
+  height: "100px",
+  WebkitAppearance: "none",
+};
+&::-webkit-scrollbar-thumb: {
+  borderRadius: "8px",
+  border: "2px solid",
+  borderColor: "#E7EBF0",
+  backgroundColor: "rgba(0 0 0 / 0.5)",
+};
+`;
 
 function SubletInfo(
   props: any
@@ -133,22 +146,11 @@ export default function SearchSubletInfo(props: any) {
   return (
     <div className="max-w-7xl mx-auto p-5">
       <div className="grid grid-cols-2 gap-4">
-        <div
+        <WebkitScrollbar
           className="col-span-1"
           style={{
             maxHeight: "calc(100vh - 250px)",
             overflowY: "scroll",
-            "&::-webkit-scrollbar": {
-              width: "5px",
-              height: "100px",
-              WebkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              borderRadius: "8px",
-              border: "2px solid",
-              borderColor: "#E7EBF0",
-              backgroundColor: "rgba(0 0 0 / 0.5)",
-            },
           }}
         >
           <div className="flex flex-col space-y-4">
@@ -172,8 +174,8 @@ export default function SearchSubletInfo(props: any) {
                 />
               ))}
           </div>
-        </div>
-        <div className="col-span-1">{postExist && <Map />}</div>
+        </WebkitScrollbar>
+        <div className="col-span-1">{postExist && <Map props={props} />}</div>
       </div>
     </div>
   );
