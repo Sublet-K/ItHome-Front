@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
 // import { PostUploadDialog } from '@shared/components/Popup/Popup';

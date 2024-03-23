@@ -1,35 +1,40 @@
+"use client";
 import { useState } from "react";
-import { useTitle } from "@shared/components/hook/HookCollect.js";
-import { useParams } from "next/navigation";
-import { UserBaseComponent } from "./Components/UserImageProfile.js";
-import { Wrapper } from "@shared/styles/Public.styles.js";
-import { FetchGetOneUser } from "@shared/components/FetchList/FetchList.js";
-import { UserForm } from "@app/UserType.js";
-import { PostListComponent } from "../Me/components/UserProfile/PostListComponent.jsx";
+import { useTitle } from "@shared/components/hook/HookCollect";
+import { usePathname } from "next/navigation";
+import { UserBaseComponent } from "./Components/UserImageProfile";
+import { Wrapper } from "@shared/styles/Public.styles";
+import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
+import { UserForm } from "@app/UserType";
+import { PostListComponent } from "../Me/components/UserProfile/PostListComponent";
 
-function HostInfo({ user }: { user: UserForm }) {
-  const { userId }: { userId: string } = useParams();
+function HostInfo() {
+  const params = usePathname();
+  const userId = params.split("/")[2];
+  if (typeof userId === "string") {
+    const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
+    FetchGetOneUser(userId, setUserInfo);
+    const title = userInfo.username + "님의 프로필 | ItHome";
+    return (
+      <Wrapper>
+        <div
+          style={{ fontFamily: "Pretendard" }}
+          className="flex grid grid-cols-7"
+        >
+          <div className="ml-3 mt-5">
+            <UserBaseComponent user={userInfo} />
+          </div>
 
-  const title = user.username + "님의 프로필 | ItHome";
+          <div className="mb-2 ml-7 col-span-6 mt-5 w-5/6">
+            <PostListComponent userId={userInfo.user_id} guestMode={false} />
+          </div>
+        </div>
+      </Wrapper>
+    );
+  } else {
+    return <></>;
+  }
   // useTitle(title);
-  const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
-  FetchGetOneUser(userId, setUserInfo);
-  return (
-    <Wrapper>
-      <div
-        style={{ fontFamily: "Pretendard" }}
-        className="flex grid grid-cols-7"
-      >
-        <div className="ml-3 mt-5">
-          <UserBaseComponent user={userInfo} />
-        </div>
-
-        <div className="mb-2 ml-7 col-span-6 mt-5 w-5/6">
-          <PostListComponent userId={userInfo.user_id} guestMode={false} />
-        </div>
-      </div>
-    </Wrapper>
-  );
 }
 
 export default HostInfo;

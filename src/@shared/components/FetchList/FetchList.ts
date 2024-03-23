@@ -237,9 +237,7 @@ async function FetchGetOneUser(
       .catch(raiseError("FetchGetOneUser"));
     setUserInfo(json);
   };
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  getUserInfo();
   return true;
 }
 

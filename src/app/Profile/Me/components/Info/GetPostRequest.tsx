@@ -2,7 +2,7 @@ import {
   DateFormat,
   Information,
   priceToString,
-} from "@shared/components/StaticComponents/StaticComponents.js";
+} from "@shared/components/StaticComponents/StaticComponents";
 import {
   DetailParagraph,
   Horizon,

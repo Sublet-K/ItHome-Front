@@ -1,4 +1,10 @@
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import * as s from "@/@shared/styles/Public.styles";
 import {
   InputEmail,
@@ -42,9 +48,9 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleButton } from "../loginComponents/Google";
-import NaverLogin from "../loginComponents/Naver";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
+// import { GoogleButton } from "../loginComponents/Google";
+// import NaverLogin from "../loginComponents/Naver";
 import { VerifyEmailComponents } from "../verifyComponents/Email";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -194,7 +200,13 @@ export function ImageDialog() {
   );
 }
 
-export function VerifyEmailDialog({ email }: { email: string }) {
+export function VerifyEmailDialog({
+  email,
+  userId,
+}: {
+  email: string;
+  userId: string;
+}) {
   const { setVerifyEmailPopUpState, verifyEmailPopUpState } =
     guestInfoPopUpStore((state) => ({
       setVerifyEmailPopUpState: state.setVerifyEmailPopUpState,
@@ -217,7 +229,7 @@ export function VerifyEmailDialog({ email }: { email: string }) {
       )}
     >
       <DialogContent sx={{ height: 300, width: 300 }} className="text-center">
-        {/*<VerifyEmailComponents email={email} />*/}
+        <VerifyEmailComponents userId={userId} email={email} />
       </DialogContent>
     </DialogForm>
   );
@@ -885,22 +897,22 @@ export function LoginDialog() {
     );
   };
 
-  const OAuthLogin = () => {
-    return (
-      <DialogActions>
-        <div className="w-4/5 h-4/5">
-          <div>
-            <GoogleOAuthProvider clientId={idList.google}>
-              <GoogleButton />
-            </GoogleOAuthProvider>
-          </div>
-          <div className="my-4 w-40">
-            <NaverLogin />
-          </div>
-        </div>
-      </DialogActions>
-    );
-  };
+  // const OAuthLogin = () => {
+  //   return (
+  //     <DialogActions>
+  //       <div className="w-4/5 h-4/5">
+  //         <div>
+  //           <GoogleOAuthProvider clientId={idList.google}>
+  //             <GoogleButton />
+  //           </GoogleOAuthProvider>
+  //         </div>
+  //         <div className="my-4 w-40">
+  //           <NaverLogin />
+  //         </div>
+  //       </div>
+  //     </DialogActions>
+  //   );
+  // };
 
   return (
     <div>
@@ -969,7 +981,7 @@ export function LoginDialog() {
           </div>
         </DialogContent>
         <s.Horizon />
-        <DialogActions>
+        {/* <DialogActions>
           <div className="w-4/5 h-4/5">
             <div>
               <GoogleOAuthProvider clientId={idList.google}>
@@ -980,7 +992,7 @@ export function LoginDialog() {
               <NaverLogin />
             </div>
           </div>
-        </DialogActions>{" "}
+        </DialogActions>{" "} */}
       </Dialog>
       <SignUpDialog />
     </div>
