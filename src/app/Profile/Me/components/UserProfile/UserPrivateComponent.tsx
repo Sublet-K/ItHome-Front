@@ -59,7 +59,7 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
             <EmailDialog originalEmail={user.email} schoolState={user.school} />
           </div>
 
-          <VerifyEmailDialog email={user.email} />
+          <VerifyEmailDialog email={user.email} userId={user.user_id} />
           <div className="mt-4 w-2/6">
             <Label>전화번호</Label>
             <div>

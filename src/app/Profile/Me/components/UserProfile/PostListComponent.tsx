@@ -3,15 +3,15 @@ import {
   NormalButton,
   NormalText,
   SecondHead,
-} from "@shared/styles/Public.styles.js";
+} from "@shared/styles/Public.styles";
 import {
   DateFormat,
   priceToString,
-} from "@shared/components/StaticComponents/StaticComponents.js";
-import { FetchGetPost } from "@shared/components/FetchList/FetchList.js";
-import { PostSummaryBlock } from "../Blocks/PostSummaryBlock.js";
-import { Post } from "@app/PostType.js";
-import { guestInfoPopUpStore } from "@store/GuestInfoStore.js";
+} from "@shared/components/StaticComponents/StaticComponents";
+import { FetchGetPost } from "@shared/components/FetchList/FetchList";
+import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
+import { Post } from "@app/PostType";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 
 function PostListComponent({
   userId,

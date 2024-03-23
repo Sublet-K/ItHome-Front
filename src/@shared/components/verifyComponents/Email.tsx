@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import * as s from "@/@shared/styles/Public.styles";
 import { Alert, FailAlert } from "../StaticComponents/StaticComponents";
 import {
   FetchResetPassword,
@@ -7,6 +6,11 @@ import {
   FetchVerifyUser,
 } from "../FetchList/FetchList";
 import { verifyStore } from "@store/ResetPasswordStore";
+import {
+  DisableButton,
+  InputText,
+  NormalButton,
+} from "@shared/styles/Public.styles";
 
 export function VerifyEmailComponents({
   email,
@@ -109,7 +113,7 @@ export function VerifyEmailComponents({
       {activeVerify ? (
         <div>
           <form>
-            <s.InputText
+            <InputText
               maxLength={6}
               type="tel"
               onChange={numberChange}
@@ -121,20 +125,20 @@ export function VerifyEmailComponents({
 
           <div className="mt-4">
             {numberState.toString().length < 6 ? (
-              <s.DisableButton disabled>인증하기</s.DisableButton>
+              <DisableButton disabled>인증하기</DisableButton>
             ) : (
-              <s.NormalButton onClick={numberHandled}>인증하기</s.NormalButton>
+              <NormalButton onClick={numberHandled}>인증하기</NormalButton>
             )}
 
-            <s.NormalButton onClick={verifyEmailHandleAgain}>
+            <NormalButton onClick={verifyEmailHandleAgain}>
               다시 발송하기
-            </s.NormalButton>
+            </NormalButton>
           </div>
         </div>
       ) : (
-        <s.NormalButton onClick={verifyEmailHandle}>
+        <NormalButton onClick={verifyEmailHandle}>
           인증번호 발송하기
-        </s.NormalButton>
+        </NormalButton>
       )}
       <div className="clear-both">
         {successState && <Alert />}
