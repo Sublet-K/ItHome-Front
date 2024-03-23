@@ -1,11 +1,11 @@
-import { priceToString } from '@shared/components/StaticComponents/StaticComponents';
+import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 import {
   Horizon,
   JustifyBlock,
   NormalText,
   PolicyText,
   SecondHead,
-} from '@shared/components/styles/Public.styles';
+} from "@shared/styles/Public.styles";
 
 export const BookPriceAndDate = ({
   startDay,
@@ -13,6 +13,12 @@ export const BookPriceAndDate = ({
   totalDay,
   totalPay,
   monthPay,
+}: {
+  startDay: string;
+  endDay: string;
+  totalDay: number;
+  totalPay: number;
+  monthPay: number;
 }) => {
   return (
     <div>

@@ -8,21 +8,21 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import PaymentForm from "../Pay/Payment";
+// import PaymentForm from "../Pay/Payment";
 import { AccountPayment } from "../Pay/AccountPayment.js";
-import { BookPaymentForm } from "./BookPaymentForm.js";
+// import { BookPaymentForm } from "./BookPaymentForm.js";
 import { ChangeEvent } from "react";
 
 export const BookPaymentMethod = ({
   paySelect,
-  onPaySelectHandle,
+  // onPaySelectHandle,
   checkState,
   checkHandled,
 }: {
   paySelect: string;
-  onPaySelectHandle: SelectChangeEvent<any>;
+  // onPaySelectHandle: ChangeEvent<{ value: unknown }>;
   checkState: boolean;
-  checkHandled: ChangeEvent<HTMLInputElement> | undefined;
+  checkHandled: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <>
@@ -32,17 +32,14 @@ export const BookPaymentMethod = ({
       <div className="mt-2 ml-4">
         <NormalText>예약 확정 전에는 요금이 청구되지 않습니다.</NormalText>
         <Box className="mt-4 mx-9" justifyContent="center" alignItems="center">
-          <BookPaymentForm
+          {/* <BookPaymentForm
             paySelect={paySelect}
             onPaySelectHandle={onPaySelectHandle}
-          />
-          {paySelect === "account" ? <AccountPayment /> : <PaymentForm />}
+          /> */}
+          <AccountPayment />
+          {/* {paySelect === "account" ? <AccountPayment /> : <PaymentForm />} */}
           <NormalText className="mt-2">
-            <Checkbox
-              type="checkbox"
-              checked={checkState}
-              onChange={checkHandled}
-            />
+            <Checkbox checked={checkState} onChange={checkHandled} />
             체크박스를 클릭하시면 이체를 완료하셨음을 동의하는 것입니다.
           </NormalText>
         </Box>

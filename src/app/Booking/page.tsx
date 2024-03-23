@@ -39,12 +39,12 @@ export default function Booking(userId: string) {
   const partRefundDate = CalulateDate(startDay, -3);
 
   const [paySelect, setPaySelect] = useState("account");
-  const onPaySelectHandle = (e: SelectChangeEvent<any>) => {
-    setPaySelect(e.target.value);
-  };
+  // const onPaySelectHandle = (e: ChangeEvent<{ value: unknown }>) => {
+  //   setPaySelect(e.target.value as string);
+  // };
   const [checkState, setCheckState] = useState(false);
 
-  const checkHandled = () => {
+  const checkHandled = (e: ChangeEvent<HTMLInputElement>) => {
     setCheckState(!checkState);
   };
 
@@ -61,7 +61,7 @@ export default function Booking(userId: string) {
       />
       <BookPaymentMethod
         paySelect={paySelect}
-        onPaySelectHandle={onPaySelectHandle}
+        // onPaySelectHandle={onPaySelectHandle}
         checkState={checkState}
         checkHandled={checkHandled}
       />
