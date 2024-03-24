@@ -196,6 +196,11 @@ async function FetchLogin({
     }),
   })
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        FetchGetMyUser(setUserInfo);
+      }
+    })
     .catch(raiseError("FetchLogin"));
 }
 
