@@ -6,7 +6,7 @@ import { UserBaseComponent } from "./Components/UserImageProfile";
 import { Wrapper } from "@shared/styles/Public.styles";
 import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
 import { UserForm } from "@app/UserType";
-import { PostListComponent } from "../Me/components/UserProfile/PostListComponent";
+import { PostListComponent } from "../me/components/UserProfile/PostListComponent";
 
 function HostInfo() {
   const params = usePathname();
