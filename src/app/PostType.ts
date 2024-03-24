@@ -49,4 +49,5 @@ export type Post = {
   like_count: number;
   like_user_id: string[];
   like_user: UserForm[];
+  marker?: any;
 };
