@@ -175,7 +175,7 @@ export default function SearchSubletInfo(props: any) {
               ))}
           </div>
         </WebkitScrollbar>
-        <div className="col-span-1">{postExist && <Map props={props} />}</div>
+        <div className="col-span-1">{postExist && <Map {...props} />}</div>
       </div>
     </div>
   );
