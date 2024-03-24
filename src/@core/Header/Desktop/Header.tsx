@@ -24,7 +24,6 @@ const Header = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   // const location = useLocation();
   // const router = useRouter();
-
   const styles: { [key: string]: CSSProperties } = {
     container: {
       borderBottom: "1px solid gray",
