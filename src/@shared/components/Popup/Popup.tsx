@@ -836,7 +836,6 @@ export function LoginDialog() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
-
   const loginHandled = () => {
     FetchLogin({ id: idState, password: passwordState, setUserInfo });
     setPopUpState(false);
