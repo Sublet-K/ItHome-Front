@@ -121,7 +121,8 @@ export default function Map(props: Room) {
 
   function createMarker() {
     postAll?.map((post) => {
-      let coordinate = searchAddressToCoordinate(post.position, mapRef.current);
+      let coordinate: { x: number; y: number } | undefined =
+        searchAddressToCoordinate(post.position, mapRef.current!);
       if (coordinate === undefined && mapRef.current) {
         coordinate = searchAddressToCoordinate(
           `${props.city} ${props.gu} ${props.dong} ${props.street} ${props.street_number}`,
@@ -133,7 +134,7 @@ export default function Map(props: Room) {
       }
 
       markerRef.current = new naver.maps.Marker({
-        position: new naver.maps.LatLng(coordinate.y, coordinate.x),
+        position: new naver.maps.LatLng(coordinate!.y, coordinate!.x),
         map: mapRef.current,
         icon: {
           content: markerHTML(post.price),
