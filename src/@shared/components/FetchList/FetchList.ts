@@ -204,12 +204,17 @@ async function FetchLogin({
     .catch(raiseError("FetchLogin"));
 }
 
-async function FetchLogout() {
+async function FetchLogout(resetUserInfo: () => void) {
   await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
     headerOptions("POST")
   )
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        resetUserInfo();
+      }
+    })
     .catch(raiseError("FetchLogout"));
 }
 
