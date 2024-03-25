@@ -99,7 +99,7 @@ export default function Map(props: Room) {
   }));
   const setPostMarker = SubletPostStore((state) => state.setPostMarker);
 
-  const mapRef = useRef(null);
+  const mapRef = useRef<any>(null);
   const markerRef = useRef(null);
   const [markerAll, setMarkerAll] = useState(false);
 

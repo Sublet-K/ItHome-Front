@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 // import PaymentForm from "../Pay/Payment";
-import { AccountPayment } from "../Pay/AccountPayment.js";
+import { AccountPayment } from "../Pay/AccountPayment.jsx";
 // import { BookPaymentForm } from "./BookPaymentForm.js";
 import { ChangeEvent } from "react";
 
