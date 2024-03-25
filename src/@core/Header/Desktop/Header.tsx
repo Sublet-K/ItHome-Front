@@ -88,7 +88,7 @@ const Header = () => {
                 </IconButton>
               </span>
               <IconButton>
-                <Link href="/Profile/Me">
+                <Link href="/profile/me">
                   {/* style={styles.profile} */}
                   <PersonIcon />
                 </Link>
