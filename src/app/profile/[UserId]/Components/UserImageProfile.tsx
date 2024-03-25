@@ -1,5 +1,5 @@
-import { verifyFrame } from "@app/Profile/Me/button-frames/UserImageFrame";
-import { VerifyList } from "@app/Profile/Me/components/Info/VerifyList";
+import { verifyFrame } from "@app/profile/me/button-frames/UserImageFrame";
+import { VerifyList } from "@app/profile/me/components/Info/VerifyList";
 import { UserForm } from "@app/UserType";
 import { NormalText, SecondHead } from "@shared/styles/Public.styles";
 // import { verifyFrame } from 'pages/GuestInfo/button-frames/UserImageFrame';

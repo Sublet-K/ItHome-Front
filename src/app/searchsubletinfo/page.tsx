@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect } from "react";
-import Map from "@shared/components/Map/Map.js";
+import Map from "@shared/components/Map/Map";
 import { SubletPostStore } from "@store/SubletPostStore";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import styled from "styled-components";
@@ -175,7 +176,7 @@ export default function SearchSubletInfo(props: any) {
               ))}
           </div>
         </WebkitScrollbar>
-        <div className="col-span-1">{postExist && <Map props={props} />}</div>
+        <div className="col-span-1">{postExist && <Map {...props} />}</div>
       </div>
     </div>
   );

@@ -24,6 +24,8 @@ export type Room = {
   benefit: string;
   refund_policy: string;
   contract: string;
+  currentPos: [number, number];
+  setPos: (pos: [number, number]) => void;
 };
 
 export type RequestRoom = {
