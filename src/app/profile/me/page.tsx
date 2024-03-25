@@ -11,10 +11,10 @@ import { PostListComponent } from "./components/UserProfile/PostListComponent";
 import { FetchGetMyUser } from "@shared/components/FetchList/FetchList";
 import { UserBaseComponent } from "./components/UserImageProfile";
 import { UserForm } from "@app/UserType";
+import { useUserInfoStore } from "@store/UserInfoStore";
 
 function GuestInfo() {
-  const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
-  FetchGetMyUser(setUserInfo);
+  const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');
   return (
     <Wrapper>

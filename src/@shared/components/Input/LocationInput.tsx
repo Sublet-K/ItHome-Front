@@ -39,12 +39,12 @@ export const LocationInput = ({
         <span>posy: {pos[1]}</span>
       </inputStyle.displayFilteringValueWhenModifyingFilter>
       <div style={styles.searchByMap}>
-        {/*<Map
+        {/* <Map
           type="searchByMarker"
-          // name={name}
+          name={name}
           currentPos={currentPos}
           setPos={onChange}
-        />*/}
+        /> */}
         <div style={styles.mapMarker}>
           <LocationOnIcon />
         </div>
