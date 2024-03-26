@@ -71,6 +71,7 @@ import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import { RequestForm } from "@app/RequestType";
 import { Post } from "@app/PostType";
+import Link from "next/link";
 
 export function DialogForm({
   name = "",
@@ -949,9 +950,9 @@ export function LoginDialog() {
               <div className="mt-2 flex items-center justify-between">
                 <s.Label htmlFor="password">Password</s.Label>
                 <div className="text-sm">
-                  {/*<s.PolicyText href="/resetpassword">
-                    Forgot password?
-  </s.PolicyText>*/}
+                  <Link href="/resetpassword">
+                    <s.PolicyText>Forgot password?</s.PolicyText>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -970,13 +971,14 @@ export function LoginDialog() {
             </s.NormalButton>
           </div>
           <div className="text-sm">
-            {/*<s.PolicyText
-              className="mt-2 ml-1 text-m font-bold"
-              href="#"
-              onClick={signUpHandled}
-            >
-              회원가입
-            </s.PolicyText>*/}
+            <Link href="#">
+              <s.PolicyText
+                className="mt-2 ml-1 text-m font-bold"
+                onClick={signUpHandled}
+              >
+                회원가입
+              </s.PolicyText>
+            </Link>
           </div>
         </DialogContent>
         <s.Horizon />
