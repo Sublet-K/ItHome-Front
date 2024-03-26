@@ -74,15 +74,19 @@ async function FetchGetPost(
   userId: string,
   setPostInfo: Dispatch<SetStateAction<Post[]>>
 ) {
-  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/post/${userId}`;
+  const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/post/${userId}`;
   const getPostInfo = async () => {
-    const json: Post[] = await fetch(URL, headerOptions("GET"))
+    await fetch(GetURL, headerOptions("GET"))
       .then(notFoundError)
+      .then((res) => {
+        console.log(userId);
+        setPostInfo(res);
+      })
       .catch(raiseError("FetchGetPost"));
-    setPostInfo(json);
   };
-
-  getPostInfo();
+  useEffect(() => {
+    getPostInfo();
+  }, [userId]);
 }
 
 async function FetchUploadPost(formData: FormData) {

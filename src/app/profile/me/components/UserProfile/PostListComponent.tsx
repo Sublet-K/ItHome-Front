@@ -9,9 +9,9 @@ import {
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
 import { FetchGetPost } from "@shared/components/FetchList/FetchList";
-import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 import { Post } from "@app/PostType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 
 function PostListComponent({
   userId,
@@ -21,6 +21,8 @@ function PostListComponent({
   guestMode?: boolean;
 }) {
   const [postInfo, setPostInfo] = useState<Post[]>([]);
+  console.log(typeof userId, postInfo);
+
   FetchGetPost(userId, setPostInfo);
   const { setPostPopUpState } = guestInfoPopUpStore((state) => ({
     setPostPopUpState: state.setPostPopUpState,

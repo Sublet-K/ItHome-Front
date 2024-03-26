@@ -8,11 +8,9 @@ import { UserPrivateComponent } from "./components/UserProfile/UserPrivateCompon
 import { Horizon, Wrapper } from "@shared/styles/Public.styles";
 import { ReservationInfo } from "./components/Info/ReservationInfo";
 import { PostListComponent } from "./components/UserProfile/PostListComponent";
-import { FetchGetMyUser } from "@shared/components/FetchList/FetchList";
 import { UserBaseComponent } from "./components/UserImageProfile";
 import { UserForm } from "@app/UserType";
 import { useUserInfoStore } from "@store/UserInfoStore";
-
 function GuestInfo() {
   const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');
