@@ -30,7 +30,7 @@ function PostListComponent({
     <div className="mb-4 mt-8">
       <SecondHead className="inline">방 현황</SecondHead>
 
-      {postInfo.length > 0 ? (
+      {(postInfo && postInfo.length) > 0 ? (
         postInfo.map((res, index) => {
           const address = res.city + " " + res.gu + " " + res.dong;
           const postDate = DateFormat(res.post_date);
