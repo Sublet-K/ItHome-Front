@@ -10,8 +10,8 @@ export function ReservationInfo() {
   return (
     <div className="mb-4">
       <SecondHead>예약 현황</SecondHead>
-      {reservationInfo.length > 0 ? (
-        reservationInfo.map((res) => <ReservationSummaryBlock room={res} />)
+      {(reservationInfo && reservationInfo.length) > 0 ? (
+        reservationInfo.map((res, index) => <ReservationSummaryBlock room={res} />)
       ) : (
         <NormalText>예약이 아직 없습니다.</NormalText>
       )}

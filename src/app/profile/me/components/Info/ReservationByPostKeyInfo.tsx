@@ -26,7 +26,7 @@ export function ReservationByPostKeyInfo({
     <div className="mb-4">
       <SecondHead>예약 현황</SecondHead>
       <Horizon />
-      {reservationInfo.length > 0 ? (
+      {(reservationInfo && reservationInfo.length) > 0 ? (
         reservationInfo.map((res, index) => {
           return (
             <div key={index}>
