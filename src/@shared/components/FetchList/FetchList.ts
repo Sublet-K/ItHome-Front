@@ -130,18 +130,20 @@ async function FetchReservation(
 
 async function FetchReservationByPostKey(
   setReservationInfo: Dispatch<SetStateAction<Reservation[]>>,
-  reservationInfo: Reservation[],
   postKey: string
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation/post?key=${postKey}`;
 
-  const json: Reservation[] = await fetch(URL, headerOptions("GET"))
-    .then(notFoundError)
-    .catch(raiseError("FetchReservationByPostKey"));
-  setReservationInfo(json);
+  const getRequestInfo = async () => {
+    const json: Reservation[] = await fetch(URL, headerOptions("GET"))
+      .then(notFoundError)
+      .catch(raiseError("FetchReservationByPostKey"));
+    setReservationInfo(json);
+  };
 
-  const reservation = Array.from(reservationInfo);
-  return reservation;
+  useEffect(() => {
+    getRequestInfo();
+  }, []);
 }
 
 async function FetchDeleteReservation(keyNum: number) {

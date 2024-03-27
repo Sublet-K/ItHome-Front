@@ -1484,8 +1484,14 @@ export const PostEditDialog = (post: { post: Post }) => {
   } = inputs;
 
   const onChange: (event: Event, value: number | number[]) => void = (e) => {
-    if (!e.target) return;
-    // setInputs({ ...inputs, [e.target.name]: e.target.value });
+    if (!e.currentTarget) return;
+
+    setInputs({
+      ...inputs,
+      [(e.currentTarget as HTMLInputElement).name]: (
+        e.currentTarget as HTMLInputElement
+      ).value,
+    });
   };
   const onClick = async () => {
     const formData = makeFormData();
@@ -1534,7 +1540,6 @@ export const PostEditDialog = (post: { post: Post }) => {
 
   return (
     <>
-      <DialogTitle></DialogTitle>
       <DialogContent sx={{ width: "500px" }} className="text-center">
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
