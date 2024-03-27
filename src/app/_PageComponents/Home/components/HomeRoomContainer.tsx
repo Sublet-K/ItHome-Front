@@ -3,14 +3,14 @@
 import styled from "styled-components";
 import { RoomProfile } from "./RoomProfile";
 
-import type { Room } from "../../RoomType";
+import type { Room } from "@app/RoomType";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const Layout = styled.div`
-  display: 'grid'
-  gridTemplateRows: '1fr'
-  gridTemplateColumns: '1fr 1fr 1fr'
-  fontSize: '1em'
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 1em;
 `;
 
 export const HomeRoomContainer = ({ roomsData }: { roomsData: Room[] }) => {

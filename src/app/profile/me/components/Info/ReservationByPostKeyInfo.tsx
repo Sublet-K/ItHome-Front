@@ -21,12 +21,12 @@ export function ReservationByPostKeyInfo({
     [] as Reservation[]
   );
 
-  FetchReservationByPostKey(setReservationInfo, reservationInfo, requestKey);
+  FetchReservationByPostKey(setReservationInfo, requestKey);
   return (
     <div className="mb-4">
       <SecondHead>예약 현황</SecondHead>
       <Horizon />
-      {reservationInfo.length > 0 ? (
+      {(reservationInfo && reservationInfo.length) > 0 ? (
         reservationInfo.map((res, index) => {
           return (
             <div key={index}>

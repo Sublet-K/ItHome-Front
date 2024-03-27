@@ -1,10 +1,10 @@
 import { NormalButton } from "@shared/styles/Public.styles";
 import styled from "styled-components";
-import * as s from "@shared/styles/Public.styles";
-import { Room } from "./RoomType";
+import { PolicyText } from "@shared/styles/Public.styles";
+import { Room } from "@app/RoomType";
 
-const NoButtonLayout = styled(s.PolicyText)`
-  margintop: "3rem";
+const NoButtonLayout = styled(PolicyText)`
+  margin-top: 3rem;
 `;
 
 export const HomeMoreRoomButton = ({

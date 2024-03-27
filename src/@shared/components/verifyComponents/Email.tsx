@@ -1,5 +1,10 @@
 import { ChangeEvent, useState } from "react";
-import { Alert, FailAlert } from "../StaticComponents/StaticComponents";
+import {
+  Alert,
+  FailAlert,
+  notFoundError,
+  raiseError,
+} from "../StaticComponents/StaticComponents";
 import {
   FetchResetPassword,
   FetchVerifyEmail,
@@ -52,60 +57,13 @@ export function VerifyEmailComponents({
         tokenKey: email,
         verifyToken: numberState,
       })
-        .then((response) => {
-          if (!response.ok) {
-            // create error object and reject if not a 2xx response code
-            const err = new Error("HTTP status code: " + response.status);
-            // err.response = response;
-            // err.status = response.status;
-            setFailState(true);
-            setTimeout(() => {
-              setFailState(false);
-            }, 5000);
-          } else {
-            setSuccessState(true);
-            setTimeout(() => {
-              setSuccessState(false);
-            }, 5000);
-          }
-        })
-        .catch((err) => {
-          setFailState(true);
-          setTimeout(() => {
-            setFailState(false);
-          }, 5000);
-          console.log("Err", err);
-        });
+        .then((res) => notFoundError(res, true, setSuccessState))
+        .catch(raiseError("FetchVerifyUser", true, setFailState));
     } else if (purpose === "resetpassword") {
       FetchResetPassword(userId, email, numberState)
-        .then((response) => {
-          console.log(response);
-          if (!response.ok) {
-            // create error object and reject if not a 2xx response code
-            const err = new Error("HTTP status code: " + response.status);
-            // err.response = response;
-            // err.status = response.status;
-            setFailState(true);
-            setTimeout(() => {
-              setFailState(false);
-            }, 5000);
-          } else {
-            setSuccessState(true);
-            setTimeout(() => {
-              setSuccessState(false);
-            }, 5000);
-            setVerifyPasswordEmail();
-            console.log(verifyPasswordEmail);
-          }
-        })
-        .catch((err) => {
-          setFailState(true);
-          setTimeout(() => {
-            setFailState(false);
-          }, 5000);
-
-          console.log("Err", err);
-        });
+        .then((res) => notFoundError(res, true, setSuccessState))
+        .then(() => setVerifyPasswordEmail())
+        .catch(raiseError("FetchVerifyUser", true, setFailState));
     }
   };
   return (

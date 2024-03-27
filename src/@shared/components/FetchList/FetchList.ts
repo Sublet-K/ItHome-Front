@@ -74,15 +74,19 @@ async function FetchGetPost(
   userId: string,
   setPostInfo: Dispatch<SetStateAction<Post[]>>
 ) {
-  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/post/${userId}`;
+  const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/post/${userId}`;
   const getPostInfo = async () => {
-    const json: Post[] = await fetch(URL, headerOptions("GET"))
+    await fetch(GetURL, headerOptions("GET"))
       .then(notFoundError)
+      .then((res) => {
+        console.log(userId);
+        setPostInfo(res);
+      })
       .catch(raiseError("FetchGetPost"));
-    setPostInfo(json);
   };
-
-  getPostInfo();
+  useEffect(() => {
+    getPostInfo();
+  }, [userId]);
 }
 
 async function FetchUploadPost(formData: FormData) {
@@ -126,25 +130,27 @@ async function FetchReservation(
 
 async function FetchReservationByPostKey(
   setReservationInfo: Dispatch<SetStateAction<Reservation[]>>,
-  reservationInfo: Reservation[],
   postKey: string
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation/post?key=${postKey}`;
 
-  const json: Reservation[] = await fetch(URL, headerOptions("GET"))
-    .then(notFoundError)
-    .catch(raiseError("FetchReservationByPostKey"));
-  setReservationInfo(json);
+  const getRequestInfo = async () => {
+    const json: Reservation[] = await fetch(URL, headerOptions("GET"))
+      .then(notFoundError)
+      .catch(raiseError("FetchReservationByPostKey"));
+    setReservationInfo(json);
+  };
 
-  const reservation = Array.from(reservationInfo);
-  return reservation;
+  useEffect(() => {
+    getRequestInfo();
+  }, []);
 }
 
 async function FetchDeleteReservation(keyNum: number) {
   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("DELETE"),
     body: JSON.stringify({
-      key: keyNum,
+      key: String(keyNum),
     }),
   })
     .then(notFoundError)
@@ -204,12 +210,17 @@ async function FetchLogin({
     .catch(raiseError("FetchLogin"));
 }
 
-async function FetchLogout() {
+async function FetchLogout(resetUserInfo: () => void) {
   await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
     headerOptions("POST")
   )
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        resetUserInfo();
+      }
+    })
     .catch(raiseError("FetchLogout"));
 }
 

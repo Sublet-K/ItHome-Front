@@ -20,7 +20,7 @@ export function RequestListComponent() {
     <div className="mb-4 mt-8">
       <SecondHead className="inline">요청서 현황</SecondHead>
       <NormalButton>요청서 올리기</NormalButton>
-      {requestInfo.length > 0 ? (
+      {(requestInfo && requestInfo.length) > 0 ? (
         requestInfo.map((res, index) => {
           const startDate = DateFormat(res.start_day);
           const endDate = DateFormat(res.end_day);

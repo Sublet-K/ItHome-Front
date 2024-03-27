@@ -9,9 +9,9 @@ import {
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
 import { FetchGetPost } from "@shared/components/FetchList/FetchList";
-import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 import { Post } from "@app/PostType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 
 function PostListComponent({
   userId,
@@ -21,6 +21,7 @@ function PostListComponent({
   guestMode?: boolean;
 }) {
   const [postInfo, setPostInfo] = useState<Post[]>([]);
+
   FetchGetPost(userId, setPostInfo);
   const { setPostPopUpState } = guestInfoPopUpStore((state) => ({
     setPostPopUpState: state.setPostPopUpState,
@@ -30,7 +31,7 @@ function PostListComponent({
     <div className="mb-4 mt-8">
       <SecondHead className="inline">방 현황</SecondHead>
 
-      {postInfo.length > 0 ? (
+      {(postInfo && postInfo.length) > 0 ? (
         postInfo.map((res, index) => {
           const address = res.city + " " + res.gu + " " + res.dong;
           const postDate = DateFormat(res.post_date);
