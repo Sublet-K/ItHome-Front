@@ -87,13 +87,19 @@ async function FetchGetPost(
   }, [userId]);
 }
 
-async function FetchUploadPost(formData: FormData) {
+async function FetchUploadPost(formData: FormData, setPostPopUpState: () => void) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
   await fetch(URL, {
     ...headerOptions("POST"),
     ...formData,
   })
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        alert("게시물이 성공적으로 등록되었습니다.");
+        setPostPopUpState();
+      }
+    })
     .catch(raiseError("FetchUploadPost"));
 }
 

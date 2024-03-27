@@ -1101,7 +1101,7 @@ export const PostUploadDialog = () => {
 
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
-      if (value === '' || value === null || value === undefined) {
+      if (value === '' || value === null || value === undefined || postState['imageFiles'].length === 0) {
         return null;
       }
     });
@@ -1115,19 +1115,21 @@ export const PostUploadDialog = () => {
       return;
     }
     formData.append('local_save', String(false));
-    FetchUploadPost(formData);
+    FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
   };
 
   const handleSetImages = (newImage: File, index: number) => {
-    const newImages: File[] = [...postState['imageFiles']];
-    if (index >= postState['imageFiles'].length) {
+    let newImages: File[] = postState['imageFiles'];
+    if (index >= newImages.length) {
       newImages.push(newImage);
     } else {
       newImages[index] = newImage;
     }
     setPostState({ ...postState, imageFiles: newImages });
+    console.log(newImages.length);
+    console.log(newImages);
   };
-
+  
   const hadnleStartEndDay = (date1: Date, date2: Date) => {
     setPostState({ ...postState, startEndDay: [date1, date2] });
   };
@@ -1347,6 +1349,7 @@ export const PostUploadDialog = () => {
               {Array.from({ length: postState['imageFiles'].length + 1 }).map((_, index) => (
                 <ImageUploadComponent
                   key={index}
+                  imgIndex={index}
                   setImage={handleSetImages}
                 />
               ))}
@@ -1559,6 +1562,7 @@ export const PostEditDialog = (post: { post: Post }) => {
             {Array.from({ length: imageFiles.length + 1 }).map((_, index) => (
               <ImageUploadComponent
                 key={index}
+                imgIndex={index}
                 setImage={handleSetImages}
               />
             ))}

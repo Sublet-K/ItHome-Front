@@ -10,9 +10,11 @@ import Image from "next/image";
 
 export const ImageUploadComponent = ({
   key,
+  imgIndex,
   setImage,
 }: {
   key: number;
+  imgIndex: number;
   setImage: (file: any, idx: number) => void;
 }) => {
   const [preview, setPreview] = useState("");
@@ -23,7 +25,7 @@ export const ImageUploadComponent = ({
     const file = e.target.files[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-      setImage(file, key);
+      setImage(file, imgIndex);
     }
   };
 
