@@ -7,16 +7,16 @@ export const DoubleSlideInput = ({
   onChange,
   minMax,
 }: {
-  value: number;
+  value: [number, number];
   name: string;
-  onChange: (e: Event, num: number[] | number) => void;
+  onChange: (event: Event, value: number[]) => void;
   minMax: [number, number];
 }) => {
   return (
     <Slider
       value={value}
       name={name}
-      onChange={onChange}
+      onChange={onChange as (event: Event, value: number | number[]) => void}
       valueLabelDisplay="off"
       min={minMax[0]}
       max={minMax[1]}
