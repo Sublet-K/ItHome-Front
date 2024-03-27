@@ -41,7 +41,7 @@ export const NormalButton = styled.button`
     background-color: rgb(156 163 175);
     color: rgb(17 24 39);
   }
-  ${tw`bg-black clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`bg-black clear-both text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
 `;
 
 export const DisableButton = styled.button`
@@ -86,6 +86,10 @@ export const NormalText = styled.p`
 `;
 
 export const FailText = styled.span`
-  ${`flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1`}
+  ${tw`flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1`}
 `;
 export const Span = styled.span``;
+
+export const BoldText = styled.p`
+  ${tw`text-base font-bold`}
+`;

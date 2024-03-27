@@ -15,7 +15,8 @@ import {
 import { Post } from "@app/PostType";
 import { Reservation } from "@app/ReservationType";
 import { useRouter } from "next/navigation";
-
+import { ReservationInfo } from "../Info/ReservationInfo";
+import { ReservationProgressInfo } from "../Info/ReservationProgress";
 export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   const [popupState, setpopupState] = useState(false);
   const [checkState, setCheckState] = useState<boolean>(false);
@@ -59,6 +60,9 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
           기간: {DateFormat(room.r_start_day)} ~ {DateFormat(room.r_end_day)}
         </DetailParagraph>
         <DetailParagraph>비용: {priceToString(room.pay)}</DetailParagraph>
+        <ReservationProgressInfo
+          reservationProgress={room.reservationProgress}
+        />
         <div>
           <div>
             <DeleteButton onClick={clickHandler}>취소하기</DeleteButton>
@@ -71,6 +75,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
             checkState={checkState}
             checkHandled={setCheckState}
             roomKey={room.key}
+            hostPosition={false}
           />
         </div>
       </div>

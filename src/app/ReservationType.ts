@@ -13,4 +13,5 @@ export type Reservation = {
   post_key: string;
   deleted: boolean;
   pay: number;
+  reservationProgress: string;
 };
