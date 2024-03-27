@@ -1,4 +1,4 @@
-import * as RS from '@shared/components/styles/RoomInfo.styles.js';
+import * as RS from '@shared/styles/RoomInfo.styles.js';
 import { Carousel } from '@material-tailwind/react';
 
 export function ImageCarousel({ children }) {

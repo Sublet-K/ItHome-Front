@@ -1,19 +1,20 @@
 import { Post } from "@/app/PostType";
 import { DialogForm, PostEditDialog } from "@shared/components/Popup/Popup";
+import { MouseEventHandler } from "react";
 
 export const PostEditRoomDialog = ({
   editRoomDialogShow,
-  onChange,
+  onClick,
   room,
 }: {
   editRoomDialogShow: boolean;
-  onChange: React.ChangeEvent<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   room: Post;
 }) => {
   return (
     <DialogForm
       openState={editRoomDialogShow}
-      handleClose={onChange}
+      handleClose={onClick}
       name="editRoomDialogShow"
       render={() => (
         <label

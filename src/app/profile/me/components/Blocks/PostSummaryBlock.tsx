@@ -13,6 +13,8 @@ import { MouseEventHandler, useState } from "react";
 import { Room } from "@/app/RoomType";
 import { Post } from "@/app/PostType";
 import { useRouter } from "next/navigation";
+import { PostEditDialog } from "@shared/components/Popup/Popup";
+import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
 
 export function PostSummaryBlock({
   room,
@@ -80,7 +82,6 @@ export function PostSummaryBlock({
     //   room: room.Post,
     // });
   };
-
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
@@ -154,6 +155,12 @@ export function PostSummaryBlock({
                 requestDialogShow={requestDialogShow}
                 onClick={onClick}
                 requestKey={room.requestIDs}
+              />
+
+              <PostEditRoomDialog
+                room={room}
+                editRoomDialogShow={editRoomDialogShow}
+                onClick={onClick}
               />
             </>
           )}
