@@ -13,13 +13,13 @@ export function CancleReservationDialog({
   clickHandler,
   checkState,
   checkHandled,
-  key,
+  roomKey,
 }: {
   popupState: boolean;
   clickHandler: React.MouseEventHandler<HTMLButtonElement>;
   checkState: boolean;
   checkHandled: React.Dispatch<React.SetStateAction<boolean>>;
-  key: number;
+  roomKey: number;
 }) {
   return (
     <DialogForm
@@ -53,7 +53,7 @@ export function CancleReservationDialog({
             <form>
               <DeleteButton
                 onClick={() => {
-                  FetchDeleteReservation(key);
+                  FetchDeleteReservation(roomKey);
                 }}
               >
                 취소하기

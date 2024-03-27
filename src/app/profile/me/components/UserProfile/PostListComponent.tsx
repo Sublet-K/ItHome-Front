@@ -21,7 +21,6 @@ function PostListComponent({
   guestMode?: boolean;
 }) {
   const [postInfo, setPostInfo] = useState<Post[]>([]);
-  console.log(typeof userId, postInfo);
 
   FetchGetPost(userId, setPostInfo);
   const { setPostPopUpState } = guestInfoPopUpStore((state) => ({

@@ -150,7 +150,7 @@ async function FetchDeleteReservation(keyNum: number) {
   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("DELETE"),
     body: JSON.stringify({
-      key: keyNum,
+      key: String(keyNum),
     }),
   })
     .then(notFoundError)
