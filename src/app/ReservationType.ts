@@ -14,4 +14,5 @@ export type Reservation = {
   deleted: boolean;
   pay: number;
   reservationProgress: string;
+  moveInInstruction: string;
 };

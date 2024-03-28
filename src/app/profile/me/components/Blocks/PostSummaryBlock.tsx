@@ -15,6 +15,7 @@ import { Post } from "@/app/PostType";
 import { useRouter } from "next/navigation";
 import { PostEditDialog } from "@shared/components/Popup/Popup";
 import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 
 export function PostSummaryBlock({
   room,

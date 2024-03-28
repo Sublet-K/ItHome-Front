@@ -16,6 +16,7 @@ import { useState } from "react";
 import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
 import { ReservationInfo } from "./ReservationInfo";
 import { ReservationProgressInfo } from "./ReservationProgress";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 
 export function ReservationByPostKeyInfo({
   requestKey,
@@ -42,15 +43,7 @@ export function ReservationByPostKeyInfo({
           return (
             <div key={index}>
               <DetailParagraph>게스트: {res.User.username}</DetailParagraph>
-              <DetailParagraph>
-                기간: {DateFormat(res.r_start_day)} ~{" "}
-                {DateFormat(res.r_end_day)}
-              </DetailParagraph>
-              <ReservationProgressInfo
-                reservationProgress={res.reservationProgress}
-              />
-
-              <DetailParagraph>비용: {priceToString(res.pay)}</DetailParagraph>
+              <ReservationProgress reservation={res} hostPosition={true} />
               <DeleteButton
                 onClick={() => {
                   clickHandler();
