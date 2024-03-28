@@ -43,11 +43,11 @@ export const ReservationProgress = ({
 
       <ReservationInformationBlock
         title={"입금여부"}
-        content={reservation.reservationProgress}
+        content={reservation.reservation_progress}
       />
       <ReservationInformationBlock
         title={"입주방식"}
-        content={reservation.moveInInstruction}
+        content={reservation.move_in_instruction}
       />
     </>
   );

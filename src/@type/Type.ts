@@ -84,6 +84,8 @@ export type Reservation = {
   r_start_day: Date | string;
   r_end_day: Date | string;
   pay: number;
+  reservation_progress: string;
+  move_in_instruction: string;
   user: User;
   post: Post;
 };

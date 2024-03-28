@@ -64,7 +64,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
 
         <ReservationProgress reservation={room} hostPosition={false} />
         <ReservationProgressInfo
-          reservationProgress={room.reservationProgress}
+          reservationProgress={room.reservation_progress}
         />
         <div>
           <div>

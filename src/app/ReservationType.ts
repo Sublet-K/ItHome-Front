@@ -13,6 +13,6 @@ export type Reservation = {
   post_key: string;
   deleted: boolean;
   pay: number;
-  reservationProgress: string;
-  moveInInstruction: string;
+  reservation_progress: string;
+  move_in_instruction: string;
 };
