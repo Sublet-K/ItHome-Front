@@ -72,6 +72,7 @@ import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import { RequestForm } from "@app/RequestType";
 import { Post } from "@app/PostType";
+import Link from "next/link";
 
 export function DialogForm({
   name = "",
@@ -950,9 +951,9 @@ export function LoginDialog() {
               <div className="mt-2 flex items-center justify-between">
                 <s.Label htmlFor="password">Password</s.Label>
                 <div className="text-sm">
-                  {/*<s.PolicyText href="/resetpassword">
-                    Forgot password?
-  </s.PolicyText>*/}
+                  <Link href="/resetpassword">
+                    <s.PolicyText>Forgot password?</s.PolicyText>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -971,13 +972,14 @@ export function LoginDialog() {
             </s.NormalButton>
           </div>
           <div className="text-sm">
-            {/*<s.PolicyText
-              className="mt-2 ml-1 text-m font-bold"
-              href="#"
-              onClick={signUpHandled}
-            >
-              회원가입
-            </s.PolicyText>*/}
+            <Link href="#">
+              <s.PolicyText
+                className="mt-2 ml-1 text-m font-bold"
+                onClick={signUpHandled}
+              >
+                회원가입
+              </s.PolicyText>
+            </Link>
           </div>
         </DialogContent>
         <s.Horizon />
@@ -1412,8 +1414,14 @@ export const PostEditDialog = (post: { post: Post }) => {
   } = inputs;
 
   const onChange: (event: Event, value: number | number[]) => void = (e) => {
-    if (!e.target) return;
-    // setInputs({ ...inputs, [e.target.name]: e.target.value });
+    if (!e.currentTarget) return;
+
+    setInputs({
+      ...inputs,
+      [(e.currentTarget as HTMLInputElement).name]: (
+        e.currentTarget as HTMLInputElement
+      ).value,
+    });
   };
   const onClick = async () => {
     const formData = makeFormData();
@@ -1462,7 +1470,6 @@ export const PostEditDialog = (post: { post: Post }) => {
 
   return (
     <>
-      <DialogTitle></DialogTitle>
       <DialogContent sx={{ width: "500px" }} className="text-center">
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------

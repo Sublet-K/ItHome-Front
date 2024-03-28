@@ -11,7 +11,6 @@ import { PostListComponent } from "./components/UserProfile/PostListComponent";
 import { UserBaseComponent } from "./components/UserImageProfile";
 import { UserForm } from "@app/UserType";
 import { useUserInfoStore } from "@store/UserInfoStore";
-
 function GuestInfo() {
   const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');

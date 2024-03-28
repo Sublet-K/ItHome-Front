@@ -70,7 +70,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
             clickHandler={clickHandler}
             checkState={checkState}
             checkHandled={setCheckState}
-            key={room.key}
+            roomKey={room.key}
           />
         </div>
       </div>

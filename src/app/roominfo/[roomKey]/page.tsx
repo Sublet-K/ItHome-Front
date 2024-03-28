@@ -1,3 +1,4 @@
+"use client";
 import { Dialog, DialogContent } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
