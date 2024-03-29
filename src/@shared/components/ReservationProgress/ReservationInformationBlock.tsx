@@ -5,7 +5,7 @@ export const ReservationInformationBlock = ({
   title,
   content,
 }: {
-  title: strinsg;
+  title: string;
   content: string;
 }) => {
   return (
