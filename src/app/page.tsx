@@ -6,15 +6,20 @@ async function fetchRoomsDefault(
   listPageAmount: number
 ) {
   const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
-  const roomsData = fetch(GetURL).then((res) => res.json());
+  const roomsData = fetch(GetURL, { cache: "force-cache" }) // , { ...headerOptions("GET") } FetchLists에 있는 headerOptions를 넣어도 됩니다.
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
   return roomsData;
 }
 
 export default async function Home() {
   const numRooms = 6;
 
-  const roomsData = await fetchRoomsDefault(numRooms, 1);
-  const preRoomsData = await fetchRoomsDefault(numRooms, 2);
+  let roomsData = await fetchRoomsDefault(numRooms, 1);
+  let preRoomsData = await fetchRoomsDefault(numRooms, 2);
 
   return (
     <HomeLayout>
