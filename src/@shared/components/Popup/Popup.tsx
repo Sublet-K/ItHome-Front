@@ -1128,8 +1128,6 @@ export const PostUploadDialog = () => {
       newImages[index] = newImage;
     }
     setPostState({ ...postState, imageFiles: newImages });
-    console.log(newImages.length);
-    console.log(newImages);
   };
   
   const hadnleStartEndDay = (date1: Date, date2: Date) => {
