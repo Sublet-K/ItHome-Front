@@ -15,30 +15,29 @@ function GuestInfo() {
   const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');
   return (
-    <Wrapper>
-      <div
-        style={{ fontFamily: "Pretendard" }}
-        className="flex grid grid-cols-7"
-      >
-        <div className="ml-3 mt-5">
-          <UserBaseComponent user={userInfo} />
-        </div>
-
-        <div className="mb-2 ml-7 col-span-6 mt-5 w-5/6">
-          <ReservationInfo />
-          <Horizon className="my-y" />
-
-          <UserPrivateComponent user={userInfo} />
-          <Horizon className="mt-4 md-2" />
-
-          <PostListComponent userId={userInfo.user_id} />
-          {/* <PostUploadDialog /> */}
-          <Horizon className="my-2" />
-
-          <RequestListComponent />
-        </div>
+    <div style={{ fontFamily: "Pretendard" }}>
+      <div className="w-20 h-20">
+        <UserBaseComponent user={userInfo} />
+        <Horizon className="my-2" />
       </div>
-    </Wrapper>
+
+      <div className="clear-both">
+        <ReservationInfo />
+        <Horizon className="my-2" />
+      </div>
+      <div className="clear-both">
+        <UserPrivateComponent user={userInfo} />
+        <Horizon className="my-4 md-2" />
+      </div>
+      <div className="clear-both">
+        <PostListComponent userId={userInfo.user_id} />
+        {/* <PostUploadDialog /> */}
+        <Horizon className="my-2" />
+      </div>
+      <div className="clear-both">
+        <RequestListComponent />
+      </div>
+    </div>
   );
 }
 

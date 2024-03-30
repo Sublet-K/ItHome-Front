@@ -44,7 +44,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
-        <Image alt="" src={imageLink}></Image>
+        <Image alt="" src={imageLink} />
       </div>
       <div className="mb-2 ml-3 col-span-4">
         <SecondHead>

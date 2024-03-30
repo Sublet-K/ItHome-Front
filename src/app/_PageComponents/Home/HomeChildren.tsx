@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HomeMoreRoomButton } from "./components/HomeMoreRoomButton";
 import { HomeRoomContainer } from "./components/HomeRoomContainer";
 import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
-import { Room } from "@RoomType";
+import type { Room } from "@app/RoomType";
 import { useTitle } from "../UseTitle";
 
 export const HomeChildren = ({

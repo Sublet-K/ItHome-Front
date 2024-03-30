@@ -5,6 +5,7 @@ import { PostReservationDialog } from "../Dialog/PostReservationDialog";
 import {
   DeleteButton,
   DetailParagraph,
+  Image,
   InfoButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
@@ -86,7 +87,7 @@ export function PostSummaryBlock({
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
-        <img className="object-cover rounded-lg" src={imageLink}></img>
+        <Image className="object-cover" src={imageLink} />
       </div>
       <div className="mb-2 ml-3 col-span-4">
         <div className="inline-block">

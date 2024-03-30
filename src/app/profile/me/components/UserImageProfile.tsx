@@ -11,6 +11,7 @@ import { UserForm } from "@/app/UserType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useState } from "react";
 import { StrongVerifyUserDialog } from "./Dialog/StrongVerfifyUserDialog";
+import Image from "next/image";
 export function UserBaseComponent({ user }: { user: UserForm }) {
   const frame = verifyFrame(user);
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
@@ -21,19 +22,18 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
   const onClick = () => {
     setPopupState(!popupState);
   };
-
   return (
     <div>
-      <ImageUploadButton
-        onClick={setImagePopUpState}
-        className="object-cover w-46 h-26"
-      >
-        <img
+      <ImageUploadButton onClick={setImagePopUpState} className="center">
+        <Image
           src={imageLink}
-          className="hover:opacity-60 object-scale-down rounded-lg rounded-lg"
+          className="hover:opacity-60"
+          width="256"
+          height="256"
           alt="my profile"
         />
       </ImageUploadButton>
+
       <ImageDialog />
 
       <SecondHead className="mt-3">{user.username}</SecondHead>

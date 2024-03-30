@@ -25,7 +25,6 @@ export const InputTextError = styled.input`
 
 export const Wrapper = styled.div`
   height: 100vh;
-  display: flex;
   justify-content: center;
 `;
 
@@ -56,17 +55,15 @@ export const Checkbox = styled.input`
   ${tw`mr-1 w-4 h-4 text-blue-600`}
 `;
 
-export const ImageUploadButton = styled.button`
-  display: flex;
-  align-items: center;
-  ${tw`shadow-xl rounded-lg ml-4`}
-`;
+export const ImageUploadButton = styled.button``;
 
 export const Label = styled.label`
   ${tw`block mb-0.5 text-sm font-semibold text-gray-900`}
 `;
 export const Image = styled.img`
-  ${tw`shadow-xl rounded-lg ml-4`}
+  width: 100px;
+  height: 100px;
+  ${tw`shadow-xl rounded-lg`}
 `;
 
 export const SvgHoverButton = styled.button`
