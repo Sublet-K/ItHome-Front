@@ -15,29 +15,55 @@ function GuestInfo() {
   const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');
   return (
-    <div style={{ fontFamily: "Pretendard" }} className="items-center">
-      <div className="my-5">
-        <UserBaseComponent user={userInfo} />
-        <Horizon className="my-5" />
-      </div>
+    <Wrapper>
+      <div
+        style={{
+          fontFamily: "Pretendard",
+        }}
+      >
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
+          <UserBaseComponent user={userInfo} />
+          <Horizon />
+        </div>
 
-      <div className="my-5">
-        <ReservationInfo />
-        <Horizon className="my-5" />
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
+          <ReservationInfo />
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
+          <UserPrivateComponent user={userInfo} />
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
+          <PostListComponent userId={userInfo.user_id} />
+          {/* <PostUploadDialog /> */}
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
+          <RequestListComponent />
+        </div>
       </div>
-      <div className="">
-        <UserPrivateComponent user={userInfo} />
-        <Horizon className="my-5 md-2" />
-      </div>
-      <div className="my-5">
-        <PostListComponent userId={userInfo.user_id} />
-        {/* <PostUploadDialog /> */}
-        <Horizon className="my-5" />
-      </div>
-      <div className="my-5">
-        <RequestListComponent />
-      </div>
-    </div>
+    </Wrapper>
   );
 }
 

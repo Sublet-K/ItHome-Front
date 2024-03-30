@@ -84,8 +84,8 @@ export function PostSummaryBlock({
     // });
   };
   return (
-    <div className="flex grid grid-cols-5 mt-4 ml-4">
-      <div className="w-46 h-26">
+    <div className="border-solid border-2 rounded-lg hover:shadow-lg">
+      <div className="mt-4 flex justify-center items-center">
         <Image
           src={imageLink}
           className="rounded-lg"
@@ -94,27 +94,22 @@ export function PostSummaryBlock({
           alt="my profile"
         />
       </div>
-      <div className="mb-2 ml-3 col-span-4">
-        <div className="inline-block">
-          <SecondHead className="float-start mr-4">
-            <a
-              href=""
-              onClick={() => {
-                MoveToRoomInfo({ room });
-              }}
-            >
-              {room.title}
-            </a>
-          </SecondHead>
-          {room.contract ? (
-            <StyleComponent content="VerifyRoom" />
-          ) : (
-            <StyleComponent content="UnverifyRoom" />
-          )}
-        </div>
+      <div className="ml-4">
+        <SecondHead>
+          <a
+            href=""
+            onClick={() => {
+              MoveToRoomInfo({ room });
+            }}
+          >
+            {room.title}
+          </a>
+        </SecondHead>
 
         <DetailParagraph>주소: {address}</DetailParagraph>
         <DetailParagraph>숙박료: {price}</DetailParagraph>
+      </div>
+      <div className="mb-2 ml-3 col-span-4">
         <div className="block">
           {guestMode && (
             <>
@@ -171,6 +166,7 @@ export function PostSummaryBlock({
               />
             </>
           )}
+          <div className="mt-4" />
         </div>
       </div>
     </div>

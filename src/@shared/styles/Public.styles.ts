@@ -10,7 +10,7 @@ export const LinkHead = styled.a`
   ${tw`text-xl font-extrabold`}
 `;
 export const Horizon = styled.hr`
-  ${tw`h-px bg-gray-200 border-0 clear-both`}
+  ${tw`h-px bg-gray-400 clear-both`}
 `;
 export const DetailParagraph = styled.p`
   ${tw`ml-3 font-medium`}

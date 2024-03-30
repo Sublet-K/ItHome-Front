@@ -70,9 +70,8 @@ import { ImageUploadComponent } from "../Input/ImageInput";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
-import { RequestForm } from "@app/RequestType";
 import Link from "next/link";
-import { Post } from "@/@type/Type";
+import { Post, RequestForm } from "@/@type/Type";
 
 export function DialogForm({
   name = "",
@@ -316,7 +315,7 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
   const [failState, setFailState] = useState(false);
   const [phoneState, setPhoneState] = useState(originalPhone);
 
-  const handleClose = () => setPhonePopUpState(/*false*/);
+  const handleClose = () => setPhonePopUpState();
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setPhoneState(e.currentTarget.value);

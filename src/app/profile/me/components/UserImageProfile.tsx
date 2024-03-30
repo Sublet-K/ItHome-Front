@@ -24,28 +24,33 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
   };
   return (
     <div>
-      <ImageUploadButton onClick={setImagePopUpState} className="center">
-        <Image
-          src={imageLink}
-          className="rounded-lg hover:opacity-60"
-          width="256"
-          height="256"
-          alt="my profile"
-        />
-      </ImageUploadButton>
-
+      <div className="flex justify-center items-center">
+        <ImageUploadButton onClick={setImagePopUpState}>
+          <Image
+            src={imageLink}
+            className="justify-center rounded-lg"
+            width="256"
+            height="256"
+            alt="my profile"
+          />
+        </ImageUploadButton>
+      </div>
       <ImageDialog />
+      <div>
+        <SecondHead className="mt-3">{user.username}</SecondHead>
 
-      <SecondHead className="mt-3">{user.username}</SecondHead>
+        <NormalButton className="float-left" onClick={onClick}>
+          강력한 사용자 인증하기
+        </NormalButton>
+      </div>
       <NormalText className="underline">{user.school}</NormalText>
+
       {Object.keys(frame).map((k, index) => {
         return (
           <VerifyList key={index} k={k} v={frame[k as keyof typeof frame]} />
         );
       })}
-      <NormalButton className="float-left" onClick={onClick}>
-        강력한 사용자 인증하기
-      </NormalButton>
+
       <StrongVerifyUserDialog popupState={popupState} onClick={onClick} />
     </div>
   );
