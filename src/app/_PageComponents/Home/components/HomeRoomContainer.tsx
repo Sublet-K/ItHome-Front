@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import { RoomProfile } from "./RoomProfile";
 
-import type { Room } from "@app/RoomType";
+import type { Post } from "@type/Type";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const Layout = styled.div`
@@ -13,8 +13,8 @@ const Layout = styled.div`
   font-size: 1em;
 `;
 
-export const HomeRoomContainer = ({ roomsData }: { roomsData: Room[] }) => {
-  const [likes, setLikes] = useState<{ [key: number]: Room }>({});
+export const HomeRoomContainer = ({ roomsData }: { roomsData: Post[] }) => {
+  const [likes, setLikes] = useState<{ [key: number]: Post }>({});
 
   if (!roomsData) return <Layout></Layout>;
 

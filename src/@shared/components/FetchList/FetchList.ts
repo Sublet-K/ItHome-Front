@@ -12,7 +12,7 @@ import {
 import { Reservation } from "../../../app/ReservationType";
 import { Room, RequestRoom } from "../../../app/RoomType";
 import { User, SignUpInfo, UserForm } from "../../../app/UserType";
-import { Post } from "@app/PostType";
+import { Post } from "@type/Type";
 import { RequestForm } from "@app/RequestType";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
@@ -68,8 +68,31 @@ async function FetchChangePhone(phoneState: string) {
   );
 }
 
+async function fetchMoreRoomsDefault(
+  listRoomAmount: number,
+  listPageAmount: number,
+  roomsData: Post[],
+  preRoomsData: Post[],
+  setRoomsData: Dispatch<SetStateAction<Post[]>>,
+  setPreRoomsData: Dispatch<SetStateAction<Post[]>>,
+  setListPageAmount: Dispatch<SetStateAction<number>>
+) {
+  const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
+  fetch(GetURL)
+    .then(notFoundError)
+    .then((res) => setPreRoomsData(res))
+    .catch(raiseError("fetchMoreRoomsDefault"));
+  // 6개 저 보여주기 필요할 수도..?
+  if (preRoomsData.length !== 0) {
+    setRoomsData([...roomsData, ...preRoomsData]);
+    setPreRoomsData([]);
+  }
+  setListPageAmount(listPageAmount + 1);
+};
+
 // useEffect 삭제해봄, 바깥에서 한 번만 부르도록 감싸든가 하는 작업이 필요해 보임
 // 하나만 시범적으로 없애봤고, 나머지는 그대로 둠
+// 문제 생겨서 다시 임시적으로 useEffect 넣음 by ussr1285
 async function FetchGetPost(
   userId: string,
   setPostInfo: Dispatch<SetStateAction<Post[]>>
@@ -89,13 +112,34 @@ async function FetchGetPost(
   }, [userId]);
 }
 
-async function FetchUploadPost(formData: FormData) {
+async function FetchSearchedPost(
+  searchDate: [Date, Date],
+  searchLocation: [number, number],
+  priceRange: [number, number],
+  setPostInfo: (posts: Post[]) => void
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}`; // 위치 검색은 몇 km 반경 내 검색해주거나, 혹은 지역구로 검색하는 것으로 해야할 것으로 예상.
+  await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => {
+      setPostInfo(res);
+    })
+    .catch(raiseError("FetchSearchedPost"));
+}
+
+async function FetchUploadPost(formData: FormData, setPostPopUpState: () => void) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
   await fetch(URL, {
     ...headerOptions("POST"),
     ...formData,
   })
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        alert("게시물이 성공적으로 등록되었습니다.");
+        setPostPopUpState();
+      }
+    })
     .catch(raiseError("FetchUploadPost"));
 }
 
@@ -435,36 +479,36 @@ async function FetchConverURLtoFile(id: string) {
 
 const toggleLikes =
   (
-    item: Room,
-    likes: { [key: number]: Room },
-    setLikes: Dispatch<SetStateAction<{ [key: number]: Room }>>
+    item: Post,
+    likes: { [key: number]: Post },
+    setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>
   ) =>
-  () => {
-    if (!(item.key in likes)) {
-      setLikes({ ...likes, [item.key]: item });
-      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-        ...headerOptions("POST"),
-        body: JSON.stringify({
-          post_key: item.key,
-        }),
-      }); // .then(response => response.json()).then(data => console.log(data));
-    } else {
-      let newLikes: typeof likes = {};
-      Object.keys(likes).map((newItem) => {
-        const numNewItem = Number(newItem);
-        if (likes[numNewItem].key !== item.key) {
-          newLikes[numNewItem] = likes[numNewItem];
-        }
-      });
-      setLikes(newLikes);
-      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-        ...headerOptions("DELETE"),
-        body: JSON.stringify({
-          post_key: item.key,
-        }),
-      }); // .then(response => response.json()).then(data => console.log(data));
-    }
-  };
+    () => {
+      if (!(item.key in likes)) {
+        setLikes({ ...likes, [item.key]: item });
+        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+          ...headerOptions("POST"),
+          body: JSON.stringify({
+            post_key: item.key,
+          }),
+        }); // .then(response => response.json()).then(data => console.log(data));
+      } else {
+        let newLikes: typeof likes = {};
+        Object.keys(likes).map((newItem) => {
+          const numNewItem = Number(newItem);
+          if (likes[numNewItem].key !== item.key) {
+            newLikes[numNewItem] = likes[numNewItem];
+          }
+        });
+        setLikes(newLikes);
+        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+          ...headerOptions("DELETE"),
+          body: JSON.stringify({
+            post_key: item.key,
+          }),
+        }); // .then(response => response.json()).then(data => console.log(data));
+      }
+    };
 
 export {
   FetchVerifyUser,
@@ -493,4 +537,6 @@ export {
   FetchEditPost,
   FetchConverURLtoFile,
   toggleLikes,
+  FetchSearchedPost,
+  fetchMoreRoomsDefault,
 };
