@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
-// import { PostUploadDialog } from '@shared/components/Popup/Popup';
+import { PostUploadDialog } from '@shared/components/Popup/Popup';
 
 import { RequestListComponent } from "./components/UserProfile/RequsetListComponent";
 import { UserPrivateComponent } from "./components/UserProfile/UserPrivateComponent";
@@ -32,7 +32,7 @@ function GuestInfo() {
           <Horizon className="mt-4 md-2" />
 
           <PostListComponent userId={userInfo.user_id} />
-          {/* <PostUploadDialog /> */}
+          <PostUploadDialog />
           <Horizon className="my-2" />
 
           <RequestListComponent />

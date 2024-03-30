@@ -5,7 +5,7 @@ import { RoomSpan } from "./RoomSpan";
 import { Image } from "@shared/styles/Public.styles";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { Room } from "@app/RoomType";
+import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
 
 export const RoomProfile = ({
@@ -13,9 +13,9 @@ export const RoomProfile = ({
   likes,
   setLikes,
 }: {
-  room: Room;
-  likes: { [key: number]: Room };
-  setLikes: Dispatch<SetStateAction<{ [key: number]: Room }>>;
+  room: Post;
+  likes: { [key: number]: Post };
+  setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>;
 }) => {
   const Container = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ export const RoomProfile = ({
   `;
 
   const router = useRouter();
-  const moveToRoomInfo = ({ room }: { room: Room }) => {
+  const moveToRoomInfo = ({ room }: { room: Post }) => {
     // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.
     router.push(`/roominfo/${room.key}`);
   };
