@@ -3,9 +3,9 @@ import {
   PostSummaryDetailDialog,
 } from "@shared/components/Popup/Popup";
 import { DialogContent } from "@mui/material";
-import { Post } from "@/app/PostType";
 import { MouseEventHandler } from "react";
 import { RequestRoom } from "@app/RoomType";
+import { Post } from "@/@type/Type";
 
 export const PostDetailDialog = ({
   detailDialogShow,

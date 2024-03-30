@@ -27,7 +27,7 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
       <ImageUploadButton onClick={setImagePopUpState} className="center">
         <Image
           src={imageLink}
-          className="hover:opacity-60"
+          className="rounded-lg hover:opacity-60"
           width="256"
           height="256"
           alt="my profile"

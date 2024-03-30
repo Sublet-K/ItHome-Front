@@ -54,6 +54,7 @@ export type Post = {
   like_count: number;
   like_user: User[];
   postuser: User;
+  requestIDs: string[];
 };
 
 export type RequestForm = {

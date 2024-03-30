@@ -5,18 +5,17 @@ import { PostReservationDialog } from "../Dialog/PostReservationDialog";
 import {
   DeleteButton,
   DetailParagraph,
-  Image,
   InfoButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
 import { MouseEventHandler, useState } from "react";
-import { Room } from "@/app/RoomType";
-import { Post } from "@/app/PostType";
 import { useRouter } from "next/navigation";
 import { PostEditDialog } from "@shared/components/Popup/Popup";
 import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
+import Image from "next/image";
+import { Post } from "@/@type/Type";
 
 export function PostSummaryBlock({
   room,
@@ -87,7 +86,13 @@ export function PostSummaryBlock({
   return (
     <div className="flex grid grid-cols-5 mt-4 ml-4">
       <div className="w-46 h-26">
-        <Image className="object-cover" src={imageLink} />
+        <Image
+          src={imageLink}
+          className="rounded-lg"
+          width="256"
+          height="256"
+          alt="my profile"
+        />
       </div>
       <div className="mb-2 ml-3 col-span-4">
         <div className="inline-block">

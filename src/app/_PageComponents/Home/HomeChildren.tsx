@@ -1,52 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { HomeMoreRoomButton } from "./components/HomeMoreRoomButton";
 import { HomeRoomContainer } from "./components/HomeRoomContainer";
 import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
-import type { Room } from "@app/RoomType";
+
+import { Post } from "@type/Type";
 import { useTitle } from "../UseTitle";
 
 export const HomeChildren = ({
   roomsData: initRoomsData,
   preRoomsData: initPreRoomsData,
 }: {
-  roomsData: Room[];
-  preRoomsData: Room[];
+  roomsData: Post[];
+  preRoomsData: Post[];
 }) => {
   useTitle("ItHome | 딱 맞는 숙소를 찾아봐요.");
-
-  const [roomsData, setRoomsData] = useState<Room[]>(initRoomsData);
-  const [preRoomsData, setPreRoomsData] = useState<Room[]>(initPreRoomsData);
+  const [roomsData, setRoomsData] = useState<Post[]>(initRoomsData);
+  const [preRoomsData, setPreRoomsData] = useState<Post[]>(initPreRoomsData);
   const [listRoomAmount, setListRoomAmount] = useState(6);
-  const [listPageAmount, setListPageAmount] = useState(1);
-
-  const getBackendURL = (listRoomAmount: number, listPageAmount: number) => {
-    console.log(
-      `${process.env.BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`
-    );
-    return `${process.env.BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
-  };
-
-  const fetchRoomsDefault = () => {
-    fetch(getBackendURL(listRoomAmount, listPageAmount))
-      .then((ele) => ele.json())
-      .then((ele) => setPreRoomsData(ele));
-    // 6개 저 보여주기 필요할 수도..?
-    if (preRoomsData.length !== 0) {
-      setRoomsData([...roomsData, ...preRoomsData]);
-      setPreRoomsData([]);
-    }
-    setListPageAmount(listPageAmount + 1);
-  };
+  const [listPageAmount, setListPageAmount] = useState(3); // 1과 2는 이미 page.tsx에서 완료하여 HomeChildren으로 props로 전달되었으므로, 페이지가 3부터 시작.
 
   return (
     <>
       <HomeTopButtonContainer />
       <HomeRoomContainer roomsData={roomsData} />
       <HomeMoreRoomButton
+        listRoomAmount={listRoomAmount}
+        listPageAmount={listPageAmount}
+        roomsData={roomsData}
         preRoomsData={preRoomsData}
-        fetchRoomsDefault={fetchRoomsDefault}
+        setRoomsData={setRoomsData}
+        setPreRoomsData={setPreRoomsData}
+        setListPageAmount={setListPageAmount}
       />
     </>
   );

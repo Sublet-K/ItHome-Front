@@ -5,6 +5,16 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, module: false, path: false };
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+        port: '4000',
+        pathname: '/**/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

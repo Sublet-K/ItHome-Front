@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
-// import { PostUploadDialog } from '@shared/components/Popup/Popup';
+import { PostUploadDialog } from "@shared/components/Popup/Popup";
 
 import { RequestListComponent } from "./components/UserProfile/RequsetListComponent";
 import { UserPrivateComponent } from "./components/UserProfile/UserPrivateComponent";
@@ -15,26 +15,26 @@ function GuestInfo() {
   const { userInfo } = useUserInfoStore();
   // useTitle('프로필 | ItHome');
   return (
-    <div style={{ fontFamily: "Pretendard" }}>
-      <div className="w-20 h-20">
+    <div style={{ fontFamily: "Pretendard" }} className="items-center">
+      <div className="my-5">
         <UserBaseComponent user={userInfo} />
-        <Horizon className="my-2" />
+        <Horizon className="my-5" />
       </div>
 
-      <div className="clear-both">
+      <div className="my-5">
         <ReservationInfo />
-        <Horizon className="my-2" />
+        <Horizon className="my-5" />
       </div>
-      <div className="clear-both">
+      <div className="">
         <UserPrivateComponent user={userInfo} />
-        <Horizon className="my-4 md-2" />
+        <Horizon className="my-5 md-2" />
       </div>
-      <div className="clear-both">
+      <div className="my-5">
         <PostListComponent userId={userInfo.user_id} />
         {/* <PostUploadDialog /> */}
-        <Horizon className="my-2" />
+        <Horizon className="my-5" />
       </div>
-      <div className="clear-both">
+      <div className="my-5">
         <RequestListComponent />
       </div>
     </div>

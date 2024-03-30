@@ -12,7 +12,7 @@ export const LocationInput = ({
   pos: [number, number];
   name?: string;
   currentPos: [number, number];
-  onChange: Dispatch<SetStateAction<[number, number]>>;
+  onChange: (newValue: [number, number]) => void;
 }) => {
   const styles: { [key: string]: CSSProperties } = {
     searchByMap: {

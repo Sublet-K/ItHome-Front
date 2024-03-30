@@ -1,5 +1,6 @@
 import {
   ChangeEventHandler,
+  HtmlHTMLAttributes,
   MouseEventHandler,
   useEffect,
   useRef,
@@ -70,8 +71,8 @@ import { useUserInfoStore } from "@store/UserInfoStore";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import { RequestForm } from "@app/RequestType";
-import { Post } from "@app/PostType";
 import Link from "next/link";
+import { Post } from "@/@type/Type";
 
 export function DialogForm({
   name = "",
@@ -318,7 +319,7 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
   const handleClose = () => setPhonePopUpState(/*false*/);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setPhoneState(e.target.value);
+    setPhoneState(e.currentTarget.value);
   };
 
   const onClick = () => {
@@ -1000,7 +1001,7 @@ export function LoginDialog() {
   );
 }
 
-/*export const PostUploadDialog = (props: any) => {
+export const PostUploadDialog = () => {
   const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
     (state) => ({
       setPostPopUpState: state.setPostPopUpState,
@@ -1008,7 +1009,6 @@ export function LoginDialog() {
     })
   );
   const { userInfo } = useUserInfoStore();
-  const [duration, setDuration] = useState([1, 730]); // minDuration, maxDuration
 
   const [postState, setPostState] = useState({
     accomodationType: "",
@@ -1019,6 +1019,8 @@ export function LoginDialog() {
     numberBedroom: 1,
     title: "",
     basicInfo: "",
+    duration: [1, 730],
+    tempDuration: ["1일", "170일"],
     pos: [37.574583, 126.994143], // xCoordinate, yCoordinate // 추후 위치 기반으로 초기화.,
     fullAddress: "테스트",
     city: "서울", // 테스트 데이터,
@@ -1031,49 +1033,22 @@ export function LoginDialog() {
       new Date(),
       new Date().setFullYear(new Date().getFullYear() + 1),
     ], // new Date().setFullYear(new Date().getFullYear() + 1) // 2024년 2월 29일에 누르면, 2025년 2월 30일이 나오지는 않는지 확인 필요.
-    tempDuration: [duration[0] + "일", duration[1] + "일"],
     price: "10,000",
-    imageFiles: [],
+    imageFiles: [] as File[],
     rule: "규칙",
     benefit: "혜택",
     refundPolicy: "환불정책",
     contract: "계약", // ?
   });
 
-  const {
-    accomodationType,
-    limitPeople,
-    buildingType,
-    numberBathroom,
-    numberRoom,
-    numberBedroom,
-    title,
-    pos,
-    startEndDay,
-    tempDuration,
-    basicInfo,
-    fullAddress,
-    city, // 테스트 데이터,
-    gu, // 테스트 데이터,
-    dong, // 테스트 데이터,
-    street, // 테스트 데이터,
-    streetNumber, // 테스트 데이터,
-    postCode, // 테스트 데이터,
-    price,
-    rule,
-    benefit,
-    refundPolicy,
-    contract,
-    imageFiles,
-  } = postState;
-
-  const onChange = (e) => {
-    setPostState({ ...inputs, [e.target.name]: e.target.value });
+  const onChange = (e: any) => {
+    // 너무 다양해서 any로 일단 해놓음.
+    setPostState({ ...postState, [e.target.name]: e.target.value });
   };
 
-  const updatePostState = (key, value) => {
-    setFormState((prev) => ({ ...prev, [key]: value }));
-  };
+  // const updatePostState = (key, value) => {
+  //   setFormState(prev => ({ ...prev, [key]: value }));
+  // };
 
   const handleClose = () => confirmAction();
 
@@ -1083,7 +1058,7 @@ export function LoginDialog() {
     //   formData.append('local_save', true); // 임시저장 유무
     //   FetchUploadPost(formData);
     // }
-    setPostPopUpState(false);
+    setPostPopUpState();
   };
 
   const makeFormData = () => {
@@ -1094,21 +1069,21 @@ export function LoginDialog() {
     formData.append("price", postState["price"].replace(/,/gi, ""));
     formData.append("basic_info", postState["basicInfo"]);
     formData.append("benefit", postState["benefit"]);
-    formData.append("start_day", postState["startEndDay"][0]);
-    formData.append("end_day", postState["startEndDay"][1]);
-    formData.append("min_duration", postState["duration"][0]);
-    formData.append("max_duration", postState["duration"][1]);
+    formData.append("start_day", String(postState["startEndDay"][0]));
+    formData.append("end_day", String(postState["startEndDay"][1]));
+    formData.append("min_duration", String(postState["duration"][0]));
+    formData.append("max_duration", String(postState["duration"][1]));
     formData.append("position", postState["fullAddress"]);
     formData.append("refund_policy", postState["refundPolicy"]);
     formData.append("rule", postState["rule"]);
-    formData.append("limit_people", postState["limitPeople"]);
-    formData.append("number_room", postState["numberRoom"]);
-    formData.append("number_bathroom", postState["numberBathroom"]);
-    formData.append("number_bedroom", postState["numberBedroom"]);
+    formData.append("limit_people", String(postState["limitPeople"]));
+    formData.append("number_room", String(postState["numberRoom"]));
+    formData.append("number_bathroom", String(postState["numberBathroom"]));
+    formData.append("number_bedroom", String(postState["numberBedroom"]));
     formData.append("accomodation_type", postState["accomodationType"]);
     formData.append("building_type", postState["buildingType"]);
-    formData.append("x_coordinate", postState["pos"][0]);
-    formData.append("y_coordinate", postState["pos"][1]);
+    formData.append("x_coordinate", String(postState["pos"][0]));
+    formData.append("y_coordinate", String(postState["pos"][1]));
     formData.append("city", "city");
     formData.append("gu", "gu");
     formData.append("dong", "dong");
@@ -1116,25 +1091,29 @@ export function LoginDialog() {
     formData.append("street_number", "streetNumber");
     formData.append("post_code", "postCode");
     formData.append("school", userInfo.school); // 사용자 정보에 따라서 해야함.
-    formData.append("contract", "true"); // 계약 관련
+    formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
+    formData.append("contract", String(true)); // 계약 관련
     formData.append("description", "description"); // basic_info와 중복?
     formData.append("extra_info", "extra_info"); // basic_info와 중복?
     // formData.append("content", "content"); // ?
     // formData.append("category", "category"); // ?
-    // formData.append("postuser_id", "test"); // 사용자 정보에 따라서 해야함.
     // formData.append("post_date", (new Date()).toISOString());
-    // formData.append("images", imageFiles[0]);
 
-    imageFiles.forEach((file, index) => {
+    postState["imageFiles"].forEach((file, index) => {
       formData.append("images", file);
     });
 
-    for (const [key, value] of formData.entries()) {
+    formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
-      if (value === "" || value === null || value === undefined) {
+      if (
+        value === "" ||
+        value === null ||
+        value === undefined ||
+        postState["imageFiles"].length === 0
+      ) {
         return null;
       }
-    }
+    });
     return formData;
   };
 
@@ -1144,60 +1123,36 @@ export function LoginDialog() {
       alert("모든 정보를 입력해주세요.");
       return;
     }
-    formData.append("local_save", "false");
-    FetchUploadPost(formData);
+    formData.append("local_save", String(false));
+    FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
   };
 
-  const handlePostTextState = (event) => {
-    const { name, value } = event.target;
-    setPostState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSetImages = (newImage, index) => {
-    const newImages = [...imageFiles];
-    if (index >= imageFiles.length) {
+  const handleSetImages = (newImage: File, index: number) => {
+    let newImages: File[] = postState["imageFiles"];
+    if (index >= newImages.length) {
       newImages.push(newImage);
     } else {
       newImages[index] = newImage;
     }
-    setImageFiles(newImages);
+    setPostState({ ...postState, imageFiles: newImages });
   };
 
-  const hadnleStartEndDay = (date1, date2) => {
-    setStartEndDay([date1, date2]);
+  const hadnleStartEndDay = (date1: Date, date2: Date) => {
+    setPostState({ ...postState, startEndDay: [date1, date2] });
   };
 
-  const handleDuration = (event, newValue) => {
-    setDuration(newValue);
-    setTempDuration([duration[0] + "일", duration[1] + "일"]);
+  const handleDuration = (event: Event, newValue: number[]) => {
+    // postState
+    setPostState({
+      ...postState,
+      duration: newValue,
+      tempDuration: [newValue[0] + "일", newValue[1] + "일"],
+    });
   };
 
-  // const handleCity = (event) => {
-  //   setCity(event.target.value);
-  // }
-
-  // const handleGu = (event) => {
-  //   setGu(event.target.value);
-  // }
-
-  // const handleDong = (event) => {
-  //   setDong(event.target.value);
-  // }
-
-  // const handleStreet = (event) => {
-  //   setStreet(event.target.value);
-  // }
-
-  // const handleStreetNumber = (event) => {
-  //   setStreetNumber(event.target.value);
-  // }
-
-  // const handlePostCode = (event) => {
-  //   setPostCode(event.target.value);
-  // }
+  const handleLocation = (newValue: [number, number]) => {
+    setPostState({ ...postState, pos: newValue });
+  };
 
   return (
     <>
@@ -1213,17 +1168,15 @@ export function LoginDialog() {
           >
             <StyleComponent content="CloseButton" />
           </s.SvgHoverButton>
-          {
-            // <p>
-            //--------------추후 슬라이더로 변경 (현재는 스크롤)---------------
-          //</p>
-        }
+          {/* <p>
+            --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
+          </p> */}
           <div style={psd.gridStyle.mainContainer}>
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
               <DropBoxSelect
                 name="accomodationType"
-                state={accomodationType}
+                state={postState["accomodationType"]}
                 onChange={onChange}
                 labelName="계약 형태"
                 labelId="accomodation_type"
@@ -1239,18 +1192,18 @@ export function LoginDialog() {
               <div>
                 <div>
                   <SingleValueViewer
-                    value={"최대인원: " + limitPeople + "명"}
+                    value={"최대인원: " + postState["limitPeople"] + "명"}
                   />
                   <SingleSlideInput
                     name="limitPeople"
-                    value={limitPeople}
+                    value={postState["limitPeople"]}
                     onChange={onChange}
                     minMax={[1, 10]}
                   />
                 </div>
                 <DropBoxSelect
                   name="buildingType"
-                  state={buildingType}
+                  state={postState["buildingType"]}
                   onChange={onChange}
                   labelName="건물 유형"
                   labelId="building_type"
@@ -1260,19 +1213,23 @@ export function LoginDialog() {
               </div>
               <div>
                 <div>
-                  <SingleValueViewer value={"욕실 개수: " + numberBathroom} />
+                  <SingleValueViewer
+                    value={"욕실 개수: " + postState["numberBathroom"]}
+                  />
                   <SingleSlideInput
                     name="numberBathroom"
-                    value={numberBathroom}
+                    value={postState["numberBathroom"]}
                     onChange={onChange}
                     minMax={[1, 10]}
                   />
                 </div>
                 <div>
-                  <SingleValueViewer value={"침실 개수: " + numberBedroom} />
+                  <SingleValueViewer
+                    value={"침실 개수: " + postState["numberBedroom"]}
+                  />
                   <SingleSlideInput
                     name="numberBedroom"
-                    value={numberBedroom}
+                    value={postState["numberBedroom"]}
                     onChange={onChange}
                     minMax={[1, 10]}
                   />
@@ -1285,7 +1242,7 @@ export function LoginDialog() {
                 id="title"
                 label="제목"
                 placeholder="제목을 입력해주세요."
-                value={title}
+                value={postState["title"]}
                 name="title"
                 onChange={onChange}
                 required={true}
@@ -1294,7 +1251,7 @@ export function LoginDialog() {
                 id="basic_info"
                 label="기본정보"
                 placeholder="기본정보을 입력해주세요."
-                value={basicInfo}
+                value={postState["basicInfo"]}
                 name="basicInfo"
                 onChange={onChange}
                 required={true}
@@ -1303,17 +1260,14 @@ export function LoginDialog() {
 
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
-              {
-                /* <TextInputTag
+              {/* <TextInputTag
                   id="full_address"
                   label="주소"
                   placeholder="주소를 입력해주세요."
                   handleState={handleFullAddress}
                   required={true}
-                />
-              }
-              {
-                /* <TextInputTag
+                /> */}
+              {/* <TextInputTag
                   id="city"
                   label="시"
                   placeholder="시를 입력해주세요."
@@ -1359,25 +1313,21 @@ export function LoginDialog() {
                   type="searchByMarker"
                   currentPos={pos}
                   setPos={setPos}
-                />  
-               
-              }
+                />   */}
               <LocationInput
-                pos={pos}
-                currentPos={pos}
+                pos={postState["pos"] as [number, number]}
+                currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
                 name="pos"
-                onChange={onChange}
+                onChange={handleLocation}
               />{" "}
-              {
-                // 이렇게만 하면 안되고, 직접 친 후에 맵을 띄울 수도 있어야함. 위 주석 참고.
-              }
+              {/* 이렇게만 하면 안되고, 직접 친 후에 맵을 띄울 수도 있어야함. 위 주석 참고. */}
             </p>
 
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>기간 및 금액</h3>
               <p>게시 날짜</p>
               <DoubleDatePicker
-                dateData={startEndDay}
+                dateData={postState["startEndDay"]}
                 setDateData={hadnleStartEndDay}
               />
 
@@ -1386,17 +1336,20 @@ export function LoginDialog() {
                 label="가격"
                 name="price"
                 placeholder="가격을 입력해주세요."
-                value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
+                value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
                 handleState={onChange}
                 required={true}
               />
 
               <p>
                 최소-최대 계약 가능 기간 :{" "}
-                <ValueRangeViewer arr={postState["tempDuration"]} />
+                <ValueRangeViewer
+                  arr={postState["tempDuration"] as [string, string]}
+                />
               </p>
               <DoubleSlideInput
-                value={duration}
+                name="duration"
+                value={postState["duration"] as [number, number]}
                 onChange={handleDuration}
                 minMax={[1, 730]}
               />
@@ -1405,26 +1358,23 @@ export function LoginDialog() {
                 name="duration"
                 onChange={handleDuration}
                 minMax={[1, 730]}
-              /> 
-              
-           
-            
-            
-            }
+              /> */}
             </p>
 
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 사진을 올려주세요.</h3>
-              {imageFiles.length > 0 && (
+              {postState["imageFiles"].length > 0 && (
                 <>이미지를 변경하려면 이미지를 클릭해주세요.</>
               )}
-              {Array.from({ length: imageFiles.length + 1 }).map((_, index) => (
-                <ImageUploadComponent
-                  key={index}
-                  imgIndex={index}
-                  setImage={handleSetImages}
-                />
-              ))}
+              {Array.from({ length: postState["imageFiles"].length + 1 }).map(
+                (_, index) => (
+                  <ImageUploadComponent
+                    key={index}
+                    imgIndex={index}
+                    setImage={handleSetImages}
+                  />
+                )
+              )}
             </p>
           </div>
         </DialogContent>
@@ -1435,7 +1385,7 @@ export function LoginDialog() {
       </Dialog>
     </>
   );
-};*/
+};
 
 export const PostEditDialog = (post: { post: Post }) => {
   const image: File[] = [];

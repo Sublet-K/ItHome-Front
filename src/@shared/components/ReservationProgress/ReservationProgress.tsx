@@ -1,10 +1,10 @@
-import { Reservation } from "@app/ReservationType";
 import { ReservationInformationBlock } from "./ReservationInformationBlock";
 import {
   CalulateDate,
   DateFormat,
   priceToString,
 } from "../StaticComponents/StaticComponents";
+import { Reservation } from "@/@type/Type";
 
 export const ReservationProgress = ({
   reservation,

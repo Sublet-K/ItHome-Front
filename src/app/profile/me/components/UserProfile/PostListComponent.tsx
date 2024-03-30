@@ -9,9 +9,9 @@ import {
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
 import { FetchGetPost } from "@shared/components/FetchList/FetchList";
-import { Post } from "@app/PostType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
+import { Post } from "@/@type/Type";
 
 function PostListComponent({
   userId,

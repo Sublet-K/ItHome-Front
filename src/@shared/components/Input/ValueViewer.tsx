@@ -10,7 +10,7 @@ export const SingleValueViewer = ({ value }: { value: string }) => {
   );
 };
 
-export const ValueRangeViewer = ({ arr }: { arr: [number, number] }) => {
+export const ValueRangeViewer = ({ arr }: { arr: [number, number] | [string, string] }) => {
   return (
     <inputStyle.displayFilteringValueWhenModifyingFilter>
       <span>{arr[0]}</span>

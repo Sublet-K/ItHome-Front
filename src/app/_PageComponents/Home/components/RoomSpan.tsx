@@ -2,9 +2,9 @@ import { NormalText, SecondHead, Span } from "@shared/styles/Public.styles";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 import { useRouter } from "next/navigation";
 
-import type { Room } from "@app/RoomType";
+import type { Post } from "@type/Type";
 
-export const RoomSpan = ({ room }: { room: Room }) => {
+export const RoomSpan = ({ room }: { room: Post }) => {
   const router = useRouter();
 
   return (
