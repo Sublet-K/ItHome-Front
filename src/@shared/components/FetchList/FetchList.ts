@@ -88,7 +88,7 @@ async function fetchMoreRoomsDefault(
     setPreRoomsData([]);
   }
   setListPageAmount(listPageAmount + 1);
-};
+}
 
 // useEffect 삭제해봄, 바깥에서 한 번만 부르도록 감싸든가 하는 작업이 필요해 보임
 // 하나만 시범적으로 없애봤고, 나머지는 그대로 둠
@@ -127,11 +127,18 @@ async function FetchSearchedPost(
     .catch(raiseError("FetchSearchedPost"));
 }
 
-async function FetchUploadPost(formData: FormData, setPostPopUpState: () => void) {
+async function FetchUploadPost(
+  formData: FormData,
+  setPostPopUpState: () => void
+) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
+  // formData.forEach((value, key) => console.log(key, value));
+
   await fetch(URL, {
-    ...headerOptions("POST"),
-    ...formData,
+    // 건들지마세요. 리팩토링하지마세요. 할꺼면 디테일하게 by ussr1285
+    credentials: "include",
+    method: "POST",
+    body: formData,
   })
     .then(notFoundError)
     .then((res) => {
@@ -483,32 +490,32 @@ const toggleLikes =
     likes: { [key: number]: Post },
     setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>
   ) =>
-    () => {
-      if (!(item.key in likes)) {
-        setLikes({ ...likes, [item.key]: item });
-        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-          ...headerOptions("POST"),
-          body: JSON.stringify({
-            post_key: item.key,
-          }),
-        }); // .then(response => response.json()).then(data => console.log(data));
-      } else {
-        let newLikes: typeof likes = {};
-        Object.keys(likes).map((newItem) => {
-          const numNewItem = Number(newItem);
-          if (likes[numNewItem].key !== item.key) {
-            newLikes[numNewItem] = likes[numNewItem];
-          }
-        });
-        setLikes(newLikes);
-        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-          ...headerOptions("DELETE"),
-          body: JSON.stringify({
-            post_key: item.key,
-          }),
-        }); // .then(response => response.json()).then(data => console.log(data));
-      }
-    };
+  () => {
+    if (!(item.key in likes)) {
+      setLikes({ ...likes, [item.key]: item });
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+        ...headerOptions("POST"),
+        body: JSON.stringify({
+          post_key: item.key,
+        }),
+      }); // .then(response => response.json()).then(data => console.log(data));
+    } else {
+      let newLikes: typeof likes = {};
+      Object.keys(likes).map((newItem) => {
+        const numNewItem = Number(newItem);
+        if (likes[numNewItem].key !== item.key) {
+          newLikes[numNewItem] = likes[numNewItem];
+        }
+      });
+      setLikes(newLikes);
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+        ...headerOptions("DELETE"),
+        body: JSON.stringify({
+          post_key: item.key,
+        }),
+      }); // .then(response => response.json()).then(data => console.log(data));
+    }
+  };
 
 export {
   FetchVerifyUser,
