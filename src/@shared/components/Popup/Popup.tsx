@@ -72,6 +72,7 @@ import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import Link from "next/link";
 import { Post, RequestForm } from "@/@type/Type";
+import { LoginContent } from "../loginComponents/LoginContent";
 
 export function DialogForm({
   name = "",
@@ -815,104 +816,11 @@ export function SignUpDialog() {
 }
 
 export function LoginDialog() {
-  const { setSignUpPopUpState } = guestInfoPopUpStore((state) => ({
-    setSignUpPopUpState: state.setSignUpPopUpState,
-  }));
-  const { setUserInfo } = useUserInfoStore();
-
-  const [inputs, setInputs] = useState({
-    idState: "",
-    passwordState: "",
-  });
-  const { idState, passwordState } = inputs;
   const [popUpState, setPopUpState] = useState(false);
 
   const togglePopUpState = () => {
     setPopUpState(!popUpState);
   };
-
-  const inputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputs({
-      ...inputs,
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
-  };
-  const loginHandled = () => {
-    FetchLogin({ id: idState, password: passwordState, setUserInfo });
-    setPopUpState(false);
-  };
-
-  const signUpHandled = () => {
-    setPopUpState(false);
-    setSignUpPopUpState(/*true*/);
-  };
-
-  const idList = {
-    google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-  };
-
-  const PasswordInput = ({
-    inputHandle,
-    passwordState,
-  }: {
-    inputHandle: ChangeEventHandler<HTMLInputElement>;
-    passwordState: string;
-  }) => {
-    // 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 이것을 컴포넌트 해제하고 직접 쓰면 정상 작동 합니다.
-    return (
-      <div>
-        <div className="mt-2 flex items-center justify-between">
-          <s.Label htmlFor="password">Password</s.Label>
-          <div className="text-sm">
-            {/*<s.PolicyText href="/resetpassword">Forgot password?</s.PolicyText>*/}
-          </div>
-        </div>
-        <div className="mt-2">
-          <InputPassword onChange={inputHandle} value={passwordState} />
-        </div>
-      </div>
-    );
-  };
-
-  const IdInput = ({
-    inputHandle,
-    idState,
-  }: {
-    inputHandle: ChangeEventHandler<HTMLInputElement>;
-    idState: string;
-  }) => {
-    // 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 이것을 컴포넌트 해제하고 직접 쓰면 정상 작동 합니다.
-    return (
-      <div>
-        <s.Label htmlFor="id">Id</s.Label>
-        <div className="mt-2">
-          <InputText
-            name="idState"
-            placeholder="아이디"
-            onChange={inputHandle}
-            value={idState}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  // const OAuthLogin = () => {
-  //   return (
-  //     <DialogActions>
-  //       <div className="w-4/5 h-4/5">
-  //         <div>
-  //           <GoogleOAuthProvider clientId={idList.google}>
-  //             <GoogleButton />
-  //           </GoogleOAuthProvider>
-  //         </div>
-  //         <div className="my-4 w-40">
-  //           <NaverLogin />
-  //         </div>
-  //       </div>
-  //     </DialogActions>
-  //   );
-  // };
 
   return (
     <div>
@@ -926,74 +834,7 @@ export function LoginDialog() {
             <StyleComponent content="CloseButton" />
           </s.SvgHoverButton>
         </DialogTitle>
-        <DialogContent>
-          <div className="float-left">
-            <s.SecondHead>로그인</s.SecondHead>
-            <p className="text-base text-gray">
-              합리적인 가격의 다양한 집을 확인하세요.
-            </p>
-          </div>
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <div>
-              <s.Label htmlFor="id">Id</s.Label>
-              <div className="mt-2">
-                <InputText
-                  name="idState"
-                  placeholder="아이디"
-                  onChange={inputHandle}
-                  value={idState}
-                />
-              </div>
-            </div>{" "}
-            {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
-            <div>
-              <div className="mt-2 flex items-center justify-between">
-                <s.Label htmlFor="password">Password</s.Label>
-                <div className="text-sm">
-                  <Link href="/resetpassword">
-                    <s.PolicyText>Forgot password?</s.PolicyText>
-                  </Link>
-                </div>
-              </div>
-              <div className="mt-2">
-                <InputPassword onChange={inputHandle} value={passwordState} />
-              </div>
-            </div>{" "}
-            {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
-          </div>
-          <div>
-            <s.NormalButton
-              type="submit"
-              onClick={loginHandled}
-              className="flex w-full justify-center mt-5"
-            >
-              로그인 하기
-            </s.NormalButton>
-          </div>
-          <div className="text-sm">
-            <Link href="#">
-              <s.PolicyText
-                className="mt-2 ml-1 text-m font-bold"
-                onClick={signUpHandled}
-              >
-                회원가입
-              </s.PolicyText>
-            </Link>
-          </div>
-        </DialogContent>
-        <s.Horizon />
-        {/* <DialogActions>
-          <div className="w-4/5 h-4/5">
-            <div>
-              <GoogleOAuthProvider clientId={idList.google}>
-                <GoogleButton />
-              </GoogleOAuthProvider>
-            </div>
-            <div className="my-4 w-40">
-              <NaverLogin />
-            </div>
-          </div>
-        </DialogActions>{" "} */}
+        <LoginContent setPopUpState={setPopUpState} />
       </Dialog>
       <SignUpDialog />
     </div>
