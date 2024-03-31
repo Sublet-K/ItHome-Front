@@ -20,7 +20,6 @@ async function fetchRoomsDefault(
   const roomsData = fetch(GetURL, { ...headerOptions("GET") }) // , { cache: "force-cache" } or , { ...headerOptions("GET") } FetchLists에 있는 headerOptions입니다.
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       return data;
     });
   return roomsData;

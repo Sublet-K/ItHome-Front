@@ -12,10 +12,12 @@ export const RoomProfile = ({
   room,
   likes,
   setLikes,
+  userId,
 }: {
   room: Post;
-  likes: { [key: number]: Post };
-  setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>;
+  likes: { [key: number]: number };
+  setLikes: Dispatch<SetStateAction<{ [key: number]: number }>>;
+  userId?: string;
 }) => {
   const Container = styled.div`
     display: flex;

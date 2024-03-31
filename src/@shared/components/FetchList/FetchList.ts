@@ -487,12 +487,12 @@ async function FetchConverURLtoFile(id: string) {
 const toggleLikes =
   (
     item: Post,
-    likes: { [key: number]: Post },
-    setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>
+    likes: { [key: number]: number },
+    setLikes: Dispatch<SetStateAction<{ [key: number]: number }>>
   ) =>
   () => {
     if (!(item.key in likes)) {
-      setLikes({ ...likes, [item.key]: item });
+      setLikes({ ...likes, [item.key]: item.key });
       fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
         ...headerOptions("POST"),
         body: JSON.stringify({
@@ -503,7 +503,7 @@ const toggleLikes =
       let newLikes: typeof likes = {};
       Object.keys(likes).map((newItem) => {
         const numNewItem = Number(newItem);
-        if (likes[numNewItem].key !== item.key) {
+        if (likes[numNewItem] !== item.key) {
           newLikes[numNewItem] = likes[numNewItem];
         }
       });
