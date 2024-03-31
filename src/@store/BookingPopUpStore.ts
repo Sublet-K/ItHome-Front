@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { DateFormat } from "../@shared/components/StaticComponents/StaticComponents";
-import { Reservation } from "@/@type/Type";
+import { Post, Reservation, User } from "@/@type/Type";
 
 export const bookingPopUpStore = create<{
   reservation: Reservation;
@@ -15,7 +15,16 @@ export const bookingPopUpStore = create<{
   setTotalPayState: (pay: number) => void;
   setPostKey: (key: string) => void;
 }>()((set) => ({
-  reservation: {} as Reservation,
+  reservation: {
+    key: 3,
+    r_start_day: DateFormat(new Date()),
+    r_end_day: DateFormat("2000.01.01"),
+    pay: 30000,
+    reservation_progress: "예약 요청",
+    move_in_instruction: "송파구",
+    user: {} as User,
+    post: {} as Post,
+  } as Reservation,
   startDay: DateFormat(new Date()),
   endDay: DateFormat("2000.01.01"),
   dayPay: 1,
