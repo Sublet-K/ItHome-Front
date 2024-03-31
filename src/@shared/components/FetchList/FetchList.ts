@@ -128,7 +128,7 @@ async function FetchSearchedPost(
 }
 
 async function FetchUploadPost(
-  formData: FormData,
+  formData: FormDatas,
   setPostPopUpState: () => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
@@ -136,7 +136,7 @@ async function FetchUploadPost(
 
   await fetch(URL, {
     // 건들지마세요. 리팩토링하지마세요. 할꺼면 디테일하게 by ussr1285
-    credentials: "include",
+    credentials: "includes",
     method: "POST",
     body: formData,
   })
