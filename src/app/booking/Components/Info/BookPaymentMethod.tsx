@@ -9,20 +9,23 @@ import {
   TextField,
 } from "@mui/material";
 // import PaymentForm from "../Pay/Payment";
-import { AccountPayment } from "../Pay/AccountPayment.jsx";
 // import { BookPaymentForm } from "./BookPaymentForm.js";
 import { ChangeEvent } from "react";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
+import { Reservation } from "@/@type/Type";
 
 export const BookPaymentMethod = ({
   paySelect,
   // onPaySelectHandle,
   checkState,
   checkHandled,
+  reservation,
 }: {
   paySelect: string;
   // onPaySelectHandle: ChangeEvent<{ value: unknown }>;
   checkState: boolean;
   checkHandled: (e: ChangeEvent<HTMLInputElement>) => void;
+  reservation: Reservation;
 }) => {
   return (
     <>
@@ -36,7 +39,7 @@ export const BookPaymentMethod = ({
             paySelect={paySelect}
             onPaySelectHandle={onPaySelectHandle}
           /> */}
-          <AccountPayment />
+          <ReservationProgress reservation={reservation} hostPosition={false} />
           {/* {paySelect === "account" ? <AccountPayment /> : <PaymentForm />} */}
           <NormalText className="mt-2">
             <Checkbox checked={checkState} onChange={checkHandled} />

@@ -9,11 +9,8 @@ import {
   notFoundError,
   raiseError,
 } from "../StaticComponents/StaticComponents";
-import { Reservation } from "../../../app/ReservationType";
-import { Room, RequestRoom } from "../../../app/RoomType";
-import { User, SignUpInfo, UserForm } from "../../../app/UserType";
-import { Post } from "@type/Type";
-import { RequestForm } from "@app/RequestType";
+import { SignUpInfo, UserForm } from "../../../app/UserType";
+import { Post, RequestForm, Reservation } from "@type/Type";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -363,7 +360,7 @@ async function FetchGetRequestByRequestId(
   setRequestInfo: Dispatch<SetStateAction<RequestForm[]>>
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/requestId`;
-
+  console.log("x", idList, setRequestInfo);
   const getRequestInfo = async () => {
     const json = await fetch(URL, {
       ...headerOptions("POST"),
