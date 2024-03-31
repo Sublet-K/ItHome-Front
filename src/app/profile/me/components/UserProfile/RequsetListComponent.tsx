@@ -10,7 +10,7 @@ import {
   SecondHead,
 } from "@shared/styles/Public.styles";
 import { RequsetSummaryBlock } from "../Blocks/RequsetSummaryBlock";
-import { RequestForm } from "@app/RequestType";
+import { RequestForm } from "@/@type/Type";
 
 export function RequestListComponent() {
   const [requestInfo, setRequestInfo] = useState<RequestForm[]>([]);
@@ -18,8 +18,12 @@ export function RequestListComponent() {
 
   return (
     <div className="mb-4 mt-8">
-      <SecondHead className="inline">요청서 현황</SecondHead>
-      <NormalButton>요청서 올리기</NormalButton>
+      <div className="flex justify-between">
+        <SecondHead className="inline">요청서 현황</SecondHead>
+
+        <NormalButton>요청서 올리기</NormalButton>
+      </div>
+
       {(requestInfo && requestInfo.length) > 0 ? (
         requestInfo.map((res, index) => {
           const startDate = DateFormat(res.start_day);

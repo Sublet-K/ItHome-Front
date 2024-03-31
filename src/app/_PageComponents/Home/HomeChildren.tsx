@@ -4,6 +4,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 import { HomeMoreRoomButton } from "./components/HomeMoreRoomButton";
 import { HomeRoomContainer } from "./components/HomeRoomContainer";
 import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
+
 import { Post } from "@type/Type";
 import { useTitle } from "../UseTitle";
 

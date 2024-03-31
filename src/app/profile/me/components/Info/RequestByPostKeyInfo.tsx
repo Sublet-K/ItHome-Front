@@ -4,8 +4,8 @@ import {
   NormalButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
-import { Post } from "@/app/PostType";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
+import { Post } from "@/@type/Type";
 
 export function RequestByPostKeyInfo({ Post }: { Post: Post[] }) {
   return (

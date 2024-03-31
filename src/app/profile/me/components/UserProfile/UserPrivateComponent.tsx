@@ -32,18 +32,17 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
         <SecondHead>사용자 정보</SecondHead>
 
         <div className="ml-4 mt-4">
-          <div className="w-2/6">
-            <Label>이메일</Label>
+          <Label>이메일</Label>
+
+          <button
+            className="border-solid border-b border-black"
+            onClick={setEmailPopUpState}
+          >
             <div>
               <div className="inline-block">
                 <NormalText className="justify-start">{user.email}</NormalText>
               </div>
-              <SvgHoverButton
-                onClick={setEmailPopUpState}
-                className="justify-end"
-              >
-                <StyleComponent content="FixInfo" />
-              </SvgHoverButton>
+
               {!user.verify_email && (
                 <div>
                   <NormalButton
@@ -55,26 +54,23 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
                 </div>
               )}
             </div>
-            <hr className="h-px bg-gray-600 border-0 clear-both" />
-            <EmailDialog originalEmail={user.email} schoolState={user.school} />
-          </div>
-
-          <VerifyEmailDialog email={user.email} userId={user.user_id} />
-          <div className="mt-4 w-2/6">
-            <Label>전화번호</Label>
+          </button>
+          <EmailDialog originalEmail={user.email} schoolState={user.school} />
+          <Label>전화번호</Label>
+          <button
+            onClick={setPhonePopUpState}
+            className="border-solid border-b border-black"
+          >
             <div>
               <div className="inline-block">
                 <NormalText className="justify-start">{phoneNumber}</NormalText>
               </div>
-              <SvgHoverButton onClick={setPhonePopUpState}>
-                <StyleComponent content="FixInfo" />
-              </SvgHoverButton>
             </div>
-            <hr className="h-px bg-gray-600 border-0 clear-both" />
 
             <PhoneDialog originalPhone={phoneNumber} />
-          </div>
+          </button>
         </div>
+        <VerifyEmailDialog email={user.email} userId={user.user_id} />
       </div>
     );
   } else {

@@ -9,11 +9,8 @@ import {
   notFoundError,
   raiseError,
 } from "../StaticComponents/StaticComponents";
-import { Reservation } from "../../../app/ReservationType";
-import { Room, RequestRoom } from "../../../app/RoomType";
-import { User, SignUpInfo, UserForm } from "../../../app/UserType";
-import { Post } from "@type/Type";
-import { RequestForm } from "@app/RequestType";
+import { SignUpInfo, UserForm } from "../../../app/UserType";
+import { Post, RequestForm, Reservation } from "@type/Type";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -88,7 +85,7 @@ async function fetchMoreRoomsDefault(
     setPreRoomsData([]);
   }
   setListPageAmount(listPageAmount + 1);
-};
+}
 
 // useEffect 삭제해봄, 바깥에서 한 번만 부르도록 감싸든가 하는 작업이 필요해 보임
 // 하나만 시범적으로 없애봤고, 나머지는 그대로 둠
@@ -127,7 +124,10 @@ async function FetchSearchedPost(
     .catch(raiseError("FetchSearchedPost"));
 }
 
-async function FetchUploadPost(formData: FormData, setPostPopUpState: () => void) {
+async function FetchUploadPost(
+  formData: FormData,
+  setPostPopUpState: () => void
+) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
   await fetch(URL, {
     ...headerOptions("POST"),
@@ -356,7 +356,7 @@ async function FetchGetRequestByRequestId(
   setRequestInfo: Dispatch<SetStateAction<RequestForm[]>>
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/requestId`;
-
+  console.log("x", idList, setRequestInfo);
   const getRequestInfo = async () => {
     const json = await fetch(URL, {
       ...headerOptions("POST"),
@@ -483,32 +483,32 @@ const toggleLikes =
     likes: { [key: number]: Post },
     setLikes: Dispatch<SetStateAction<{ [key: number]: Post }>>
   ) =>
-    () => {
-      if (!(item.key in likes)) {
-        setLikes({ ...likes, [item.key]: item });
-        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-          ...headerOptions("POST"),
-          body: JSON.stringify({
-            post_key: item.key,
-          }),
-        }); // .then(response => response.json()).then(data => console.log(data));
-      } else {
-        let newLikes: typeof likes = {};
-        Object.keys(likes).map((newItem) => {
-          const numNewItem = Number(newItem);
-          if (likes[numNewItem].key !== item.key) {
-            newLikes[numNewItem] = likes[numNewItem];
-          }
-        });
-        setLikes(newLikes);
-        fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
-          ...headerOptions("DELETE"),
-          body: JSON.stringify({
-            post_key: item.key,
-          }),
-        }); // .then(response => response.json()).then(data => console.log(data));
-      }
-    };
+  () => {
+    if (!(item.key in likes)) {
+      setLikes({ ...likes, [item.key]: item });
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+        ...headerOptions("POST"),
+        body: JSON.stringify({
+          post_key: item.key,
+        }),
+      }); // .then(response => response.json()).then(data => console.log(data));
+    } else {
+      let newLikes: typeof likes = {};
+      Object.keys(likes).map((newItem) => {
+        const numNewItem = Number(newItem);
+        if (likes[numNewItem].key !== item.key) {
+          newLikes[numNewItem] = likes[numNewItem];
+        }
+      });
+      setLikes(newLikes);
+      fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
+        ...headerOptions("DELETE"),
+        body: JSON.stringify({
+          post_key: item.key,
+        }),
+      }); // .then(response => response.json()).then(data => console.log(data));
+    }
+  };
 
 export {
   FetchVerifyUser,

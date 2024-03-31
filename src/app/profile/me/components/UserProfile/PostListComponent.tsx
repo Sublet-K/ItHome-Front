@@ -9,9 +9,9 @@ import {
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
 import { FetchGetPost } from "@shared/components/FetchList/FetchList";
-import { Post } from "@app/PostType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
+import { Post } from "@/@type/Type";
 
 function PostListComponent({
   userId,
@@ -29,8 +29,13 @@ function PostListComponent({
 
   return (
     <div className="mb-4 mt-8">
-      <SecondHead className="inline">방 현황</SecondHead>
+      <div className="flex justify-between">
+        <SecondHead className="inline">방 현황</SecondHead>
 
+        {guestMode && (
+          <NormalButton onClick={setPostPopUpState}>방 올리기</NormalButton>
+        )}
+      </div>
       {(postInfo && postInfo.length) > 0 ? (
         postInfo.map((res, index) => {
           const address = res.city + " " + res.gu + " " + res.dong;
@@ -50,10 +55,6 @@ function PostListComponent({
         })
       ) : (
         <NormalText>올린 방이 아직 없습니다.</NormalText>
-      )}
-
-      {guestMode && (
-        <NormalButton onClick={setPostPopUpState}>방 올리기</NormalButton>
       )}
     </div>
   );
