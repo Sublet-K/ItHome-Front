@@ -18,7 +18,7 @@ async function fetchRoomsDefault(
 ) {
   const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
   const roomsData = fetch(GetURL, {
-    cache: "force-cache",
+    cache: "no-cache",
     ...headerOptions("GET"),
   }) // , { cache: "force-cache" } or , { ...headerOptions("GET") } FetchLists에 있는 headerOptions입니다.
     .then((res) => res.json())
