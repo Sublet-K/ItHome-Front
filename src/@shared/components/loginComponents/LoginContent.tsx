@@ -18,6 +18,7 @@ import { InputPassword } from "../Input/TextInputTag";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { FetchLogin } from "../FetchList/FetchList";
+import { useUserLikeStore } from "@store/UserLikeStore";
 
 export const LoginContent = ({
   setPopUpState,
@@ -28,6 +29,7 @@ export const LoginContent = ({
     setSignUpPopUpState: state.setSignUpPopUpState,
   }));
   const { setUserInfo } = useUserInfoStore();
+  const { initFetchLikePostId } = useUserLikeStore();
 
   const [inputs, setInputs] = useState({
     idState: "",
@@ -42,7 +44,12 @@ export const LoginContent = ({
     });
   };
   const loginHandled = () => {
-    FetchLogin({ id: idState, password: passwordState, setUserInfo });
+    FetchLogin({
+      id: idState,
+      password: passwordState,
+      setUserInfo,
+      initFetchLikePostId,
+    });
     if (setPopUpState) setPopUpState(false);
   };
 

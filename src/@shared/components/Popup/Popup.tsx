@@ -58,21 +58,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 
-import DropBoxSelect from "../Input/DropBoxSelect";
-import { DoubleSlideInput } from "../Input/DoubleSlideInput";
 import { SingleSlideInput } from "../Input/SingleSlideInput";
 import { SingleValueViewer, ValueRangeViewer } from "../Input/ValueViewer";
-
-import { LocationInput } from "../Input/LocationInput";
 import { DoubleDatePicker } from "../Input/DoubleDatePicker";
 import { priceToString } from "../StaticComponents/StaticComponents";
 import { ImageUploadComponent } from "../Input/ImageInput";
-import { useUserInfoStore } from "@store/UserInfoStore";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import Link from "next/link";
 import { Post, RequestForm } from "@type/Type";
-import { useUserLikeStore } from "@store/UserLikeStore";
 import { LoginContent } from "../loginComponents/LoginContent";
 
 export function DialogForm({

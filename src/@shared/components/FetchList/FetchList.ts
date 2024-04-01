@@ -237,10 +237,12 @@ async function FetchLogin({
   id,
   password,
   setUserInfo,
+  initFetchLikePostId,
 }: {
   id: string;
   password: string;
   setUserInfo: (newUserInfo: any) => void;
+  initFetchLikePostId: (newLikes: { [key: number]: number }) => void;
 }) {
   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
@@ -253,6 +255,7 @@ async function FetchLogin({
     .then((res) => {
       if (res.ok) {
         FetchGetMyUser(setUserInfo);
+        FetchLikePostsId(initFetchLikePostId);
       }
     })
     .catch(raiseError("FetchLogin"));
