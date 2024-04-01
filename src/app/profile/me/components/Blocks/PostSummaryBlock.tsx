@@ -87,6 +87,7 @@ export function PostSummaryBlock({
     <div className="border-solid border-2 rounded-lg hover:shadow-lg">
       <div className="mt-4 flex justify-center items-center">
         <Image
+          loader={() => imageLink}
           src={imageLink}
           className="rounded-lg"
           width="256"

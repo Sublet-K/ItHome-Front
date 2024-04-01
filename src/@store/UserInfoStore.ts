@@ -23,6 +23,7 @@ const defaultUserInfo = {
   birth: new Date(),
   student_id: 0,
   gender: "",
+  smoking: false,
 };
 
 export const useUserInfoStore = create<{
@@ -47,6 +48,7 @@ export const useUserInfoStore = create<{
     birth: Date;
     student_id: number;
     gender: string;
+    smoking: false;
   };
   setUserInfo: (newUserInfo: typeof defaultUserInfo) => void;
   resetUserInfo: () => void;

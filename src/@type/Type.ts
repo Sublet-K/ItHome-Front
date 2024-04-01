@@ -14,6 +14,7 @@ export type User = {
   // like_post_id: string[];
   email: string;
   phone: string;
+  smoking: boolean;
 };
 
 export type Post = {
@@ -55,6 +56,7 @@ export type Post = {
   like_user: User[];
   postuser: User;
   requestIDs: string[];
+  gender_type: string;
 };
 
 export type RequestForm = {

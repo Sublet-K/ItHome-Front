@@ -46,32 +46,32 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   };
   return (
     <div className="border-solid border-2 rounded-lg hover:shadow-lg">
-      <div className="flex justify-center items-center">
+      <div className="mt-4 flex justify-center items-center">
         <Image
+          loader={() => imageLink}
           src={imageLink}
           className="rounded-lg"
           width="256"
           height="256"
           alt="my profile"
         />
-        <div className="ml-4">
-          <SecondHead>
-            <a
-              href=""
-              onClick={() => {
-                MoveToRoomInfo({ room });
-              }}
-            >
-              {room.post.title}
-            </a>
-          </SecondHead>
-          <DetailParagraph>
-            호스트: {room.post.postuser.user_id}
-          </DetailParagraph>
-          <DetailParagraph>
-            기간: {DateFormat(room.r_start_day)} ~ {DateFormat(room.r_end_day)}
-          </DetailParagraph>
-        </div>
+      </div>
+
+      <div className="ml-4">
+        <SecondHead>
+          <a
+            href=""
+            onClick={() => {
+              MoveToRoomInfo({ room });
+            }}
+          >
+            {room.post.title}
+          </a>
+        </SecondHead>
+        <DetailParagraph>호스트: {room.post.postuser.user_id}</DetailParagraph>
+        <DetailParagraph>
+          기간: {DateFormat(room.r_start_day)} ~ {DateFormat(room.r_end_day)}
+        </DetailParagraph>
         <ReservationProgressInfo
           reservationProgress={room.reservation_progress}
         />
@@ -108,6 +108,7 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
           />
         </div>
       </div>
+      <div className="mt-4" />
     </div>
   );
 }

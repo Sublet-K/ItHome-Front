@@ -1,4 +1,3 @@
-import { Reservation } from "@app/ReservationType";
 import { FetchReservationByPostKey } from "@shared/components/FetchList/FetchList";
 import {
   DateFormat,
@@ -17,6 +16,8 @@ import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
 import { ReservationInfo } from "./ReservationInfo";
 import { ReservationProgressInfo } from "./ReservationProgress";
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
+import { Reservation } from "@type/Type";
+
 
 export function ReservationByPostKeyInfo({
   requestKey,
@@ -42,7 +43,7 @@ export function ReservationByPostKeyInfo({
         reservationInfo.map((res, index) => {
           return (
             <div key={index}>
-              <DetailParagraph>게스트: {res.User.username}</DetailParagraph>
+              <DetailParagraph>게스트: {res.user.username}</DetailParagraph>
               <ReservationProgress reservation={res} hostPosition={true} />
               <DeleteButton
                 onClick={() => {
