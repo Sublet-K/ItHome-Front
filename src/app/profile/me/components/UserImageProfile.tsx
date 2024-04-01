@@ -27,6 +27,7 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
       <div className="flex justify-center items-center">
         <ImageUploadButton onClick={setImagePopUpState}>
           <Image
+            loader={() => imageLink}
             src={imageLink}
             className="justify-center rounded-lg"
             width="256"

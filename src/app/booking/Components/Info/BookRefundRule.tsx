@@ -10,18 +10,13 @@ import { MouseEventHandler } from "react";
 export const BookRefundRule = ({
   totalRefundDate,
   partRefundDate,
-  checkState,
-  handlePostReservation,
 }: {
   totalRefundDate: string;
   partRefundDate: string;
-  checkState: boolean;
-  handlePostReservation: MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
-    <div>
+    <>
       <SecondHead className="mt-4">규칙 / 정책</SecondHead>
-      <Horizon />
       <div className="mt-2 ml-4">
         <NormalText className="mt-2">
           • {totalRefundDate} 전까지 무료로 취소하실 수 있습니다. <br />•{" "}
@@ -41,13 +36,7 @@ export const BookRefundRule = ({
           조치를 취할 수 있다는 사실에 동의하는 것입니다.
         </NormalText>
       </div>
-      <div className="mt-4">
-        {checkState ? (
-          <NormalButton onClick={handlePostReservation}>결제하기</NormalButton>
-        ) : (
-          <DisableButton disabled>결제하기</DisableButton>
-        )}
-      </div>
-    </div>
+      <Horizon />
+    </>
   );
 };
