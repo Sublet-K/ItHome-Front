@@ -1,6 +1,7 @@
 import "animate.css";
 import * as s from "../../styles/Public.styles";
 import type { Dispatch, SetStateAction } from "react";
+import { ok } from "assert";
 
 const setStateOnandOff = (
   setState: Dispatch<SetStateAction<boolean>> | undefined
@@ -21,6 +22,7 @@ export const notFoundError = (
   setSuccessState: Dispatch<SetStateAction<boolean>> | undefined = undefined
 ) => {
   if (!res.ok) {
+    console.log(res);
     throw new Error(`${res.status} 에러가 발생했습니다.`);
   }
   if (animation) {

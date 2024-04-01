@@ -71,8 +71,12 @@ import { useUserInfoStore } from "@store/UserInfoStore";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import Link from "next/link";
+<<<<<<< HEAD
 import { Post, RequestForm } from "@/@type/Type";
 import { LoginContent } from "../loginComponents/LoginContent";
+=======
+import { Post, RequestForm } from "@type/Type";
+>>>>>>> 9291385e15585e54adde0be26da08ce8f3628ca1
 
 export function DialogForm({
   name = "",
@@ -901,40 +905,52 @@ export const PostUploadDialog = () => {
     setPostPopUpState();
   };
 
+  function formatDate(date: Date | number) {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1); // 월은 0부터 시작하므로 1을 더해줍니다.
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+
   const makeFormData = () => {
     const formData = new FormData();
-
-    // 뭔가 개선이 가능해 보이긴하나..
-    formData.append("title", postState["title"]);
-    formData.append("price", postState["price"].replace(/,/gi, ""));
     formData.append("basic_info", postState["basicInfo"]);
     formData.append("benefit", postState["benefit"]);
-    formData.append("start_day", String(postState["startEndDay"][0]));
-    formData.append("end_day", String(postState["startEndDay"][1]));
-    formData.append("min_duration", String(postState["duration"][0]));
-    formData.append("max_duration", String(postState["duration"][1]));
-    formData.append("position", postState["fullAddress"]);
-    formData.append("refund_policy", postState["refundPolicy"]);
+    formData.append("description", "description"); // basic_info와 중복?
+    formData.append("end_day", formatDate(postState["startEndDay"][1]));
+    formData.append("extra_info", "extra_info"); // basic_info와 중복?
+    formData.append("max_duration", postState["duration"][1].toString());
+    formData.append("min_duration", postState["duration"][0].toString());
+    formData.append("start_day", formatDate(postState["startEndDay"][0]));
+    formData.append("title", postState["title"]);
     formData.append("rule", postState["rule"]);
-    formData.append("limit_people", String(postState["limitPeople"]));
-    formData.append("number_room", String(postState["numberRoom"]));
-    formData.append("number_bathroom", String(postState["numberBathroom"]));
-    formData.append("number_bedroom", String(postState["numberBedroom"]));
+    formData.append("refund_policy", postState["refundPolicy"]);
+    formData.append("position", postState["fullAddress"]);
+    formData.append("limit_people", postState["limitPeople"].toString());
+    formData.append("number_room", postState["numberRoom"].toString());
+    formData.append("number_bathroom", postState["numberBathroom"].toString());
+    formData.append("number_bedroom", postState["numberBedroom"].toString());
+    formData.append("price", postState["price"].replace(/,/gi, ""));
+    formData.append("school", userInfo.school);
     formData.append("accomodation_type", postState["accomodationType"]);
     formData.append("building_type", postState["buildingType"]);
-    formData.append("x_coordinate", String(postState["pos"][0]));
-    formData.append("y_coordinate", String(postState["pos"][1]));
+    formData.append("contract", "true"); // 계약 관련
+    formData.append("x_coordinate", postState["pos"][0].toString());
+    formData.append("y_coordinate", postState["pos"][1].toString());
     formData.append("city", "city");
     formData.append("gu", "gu");
     formData.append("dong", "dong");
+    formData.append("street_number", "37");
+    formData.append("post_code", "30");
     formData.append("street", "street");
-    formData.append("street_number", "streetNumber");
-    formData.append("post_code", "postCode");
-    formData.append("school", userInfo.school); // 사용자 정보에 따라서 해야함.
-    formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
-    formData.append("contract", String(true)); // 계약 관련
-    formData.append("description", "description"); // basic_info와 중복?
-    formData.append("extra_info", "extra_info"); // basic_info와 중복?
+    // 뭔가 개선이 가능해 보이긴하나..
+    // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
+
     // formData.append("content", "content"); // ?
     // formData.append("category", "category"); // ?
     // formData.append("post_date", (new Date()).toISOString());
@@ -944,7 +960,7 @@ export const PostUploadDialog = () => {
     });
 
     formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
+      // console.log(`${key}: ${value}`);
       if (
         value === "" ||
         value === null ||
@@ -963,7 +979,7 @@ export const PostUploadDialog = () => {
       alert("모든 정보를 입력해주세요.");
       return;
     }
-    formData.append("local_save", String(false));
+    formData.append("local_save", "false");
     FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
   };
 
@@ -1296,13 +1312,13 @@ export const PostEditDialog = (post: { post: Post }) => {
     formData.append("price", price.replace(/,/gi, ""));
     formData.append("basic_info", basicInfo);
     formData.append("benefit", benefit);
-    formData.append("end_day", new Date().toISOString());
+    formData.append("end_day", new Date().toString());
     // formData.append('min_duration', duration[0]);
     // formData.append('max_duration', duration[1]);
     // formData.append('position', fullAddress);
     // formData.append('refund_policy', refundPolicy);
     // formData.append('rule', rule);
-    // formData.append('start_day', (new Date()).toISOString());
+    // formData.append('start_day', (new Date()).toString());
     formData.append("limit_people", limitPeople.toString());
     formData.append("number_room", numberRoom.toString());
     formData.append("number_bathroom", numberBathroom.toString());
