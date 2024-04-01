@@ -9,7 +9,7 @@ import {
 } from "@shared/components/StaticComponents/StaticComponents";
 import { ChangeEvent, useState } from "react";
 import { FetchReservationPost } from "@shared/components/FetchList/FetchList";
-import { Reservation } from "@/@type/Type";
+import { Reservation } from "@type/Type";
 import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import {
   DisableButton,
