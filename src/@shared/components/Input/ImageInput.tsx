@@ -9,11 +9,9 @@ import { colors } from "@mui/material";
 import Image from "next/image";
 
 export const ImageUploadComponent = ({
-  key,
   imgIndex,
   setImage,
 }: {
-  key: number;
   imgIndex: number;
   setImage: (file: any, idx: number) => void;
 }) => {
@@ -40,7 +38,7 @@ export const ImageUploadComponent = ({
       {preview ? (
         <Image
           width={imgSize}
-          height={imgSize*0.75}
+          height={imgSize * 0.75}
           src={preview}
           alt="Image preview"
           onClick={handleClickImage}

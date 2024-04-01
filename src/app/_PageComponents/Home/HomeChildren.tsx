@@ -16,6 +16,7 @@ export const HomeChildren = ({
   preRoomsData: Post[];
 }) => {
   useTitle("ItHome | 딱 맞는 숙소를 찾아봐요.");
+
   const [roomsData, setRoomsData] = useState<Post[]>(initRoomsData);
   const [preRoomsData, setPreRoomsData] = useState<Post[]>(initPreRoomsData);
   const [listRoomAmount, setListRoomAmount] = useState(6);
