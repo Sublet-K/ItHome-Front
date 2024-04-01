@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 export const useUserLikeStore = create<{
   likePostId: { [key: number]: number };
   setLikePostId: Dispatch<SetStateAction<{ [key: number]: number }>>;
+  initFetchLikePostId: (newLikes: { [key: number]: number }) => void;
   resetLikePostId: () => void;
 }>()(
   persist(
@@ -23,6 +24,7 @@ export const useUserLikeStore = create<{
               ? newLikePostId(state.likePostId)
               : newLikePostId,
         })),
+      initFetchLikePostId: (newLikes) => set({ likePostId: newLikes }),
       resetLikePostId: () => set({ likePostId: {} }),
     }),
     {

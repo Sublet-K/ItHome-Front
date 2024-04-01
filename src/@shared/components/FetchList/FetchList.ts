@@ -518,6 +518,32 @@ const toggleLikes =
     }
   };
 
+async function FetchGetLikePosts( // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
+  setLikePosts: Dispatch<SetStateAction<Post[]>>
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
+  const json = await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => setLikePosts(res))
+    .catch(raiseError("FetchGetLikePosts"));
+}
+
+async function FetchLikePostsId(
+  initFetchLikePostId: (newLikes: { [key: number]: number }) => void
+): Promise<void> {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
+  await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => {
+      let newLikes: { [key: number]: number } = {};
+      res.forEach((item: { key: number }) => {
+        newLikes[item.key] = item.key;
+      });
+      initFetchLikePostId(newLikes);
+    })
+    .catch(raiseError("FetchLikePosts"));
+}
+
 export {
   FetchVerifyUser,
   FetchResetPassword,
@@ -547,4 +573,6 @@ export {
   toggleLikes,
   FetchSearchedPost,
   fetchMoreRoomsDefault,
+  FetchGetLikePosts,
+  FetchLikePostsId,
 };
