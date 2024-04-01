@@ -16,12 +16,13 @@ import SearchLocation from "./components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import * as hs from "./Header.styles";
 import SearchButton from "./components/SearchButton";
-
+import { useUserLikeStore } from "@store/UserLikeStore";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
   const [searchBoxContainerSize, setSearchBoxContainer] = useState(2);
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
+  const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const searchResults = SubletPostStore;
   // const location = useLocation();
@@ -83,7 +84,7 @@ const Header = () => {
               </IconButton>
               <button
                 onClick={() => {
-                  FetchLogout(resetUserInfo).then(() => {
+                  FetchLogout(resetUserInfo, resetLikePostId).then(() => {
                     // alert("로그아웃 성공");
                     // window.location.reload();
                   });

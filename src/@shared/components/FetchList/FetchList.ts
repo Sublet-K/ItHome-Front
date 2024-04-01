@@ -258,7 +258,10 @@ async function FetchLogin({
     .catch(raiseError("FetchLogin"));
 }
 
-async function FetchLogout(resetUserInfo: () => void) {
+async function FetchLogout(
+  resetUserInfo: () => void,
+  resetLikePostId: () => void
+) {
   await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
     headerOptions("POST")
@@ -267,6 +270,7 @@ async function FetchLogout(resetUserInfo: () => void) {
     .then((res) => {
       if (res.ok) {
         resetUserInfo();
+        resetLikePostId();
       }
     })
     .catch(raiseError("FetchLogout"));
