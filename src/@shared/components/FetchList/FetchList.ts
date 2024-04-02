@@ -9,11 +9,8 @@ import {
   notFoundError,
   raiseError,
 } from "../StaticComponents/StaticComponents";
-import { Reservation } from "../../../app/ReservationType";
-import { Room, RequestRoom } from "../../../app/RoomType";
-import { User, SignUpInfo, UserForm } from "../../../app/UserType";
-import { Post } from "@app/PostType";
-import { RequestForm } from "@app/RequestType";
+import { SignUpInfo, UserForm } from "../../../app/UserType";
+import { Post, RequestForm, Reservation } from "@type/Type";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -68,8 +65,31 @@ async function FetchChangePhone(phoneState: string) {
   );
 }
 
+async function fetchMoreRoomsDefault(
+  listRoomAmount: number,
+  listPageAmount: number,
+  roomsData: Post[],
+  preRoomsData: Post[],
+  setRoomsData: Dispatch<SetStateAction<Post[]>>,
+  setPreRoomsData: Dispatch<SetStateAction<Post[]>>,
+  setListPageAmount: Dispatch<SetStateAction<number>>
+) {
+  const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
+  fetch(GetURL)
+    .then(notFoundError)
+    .then((res) => setPreRoomsData(res))
+    .catch(raiseError("fetchMoreRoomsDefault"));
+  // 6개 저 보여주기 필요할 수도..?
+  if (preRoomsData.length !== 0) {
+    setRoomsData([...roomsData, ...preRoomsData]);
+    setPreRoomsData([]);
+  }
+  setListPageAmount(listPageAmount + 1);
+}
+
 // useEffect 삭제해봄, 바깥에서 한 번만 부르도록 감싸든가 하는 작업이 필요해 보임
 // 하나만 시범적으로 없애봤고, 나머지는 그대로 둠
+// 문제 생겨서 다시 임시적으로 useEffect 넣음 by ussr1285
 async function FetchGetPost(
   userId: string,
   setPostInfo: Dispatch<SetStateAction<Post[]>>
@@ -89,13 +109,41 @@ async function FetchGetPost(
   }, [userId]);
 }
 
-async function FetchUploadPost(formData: FormData) {
+async function FetchSearchedPost(
+  searchDate: [Date, Date],
+  searchLocation: [number, number],
+  priceRange: [number, number],
+  setPostInfo: (posts: Post[]) => void
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}`; // 위치 검색은 몇 km 반경 내 검색해주거나, 혹은 지역구로 검색하는 것으로 해야할 것으로 예상.
+  await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => {
+      setPostInfo(res);
+    })
+    .catch(raiseError("FetchSearchedPost"));
+}
+
+async function FetchUploadPost(
+  formData: FormData,
+  setPostPopUpState: () => void
+) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
+  // formData.forEach((value, key) => console.log(key, value));
+
   await fetch(URL, {
-    ...headerOptions("POST"),
-    ...formData,
+    // 건들지마세요. 리팩토링하지마세요. 할꺼면 디테일하게 by ussr1285
+    credentials: "include",
+    method: "POST",
+    body: formData,
   })
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        alert("게시물이 성공적으로 등록되었습니다.");
+        setPostPopUpState();
+      }
+    })
     .catch(raiseError("FetchUploadPost"));
 }
 
@@ -189,10 +237,12 @@ async function FetchLogin({
   id,
   password,
   setUserInfo,
+  initFetchLikePostId,
 }: {
   id: string;
   password: string;
   setUserInfo: (newUserInfo: any) => void;
+  initFetchLikePostId: (newLikes: { [key: number]: number }) => void;
 }) {
   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
@@ -205,12 +255,16 @@ async function FetchLogin({
     .then((res) => {
       if (res.ok) {
         FetchGetMyUser(setUserInfo);
+        FetchLikePostsId(initFetchLikePostId);
       }
     })
     .catch(raiseError("FetchLogin"));
 }
 
-async function FetchLogout(resetUserInfo: () => void) {
+async function FetchLogout(
+  resetUserInfo: () => void,
+  resetLikePostId: () => void
+) {
   await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
     headerOptions("POST")
@@ -219,6 +273,7 @@ async function FetchLogout(resetUserInfo: () => void) {
     .then((res) => {
       if (res.ok) {
         resetUserInfo();
+        resetLikePostId();
       }
     })
     .catch(raiseError("FetchLogout"));
@@ -312,7 +367,7 @@ async function FetchGetRequestByRequestId(
   setRequestInfo: Dispatch<SetStateAction<RequestForm[]>>
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/request/requestId`;
-
+  console.log("x", idList, setRequestInfo);
   const getRequestInfo = async () => {
     const json = await fetch(URL, {
       ...headerOptions("POST"),
@@ -435,13 +490,13 @@ async function FetchConverURLtoFile(id: string) {
 
 const toggleLikes =
   (
-    item: Room,
-    likes: { [key: number]: Room },
-    setLikes: Dispatch<SetStateAction<{ [key: number]: Room }>>
+    item: Post,
+    likes: { [key: number]: number },
+    setLikes: Dispatch<SetStateAction<{ [key: number]: number }>>
   ) =>
   () => {
     if (!(item.key in likes)) {
-      setLikes({ ...likes, [item.key]: item });
+      setLikes({ ...likes, [item.key]: item.key });
       fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/post/like", {
         ...headerOptions("POST"),
         body: JSON.stringify({
@@ -452,7 +507,7 @@ const toggleLikes =
       let newLikes: typeof likes = {};
       Object.keys(likes).map((newItem) => {
         const numNewItem = Number(newItem);
-        if (likes[numNewItem].key !== item.key) {
+        if (likes[numNewItem] !== item.key) {
           newLikes[numNewItem] = likes[numNewItem];
         }
       });
@@ -465,6 +520,32 @@ const toggleLikes =
       }); // .then(response => response.json()).then(data => console.log(data));
     }
   };
+
+async function FetchGetLikePosts( // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
+  setLikePosts: Dispatch<SetStateAction<Post[]>>
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
+  const json = await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => setLikePosts(res))
+    .catch(raiseError("FetchGetLikePosts"));
+}
+
+async function FetchLikePostsId(
+  initFetchLikePostId: (newLikes: { [key: number]: number }) => void
+): Promise<void> {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
+  await fetch(URL, headerOptions("GET"))
+    .then(notFoundError)
+    .then((res) => {
+      let newLikes: { [key: number]: number } = {};
+      res.forEach((item: { key: number }) => {
+        newLikes[item.key] = item.key;
+      });
+      initFetchLikePostId(newLikes);
+    })
+    .catch(raiseError("FetchLikePosts"));
+}
 
 export {
   FetchVerifyUser,
@@ -493,4 +574,8 @@ export {
   FetchEditPost,
   FetchConverURLtoFile,
   toggleLikes,
+  FetchSearchedPost,
+  fetchMoreRoomsDefault,
+  FetchGetLikePosts,
+  FetchLikePostsId,
 };

@@ -4,7 +4,7 @@ import {
 } from "@shared/components/Popup/Popup";
 import { DialogContent } from "@mui/material";
 import React from "react";
-import { RequestForm } from "@/app/RequestType";
+import { RequestForm } from "@/@type/Type";
 
 export const RequestDetailDialog = ({
   onChange,

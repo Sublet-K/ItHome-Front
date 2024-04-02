@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
-// import { PostUploadDialog } from '@shared/components/Popup/Popup';
+import { PostUploadDialog } from "@shared/components/Popup/Popup";
 
 import { RequestListComponent } from "./components/UserProfile/RequsetListComponent";
 import { UserPrivateComponent } from "./components/UserProfile/UserPrivateComponent";
@@ -17,24 +17,49 @@ function GuestInfo() {
   return (
     <Wrapper>
       <div
-        style={{ fontFamily: "Pretendard" }}
-        className="flex grid grid-cols-7"
+        style={{
+          fontFamily: "Pretendard",
+        }}
       >
-        <div className="ml-3 mt-5">
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
           <UserBaseComponent user={userInfo} />
+          <Horizon />
         </div>
 
-        <div className="mb-2 ml-7 col-span-6 mt-5 w-5/6">
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
           <ReservationInfo />
-          <Horizon className="my-y" />
-
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
           <UserPrivateComponent user={userInfo} />
-          <Horizon className="mt-4 md-2" />
-
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
           <PostListComponent userId={userInfo.user_id} />
           {/* <PostUploadDialog /> */}
-          <Horizon className="my-2" />
-
+          <Horizon />
+        </div>
+        <div
+          style={{
+            margin: "20px 0px 20px 0px",
+          }}
+        >
           <RequestListComponent />
         </div>
       </div>

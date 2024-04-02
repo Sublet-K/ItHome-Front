@@ -14,6 +14,7 @@ export type User = {
   // like_post_id: string[];
   email: string;
   phone: string;
+  smoking: boolean;
 };
 
 export type Post = {
@@ -54,6 +55,8 @@ export type Post = {
   like_count: number;
   like_user: User[];
   postuser: User;
+  requestIDs: string[];
+  gender_type: string;
 };
 
 export type RequestForm = {
@@ -84,6 +87,8 @@ export type Reservation = {
   r_start_day: Date | string;
   r_end_day: Date | string;
   pay: number;
+  reservation_progress: string;
+  move_in_instruction: string;
   user: User;
   post: Post;
 };

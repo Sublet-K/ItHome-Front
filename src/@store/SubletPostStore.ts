@@ -14,6 +14,7 @@ export const SubletPostStore = create<{
   clearPostAll: () => void;
   asyncGetPost: (page: number) => Promise<void>;
   asyncGetPostAll: () => Promise<void>;
+  setPosts: (posts: Post[]) => void;
 }>()((set) => ({
   post: [],
   postExist: false,
@@ -44,4 +45,5 @@ export const SubletPostStore = create<{
       nowPage++;
     }
   },
+  setPosts: (posts: Post[]) => set(() => ({ post: [...posts], postExist: true })),
 }));

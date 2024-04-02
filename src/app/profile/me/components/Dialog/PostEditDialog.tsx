@@ -1,4 +1,4 @@
-import { Post } from "@/app/PostType";
+import { Post } from "@/@type/Type";
 import { DialogForm, PostEditDialog } from "@shared/components/Popup/Popup";
 import { MouseEventHandler } from "react";
 

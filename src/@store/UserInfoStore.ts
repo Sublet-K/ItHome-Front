@@ -16,13 +16,14 @@ const defaultUserInfo = {
   school: "",
   id_card: false,
   chat_id: [],
-  like_post_id: [],
+  // like_post_id: [],
   verify_school: false,
   verify_email: false,
   verify_phone: false,
   birth: new Date(),
   student_id: 0,
   gender: "",
+  smoking: false,
 };
 
 export const useUserInfoStore = create<{
@@ -40,13 +41,14 @@ export const useUserInfoStore = create<{
     school: string;
     id_card: boolean;
     chat_id: string[];
-    like_post_id: string[];
+    // like_post_id: string[];
     verify_school: boolean;
     verify_email: boolean;
     verify_phone: boolean;
     birth: Date;
     student_id: number;
     gender: string;
+    smoking: false;
   };
   setUserInfo: (newUserInfo: typeof defaultUserInfo) => void;
   resetUserInfo: () => void;

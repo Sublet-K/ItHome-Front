@@ -1,21 +1,38 @@
 import { HomeLayout } from "@app/_PageComponents/Home/HomeLayout";
 import { HomeChildren } from "@app/_PageComponents/Home/HomeChildren";
 
+const headerOptions: (method: string, contentType?: string) => RequestInit = (
+  method: string,
+  contentType = "application/json"
+) => ({
+  credentials: "include",
+  method: method,
+  headers: {
+    "Content-Type": contentType,
+  },
+});
+
+async function fetchRoomsDefault(
+  listRoomAmount: number,
+  listPageAmount: number
+) {
+  const GetURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
+  const roomsData = fetch(GetURL, {
+    cache: "no-cache",
+    ...headerOptions("GET"),
+  }) // , { cache: "force-cache" } or , { ...headerOptions("GET") } FetchLists에 있는 headerOptions입니다.
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+  return roomsData;
+}
+
 export default async function Home() {
-  const getBackendURL = (listRoomAmount: number, listPageAmount: number) => {
-    console.log(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`
-    );
-    return `${process.env.NEXT_PUBLIC_BACKEND_URL}/post?maxPost=${listRoomAmount}&page=${listPageAmount}`;
-  };
+  const numRooms = 6;
 
-  const roomsData = await fetch(getBackendURL(6, 1), {
-    method: "GET",
-  }).then((res) => res.json());
-
-  const preRoomsData = await fetch(getBackendURL(6, 2), { method: "GET" }).then(
-    (res) => res.json()
-  );
+  let roomsData = await fetchRoomsDefault(numRooms, 1);
+  let preRoomsData = await fetchRoomsDefault(numRooms, 2);
 
   return (
     <HomeLayout>

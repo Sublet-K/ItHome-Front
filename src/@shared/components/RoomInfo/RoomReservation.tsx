@@ -1,7 +1,7 @@
 import * as RS from "@shared/styles/RoomInfo.styles";
 import * as s from "@shared/styles/Public.styles";
 
-import { getDateDiff } from "@shared/components/StaticComponents/StaticComponents.js";
+import { getDateDiff } from "@shared/components/StaticComponents/StaticComponents";
 import SearchDate from "@core/Header/Desktop/components/SearchDate";
 
 import type { Post } from "@type/Type";

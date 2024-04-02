@@ -7,7 +7,7 @@ import { RequestDeleteDialog } from "../Dialog/RequestDeleteDialog";
 import { RequestDetailDialog } from "../Dialog/RequestDetailDialog";
 import { RequestRespondDialog } from "../Dialog/RequestRespondDialog";
 import { MouseEventHandler, useState } from "react";
-import { RequestForm } from "@/app/RequestType";
+import { RequestForm } from "@/@type/Type";
 
 export function RequsetSummaryBlock({
   request,

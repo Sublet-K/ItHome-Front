@@ -10,11 +10,12 @@ import {
 } from "@shared/styles/Public.styles";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
 import { MouseEventHandler, useState } from "react";
-import { Room } from "@/app/RoomType";
-import { Post } from "@/app/PostType";
 import { useRouter } from "next/navigation";
 import { PostEditDialog } from "@shared/components/Popup/Popup";
 import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
+import Image from "next/image";
+import { Post } from "@/@type/Type";
 
 export function PostSummaryBlock({
   room,
@@ -83,31 +84,33 @@ export function PostSummaryBlock({
     // });
   };
   return (
-    <div className="flex grid grid-cols-5 mt-4 ml-4">
-      <div className="w-46 h-26">
-        <img className="object-cover rounded-lg" src={imageLink}></img>
+    <div className="border-solid border-2 rounded-lg hover:shadow-lg">
+      <div className="mt-4 flex justify-center items-center">
+        <Image
+          loader={() => imageLink}
+          src={imageLink}
+          className="rounded-lg"
+          width="256"
+          height="256"
+          alt="my profile"
+        />
       </div>
-      <div className="mb-2 ml-3 col-span-4">
-        <div className="inline-block">
-          <SecondHead className="float-start mr-4">
-            <a
-              href=""
-              onClick={() => {
-                MoveToRoomInfo({ room });
-              }}
-            >
-              {room.title}
-            </a>
-          </SecondHead>
-          {room.contract ? (
-            <StyleComponent content="VerifyRoom" />
-          ) : (
-            <StyleComponent content="UnverifyRoom" />
-          )}
-        </div>
+      <div className="ml-4">
+        <SecondHead>
+          <a
+            href=""
+            onClick={() => {
+              MoveToRoomInfo({ room });
+            }}
+          >
+            {room.title}
+          </a>
+        </SecondHead>
 
         <DetailParagraph>주소: {address}</DetailParagraph>
         <DetailParagraph>숙박료: {price}</DetailParagraph>
+      </div>
+      <div className="mb-2 ml-3 col-span-4">
         <div className="block">
           {guestMode && (
             <>
@@ -164,6 +167,7 @@ export function PostSummaryBlock({
               />
             </>
           )}
+          <div className="mt-4" />
         </div>
       </div>
     </div>

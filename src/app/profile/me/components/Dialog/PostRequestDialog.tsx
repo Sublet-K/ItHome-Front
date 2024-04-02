@@ -23,8 +23,9 @@ export function PostRequestDialog({
   const [requestInfo, setRequestInfo] = useState<RequestForm[]>(
     [] as RequestForm[]
   );
-
-  FetchGetRequestByRequestId(requestKey, setRequestInfo);
+  if (requestKey !== undefined) {
+    FetchGetRequestByRequestId(requestKey, setRequestInfo);
+  }
   return (
     <DialogForm
       openState={requestDialogShow}

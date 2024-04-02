@@ -23,7 +23,6 @@ export const BookPriceAndDate = ({
   return (
     <div>
       <SecondHead>기간 / 금액</SecondHead>
-      <Horizon />
 
       <PolicyText className="ml-2">
         {startDay} ~ {endDay} ({totalDay}일)
@@ -41,7 +40,6 @@ export const BookPriceAndDate = ({
             <PolicyText className="ml-2">
               * 28일이 넘는 경우에는 월마다 결제합니다.
             </PolicyText>
-            <Horizon />
           </div>
         )}
 
@@ -50,6 +48,7 @@ export const BookPriceAndDate = ({
           <p className="text-l text-[#2478F6]">{priceToString(totalPay)} 원</p>
         </JustifyBlock>
       </div>
+      <Horizon />
     </div>
   );
 };

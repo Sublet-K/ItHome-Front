@@ -1,17 +1,17 @@
-import { DialogForm } from '@shared/components/Popup/Popup';
-import { DialogContent } from '@mui/material';
-import { RequestByPostKeyInfo } from '../Info/RequestByPostKeyInfo';
+import { DialogForm } from "@shared/components/Popup/Popup";
+import { DialogContent } from "@mui/material";
+import { RequestByPostKeyInfo } from "../Info/RequestByPostKeyInfo";
 import React from "react";
-import { RequestForm } from "@/app/RequestType";
+import { RequestForm } from "@/@type/Type";
 
 export const RequestRespondDialog = ({
   respondPopUpState,
   onChange,
   request,
-}:{
-  respondPopUpState:boolean
-  onChange:React.MouseEventHandler<HTMLButtonElement>
-  request:RequestForm
+}: {
+  respondPopUpState: boolean;
+  onChange: React.MouseEventHandler<HTMLButtonElement>;
+  request: RequestForm;
 }) => {
   return (
     <DialogForm
@@ -21,13 +21,15 @@ export const RequestRespondDialog = ({
       render={() => (
         <label
           htmlFor="test"
-          className="block mb-2 text-sm font-medium text-gray-900 float-left">
+          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+        >
           test
         </label>
-      )}>
+      )}
+    >
       <DialogContent className="text-left">
-        {request.Post.length > 0 ? (
-          <RequestByPostKeyInfo Post={request.Post} />
+        {request.post.length > 0 ? (
+          <RequestByPostKeyInfo Post={request.post} />
         ) : (
           <p>아직 매칭이 되지 않았습니다.</p>
         )}

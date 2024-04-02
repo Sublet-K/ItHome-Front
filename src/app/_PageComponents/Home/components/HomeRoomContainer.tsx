@@ -3,8 +3,9 @@
 import styled from "styled-components";
 import { RoomProfile } from "./RoomProfile";
 
-import type { Room } from "@app/RoomType";
-import { Dispatch, SetStateAction, useState } from "react";
+import type { Post } from "@type/Type";
+import { useState } from "react";
+import { useUserLikeStore } from "@store/UserLikeStore";
 
 const Layout = styled.div`
   display: grid;
@@ -13,9 +14,9 @@ const Layout = styled.div`
   font-size: 1em;
 `;
 
-export const HomeRoomContainer = ({ roomsData }: { roomsData: Room[] }) => {
-  const [likes, setLikes] = useState<{ [key: number]: Room }>({});
-
+export const HomeRoomContainer = ({ roomsData }: { roomsData: Post[] }) => {
+  // const [likes, setLikes] = useState<{ [key: number]: Post }>({});
+  const { likePostId, setLikePostId } = useUserLikeStore();
   if (!roomsData) return <Layout></Layout>;
 
   return (
@@ -24,8 +25,8 @@ export const HomeRoomContainer = ({ roomsData }: { roomsData: Room[] }) => {
         <RoomProfile
           key={index}
           room={room}
-          likes={likes}
-          setLikes={setLikes}
+          likes={likePostId}
+          setLikes={setLikePostId}
         />
       ))}
     </Layout>
