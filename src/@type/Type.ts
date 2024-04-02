@@ -87,3 +87,21 @@ export type Reservation = {
   user: User;
   post: Post;
 };
+
+export type ChatRoom = {
+  id: string;
+  post_key: number;
+  user: User;
+  post: Post;
+  chat: ChatLog[];
+};
+
+export type ChatLog = {
+  id: string;
+  version: number;
+  user_id: string;
+  user: User;
+  chatroom_id: string;
+  message: string;
+  send_time: Date;
+};

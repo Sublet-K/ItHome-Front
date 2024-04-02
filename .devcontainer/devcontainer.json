@@ -23,7 +23,13 @@
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": ["esbenp.prettier-vscode", "mhutchie.git-graph"]
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "mhutchie.git-graph",
+        "yoavbls.pretty-ts-errors",
+        "usernamehw.errorlens",
+        "mongodb.mongodb-vscode"
+      ]
     }
   }
 
