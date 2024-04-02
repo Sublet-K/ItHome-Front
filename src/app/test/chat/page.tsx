@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { ChatStore } from "./_Store/ChatStore";
 import { socket } from "./socket";
 import Link from "next/link";
+import { ChatLog } from "@/@type/Type";
 
 export default function Chat() {
   const state = ChatStore();
@@ -16,6 +17,16 @@ export default function Chat() {
   useEffect(() => {
     state.setPost();
     state.setUser();
+
+    function receiveMessageHandler(chatlog: ChatLog) {
+      state.roomNewMessage(chatlog.chatroom_id);
+    }
+
+    socket.on("receive_message", receiveMessageHandler);
+
+    return () => {
+      socket.off("receive_message", receiveMessageHandler);
+    };
   }, []);
 
   return (
@@ -96,8 +107,12 @@ export default function Chat() {
           {state.chatRoom.chatAsUser.map((chatroom, idx) => {
             return (
               <li key={idx}>
-                <Link href={`/test/chat/${chatroom}`}>
-                  Go to chatroom: {chatroom}
+                <Link href={`/test/chat/${chatroom.room.id}`}>
+                  Go to chatroom: {chatroom.room.id} with:{" "}
+                  {chatroom.room.post.postuser.user_id}
+                  {chatroom.isNewMessage && (
+                    <span style={{ color: "red" }}>New Message!</span>
+                  )}
                 </Link>
               </li>
             );
@@ -110,8 +125,12 @@ export default function Chat() {
           {state.chatRoom.chatAsHost.map((chatroom, idx) => {
             return (
               <li key={idx}>
-                <Link href={`/test/chat/${chatroom}`}>
-                  Go to chatroom: {chatroom}
+                <Link href={`/test/chat/${chatroom.room.id}`}>
+                  Go to chatroom: {chatroom.room.id} with:{" "}
+                  {chatroom.room.user.user_id}{" "}
+                  {chatroom.isNewMessage && (
+                    <span style={{ color: "red" }}>New Message!</span>
+                  )}
                 </Link>
               </li>
             );
@@ -127,9 +146,10 @@ export default function Chat() {
                 {post.title} / {post.postuser.user_id}
                 <button
                   onClick={() => {
-                    socket.emit("join_chatroom", post.key, () => {
-                      console.log("join chatroom good");
-                    });
+                    if (socket)
+                      socket.emit("join_chatroom", post.key, () => {
+                        console.log("join chatroom good");
+                      });
                   }}
                 >
                   Make chatRoom!

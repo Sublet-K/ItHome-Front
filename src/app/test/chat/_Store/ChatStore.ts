@@ -4,8 +4,12 @@ import { Post } from "@type/Type";
 import { User } from "@type/Type";
 import { create } from "zustand";
 import { socket } from "../socket";
-import { io } from "socket.io-client";
-import { ChatRoom } from "@app/ChatType";
+import { ChatRoom } from "@type/Type";
+
+type ChatRoomClient = {
+  room: ChatRoom;
+  isNewMessage: boolean;
+};
 
 export const ChatStore = create<{
   user?: User;
@@ -21,7 +25,8 @@ export const ChatStore = create<{
   post: Post[];
   setPost: () => Promise<void>;
   uploadPost: (title: string) => Promise<void>;
-  chatRoom: { chatAsUser: string[]; chatAsHost: string[] };
+  chatRoom: { chatAsUser: ChatRoomClient[]; chatAsHost: ChatRoomClient[] };
+  roomNewMessage: (room_id: string) => void;
 }>()((set, get) => ({
   user: undefined,
   setUser: async () => {
@@ -33,14 +38,22 @@ export const ChatStore = create<{
     const data = await res.json();
     set({ user: data });
 
+    if (socket.connected) socket.disconnect();
+    socket.connect();
     socket.emit(
       "login",
-      (rooms: { roomsAsGuest: string[]; roomsAsHost: string[] }) => {
+      (rooms: { roomsAsGuest: ChatRoom[]; roomsAsHost: ChatRoom[] }) => {
         console.log("socket login result rooms=", rooms);
         set({
           chatRoom: {
-            chatAsUser: rooms.roomsAsGuest,
-            chatAsHost: rooms.roomsAsHost,
+            chatAsUser: rooms.roomsAsGuest.map((room) => ({
+              room: room,
+              isNewMessage: false,
+            })),
+            chatAsHost: rooms.roomsAsHost.map((room) => ({
+              room,
+              isNewMessage: false,
+            })),
           },
         });
       }
@@ -105,6 +118,7 @@ export const ChatStore = create<{
     console.log("res.ok(): ", res.ok);
     if (!res.ok) return;
     set({ user: undefined, chatRoom: { chatAsUser: [], chatAsHost: [] } });
+    socket.disconnect();
   },
   post: [],
   setPost: async () => {
@@ -180,4 +194,24 @@ export const ChatStore = create<{
     await get().setPost();
   },
   chatRoom: { chatAsUser: [], chatAsHost: [] },
+  roomNewMessage: (room_id: string) => {
+    const chatRoom = get().chatRoom;
+
+    set({
+      chatRoom: {
+        chatAsUser: chatRoom.chatAsUser.map((ele) => {
+          if (ele.room.id === room_id) {
+            ele.isNewMessage = true;
+          }
+          return ele;
+        }),
+        chatAsHost: chatRoom.chatAsHost.map((ele) => {
+          if (ele.room.id === room_id) {
+            ele.isNewMessage = true;
+          }
+          return ele;
+        }),
+      },
+    });
+  },
 }));

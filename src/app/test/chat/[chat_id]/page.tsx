@@ -10,6 +10,8 @@ export default function ChatRoom({ params }: { params: { chat_id: string } }) {
 
   useEffect(() => {
     console.log("hello!");
+    if (socket.connected) socket.disconnect();
+    socket.connect();
     socket.emit("login", () => {
       console.log("logined!");
     });
@@ -19,6 +21,7 @@ export default function ChatRoom({ params }: { params: { chat_id: string } }) {
       "get_chatlog",
       { room_id: params.chat_id },
       (logs: ChatLog[]) => {
+        console.log("logs got!");
         setChatlog(logs);
       }
     );
@@ -28,10 +31,17 @@ export default function ChatRoom({ params }: { params: { chat_id: string } }) {
       setChatlog((prev) => [...prev, chatlog]);
     }
 
+    function deleteMessageHandler({ id: chatlogId }: { id: string }) {
+      console.log("deleting meessage! id=", chatlogId);
+      setChatlog((prev) => prev.filter((log) => log.id !== chatlogId));
+    }
+
     socket.on("receive_message", receiveMessageHandler);
+    socket.on("delete_message", deleteMessageHandler);
 
     return () => {
       socket.off("receive_message", receiveMessageHandler);
+      socket.off("delete_message", deleteMessageHandler);
     };
   }, []);
 
@@ -41,7 +51,16 @@ export default function ChatRoom({ params }: { params: { chat_id: string } }) {
       <ul>
         {chatlog.map((log, idx) => (
           <li key={idx}>
-            {log.user.user_id}: {log.message}
+            {log.user.user_id}: {log.message}{" "}
+            <button
+              onClick={() => {
+                socket.emit("delete_message", { chat_id: log.id }, () => {
+                  console.log("delete successful");
+                });
+              }}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
