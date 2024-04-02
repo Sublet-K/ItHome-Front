@@ -98,8 +98,6 @@ export type ChatRoom = {
 
 export type ChatLog = {
   id: string;
-  version: number;
-  user_id: string;
   user: User;
   chatroom_id: string;
   message: string;
