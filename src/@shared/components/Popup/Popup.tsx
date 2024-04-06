@@ -71,12 +71,8 @@ import { useUserInfoStore } from "@store/UserInfoStore";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import Link from "next/link";
-<<<<<<< HEAD
-import { Post, RequestForm } from "@/@type/Type";
-import { LoginContent } from "../loginComponents/LoginContent";
-=======
 import { Post, RequestForm } from "@type/Type";
->>>>>>> 9291385e15585e54adde0be26da08ce8f3628ca1
+import { LoginContent } from "../loginComponents/LoginContent";
 
 export function DialogForm({
   name = "",
