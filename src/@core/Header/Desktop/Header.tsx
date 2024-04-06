@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, CSSProperties } from "react";
-import { Dialog, Popover } from "@headlessui/react";
+import { useState, useRef, useEffect } from "react";
 import { IconButton } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import SearchDate from "./components/SearchDate";
 import SearchPriceRange from "./components/SearchPriceRange";
 import { Favorite } from "@mui/icons-material";
@@ -12,18 +10,21 @@ import Link from "next/link";
 // import { useLocation } from "react-router-dom";
 import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
-
+import { SubletPostStore } from "@store/SubletPostStore";
 import Button from "@mui/material/Button";
 import SearchLocation from "./components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
-import { useRouter } from "next/navigation";
 import * as hs from "./Header.styles";
+import SearchButton from "./components/SearchButton";
+import { useUserLikeStore } from "@store/UserLikeStore";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
   const [searchBoxContainerSize, setSearchBoxContainer] = useState(2);
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
+  const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchResults = SubletPostStore;
   // const location = useLocation();
   // const router = useRouter();
 
@@ -39,14 +40,6 @@ const Header = () => {
       window.location.reload();
     } else {
       window.location.href = "/";
-    }
-  };
-
-  const doSearch = () => {
-    if (location.pathname === "/SearchSubletInfo") {
-      window.location.reload();
-    } else {
-      window.location.href = "/SearchSubletInfo";
     }
   };
 
@@ -69,12 +62,8 @@ const Header = () => {
         <hs.SearchBoxContainer className="lg:flex lg:gap-x-12">
           <SearchLocation />
           <SearchDate />
-          <IconButton className="font-semibold leading-6 text-gray-900">
-            <SearchPriceRange />
-          </IconButton>
-          <hs.SearchIconStyle>
-            <SearchIcon onClick={doSearch} />
-          </hs.SearchIconStyle>
+          <SearchPriceRange />
+          <SearchButton />
         </hs.SearchBoxContainer>
         <div className="lg:flex lg:flex-1 lg:justify-end">
           {userInfo.user_id ? (
@@ -95,7 +84,7 @@ const Header = () => {
               </IconButton>
               <button
                 onClick={() => {
-                  FetchLogout(resetUserInfo).then(() => {
+                  FetchLogout(resetUserInfo, resetLikePostId).then(() => {
                     // alert("로그아웃 성공");
                     // window.location.reload();
                   });

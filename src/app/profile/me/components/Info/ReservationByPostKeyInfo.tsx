@@ -16,7 +16,8 @@ import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
 import { ReservationInfo } from "./ReservationInfo";
 import { ReservationProgressInfo } from "./ReservationProgress";
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
-import { Reservation } from "@/@type/Type";
+import { Reservation } from "@type/Type";
+
 
 export function ReservationByPostKeyInfo({
   requestKey,

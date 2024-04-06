@@ -11,7 +11,8 @@ import {
 import { FetchGetPost } from "@shared/components/FetchList/FetchList";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
-import { Post } from "@/@type/Type";
+import { Post } from "@type/Type";
+import { PostUploadDialog } from "../Dialog/PostUploadDialog";
 
 function PostListComponent({
   userId,
@@ -23,9 +24,12 @@ function PostListComponent({
   const [postInfo, setPostInfo] = useState<Post[]>([]);
 
   FetchGetPost(userId, setPostInfo);
-  const { setPostPopUpState } = guestInfoPopUpStore((state) => ({
-    setPostPopUpState: state.setPostPopUpState,
-  }));
+  const { postPopUpState, setPostPopUpState } = guestInfoPopUpStore(
+    (state) => ({
+      postPopUpState: state.postPopUpState,
+      setPostPopUpState: state.setPostPopUpState,
+    })
+  );
 
   return (
     <div className="mb-4 mt-8">
@@ -56,6 +60,7 @@ function PostListComponent({
       ) : (
         <NormalText>올린 방이 아직 없습니다.</NormalText>
       )}
+      <PostUploadDialog />
     </div>
   );
 }
