@@ -7,6 +7,7 @@ import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
 
 import { Post } from "@type/Type";
 import { useTitle } from "../UseTitle";
+import { useUserInfoStore } from "@store/UserInfoStore";
 
 export const HomeChildren = ({
   roomsData: initRoomsData,
@@ -16,6 +17,7 @@ export const HomeChildren = ({
   preRoomsData: Post[];
 }) => {
   useTitle("ItHome | 딱 맞는 숙소를 찾아봐요.");
+  const { userInfo } = useUserInfoStore();
 
   const [roomsData, setRoomsData] = useState<Post[]>(initRoomsData);
   const [preRoomsData, setPreRoomsData] = useState<Post[]>(initPreRoomsData);
@@ -24,7 +26,7 @@ export const HomeChildren = ({
 
   return (
     <>
-      <HomeTopButtonContainer />
+      <HomeTopButtonContainer isLogined={userInfo.id != undefined} />
       <HomeRoomContainer roomsData={roomsData} />
       <HomeMoreRoomButton
         listRoomAmount={listRoomAmount}

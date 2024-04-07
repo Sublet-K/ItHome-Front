@@ -11,7 +11,11 @@ const Layout = styled.div`
   gap: 0.5rem;
 `;
 
-export const HomeTopButtonContainer = () => (
+export const HomeTopButtonContainer = ({
+  isLogined,
+}: {
+  isLogined: boolean;
+}) => (
   <Layout>
     <NormalButton>
       <Link href="/Request">요청서 제출하기</Link>
