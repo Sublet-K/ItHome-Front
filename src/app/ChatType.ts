@@ -4,8 +4,7 @@ import { User } from "./UserType";
 export type ChatRoom = {
   id: string;
   version: number;
-  user_id: string[];
-  user: User[];
+  user: User;
   post_key: number;
   post: Post;
   Chat: Chat[];
@@ -14,7 +13,6 @@ export type ChatRoom = {
 export type Chat = {
   id: string;
   version: number;
-  user_id: string;
   user: User;
   chatroom_id: string;
   chatroom: ChatRoom;
