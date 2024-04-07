@@ -172,8 +172,8 @@ export const PostUploadDialog = () => {
     setPostState({ ...postState, imageFiles: newImages });
   };
 
-  const hadnleStartEndDay = (date1: Date, date2: Date) => {
-    setPostState({ ...postState, startEndDay: [date1, date2] });
+  const handleStartEndDay = (date: [Date, Date]) => {
+    setPostState({ ...postState, startEndDay: date });
   };
 
   const handleDuration = (event: Event, newValue: number[]) => {
@@ -363,7 +363,7 @@ export const PostUploadDialog = () => {
               <p>게시 날짜</p>
               <DoubleDatePicker
                 dateData={postState["startEndDay"]}
-                setDateData={hadnleStartEndDay}
+                setDateData={handleStartEndDay}
               />
 
               <InputInteger

@@ -111,11 +111,32 @@ async function FetchGetPost(
 
 async function FetchSearchedPost(
   searchDate: [Date, Date],
-  searchLocation: [number, number],
+  searchLocation: {
+    city: string;
+    gu: string;
+  },
   priceRange: [number, number],
   setPosts: (posts: Post[]) => void
 ) {
-  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}`; // 위치 검색은 몇 km 반경 내 검색해주거나, 혹은 지역구로 검색하는 것으로 해야할 것으로 예상.
+  let URL = "";
+  if (
+    searchLocation.city === "모두" ||
+    searchLocation.city === "" ||
+    searchLocation.gu === ""
+  ) {
+    URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${
+      searchDate[0]
+    }&toDate=${searchDate[1]}&fromPrice=${Math.floor(
+      priceRange[0] / 30
+    )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
+  } else {
+    URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${
+      searchDate[0]
+    }&toDate=${searchDate[1]}&fromPrice=${Math.floor(
+      priceRange[0] / 30
+    )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
+  }
+
   await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
     .then((res) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SearchIcon from "@mui/icons-material/Search";
+import { useSearchKeyword } from "@core/Header/store/SearchKeywordStore";
 
 const SearchContainer = styled.div`
   display: flex;
@@ -20,27 +20,21 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const StyledSearchIcon = styled(SearchIcon)`
-  color: #606060;
-  width: 24px;
-`;
-
 export const SearchKeyword = ({
   placeholder = "검색 키워드를 입력하세요.",
 }) => {
-  const [query, setQuery] = useState("");
+  const { searchKeyword, setSearchKeyword } = useSearchKeyword();
 
   const handleChange = (e: any) => {
-    setQuery(e.target.value);
+    setSearchKeyword(e.target.value);
   };
 
   return (
     <SearchContainer>
-      {/*<StyledSearchIcon />*/}
       <Input
         type="text"
         placeholder={placeholder}
-        value={query}
+        value={searchKeyword}
         onChange={handleChange}
       />
     </SearchContainer>

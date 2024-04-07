@@ -18,7 +18,7 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
       : 0}px;
   left: ${({ buttonref }) =>
     buttonref.current ? buttonref.current.offsetLeft : 0}px;
-  padding: 2em 1em 0 1em;
+  padding: 1.5em 1em 0 1em;
   z-index: 101;
   justify-content: center;
 `;

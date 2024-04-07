@@ -1,4 +1,5 @@
 const AdministrativeDistricts = {
+  모두: ["전부 검색"],
   서울특별시: [
     "강남구",
     "강동구",

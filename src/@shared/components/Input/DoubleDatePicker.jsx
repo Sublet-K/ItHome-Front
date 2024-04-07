@@ -14,9 +14,9 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
           onChange={(newDate) => {
             if (!newDate) return;
             if (newDate.$d > dateData[1]) {
-              setDateData(newDate.$d, newDate.$d);
+              setDateData([newDate.$d, newDate.$d]);
             } else {
-              setDateData(newDate.$d, dateData[1]);
+              setDateData([newDate.$d, dateData[1]]);
             }
           }}
         />
@@ -29,9 +29,9 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
           onChange={(newDate) => {
             if (!newDate) return;
             if (dateData[0] > newDate.$d) {
-              setDateData(newDate.$d, newDate.$d);
+              setDateData([newDate.$d, newDate.$d]);
             } else {
-              setDateData(dateData[0], newDate.$d);
+              setDateData([dateData[0], newDate.$d]);
             }
           }}
         />

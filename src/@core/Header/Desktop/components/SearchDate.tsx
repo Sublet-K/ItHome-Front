@@ -17,7 +17,7 @@ const SearchDate = () => {
     searchDate: [Date, Date];
     setSearchDate: (a: Date, b: Date) => void;
   } = useSearchDateStore(); // useState([null, null]); // [start, end]
-  const [tempSearchDate, setTempSearchDate] = useState([] as [Date, Date]);
+  const [tempSearchDate, setTempSearchDate] = useState(searchDate);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
@@ -31,7 +31,7 @@ const SearchDate = () => {
         : 0}px;
     left: ${({ buttonref }) =>
       buttonref.current ? buttonref.current.offsetLeft : 0}px;
-    padding: 2em 1em 0 1em;
+    padding: 1.5em 1em 0 1em;
     z-index: 101;
     justify-content: center;
   `;
@@ -71,7 +71,7 @@ const SearchDate = () => {
         <Popup buttonref={buttonRef}>
           <Layout>
             <DoubleDatePicker
-              dateData={searchDate}
+              dateData={tempSearchDate}
               setDateData={setTempSearchDate}
             />
           </Layout>

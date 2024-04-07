@@ -11,7 +11,7 @@ export const useSearchLocationStore = create<{
   persist(
     (set, get) => ({
       searchLocation: {
-        city: "",
+        city: "모두",
         gu: "",
       },
       // dong: string,
