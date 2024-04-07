@@ -9,6 +9,8 @@ export const HeaderContainer = styled.nav`
   display: flex;
   flex-direction: space-between;
   align-items: center;
+  margin-left: 10rem;
+  margin-right: 10rem;
 `;
 
 export const LogoContainer = styled.div`

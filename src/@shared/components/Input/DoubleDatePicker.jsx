@@ -8,6 +8,7 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
       <span>
+        입주 가능일 시작:
         <DatePicker
           value={dayjs(dateData[0])}
           onChange={(newDate) => {
@@ -20,8 +21,9 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
           }}
         />
       </span>
-      <p>~</p>
+      <p></p>
       <span>
+        입주 가능일 끝:
         <DatePicker
           value={dayjs(dateData[1])}
           onChange={(newDate) => {
