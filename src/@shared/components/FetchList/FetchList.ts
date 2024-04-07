@@ -113,13 +113,13 @@ async function FetchSearchedPost(
   searchDate: [Date, Date],
   searchLocation: [number, number],
   priceRange: [number, number],
-  setPostInfo: (posts: Post[]) => void
+  setPosts: (posts: Post[]) => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}`; // 위치 검색은 몇 km 반경 내 검색해주거나, 혹은 지역구로 검색하는 것으로 해야할 것으로 예상.
   await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
     .then((res) => {
-      setPostInfo(res);
+      setPosts(res);
     })
     .catch(raiseError("FetchSearchedPost"));
 }
@@ -132,7 +132,7 @@ async function FetchUploadPost(
   // formData.forEach((value, key) => console.log(key, value));
 
   await fetch(URL, {
-    // 건들지마세요. 리팩토링하지마세요. 할꺼면 디테일하게 by ussr1285
+    // 리팩토링 전 연락 바람. by ussr1285
     credentials: "include",
     method: "POST",
     body: formData,
