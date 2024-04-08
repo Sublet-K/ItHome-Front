@@ -21,6 +21,7 @@ import { ReservationInformationBlock } from "@shared/components/ReservationProgr
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import { Reservation } from "@/@type/Type";
 import { ReservationDetailDialog } from "../Dialog/ReservationDetailDialog";
+import { NormalImage } from "@shared/components/Image/Image";
 
 export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   const [popupState, setpopupState] = useState(false);
@@ -47,16 +48,8 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   return (
     <div className="border-solid border-2 rounded-lg hover:shadow-lg">
       <div className="mt-4 flex justify-center items-center">
-        <Image
-          loader={() => imageLink}
-          src={imageLink}
-          className="rounded-lg"
-          width="256"
-          height="256"
-          alt="my profile"
-        />
+        <NormalImage imageLink={imageLink} />
       </div>
-
       <div className="ml-4">
         <SecondHead>
           <a
