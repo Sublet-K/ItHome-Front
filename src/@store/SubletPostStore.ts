@@ -45,5 +45,6 @@ export const SubletPostStore = create<{
       nowPage++;
     }
   },
-  setPosts: (posts: Post[]) => set(() => ({ post: [...posts], postExist: true })),
+  setPosts: (posts: Post[]) =>
+    set(() => ({ post: [...posts], postExist: true })),
 }));

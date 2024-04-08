@@ -9,6 +9,8 @@ export const HeaderContainer = styled.nav`
   display: flex;
   flex-direction: space-between;
   align-items: center;
+  margin-left: 10rem;
+  margin-right: 10rem;
 `;
 
 export const LogoContainer = styled.div`
@@ -86,6 +88,7 @@ export const FavoriteCount = styled.div`
 
 export const Profile = styled.div`
   color: rgba(0, 0, 0, 1);
+  margin-left: 1.5em;
 `;
 
 /*

@@ -11,12 +11,12 @@ import Link from "next/link";
 import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import Button from "@mui/material/Button";
 import SearchLocation from "./components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import * as hs from "./Header.styles";
 import SearchButton from "./components/SearchButton";
 import { useUserLikeStore } from "@store/UserLikeStore";
+import { SearchKeyword } from "./components/SearchKeyword";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
@@ -46,7 +46,7 @@ const Header = () => {
   return (
     <hs.Container className="bg-white">
       <hs.HeaderContainer
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -63,6 +63,7 @@ const Header = () => {
           <SearchLocation />
           <SearchDate />
           <SearchPriceRange />
+          <SearchKeyword />
           <SearchButton />
         </hs.SearchBoxContainer>
         <div className="lg:flex lg:flex-1 lg:justify-end">

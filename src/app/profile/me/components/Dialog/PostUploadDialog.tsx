@@ -61,10 +61,10 @@ export const PostUploadDialog = () => {
     benefit: "혜택",
     refundPolicy: "환불정책",
     contract: "계약", // ?
+    gender_type: "모두", // 성별
   });
 
   const onChange = (e: any) => {
-    // 너무 다양해서 any로 일단 해놓음.
     setPostState({ ...postState, [e.target.name]: e.target.value });
   };
 
@@ -126,6 +126,7 @@ export const PostUploadDialog = () => {
     formData.append("street_number", "37");
     formData.append("post_code", "30");
     formData.append("street", "street");
+    formData.append("gender_type", postState["gender_type"]);
     // 뭔가 개선이 가능해 보이긴하나..
     // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
 
@@ -171,8 +172,8 @@ export const PostUploadDialog = () => {
     setPostState({ ...postState, imageFiles: newImages });
   };
 
-  const hadnleStartEndDay = (date1: Date, date2: Date) => {
-    setPostState({ ...postState, startEndDay: [date1, date2] });
+  const handleStartEndDay = (date: [Date, Date]) => {
+    setPostState({ ...postState, startEndDay: date });
   };
 
   const handleDuration = (event: Event, newValue: number[]) => {
@@ -362,7 +363,7 @@ export const PostUploadDialog = () => {
               <p>게시 날짜</p>
               <DoubleDatePicker
                 dateData={postState["startEndDay"]}
-                setDateData={hadnleStartEndDay}
+                setDateData={handleStartEndDay}
               />
 
               <InputInteger
@@ -393,6 +394,19 @@ export const PostUploadDialog = () => {
                 onChange={handleDuration}
                 minMax={[1, 730]}
               /> */}
+            </p>
+
+            <p style={psd.gridStyle.inputContainer}>
+              <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
+              <DropBoxSelect
+                name="gender_type"
+                state={postState["gender_type"]}
+                onChange={onChange}
+                labelName="성별"
+                labelId="gender_type"
+                id="gender_type"
+                menuItems={["모두", "여", "남"]}
+              />
             </p>
 
             <p style={psd.gridStyle.inputContainer}>
