@@ -16,6 +16,7 @@ import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import Image from "next/image";
 import { Post } from "@/@type/Type";
+import { NormalImage } from "@shared/components/Image/Image";
 
 export function PostSummaryBlock({
   room,
@@ -86,14 +87,7 @@ export function PostSummaryBlock({
   return (
     <div className="border-solid border-2 rounded-lg hover:shadow-lg">
       <div className="mt-4 flex justify-center items-center">
-        <Image
-          loader={() => imageLink}
-          src={imageLink}
-          className="rounded-lg"
-          width="256"
-          height="256"
-          alt="my profile"
-        />
+        <NormalImage imageLink={imageLink} altContent={"Post Image"} />
       </div>
       <div className="ml-4">
         <SecondHead>

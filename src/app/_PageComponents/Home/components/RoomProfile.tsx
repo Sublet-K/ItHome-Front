@@ -2,11 +2,12 @@ import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { toggleLikes } from "@shared/components/FetchList/FetchList";
 import { RoomSpan } from "./RoomSpan";
-import { Image } from "@shared/styles/Public.styles";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
+import Image from "next/image";
+import { NormalImage } from "@shared/components/Image/Image";
 
 export const RoomProfile = ({
   room,
@@ -30,6 +31,7 @@ export const RoomProfile = ({
     flex-direction: row;
     justify-content: space-between;
   `;
+  const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.image_id[0]}.jpg`;
 
   const router = useRouter();
   const moveToRoomInfo = ({ room }: { room: Post }) => {
@@ -41,10 +43,7 @@ export const RoomProfile = ({
   return (
     <Container>
       <IconButton onClick={() => moveToRoomInfo({ room })}>
-        <Image
-          src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.image_id[0]}.jpg`}
-          alt="Room image"
-        />
+        <NormalImage imageLink={imageLink} altContent="Room image" />
       </IconButton>
       <RoomTitleAndLike>
         <RoomSpan room={room} />
