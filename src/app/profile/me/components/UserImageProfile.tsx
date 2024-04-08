@@ -12,6 +12,7 @@ import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useState } from "react";
 import { StrongVerifyUserDialog } from "./Dialog/StrongVerfifyUserDialog";
 import Image from "next/image";
+import { NormalImage } from "@shared/components/Image/Image";
 export function UserBaseComponent({ user }: { user: UserForm }) {
   const frame = verifyFrame(user);
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
@@ -26,14 +27,7 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
     <div>
       <div className="flex justify-center items-center">
         <ImageUploadButton onClick={setImagePopUpState}>
-          <Image
-            loader={() => imageLink}
-            src={imageLink}
-            className="justify-center rounded-lg"
-            width="256"
-            height="256"
-            alt="my profile"
-          />
+          <NormalImage imageLink={imageLink} altContent={"user profile"} />
         </ImageUploadButton>
       </div>
       <ImageDialog />
