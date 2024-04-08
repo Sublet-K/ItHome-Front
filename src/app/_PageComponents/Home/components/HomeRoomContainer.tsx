@@ -15,7 +15,6 @@ const Layout = styled.div`
 `;
 
 export const HomeRoomContainer = ({ roomsData }: { roomsData: Post[] }) => {
-  // const [likes, setLikes] = useState<{ [key: number]: Post }>({});
   const { likePostId, setLikePostId } = useUserLikeStore();
   if (!roomsData) return <Layout></Layout>;
 

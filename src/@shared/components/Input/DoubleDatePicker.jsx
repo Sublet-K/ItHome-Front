@@ -8,28 +8,30 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
       <span>
+        입주 가능일 시작:
         <DatePicker
           value={dayjs(dateData[0])}
           onChange={(newDate) => {
             if (!newDate) return;
             if (newDate.$d > dateData[1]) {
-              setDateData(newDate.$d, newDate.$d);
+              setDateData([newDate.$d, newDate.$d]);
             } else {
-              setDateData(newDate.$d, dateData[1]);
+              setDateData([newDate.$d, dateData[1]]);
             }
           }}
         />
       </span>
-      <p>~</p>
+      <p></p>
       <span>
+        입주 가능일 끝:
         <DatePicker
           value={dayjs(dateData[1])}
           onChange={(newDate) => {
             if (!newDate) return;
             if (dateData[0] > newDate.$d) {
-              setDateData(newDate.$d, newDate.$d);
+              setDateData([newDate.$d, newDate.$d]);
             } else {
-              setDateData(dateData[0], newDate.$d);
+              setDateData([dateData[0], newDate.$d]);
             }
           }}
         />
