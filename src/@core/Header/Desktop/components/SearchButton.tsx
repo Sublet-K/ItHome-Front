@@ -1,6 +1,6 @@
 import * as hs from "../Header.styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { FetchSearchedPost } from "@shared/components/FetchList/FetchList";
+import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
@@ -10,11 +10,9 @@ const SearchButton = () => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();
-  const { setPosts } = SubletPostStore((state) => ({
-    setPosts: state.setPosts,
-  }));
+  const { setPosts } = SubletPostStore();
   const doSearch = () => {
-    FetchSearchedPost(searchDate, searchLocation, priceRange, setPosts).then(
+    FetchSearchPost(searchDate, searchLocation, priceRange, setPosts).then(
       () => {
         if (location.pathname === "/SearchSubletInfo") {
           window.location.reload();

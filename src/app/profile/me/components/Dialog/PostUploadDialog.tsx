@@ -22,6 +22,7 @@ import * as s from "@shared/styles/Public.styles";
 import * as psd from "@shared/styles/PostUploadDialog.styles";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
+import DistrictSelector from "@shared/components/Input/DistrictSelector";
 
 export const PostUploadDialog = () => {
   const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
@@ -61,7 +62,7 @@ export const PostUploadDialog = () => {
     benefit: "혜택",
     refundPolicy: "환불정책",
     contract: "계약", // ?
-    gender_type: "모두", // 성별
+    genderType: "모두", // 성별
   });
 
   const onChange = (e: any) => {
@@ -120,13 +121,13 @@ export const PostUploadDialog = () => {
     formData.append("contract", "true"); // 계약 관련
     formData.append("x_coordinate", postState["pos"][0].toString());
     formData.append("y_coordinate", postState["pos"][1].toString());
-    formData.append("city", "city");
-    formData.append("gu", "gu");
-    formData.append("dong", "dong");
-    formData.append("street_number", "37");
-    formData.append("post_code", "30");
+    formData.append("city", postState["city"]);
+    formData.append("gu", postState["gu"]);
+    formData.append("dong", postState["dong"]);
+    formData.append("street_number", postState["streetNumber"]);
+    formData.append("post_code", postState["postCode"]);
     formData.append("street", "street");
-    formData.append("gender_type", postState["gender_type"]);
+    formData.append("gender_type", postState["genderType"]);
     // 뭔가 개선이 가능해 보이긴하나..
     // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
 
@@ -302,53 +303,55 @@ export const PostUploadDialog = () => {
                   handleState={handleFullAddress}
                   required={true}
                 /> */}
-              {/* <TextInputTag
-                  id="city"
-                  label="시"
-                  placeholder="시를 입력해주세요."
-                  handleState={handleCity}
-                  required={true}
-                />
-                <TextInputTag
-                  id="gu"
-                  label="구"
-                  placeholder="구를 입력해주세요."
-                  handleState={handleGu}
-                  required={true}
-                />
-                <TextInputTag
-                  id="dong"
-                  label="동"
-                  placeholder="동을 입력해주세요."
-                  handleState={handleDong}
-                  required={true}
-                />
-                <TextInputTag
-                  id="street"
-                  label="길"
-                  placeholder="길을 입력해주세요."
-                  handleState={handleStreet}
-                  required={true}
-                />
-                <TextInputTag
-                  id="street_number"
-                  label="번지"
-                  placeholder="번지를 입력해주세요."
-                  handleState={handleStreetNumber}
-                  required={true}
-                />
-                <TextInputTag
-                  id="post_code"
-                  label="우편번호"
-                  placeholder="우편번호를 입력해주세요."
-                  handleState={handlePostCode}
-                  required={true}
-                />
-                <Map
-                  type="searchByMarker"
-                  currentPos={pos}
-                  setPos={setPos}
-                />   */}
+              <DistrictSelector
+                districtsData={{ city: postState["city"], gu: postState["gu"] }}
+                onChange={onChange}
+              />
+              <TextInputTag
+                id="city"
+                label="시"
+                placeholder="시/도를 입력해주세요."
+                value={postState["title"]}
+                name="title"
+                onChange={onChange}
+                required={true}
+              />
+              <TextInputTag
+                id="dong"
+                label="동"
+                placeholder="동을 입력해주세요."
+                value={postState["dong"]}
+                name="dong"
+                onChange={onChange}
+                required={true}
+              />
+              <TextInputTag
+                id="street"
+                label="길"
+                placeholder="길을 입력해주세요."
+                value={postState["street"]}
+                name="street"
+                onChange={onChange}
+                required={true}
+              />
+              <TextInputTag
+                id="streetNumber"
+                label="번지"
+                placeholder="번지를 입력해주세요."
+                value={postState["streetNumber"]}
+                name="streetNumber"
+                onChange={onChange}
+                required={true}
+              />
+              <TextInputTag
+                id="postCode"
+                label="우편번호"
+                placeholder="우편번호를 입력해주세요."
+                value={postState["postCode"]}
+                name="postCode"
+                onChange={onChange}
+                required={true}
+              />
               <LocationInput
                 pos={postState["pos"] as [number, number]}
                 currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
@@ -399,12 +402,12 @@ export const PostUploadDialog = () => {
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
               <DropBoxSelect
-                name="gender_type"
-                state={postState["gender_type"]}
+                name="genderType"
+                state={postState["genderType"]}
                 onChange={onChange}
                 labelName="성별"
-                labelId="gender_type"
-                id="gender_type"
+                labelId="genderType"
+                id="genderType"
                 menuItems={["모두", "여", "남"]}
               />
             </p>
