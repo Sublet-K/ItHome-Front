@@ -22,7 +22,7 @@ const DropBoxSelect = ({
   id: string;
   menuItems: string[];
 }) => {
-  return (
+  return menuItems ? (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id={labelId}>{labelName}</InputLabel>
@@ -40,6 +40,20 @@ const DropBoxSelect = ({
             </MenuItem>
           ))}
         </Select>
+      </FormControl>
+    </Box>
+  ) : (
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id={labelId}>{labelName}</InputLabel>
+        <Select
+          name={name}
+          labelId={labelId}
+          id={id}
+          value={state}
+          label={labelName}
+          onChange={onChange}
+        ></Select>
       </FormControl>
     </Box>
   );
