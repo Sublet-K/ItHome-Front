@@ -22,7 +22,9 @@ import * as s from "@shared/styles/Public.styles";
 import * as psd from "@shared/styles/PostUploadDialog.styles";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
-import DistrictSelector from "@shared/components/Input/DistrictSelector";
+import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
+
+const cities = Object.keys(AdministrativeDistricts) as string[];
 
 export const PostUploadDialog = () => {
   const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
@@ -303,9 +305,33 @@ export const PostUploadDialog = () => {
                   handleState={handleFullAddress}
                   required={true}
                 /> */}
-              <DistrictSelector
-                districtsData={{ city: postState["city"], gu: postState["gu"] }}
+              시/도
+              <DropBoxSelect
+                name="city"
+                state={postState["city"]}
                 onChange={onChange}
+                labelName="시/도"
+                labelId="city"
+                id="city"
+                menuItems={cities}
+              />
+              구/시/군/면
+              <DropBoxSelect
+                name="gu"
+                state={postState["gu"]}
+                onChange={onChange}
+                labelName="구/시/군/면"
+                labelId="gu"
+                id="gu"
+                menuItems={
+                  postState["city"]
+                    ? AdministrativeDistricts[
+                        postState[
+                          "city"
+                        ] as keyof typeof AdministrativeDistricts
+                      ]
+                    : ["시/군을 먼저 선택해주세요"]
+                }
               />
               <TextInputTag
                 id="city"

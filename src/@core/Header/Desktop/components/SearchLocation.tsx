@@ -4,7 +4,8 @@ import { useSearchLocationStore } from "../../store/SearchLocationStore";
 import * as headerStyle from "@shared/styles/Header.styles";
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
-import DistrictSelector from "@shared/components/Input/DistrictSelector";
+import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
+import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
@@ -22,11 +23,20 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   justify-content: center;
 `;
 
+const Layout = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
 const SearchLocation = () => {
   const { searchLocation, setSearchLocation } = useSearchLocationStore();
   const [tempPos, setTempPos] = useState(searchLocation); // 실제 값은 priceRange에 저장 // 추후 위치 기반으로 초기화.
   const [isListVisible, setIsListVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const cities = Object.keys(AdministrativeDistricts) as string[];
 
   const togglePosFilter = () => {
     setIsListVisible(!isListVisible);
@@ -56,7 +66,34 @@ const SearchLocation = () => {
       </IconButton>
       {isListVisible && (
         <Popup buttonref={buttonRef}>
-          <DistrictSelector districtsData={tempPos} onChange={onChange} />
+          <Layout>
+            시/도
+            <DropBoxSelect
+              name="city"
+              state={tempPos["city"]}
+              onChange={onChange}
+              labelName="시/도"
+              labelId="city"
+              id="city"
+              menuItems={cities}
+            />
+            구/시/군/면
+            <DropBoxSelect
+              name="gu"
+              state={tempPos["gu"]}
+              onChange={onChange}
+              labelName="구/시/군/면"
+              labelId="gu"
+              id="gu"
+              menuItems={
+                tempPos["city"]
+                  ? (AdministrativeDistricts as { [key: string]: string[] })[
+                      tempPos["city"]
+                    ]
+                  : ["시/군을 먼저 선택해주세요"]
+              }
+            />
+          </Layout>
           <headerStyle.acceptOrCancleButton>
             <button onClick={handleSubmit}>적용</button>
             <button onClick={handleCancel}>취소</button>
