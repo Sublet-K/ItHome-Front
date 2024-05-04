@@ -61,21 +61,9 @@ export type Post = {
 
 export type RequestForm = {
   key: number;
-  limit_people: number;
-  number_room: number;
-  number_bathroom: number;
-  number_bedroom: number;
   price: number;
-  city: string;
-  gu: string;
-  dong: string;
   start_day: string | Date;
   end_day: string | Date;
-  accomodation_type: string;
-  building_type: string;
-  school: string;
-  alarm: boolean;
-  contract: boolean;
   complete: boolean;
   request_text: string;
   user: User;

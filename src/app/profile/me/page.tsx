@@ -60,7 +60,7 @@ function GuestInfo() {
             margin: "20px 0px 20px 0px",
           }}
         >
-          <RequestListComponent />
+          {/* <RequestListComponent /> */}
         </div>
       </div>
     </Wrapper>

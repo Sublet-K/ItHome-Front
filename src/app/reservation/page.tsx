@@ -1,21 +1,13 @@
 "use client";
 import { BookPriceAndDate } from "./Components/Info/BookPriceAndDate";
 import { BookRefundRule } from "./Components/Info/BookRefundRule";
-import { BookPaymentMethod } from "./Components/Info/BookPaymentMethod";
-import { useTitle } from "@shared/components/hook/HookCollect";
 import {
   CalulateDate,
   getDateDiff,
 } from "@shared/components/StaticComponents/StaticComponents";
-import { ChangeEvent, useState } from "react";
 import { FetchReservationPost } from "@shared/components/FetchList/FetchList";
-import { Reservation } from "@type/Type";
 import { bookingPopUpStore } from "@store/BookingPopUpStore";
-import {
-  DisableButton,
-  NormalButton,
-  Wrapper,
-} from "@shared/styles/Public.styles";
+import { NormalButton, Wrapper } from "@shared/styles/Public.styles";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { LoginContent } from "@shared/components/loginComponents/LoginContent";
 
@@ -41,14 +33,9 @@ export default function Booking(userId: string) {
       reservation.pay
     );
   };
+
   const totalRefundDate = CalulateDate(startDay, -7);
   const partRefundDate = CalulateDate(startDay, -3);
-
-  const [checkState, setCheckState] = useState(false);
-
-  const checkHandled = (e: ChangeEvent<HTMLInputElement>) => {
-    setCheckState(!checkState);
-  };
   const { userInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
 
   const totalDay = getDateDiff(startDay, endDay);
@@ -74,18 +61,6 @@ export default function Booking(userId: string) {
             monthPay={monthPay}
           />
         </div>
-        <div
-          style={{
-            margin: "20px 0px 20px 0px",
-          }}
-        >
-          <BookPaymentMethod
-            reservation={reservation}
-            // onPaySelectHandle={onPaySelectHandle}
-            checkState={checkState}
-            checkHandled={checkHandled}
-          />
-        </div>
 
         <div
           style={{
@@ -104,15 +79,9 @@ export default function Booking(userId: string) {
           }}
         >
           {userInfo.user_id ? (
-            <>
-              {checkState ? (
-                <NormalButton onClick={handlePostReservation}>
-                  결제하기
-                </NormalButton>
-              ) : (
-                <DisableButton disabled>결제하기</DisableButton>
-              )}
-            </>
+            <NormalButton onClick={handlePostReservation}>
+              예약하기
+            </NormalButton>
           ) : (
             <>
               <LoginContent setPopUpState={undefined} />
