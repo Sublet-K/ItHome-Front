@@ -1,4 +1,4 @@
-import { Post } from "@app/PostType";
+import { Post } from "@type/Type";
 import { create } from "zustand";
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL + `/post?maxPost=6&page=`;

@@ -10,7 +10,6 @@ import Link from "next/link";
 // import { useLocation } from "react-router-dom";
 import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
-import { SubletPostStore } from "@store/SubletPostStore";
 import SearchLocation from "./components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import * as hs from "./Header.styles";
@@ -20,11 +19,9 @@ import { SearchKeyword } from "./components/SearchKeyword";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
-  const [searchBoxContainerSize, setSearchBoxContainer] = useState(2);
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const searchResults = SubletPostStore;
   // const location = useLocation();
   // const router = useRouter();
 
@@ -86,10 +83,8 @@ const Header = () => {
               <button
                 onClick={() => {
                   FetchLogout(resetUserInfo, resetLikePostId).then(() => {
-                    // alert("로그아웃 성공");
                     // window.location.reload();
                   });
-                  // 로그아웃
                   // router.push("/");
                 }}
               >
