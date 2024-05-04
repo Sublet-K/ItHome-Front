@@ -8,13 +8,13 @@ export function ReservationProgressInfo({
   let color = "green";
   if (reservationProgress == "예약 요청") {
     color = "green";
-  } else if (reservationProgress == "예약 확정") {
+  } else if (reservationProgress == "승인") {
     color = "sky";
   } else if (reservationProgress == "예약 변경") {
     color = "yellow";
   } else if (reservationProgress == "입주 확정") {
     color = "blue";
-  } else if (reservationProgress == "예약 거절") {
+  } else if (reservationProgress == "거절") {
     color = "red";
   } else if (reservationProgress == "예약 취소") {
     color = "red";

@@ -1,4 +1,8 @@
-import { FetchReservationByPostKey } from "@shared/components/FetchList/FetchList";
+import {
+  FetchDeleteReservation,
+  FetchPutReservation,
+  FetchReservationByPostKey,
+} from "@shared/components/FetchList/FetchList";
 import {
   DateFormat,
   priceToString,
@@ -8,6 +12,7 @@ import {
   DetailParagraph,
   Horizon,
   InfoButton,
+  NormalButton,
   NormalText,
   SecondHead,
 } from "@shared/styles/Public.styles";
@@ -17,7 +22,6 @@ import { ReservationInfo } from "./ReservationInfo";
 import { ReservationProgressInfo } from "./ReservationProgress";
 import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import { Reservation } from "@type/Type";
-
 
 export function ReservationByPostKeyInfo({
   requestKey,
@@ -30,10 +34,15 @@ export function ReservationByPostKeyInfo({
 
   const [checkState, setCheckState] = useState<boolean>(false);
   const [popupState, setpopupState] = useState(false);
-  const clickHandler = () => {
+  const cancelReservation = () => {
     setpopupState(!popupState);
     setCheckState(false);
   };
+  const acceptReseravationRequest = (key: number, state: string) => {
+    FetchPutReservation(key, state);
+  };
+  const declineReseravationRequest = () => {};
+
   FetchReservationByPostKey(setReservationInfo, requestKey);
   return (
     <div className="mb-4">
@@ -45,16 +54,38 @@ export function ReservationByPostKeyInfo({
             <div key={index}>
               <DetailParagraph>게스트: {res.user.username}</DetailParagraph>
               <ReservationProgress reservation={res} hostPosition={true} />
-              <DeleteButton
-                onClick={() => {
-                  clickHandler();
-                }}
-              >
-                예약 취소하기
-              </DeleteButton>
+              {res.reservation_progress === "예약 요청" ? (
+                <>
+                  <NormalButton
+                    onClick={() => {
+                      acceptReseravationRequest(res.key, "승인");
+                    }}
+                  >
+                    수락하기
+                  </NormalButton>
+                  <DeleteButton
+                    onClick={() => {
+                      FetchDeleteReservation(res.key);
+                    }}
+                  >
+                    거절하기
+                  </DeleteButton>
+                </>
+              ) : (
+                <>
+                  <DeleteButton
+                    onClick={() => {
+                      cancelReservation();
+                    }}
+                  >
+                    예약 취소하기
+                  </DeleteButton>
+                </>
+              )}
+
               <CancleReservationDialog
                 popupState={popupState}
-                clickHandler={clickHandler}
+                clickHandler={cancelReservation}
                 checkState={checkState}
                 checkHandled={setCheckState}
                 roomKey={res.key}
