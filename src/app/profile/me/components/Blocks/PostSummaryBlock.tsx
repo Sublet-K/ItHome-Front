@@ -147,12 +147,12 @@ export function PostSummaryBlock({
                 onClick={onClick}
                 requestKey={key}
               />
-
+              {/* 
               <PostRequestDialog
                 requestDialogShow={requestDialogShow}
                 onClick={onClick}
                 requestKey={room.requestIDs}
-              />
+              /> */}
 
               <PostEditRoomDialog
                 room={room}

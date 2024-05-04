@@ -91,6 +91,7 @@ export const ChatStore = create<{
         password,
         username: "username",
         phone,
+        smoking: "true",
         email,
         student_id: 1234,
         school: "asdf",

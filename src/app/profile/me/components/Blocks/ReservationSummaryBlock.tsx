@@ -2,6 +2,7 @@ import {
   DeleteButton,
   DetailParagraph,
   InfoButton,
+  NormalButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
 import Image from "next/image";
@@ -45,10 +46,14 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
     //   room: room.Post,
     // });
   };
+
+  if (room.reservation_progress === "승인") {
+    const flag = 2;
+  }
   return (
     <div className="border-solid border-2 rounded-lg hover:shadow-lg">
       <div className="mt-4 flex justify-center items-center">
-        <NormalImage imageLink={imageLink} />
+        <NormalImage imageLink={imageLink} altContent="reservation progress" />
       </div>
       <div className="ml-4">
         <SecondHead>
@@ -69,6 +74,11 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
           reservationProgress={room.reservation_progress}
         />
       </div>
+      {room.reservation_progress === "승인" && (
+        <>
+          <NormalButton>결제하기</NormalButton>
+        </>
+      )}
 
       <div className="mb-2 ml-3">
         <div>
