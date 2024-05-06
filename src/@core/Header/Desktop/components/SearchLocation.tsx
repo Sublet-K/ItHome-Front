@@ -4,8 +4,8 @@ import { useSearchLocationStore } from "../../store/SearchLocationStore";
 import * as headerStyle from "@shared/styles/Header.styles";
 import styled from "styled-components";
 import { IconButton } from "@mui/material";
+import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
-import AdministrativeDistricts from "../../StaticData/AdministrativeDistricts";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
@@ -87,7 +87,9 @@ const SearchLocation = () => {
               id="gu"
               menuItems={
                 tempPos["city"]
-                  ? AdministrativeDistricts[tempPos["city"]]
+                  ? (AdministrativeDistricts as { [key: string]: string[] })[
+                      tempPos["city"]
+                    ]
                   : ["시/군을 먼저 선택해주세요"]
               }
             />

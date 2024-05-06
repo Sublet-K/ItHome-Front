@@ -109,7 +109,7 @@ async function FetchGetPost(
   }, [userId]);
 }
 
-async function FetchSearchedPost(
+async function FetchSearchPost(
   searchDate: [Date, Date],
   searchLocation: {
     city: string;
@@ -118,23 +118,37 @@ async function FetchSearchedPost(
   priceRange: [number, number],
   setPosts: (posts: Post[]) => void
 ) {
-  let URL = "";
+  let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
   if (
     searchLocation.city === "모두" ||
     searchLocation.city === "" ||
     searchLocation.gu === ""
   ) {
-    URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${
-      searchDate[0]
-    }&toDate=${searchDate[1]}&fromPrice=${Math.floor(
-      priceRange[0] / 30
-    )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
+    URL =
+      URL +
+      `/post/filter?fromDate=${searchDate[0]}&toDate=${
+        searchDate[1]
+      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
+        priceRange[1] / 30
+      )}`;
+  } else if (searchLocation.gu === "" || searchLocation.gu === "모두") {
+    URL =
+      URL +
+      `/post/filter?fromDate=${searchDate[0]}&toDate=${
+        searchDate[1]
+      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
+        priceRange[1] / 30
+      )}
+    &city=${searchLocation.city}`;
   } else {
-    URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/filter?fromDate=${
-      searchDate[0]
-    }&toDate=${searchDate[1]}&fromPrice=${Math.floor(
-      priceRange[0] / 30
-    )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
+    URL =
+      URL +
+      `/post/filter?fromDate=${searchDate[0]}&toDate=${
+        searchDate[1]
+      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
+        priceRange[1] / 30
+      )}
+    &city=${searchLocation.city}&gu=${searchLocation.gu}`;
   }
 
   await fetch(URL, headerOptions("GET"))
@@ -142,7 +156,7 @@ async function FetchSearchedPost(
     .then((res) => {
       setPosts(res);
     })
-    .catch(raiseError("FetchSearchedPost"));
+    .catch(raiseError("FetchSearchPost"));
 }
 
 async function FetchUploadPost(
@@ -609,7 +623,7 @@ export {
   FetchEditPost,
   FetchConverURLtoFile,
   toggleLikes,
-  FetchSearchedPost,
+  FetchSearchPost,
   fetchMoreRoomsDefault,
   FetchGetLikePosts,
   FetchLikePostsId,
