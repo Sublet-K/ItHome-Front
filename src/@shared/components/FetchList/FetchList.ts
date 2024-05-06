@@ -232,15 +232,13 @@ async function FetchReservationByPostKey(
 async function FetchPutReservation(key: number, progress: string) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`;
 
-  await fetch(URL, {
+  return await fetch(URL, {
     ...headerOptions("PUT"),
     body: JSON.stringify({
       key: key,
       progress: progress,
     }),
-  })
-    .then(notFoundError)
-    .catch(raiseError("FetchPutReservation"));
+  });
 }
 
 async function FetchDeleteReservation(keyNum: number) {

@@ -4,12 +4,15 @@ import { BookRefundRule } from "./Components/Info/BookRefundRule";
 import { BookPaymentMethod } from "./Components/Info/BookPaymentMethod";
 import { useTitle } from "@shared/components/hook/HookCollect";
 import {
+  Alert,
   CalulateDate,
+  FailAlert,
   getDateDiff,
+  notFoundError,
+  raiseError,
 } from "@shared/components/StaticComponents/StaticComponents";
 import { ChangeEvent, useState } from "react";
-import { FetchReservationPost } from "@shared/components/FetchList/FetchList";
-import { Reservation } from "@type/Type";
+import { FetchPutReservation } from "@shared/components/FetchList/FetchList";
 import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import {
   DisableButton,
@@ -21,25 +24,24 @@ import { LoginContent } from "@shared/components/loginComponents/LoginContent";
 
 export default function Booking(userId: string) {
   // useTitle('예약하기 | ItHome');
-  const { reservation, postKey } = bookingPopUpStore((state) => ({
+  const { reservation } = bookingPopUpStore((state) => ({
     reservation: state.reservation,
-    postKey: state.postKey,
-  }));
+  })); //추후 zustand를 지우고 reservation Info를 직접 받아야합니다.
   const [startDay, endDay] = [
     reservation.r_start_day.toString(),
     reservation.r_end_day.toString(),
   ];
+  const [successState, setSuccessState] = useState(false);
+  const [failState, setFailState] = useState(false);
+  const [paySelect, setPaySelect] = useState("account");
+  const onPaySelectHandle = (e: any) => {
+    setPaySelect(e.target.value);
+  };
   const totalPay = reservation.pay * getDateDiff(startDay, endDay);
   const handlePostReservation = () => {
-    const confirmStartDay = new Date(startDay).toISOString();
-    const confirmEndDay = new Date(endDay).toISOString();
-    FetchReservationPost(
-      userId,
-      postKey,
-      confirmStartDay,
-      confirmEndDay,
-      reservation.pay
-    );
+    FetchPutReservation(reservation.key, "결제확정")
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("FetchPutReservation", true, setFailState));
   };
   const totalRefundDate = CalulateDate(startDay, -7);
   const partRefundDate = CalulateDate(startDay, -3);
@@ -81,7 +83,8 @@ export default function Booking(userId: string) {
         >
           <BookPaymentMethod
             reservation={reservation}
-            // onPaySelectHandle={onPaySelectHandle}
+            onPaySelectHandle={onPaySelectHandle}
+            paySelect={paySelect}
             checkState={checkState}
             checkHandled={checkHandled}
           />
@@ -97,7 +100,10 @@ export default function Booking(userId: string) {
             partRefundDate={partRefundDate}
           />
         </div>
-
+        <div>
+          {successState && <Alert />}
+          {failState && <FailAlert />}
+        </div>
         <div
           style={{
             margin: "20px 0px 20px 0px",
