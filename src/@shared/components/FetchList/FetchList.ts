@@ -150,7 +150,7 @@ async function FetchSearchPost(
       )}
     &city=${searchLocation.city}&gu=${searchLocation.gu}`;
   }
-
+  alert(URL);
   await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
     .then((res) => {

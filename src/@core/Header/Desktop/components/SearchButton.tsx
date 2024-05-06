@@ -14,10 +14,11 @@ const SearchButton = () => {
   const doSearch = () => {
     FetchSearchPost(searchDate, searchLocation, priceRange, setPosts).then(
       () => {
-        if (location.pathname === "/SearchSubletInfo") {
+        if (location.pathname === "/searchtest") {
+          // SearchSubletInfo
           window.location.reload();
         } else {
-          window.location.href = "/SearchSubletInfo";
+          window.location.href = "/searchtest"; // SearchSubletInfo
         }
       }
     );
