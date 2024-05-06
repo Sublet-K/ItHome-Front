@@ -245,9 +245,10 @@ async function FetchReservationPost(
   postKey: string,
   startDay: string,
   endDay: string,
-  pay: number
+  pay: number,
+  request_text: string
 ) {
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("POST"),
     body: JSON.stringify({
       user_id: userID,
@@ -255,10 +256,9 @@ async function FetchReservationPost(
       r_start_day: startDay,
       r_end_day: endDay,
       pay: pay,
+      request_text: request_text,
     }),
-  })
-    .then(notFoundError)
-    .catch(raiseError("FetchReservationPost"));
+  });
 }
 
 async function FetchDeletePost(key: number) {
