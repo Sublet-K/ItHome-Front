@@ -65,7 +65,7 @@ async function FetchChangePhone(phoneState: string) {
   );
 }
 
-async function fetchMoreRoomsDefault(
+async function FetchMoreRoomsDefault(
   listRoomAmount: number,
   listPageAmount: number,
   roomsData: Post[],
@@ -78,7 +78,7 @@ async function fetchMoreRoomsDefault(
   fetch(GetURL)
     .then(notFoundError)
     .then((res) => setPreRoomsData(res))
-    .catch(raiseError("fetchMoreRoomsDefault"));
+    .catch(raiseError("FetchMoreRoomsDefault"));
   // 6개 저 보여주기 필요할 수도..?
   if (preRoomsData.length !== 0) {
     setRoomsData([...roomsData, ...preRoomsData]);
@@ -622,7 +622,7 @@ export {
   FetchConverURLtoFile,
   toggleLikes,
   FetchSearchPost,
-  fetchMoreRoomsDefault,
+  FetchMoreRoomsDefault,
   FetchGetLikePosts,
   FetchLikePostsId,
   FetchPutReservation,
