@@ -90,3 +90,7 @@ export const Span = styled.span``;
 export const BoldText = styled.p`
   ${tw`text-base font-bold`}
 `;
+
+export const LargeInputText = styled.input`
+  ${tw`block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500`}
+`;

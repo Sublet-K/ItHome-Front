@@ -65,7 +65,7 @@ async function FetchChangePhone(phoneState: string) {
   );
 }
 
-async function fetchMoreRoomsDefault(
+async function FetchMoreRoomsDefault(
   listRoomAmount: number,
   listPageAmount: number,
   roomsData: Post[],
@@ -78,7 +78,7 @@ async function fetchMoreRoomsDefault(
   fetch(GetURL)
     .then(notFoundError)
     .then((res) => setPreRoomsData(res))
-    .catch(raiseError("fetchMoreRoomsDefault"));
+    .catch(raiseError("FetchMoreRoomsDefault"));
   // 6개 저 보여주기 필요할 수도..?
   if (preRoomsData.length !== 0) {
     setRoomsData([...roomsData, ...preRoomsData]);
@@ -232,15 +232,13 @@ async function FetchReservationByPostKey(
 async function FetchPutReservation(key: number, progress: string) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`;
 
-  await fetch(URL, {
+  return await fetch(URL, {
     ...headerOptions("PUT"),
     body: JSON.stringify({
       key: key,
       progress: progress,
     }),
-  })
-    .then(notFoundError)
-    .catch(raiseError("FetchPutReservation"));
+  });
 }
 
 async function FetchDeleteReservation(keyNum: number) {
@@ -259,9 +257,10 @@ async function FetchReservationPost(
   postKey: string,
   startDay: string,
   endDay: string,
-  pay: number
+  pay: number,
+  request_text: string
 ) {
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reservation`, {
     ...headerOptions("POST"),
     body: JSON.stringify({
       user_id: userID,
@@ -269,10 +268,9 @@ async function FetchReservationPost(
       r_start_day: startDay,
       r_end_day: endDay,
       pay: pay,
+      request_text: request_text,
     }),
-  })
-    .then(notFoundError)
-    .catch(raiseError("FetchReservationPost"));
+  });
 }
 
 async function FetchDeletePost(key: number) {
@@ -624,7 +622,7 @@ export {
   FetchConverURLtoFile,
   toggleLikes,
   FetchSearchPost,
-  fetchMoreRoomsDefault,
+  FetchMoreRoomsDefault,
   FetchGetLikePosts,
   FetchLikePostsId,
   FetchPutReservation,
