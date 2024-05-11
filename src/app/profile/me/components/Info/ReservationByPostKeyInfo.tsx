@@ -4,8 +4,12 @@ import {
   FetchReservationByPostKey,
 } from "@shared/components/FetchList/FetchList";
 import {
+  Alert,
   DateFormat,
+  FailAlert,
+  notFoundError,
   priceToString,
+  raiseError,
 } from "@shared/components/StaticComponents/StaticComponents";
 import {
   DeleteButton,
@@ -31,7 +35,8 @@ export function ReservationByPostKeyInfo({
   const [reservationInfo, setReservationInfo] = useState<Reservation[]>(
     [] as Reservation[]
   );
-
+  const [successState, setSuccessState] = useState(false);
+  const [failState, setFailState] = useState(false);
   const [checkState, setCheckState] = useState<boolean>(false);
   const [popupState, setpopupState] = useState(false);
   const cancelReservation = () => {
@@ -39,9 +44,15 @@ export function ReservationByPostKeyInfo({
     setCheckState(false);
   };
   const acceptReseravationRequest = (key: number, state: string) => {
-    FetchPutReservation(key, state);
+    FetchPutReservation(key, state)
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("FetchPutReservation", true, setFailState));
   };
-  const declineReseravationRequest = () => {};
+  const declineReseravationRequest = (key: number, state: string) => {
+    FetchPutReservation(key, state)
+      .then((res) => notFoundError(res, true, setSuccessState))
+      .catch(raiseError("FetchPutReservation", true, setFailState));
+  };
 
   FetchReservationByPostKey(setReservationInfo, requestKey);
   return (
@@ -65,7 +76,7 @@ export function ReservationByPostKeyInfo({
                   </NormalButton>
                   <DeleteButton
                     onClick={() => {
-                      FetchDeleteReservation(res.key);
+                      declineReseravationRequest(res.key, "예약 거절");
                     }}
                   >
                     거절하기
@@ -83,6 +94,10 @@ export function ReservationByPostKeyInfo({
                 </>
               )}
 
+              <div>
+                {successState && <Alert />}
+                {failState && <FailAlert />}
+              </div>
               <CancleReservationDialog
                 popupState={popupState}
                 clickHandler={cancelReservation}

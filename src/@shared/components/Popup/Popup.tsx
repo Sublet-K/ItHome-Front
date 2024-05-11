@@ -443,46 +443,45 @@ export function ShareDialog({
   // 선택 후 복사
 }
 
-export function RequestSummaryDetailDialog({
-  request,
-  address,
-  price,
-  startDate,
-  endDate,
-}: {
-  request: RequestForm;
-  address: string;
-  price: string;
-  startDate: string;
-  endDate: string;
-}) {
-  const info_list = {
-    "숙소 유형": request.accomodation_type,
-    요금: price,
-    체크인: startDate,
-    체크아웃: endDate,
-    요청사항: request.request_text,
-  };
-  return (
-    <>
-      <s.SecondHead>{address} </s.SecondHead>
+// export function RequestSummaryDetailDialog({
+//   request,
+//   address,
+//   price,
+//   startDate,
+//   endDate,
+// }: {
+//   request: RequestForm;
+//   address: string;
+//   price: string;
+//   startDate: string;
+//   endDate: string;
+// }) {
+//   const info_list = {
+//     요금: price,
+//     체크인: startDate,
+//     체크아웃: endDate,
+//     요청사항: request.request_text,
+//   };
+//   return (
+//     <>
+//       <s.SecondHead>{address} </s.SecondHead>
 
-      <s.Horizon />
-      {request.contract ? (
-        <p>계약된 매물만 확인</p>
-      ) : (
-        <p>계약 안된 매물도 확인</p>
-      )}
-      {Object.keys(info_list).map((k, index) => (
-        <Information
-          key={index}
-          title={k}
-          info={info_list[k as keyof typeof info_list]}
-        />
-      ))}
-    </>
-  );
-}
+//       <s.Horizon />
+//       {request.contract ? (
+//         <p>계약된 매물만 확인</p>
+//       ) : (
+//         <p>계약 안된 매물도 확인</p>
+//       )}
+//       {Object.keys(info_list).map((k, index) => (
+//         <Information
+//           key={index}
+//           title={k}
+//           info={info_list[k as keyof typeof info_list]}
+//         />
+//       ))}
+//     </>
+//   );
+// }
 
 export function PostSummaryDetailDialog({
   room,
