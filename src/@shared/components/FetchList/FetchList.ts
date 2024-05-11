@@ -591,6 +591,24 @@ async function FetchLikePostsId(
     .catch(raiseError("FetchLikePosts"));
 }
 
+async function FetchReportPost(
+  reporterId: string,
+  postKey: number,
+  reason: string
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/report`;
+  await fetch(URL, {
+    ...headerOptions("POST"),
+    body: JSON.stringify({
+      reporter_id: reporterId,
+      post_key: postKey,
+      reason: reason,
+    }),
+  })
+    .then(notFoundError)
+    .catch(raiseError("FetchReportPost"));
+}
+
 export {
   FetchVerifyUser,
   FetchResetPassword,
@@ -623,4 +641,5 @@ export {
   FetchGetLikePosts,
   FetchLikePostsId,
   FetchPutReservation,
+  FetchReportPost,
 };
