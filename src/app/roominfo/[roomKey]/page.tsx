@@ -26,6 +26,7 @@ import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 import { Post } from "@app/PostType";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useUserInfoStore } from "@store/UserInfoStore";
+import { DialogForm } from "@shared/components/Popup/Popup";
 
 export default function RoomInfo() {
   // 새 창에서 열릴 때 props를 못 받아와서, zustand의 전역 저장소를 사용한다.
@@ -91,6 +92,10 @@ export default function RoomInfo() {
     setReportType(event.target.value);
   };
 
+  const handleReportPopUpState = () => {
+    setReportPopUpState(false);
+  };
+
   return (
     <>
       <ImageCarousel>
@@ -151,43 +156,56 @@ export default function RoomInfo() {
                 />
               </DialogContent>
             </Dialog>
-            <Dialog
-              open={reportPopUpState}
-              className="border border-gray-300 shadow-xl rounded-lg"
+            <DialogForm
+              openState={reportPopUpState}
+              handleClose={handleReportPopUpState}
+              render={() => (
+                <label
+                  htmlFor="report_type"
+                  className="block mb-2 text-sm font-medium text-gray-900 float-left"
+                >
+                  신고 사유
+                </label>
+              )}
             >
-              <DialogContent sx={{ height: 224 }} className="text-left">
-                <form className="flot-right">
-                  <s.NormalButton
-                    type="button"
-                    name="reportPopUpState"
-                    onClick={() => {
-                      setReportPopUpState(false);
-                    }}
-                  >
-                    <StyleComponent content="CloseButton" />
-                  </s.NormalButton>
-                </form>
-                <DropBoxSelect
-                  name="report_type"
-                  state={reportType}
-                  onChange={handleReportTypeState}
-                  labelName="신고 사유"
-                  labelId="report_type"
-                  id="report_type"
-                  menuItems={[
-                    "불법 콘텐츠",
-                    "차별적 행위",
-                    "부정확하거나 틀린 정보",
-                    "실제 숙소가 아님",
-                    "사기",
-                    "불쾌함",
-                    "기타",
-                  ]}
-                />
+              <DialogContent
+                sx={{ width: 512, height: 512 }}
+                className="font-black text-center"
+              >
+                <div className="mt-1.5">
+                  <DropBoxSelect
+                    name="report_type"
+                    state={reportType}
+                    onChange={handleReportTypeState}
+                    labelName="신고 사유"
+                    labelId="report_type"
+                    id="report_type"
+                    menuItems={[
+                      "불법 콘텐츠",
+                      "차별적 행위",
+                      "부정확하거나 틀린 정보",
+                      "실제 숙소가 아님",
+                      "사기",
+                      "불쾌함",
+                      "기타",
+                    ]}
+                  />
+                </div>
                 <s.RedNormalButton
                   onClick={() => {
-                    FetchReportPost(userInfo.id, nowRoomNum, reportType);
-                    alert("신고가 접수되었습니다.");
+                    if (reportType === "") {
+                      alert("신고 사유를 선택해주세요.");
+                      return;
+                    }
+                    if (userInfo.id === "") {
+                      alert("로그인이 필요합니다.");
+                      return;
+                    }
+                    FetchReportPost(userInfo.id, nowRoomNum, reportType).then(
+                      () => {
+                        alert("신고가 접수되었습니다.");
+                      }
+                    );
                     setReportPopUpState(false);
                     setReportType("");
                   }}
@@ -195,7 +213,7 @@ export default function RoomInfo() {
                   신고 접수하기
                 </s.RedNormalButton>
               </DialogContent>
-            </Dialog>
+            </DialogForm>
           </div>
           {/* {console.log(nowRoomPost)} */}
 
