@@ -47,13 +47,13 @@ export const PostUploadDialog = () => {
     duration: [1, 730],
     tempDuration: ["1일", "170일"],
     pos: [37.574583, 126.994143], // xCoordinate, yCoordinate // 추후 위치 기반으로 초기화.,
-    fullAddress: "테스트",
-    city: "서울", // 테스트 데이터,
-    gu: "은평구", // 테스트 데이터,
-    dong: "갈현동", // 테스트 데이터,
-    street: "갈현로", // 테스트 데이터,
-    streetNumber: "39가길", // 테스트 데이터,
-    postCode: "123123", // 테스트 데이터,
+    fullAddress: "전체 주소.", // 테스트 데이터.
+    city: "",
+    gu: "",
+    dong: "",
+    street: "",
+    streetNumber: "",
+    postCode: "",
     startEndDay: [
       new Date(),
       new Date().setFullYear(new Date().getFullYear() + 1),
@@ -298,13 +298,6 @@ export const PostUploadDialog = () => {
 
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
-              {/* <TextInputTag
-                  id="full_address"
-                  label="주소"
-                  placeholder="주소를 입력해주세요."
-                  handleState={handleFullAddress}
-                  required={true}
-                /> */}
               시/도
               <DropBoxSelect
                 name="city"
@@ -332,15 +325,6 @@ export const PostUploadDialog = () => {
                       ]
                     : ["시/군을 먼저 선택해주세요"]
                 }
-              />
-              <TextInputTag
-                id="city"
-                label="시"
-                placeholder="시/도를 입력해주세요."
-                value={postState["title"]}
-                name="title"
-                onChange={onChange}
-                required={true}
               />
               <TextInputTag
                 id="dong"

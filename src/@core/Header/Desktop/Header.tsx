@@ -83,7 +83,7 @@ const Header = () => {
               <button
                 onClick={() => {
                   FetchLogout(resetUserInfo, resetLikePostId).then(() => {
-                    // window.location.reload();
+                    window.location.reload();
                   });
                   // router.push("/");
                 }}

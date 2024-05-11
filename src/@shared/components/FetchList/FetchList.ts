@@ -116,9 +116,10 @@ async function FetchSearchPost(
     gu: string;
   },
   priceRange: [number, number],
+  searchKeyword: string,
   setPosts: (posts: Post[]) => void
 ) {
-  let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
+  let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}` + `/post/filter?`;
   if (
     searchLocation.city === "모두" ||
     searchLocation.city === "" ||
@@ -126,31 +127,27 @@ async function FetchSearchPost(
   ) {
     URL =
       URL +
-      `/post/filter?fromDate=${searchDate[0]}&toDate=${
-        searchDate[1]
-      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
-        priceRange[1] / 30
-      )}`;
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
+        priceRange[0] / 30
+      )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
   } else if (searchLocation.gu === "" || searchLocation.gu === "모두") {
     URL =
       URL +
-      `/post/filter?fromDate=${searchDate[0]}&toDate=${
-        searchDate[1]
-      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
-        priceRange[1] / 30
-      )}
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
+        priceRange[0] / 30
+      )}&toPrice=${Math.ceil(priceRange[1] / 30)}
     &city=${searchLocation.city}`;
   } else {
     URL =
       URL +
-      `/post/filter?fromDate=${searchDate[0]}&toDate=${
-        searchDate[1]
-      }&fromPrice=${Math.floor(priceRange[0] / 30)}&toPrice=${Math.ceil(
-        priceRange[1] / 30
-      )}
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
+        priceRange[0] / 30
+      )}&toPrice=${Math.ceil(priceRange[1] / 30)}
     &city=${searchLocation.city}&gu=${searchLocation.gu}`;
   }
-
+  if (searchKeyword !== "") {
+    URL = URL + `&keyword=${searchKeyword}`;
+  }
   await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
     .then((res) => {
@@ -594,6 +591,24 @@ async function FetchLikePostsId(
     .catch(raiseError("FetchLikePosts"));
 }
 
+async function FetchReportPost(
+  reporterId: string,
+  postKey: number,
+  reason: string
+) {
+  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/report`;
+  await fetch(URL, {
+    ...headerOptions("POST"),
+    body: JSON.stringify({
+      reporter_id: reporterId,
+      post_key: postKey,
+      reason: reason,
+    }),
+  })
+    .then(notFoundError)
+    .catch(raiseError("FetchReportPost"));
+}
+
 export {
   FetchVerifyUser,
   FetchResetPassword,
@@ -626,4 +641,5 @@ export {
   FetchGetLikePosts,
   FetchLikePostsId,
   FetchPutReservation,
+  FetchReportPost,
 };

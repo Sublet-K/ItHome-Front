@@ -57,6 +57,7 @@ export type Post = {
   postuser: User;
   requestIDs: string[];
   gender_type: string;
+  marker: any; // map 관련 해결 전까지는 any로. added by ussr1285.
 };
 
 export type RequestForm = {
