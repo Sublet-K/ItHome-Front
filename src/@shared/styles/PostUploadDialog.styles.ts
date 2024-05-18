@@ -10,6 +10,7 @@ export const gridStyle: { [key: string]: CSSProperties } = {
   },
   inputContainer: {
     marginTop: "2rem",
+    margin: "3em",
   },
   infoType: {
     fontSize: "1.5em",

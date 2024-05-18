@@ -43,6 +43,14 @@ export const NormalButton = styled.button`
   ${tw`bg-black clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
 `;
 
+export const BlueNormalButton = styled.button`
+  &:hover {
+    background-color: rgb(77 171 245);
+    color: rgb(17 24 39);
+  }
+  ${tw`bg-[#2196f3] clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
+`;
+
 export const RedNormalButton = styled.button`
   &:hover {
     background-color: rgb(252 165 165);
