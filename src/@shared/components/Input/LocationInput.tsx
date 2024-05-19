@@ -45,9 +45,9 @@ export const LocationInput = ({
           currentPos={currentPos}
           setPos={onChange}
         /> */}
-        <div style={styles.mapMarker}>
+        {/* <div style={styles.mapMarker}>
           <LocationOnIcon />
-        </div>
+        </div> */}
       </div>
     </div>
   );

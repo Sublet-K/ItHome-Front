@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@mui/material";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
@@ -21,8 +23,18 @@ import {
 import * as s from "@shared/styles/Public.styles";
 import * as psd from "@shared/styles/PostUploadDialog.styles";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
-import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
+
+// 필요한 Swiper 모듈들을 임포트
+// Swiper 코어와 필요한 컴포넌트 임포트
+// Swiper 기본 스타일 임포트
+import {
+  Navigation, // 네비게이션 버튼(다음/이전) 활성화
+  Pagination, // 페이지네이션 도트 활성화
+} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { DialogForm } from "@shared/components/Popup/Popup";
 
 const cities = Object.keys(AdministrativeDistricts) as string[];
 
@@ -165,6 +177,12 @@ export const PostUploadDialog = () => {
     FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
   };
 
+  const savePost = async () => {
+    const formData = makeFormData();
+    formData.append("local_save", "true");
+    FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
+  };
+
   const handleSetImages = (newImage: File, index: number) => {
     let newImages: File[] = postState["imageFiles"];
     if (index >= newImages.length) {
@@ -193,23 +211,37 @@ export const PostUploadDialog = () => {
   };
 
   return (
-    <>
-      <Dialog
-        open={postPopUpState}
-        className="border border-gray-300 shadow-xl rounded-lg"
-      >
-        <DialogContent sx={{ width: "500px" }} className="text-center">
-          <s.SvgHoverButton
-            type="button"
-            className="float-right"
-            onClick={handleClose}
-          >
-            <StyleComponent content="CloseButton" />
-          </s.SvgHoverButton>
-          {/* <p>
-            --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
-          </p> */}
-          <div style={psd.gridStyle.mainContainer}>
+    <DialogForm
+      openState={postPopUpState}
+      handleClose={handleClose}
+      render={() => (
+        <label
+          htmlFor="PostUploadDialog"
+          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+        >
+          방 게시하기
+        </label>
+      )}
+    >
+      <DialogContent className="text-center">
+        <Swiper
+          // Swiper 인스턴스에 사용될 모듈들
+          modules={[Pagination, Navigation]}
+          // Swiper 초기화될 때 실행할 콜백 함수
+          // onSwiper={(swiper: any) => console.log("Swiper 인스턴스:", swiper)}
+          // 한 번에 보여줄 슬라이드 수
+          slidesPerView={1}
+          // 슬라이드 간의 간격(픽셀 단위)
+          spaceBetween={50}
+          // 네비게이션 컨트롤 활성화
+          navigation={true}
+          // 페이지네이션 설정
+          pagination={{ type: "progressbar", clickable: true }} // 페이지네이션 도트 클릭 가능하게 설정
+          noSwiping={true} // 스와이핑 방지 전체적용
+          style={psd.gridStyle.mainContainer}
+        >
+          {/* Swiper 내의 개별 슬라이드 */}
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
               <DropBoxSelect
@@ -274,6 +306,8 @@ export const PostUploadDialog = () => {
                 </div>
               </div>
             </p>
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소의 매력을 작성하세요</h3>
               <TextInputTag
@@ -295,7 +329,8 @@ export const PostUploadDialog = () => {
                 required={true}
               />
             </p>
-
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
               시/도
@@ -362,15 +397,24 @@ export const PostUploadDialog = () => {
                 onChange={onChange}
                 required={true}
               />
+            </p>
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
+            <p style={psd.gridStyle.inputContainer}>
+              <h3 style={psd.gridStyle.infoType}>위치 정보가 정확한가요?</h3>
+              <p>지도</p>
               <LocationInput
                 pos={postState["pos"] as [number, number]}
                 currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
                 name="pos"
                 onChange={handleLocation}
-              />{" "}
-              {/* 이렇게만 하면 안되고, 직접 친 후에 맵을 띄울 수도 있어야함. 위 주석 참고. */}
+              />
+              정확하지 않다면 이전페이지에서 주소를 다시 수정해주세요. (여기에
+              버튼 수정하기 버튼 추가해서 이전 슬라이더로 이동?)
             </p>
+          </SwiperSlide>
 
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>기간 및 금액</h3>
               <p>게시 날짜</p>
@@ -390,7 +434,7 @@ export const PostUploadDialog = () => {
               />
 
               <p>
-                최소-최대 계약 가능 기간 :{" "}
+                최소-최대 계약 가능 기간 :
                 <ValueRangeViewer
                   arr={postState["tempDuration"] as [string, string]}
                 />
@@ -408,7 +452,8 @@ export const PostUploadDialog = () => {
                 minMax={[1, 730]}
               /> */}
             </p>
-
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
               <DropBoxSelect
@@ -418,10 +463,11 @@ export const PostUploadDialog = () => {
                 labelName="성별"
                 labelId="genderType"
                 id="genderType"
-                menuItems={["모두", "여", "남"]}
+                menuItems={["모두", "남", "여"]}
               />
             </p>
-
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 사진을 올려주세요.</h3>
               {postState["imageFiles"].length > 0 && (
@@ -437,13 +483,22 @@ export const PostUploadDialog = () => {
                 )
               )}
             </p>
-          </div>
-        </DialogContent>
-
-        <s.NormalButton className="ml-2" onClick={uploadPost}>
-          방 올리기
-        </s.NormalButton>
-      </Dialog>
-    </>
+          </SwiperSlide>
+          <SwiperSlide className="swiper-no-swiping">
+            <p style={psd.gridStyle.inputContainer}>
+              <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
+              <div>
+                <s.BlueNormalButton className="ml-2" onClick={uploadPost}>
+                  방 올리기
+                </s.BlueNormalButton>
+                <s.NormalButton className="ml-2" onClick={savePost}>
+                  임시 저장하기
+                </s.NormalButton>
+              </div>
+            </p>
+          </SwiperSlide>
+        </Swiper>
+      </DialogContent>
+    </DialogForm>
   );
 };
