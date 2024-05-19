@@ -397,18 +397,20 @@ export const PostUploadDialog = () => {
                 onChange={onChange}
                 required={true}
               />
-              <LocationInput
-                pos={postState["pos"] as [number, number]}
-                currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
-                name="pos"
-                onChange={handleLocation}
-              />
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>위치 정보가 정확한가요?</h3>
               <p>지도</p>
+              <LocationInput
+                pos={postState["pos"] as [number, number]}
+                currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
+                name="pos"
+                onChange={handleLocation}
+              />
+              정확하지 않다면 이전페이지에서 주소를 다시 수정해주세요. (여기에
+              버튼 수정하기 버튼 추가해서 이전 슬라이더로 이동?)
             </p>
           </SwiperSlide>
 
@@ -461,7 +463,7 @@ export const PostUploadDialog = () => {
                 labelName="성별"
                 labelId="genderType"
                 id="genderType"
-                menuItems={["모두", "여", "남"]}
+                menuItems={["모두", "남", "여"]}
               />
             </p>
           </SwiperSlide>
