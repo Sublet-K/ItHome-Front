@@ -21,6 +21,7 @@ import {
 } from "@shared/styles/Public.styles";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { LoginContent } from "@shared/components/loginComponents/LoginContent";
+import { Reservation } from "@/@type/Type";
 
 export default function Booking(userId: string) {
   // useTitle('예약하기 | ItHome');

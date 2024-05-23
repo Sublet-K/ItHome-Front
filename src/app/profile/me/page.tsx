@@ -20,6 +20,7 @@ function GuestInfo() {
         style={{
           fontFamily: "Pretendard",
         }}
+        className="flex grid grid-cols-7"
       >
         <div
           style={{

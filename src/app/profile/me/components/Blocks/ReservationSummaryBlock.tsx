@@ -23,6 +23,7 @@ import { ReservationProgress } from "@shared/components/ReservationProgress/Rese
 import { Reservation } from "@/@type/Type";
 import { ReservationDetailDialog } from "../Dialog/ReservationDetailDialog";
 import { NormalImage } from "@shared/components/Image/Image";
+import { bookingPopUpStore } from "@store/BookingPopUpStore";
 
 export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   const [popupState, setpopupState] = useState(false);
@@ -35,7 +36,9 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
     setpopupState(!popupState);
     setCheckState(false);
   };
-
+  const { setReservationState } = bookingPopUpStore((state) => ({
+    setReservationState: state.setReservationState,
+  })); //추후 zustand를 지우고 reservation Info를 직접 받아야합니다.
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.post.image_id[0]}.jpg`;
   const MoveToRoomInfo = ({ room }: { room: Reservation }) => {
     // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.
@@ -46,7 +49,15 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
     //   room: room.Post,
     // });
   };
+  const MoveToPay = ({ room }: { room: Reservation }) => {
+    // 일단 방 정보 넘김과 동시에 방 정보 페이지로 이동.
+    setReservationState(room);
+    router.push(`/booking`);
 
+    // navigate(`/roominfo/${room.Post.key}`, {
+    //   room: room.Post,
+    // });
+  };
   if (room.reservation_progress === "승인") {
     const flag = 2;
   }
@@ -76,7 +87,13 @@ export function ReservationSummaryBlock({ room }: { room: Reservation }) {
       </div>
       {room.reservation_progress === "승인" && (
         <>
-          <NormalButton>결제하기</NormalButton>
+          <NormalButton
+            onClick={() => {
+              MoveToPay({ room });
+            }}
+          >
+            결제하기
+          </NormalButton>
         </>
       )}
 

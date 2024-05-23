@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect";
 import { usePathname } from "next/navigation";
 import { UserBaseComponent } from "./Components/UserImageProfile";
-import { Wrapper } from "@shared/styles/Public.styles";
+import { Horizon, Wrapper } from "@shared/styles/Public.styles";
 import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
 import { UserForm } from "@app/UserType";
 import { PostListComponent } from "../me/components/UserProfile/PostListComponent";
@@ -14,19 +14,28 @@ function HostInfo() {
   if (typeof userId === "string") {
     const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
     FetchGetOneUser(userId, setUserInfo);
-    const title = userInfo.username + "님의 프로필 | ItHome";
     return (
       <Wrapper>
         <div
           style={{ fontFamily: "Pretendard" }}
           className="flex grid grid-cols-7"
         >
-          <div className="ml-3 mt-5">
+          <div
+            style={{
+              margin: "20px 0px 20px 0px",
+            }}
+          >
             <UserBaseComponent user={userInfo} />
+            <Horizon />
           </div>
 
-          <div className="mb-2 ml-7 col-span-6 mt-5 w-5/6">
+          <div
+            style={{
+              margin: "20px 0px 20px 0px",
+            }}
+          >
             <PostListComponent userId={userInfo.user_id} guestMode={false} />
+            <Horizon />
           </div>
         </div>
       </Wrapper>

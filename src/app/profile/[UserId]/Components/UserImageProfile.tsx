@@ -11,7 +11,9 @@ export const UserBaseComponent = ({ user }: { user: UserForm }) => {
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
   return (
     <>
-      <NormalImage imageLink={imageLink} altContent={"my profile"} />
+      <div className="flex justify-center items-center">
+        <NormalImage imageLink={imageLink} altContent={"my profile"} />
+      </div>
 
       <SecondHead className="mt-3">{user.username}</SecondHead>
       <NormalText className="underline">{user.school}</NormalText>
