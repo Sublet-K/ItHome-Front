@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { DateFormat } from "../@shared/components/StaticComponents/StaticComponents";
 import { Post, Reservation, User } from "@type/Type";
 
-
 export const bookingPopUpStore = create<{
   reservation: Reservation;
   startDay: string;
@@ -10,6 +9,7 @@ export const bookingPopUpStore = create<{
   dayPay: number;
   totalPay: number;
   postKey: string;
+  setReservationState: (reservation: Reservation) => void;
   setTempStartDayState: (day: Date | string) => void;
   setTempEndDayState: (day: Date | string) => void;
   setDayPayState: (pay: number) => void;
@@ -31,6 +31,10 @@ export const bookingPopUpStore = create<{
   dayPay: 1,
   totalPay: 2913136,
   postKey: "0",
+  setReservationState: (reservation: Reservation) =>
+    set(() => ({
+      reservation: reservation,
+    })),
   setTempStartDayState: (day) =>
     set(() => ({
       startDay: DateFormat(day),

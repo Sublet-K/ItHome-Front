@@ -34,7 +34,7 @@ function PostListComponent({
   return (
     <div className="mb-4 mt-8">
       <div className="flex justify-between">
-        <SecondHead className="inline">방 현황</SecondHead>
+        <SecondHead className="inline">올린 방</SecondHead>
 
         {guestMode && (
           <NormalButton onClick={setPostPopUpState}>방 올리기</NormalButton>
