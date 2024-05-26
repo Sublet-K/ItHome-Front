@@ -1,5 +1,5 @@
 import React, { CSSProperties, Dispatch, SetStateAction } from "react";
-// import Map from "./Map";
+import SearchMap from "@shared/components/Map/SearchMap";
 import * as inputStyle from "../../styles/Input.styles";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
@@ -39,15 +39,15 @@ export const LocationInput = ({
         <span>posy: {pos[1]}</span>
       </inputStyle.displayFilteringValueWhenModifyingFilter>
       <div style={styles.searchByMap}>
-        {/* <Map
+        <SearchMap
           type="searchByMarker"
           name={name}
           currentPos={currentPos}
           setPos={onChange}
-        /> */}
-        {/* <div style={styles.mapMarker}>
+        />
+        <div style={styles.mapMarker}>
           <LocationOnIcon />
-        </div> */}
+        </div>
       </div>
     </div>
   );

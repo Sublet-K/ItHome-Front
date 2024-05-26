@@ -1,54 +1,147 @@
-// 클라이언트 사이드에서만 작동하도록 지시하는 코드, Next.js에서 서버 사이드 렌더링 방지
 "use client";
 
-// 글로벌 변수 사용에 대한 ESLint 경고 무시
-/* eslint-disable no-restricted-globals */
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-// 필요한 Swiper 모듈들을 임포트
-import {
-  Navigation, // 네비게이션 버튼(다음/이전) 활성화
-  Pagination, // 페이지네이션 도트 활성화
-  Scrollbar, // 드래그 가능한 스크롤바 활성화
-  Mousewheel, // 마우스 휠로 스와이퍼 제어 가능하게 함
-} from "swiper/modules";
+declare global {
+  interface Window {
+    naver?: any;
+  }
+}
 
-// Swiper 코어와 필요한 컴포넌트 임포트
-import { Swiper, SwiperSlide } from "swiper/react";
+interface AddressItem {
+  name: string;
+  region: {
+    area1: { name?: string };
+    area2: { name?: string };
+    area3: { name?: string };
+    area4: { name?: string };
+  };
+  land?: {
+    number1?: string;
+    number2?: string;
+    type?: string;
+    name?: string;
+    addition0: { value?: string };
+  };
+}
 
-// Swiper 기본 스타일 임포트
-import "swiper/swiper-bundle.css";
+const MapComponent: React.FC = () => {
+  const mapRef = useRef<HTMLDivElement>(null);
 
-// 메인 앱 컴포넌트
-const App = () => {
-  return (
-    <main>
-      <Swiper
-        // Swiper 인스턴스에 사용될 모듈들
-        modules={[Pagination, Navigation]}
-        // Swiper 초기화될 때 실행할 콜백 함수
-        onSwiper={(swiper: any) => console.log("Swiper 인스턴스:", swiper)}
-        // 한 번에 보여줄 슬라이드 수
-        slidesPerView={1}
-        // 슬라이드 변경을 위한 스와이프 동작의 임계값(픽셀 단위)
-        threshold={2}
-        // 슬라이드 간의 간격(픽셀 단위)
-        spaceBetween={10}
-        // 네비게이션 컨트롤 활성화
-        navigation={true}
-        // 페이지네이션 설정
-        pagination={{ type: "progressbar", clickable: true }} // 페이지네이션 도트 클릭 가능하게 설정
-      >
-        {/* Swiper 내의 개별 슬라이드 */}
-        <SwiperSlide>슬라이드 1</SwiperSlide>
-        <SwiperSlide>슬라이드 2</SwiperSlide>
-        <SwiperSlide>슬라이드 3</SwiperSlide>
-        <SwiperSlide>슬라이드 4</SwiperSlide>
-        <SwiperSlide>슬라이드 5</SwiperSlide>
-      </Swiper>
-    </main>
-  );
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    const { naver } = window;
+    const map = new naver.maps.Map(mapRef.current, {
+      center: new naver.maps.LatLng(37.3595316, 127.1052133),
+      zoom: 15,
+      mapTypeControl: true,
+    });
+
+    const infoWindow = new naver.maps.InfoWindow({
+      anchorSkew: true,
+    });
+
+    map.setCursor("pointer");
+
+    function hasArea(area?: { name?: string }): boolean {
+      return !!(area && area.name && area.name !== "");
+    }
+
+    function hasData(data: any): boolean {
+      return !!(data && data !== "");
+    }
+
+    function checkLastString(
+      word: string | undefined = "",
+      lastString: string | undefined
+    ): boolean {
+      return new RegExp(lastString + "$").test(word);
+    }
+
+    function hasAddition(addition: { value?: string }): boolean {
+      return !!(addition && addition.value);
+    }
+
+    function makeAddress(item: AddressItem): string {
+      const { region, land, name } = item;
+      let { area1, area2, area3, area4 } = region;
+      let rest: string | undefined = "";
+      let ri: string | undefined = "";
+      let dongmyun: string | undefined = "";
+      let sigugun: string | undefined = "";
+      let sido: string | undefined = "";
+
+      if (hasArea(area1)) sido = area1.name;
+      if (hasArea(area2)) sigugun = area2.name;
+      if (hasArea(area3)) dongmyun = area3.name;
+      if (hasArea(area4)) ri = area4.name;
+
+      if (land) {
+        if (hasData(land.number1)) {
+          if (hasData(land.type) && land.type === "2") {
+            rest += "산";
+          }
+          rest += land.number1;
+          if (hasData(land.number2)) {
+            rest += "-" + land.number2;
+          }
+        }
+        if (name === "roadaddr") {
+          if (checkLastString(dongmyun, "면")) {
+            ri = land.name;
+          } else {
+            dongmyun = land.name;
+            ri = "";
+          }
+          if (hasAddition(land.addition0)) {
+            rest += " " + land.addition0.value;
+          }
+        }
+      }
+
+      return [sido, sigugun, dongmyun, ri, rest].join(" ");
+    }
+
+    function searchCoordinateToAddress(latlng: naver.maps.LatLng) {
+      infoWindow.close();
+      naver.maps.Service.reverseGeocode(
+        {
+          coords: latlng,
+          orders: [
+            naver.maps.Service.OrderType.ADDR,
+            naver.maps.Service.OrderType.ROAD_ADDR,
+          ].join(","),
+        },
+        function (status: any, response: any) {
+          if (status !== naver.maps.Service.Status.ERROR) {
+            const items = response.v2.results;
+            const htmlAddresses = items.map((item: any, i: number) => {
+              const address = makeAddress(item) || "";
+              const addrType =
+                item.name === "roadaddr" ? "[도로명 주소]" : "[지번 주소]";
+              return `<div>${i + 1}. ${addrType} ${address}</div>`;
+            });
+
+            infoWindow.setContent(
+              `<div style="padding:10px;min-width:200px;line-height:150%;"><h4 style="margin-top:5px;">검색 좌표</h4><br />${htmlAddresses.join(
+                "<br />"
+              )}</div>`
+            );
+            infoWindow.open(map, latlng);
+          } else {
+            alert("Something Wrong!");
+          }
+        }
+      );
+    }
+
+    map.addListener("click", function (e: any) {
+      searchCoordinateToAddress(e.coord);
+    });
+  }, []);
+
+  return <div ref={mapRef} style={{ width: "40rem", height: "40rem" }} />;
 };
 
-// App 컴포넌트를 기본 내보내기로 설정
-export default App;
+export default MapComponent;

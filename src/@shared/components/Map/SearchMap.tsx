@@ -61,29 +61,6 @@ function searchAddressToCoordinate(address: string, map: string | null) {
       const point = new naver.maps.Point(item.x, item.y);
 
       coordinate_item = item;
-      // console.log(coordinate_item);
-
-      // if (item.roadAddress) {
-      //   htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-      // }
-
-      // if (item.jibunAddress) {
-      //   htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-      // }
-
-      // if (item.englishAddress) {
-      //   htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-      // }
-
-      // infoWindow.setContent([
-      //   '<div style="padding:10px;width:300px;line-height:150%;">',
-      //   '<h4 style="margin-top:5px;">검색 주소 : ' + address + '</h4><br />',
-      //   htmlAddresses[0],
-      //   '</div>'
-      // ].join('\n'));
-
-      // map.setCenter(point);
-      // infoWindow.open(map, point);
     }
   );
 
@@ -91,24 +68,26 @@ function searchAddressToCoordinate(address: string, map: string | null) {
   return coordinate_item;
 }
 
-export default function Map() {
-  const { post, postExist, postAll } = SubletPostStore((state) => ({
-    post: state.post,
-    postExist: state.postExist,
-    postAll: state.postAll,
-  }));
+export default function SearchMap(
+  mapType: string,
+  name: string,
+  room: Room,
+  currentPos: [number, number],
+  setPos: (newValue: [number, number]) => void
+) {
   const setPostMarker = SubletPostStore((state) => state.setPostMarker);
 
   const mapRef = useRef<any>(null);
   const markerRef = useRef(null);
-  const [markerAll, setMarkerAll] = useState(false);
+  const [marker, setMarker] = useState(false);
 
   const { naver } = window as CustomWindow;
 
   useEffect(() => {
     createMap();
+    mapType == "searchByMarker" && searchingByDragAdd();
     createMarker();
-  }, [markerAll]);
+  }, [marker]);
 
   function createMap() {
     mapRef.current = new naver.maps.Map(document.getElementById("map"), {
@@ -119,48 +98,33 @@ export default function Map() {
   }
 
   function createMarker() {
-    postAll?.map((post) => {
-      let coordinate: { x: number; y: number } | undefined =
-        searchAddressToCoordinate(post.position, mapRef.current);
-      if (coordinate === undefined && mapRef.current) {
-        coordinate = searchAddressToCoordinate(
-          `${post.city} ${post.gu} ${post.dong} ${post.street} ${post.street_number}`,
-          mapRef.current
-        );
-        if (coordinate === undefined) {
-          coordinate = {
-            x: post.x_coordinate,
-            y: post.y_coordinate,
-          };
-        }
-      }
-      const newCoordinate = coordinate as { x: number; y: number };
-      markerRef.current = new naver.maps.Marker({
-        position: new naver.maps.LatLng(newCoordinate.y, newCoordinate.x),
-        map: mapRef.current,
-        icon: {
-          content: markerHTML(post.price),
-          // size: new window.naver.maps.Size(22, 35),
-          anchor: new naver.maps.Point(10, 15),
-        },
-      });
+    let coordinate: { x: number; y: number } | undefined;
 
-      markerClickEvent(markerRef.current, post);
-      post.marker = markerRef.current;
+    const newCoordinate = coordinate as { x: number; y: number };
+
+    markerRef.current = new naver.maps.Marker({
+      position: new naver.maps.LatLng(newCoordinate.y, newCoordinate.x),
+      map: mapRef.current,
+      icon: {
+        content: markerHTML(room.price),
+        anchor: new naver.maps.Point(10, 15),
+      },
     });
+
+    markerClickEvent(markerRef.current, room);
     setPostMarker(true);
-    setMarkerAll(true);
+    setMarker(true);
   }
 
-  function markerClickEvent(marker: any, post: any) {
+  function markerClickEvent(marker: any, room: any) {
     const { naver } = window as CustomWindow;
     naver.maps.Event.addListener(
       marker,
       "click",
       (e: { coord: { duratiob: number; easing: string } }) => {
         const mapLatLng = new naver.maps.LatLng(
-          Number(post?.y_coordinate),
-          Number(post?.x_coordinate)
+          Number(room?.y_coordinate),
+          Number(room?.x_coordinate)
         );
         // 부드럽게 이동하기
         mapRef.current.panTo(mapLatLng, e?.coord);
@@ -168,11 +132,30 @@ export default function Map() {
     );
   }
 
+  const searchingByDragAdd = () => {
+    const { naver } = window as CustomWindow;
+    naver.maps.Event.addListener(mapRef.current, "dragend", dragendEvent);
+    const mapLatLng = new naver.maps.LatLng(
+      Number(currentPos[0]),
+      Number(currentPos[1])
+    );
+    mapRef.current.panTo(mapLatLng, {
+      x: currentPos[0],
+      y: currentPos[1],
+    });
+  };
+
+  const dragendEvent = () => {
+    if (!mapRef.current) return;
+    const center = mapRef.current.getCenter();
+    setPos([center.y, center.x]);
+  };
+
   return (
     <div
       id="map"
       className="h-screen w-full rounded-lg"
-      style={{ height: "calc(100vh - 250px)" }}
+      style={{ display: "flex", height: "calc(50vh)" }}
     />
   );
 }
