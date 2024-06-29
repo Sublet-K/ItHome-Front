@@ -16,12 +16,6 @@ export const UserBaseComponent = ({ user }: { user: UserForm }) => {
       </div>
 
       <SecondHead className="mt-3">{user.username}</SecondHead>
-      <NormalText className="underline">{user.school}</NormalText>
-      {Object.keys(frame).map((k, index) => {
-        return (
-          <VerifyList key={index} k={k} v={frame[k as keyof typeof frame]} />
-        );
-      })}
     </>
   );
 };

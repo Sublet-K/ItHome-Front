@@ -150,11 +150,8 @@ export function ImageDialog() {
         </label>
       )}
     >
-      <DialogContent
-        sx={{ height: 512, width: 512 }}
-        className="font-black text-center"
-      >
-        <div className="clear-both h-56 w-75 flex items-center justify-center">
+      <DialogContent sx={{ width: 512 }} className="font-black text-center">
+        <div className="mb-8">
           {imgFile !== "" ? (
             <>
               {
@@ -225,7 +222,7 @@ export function VerifyEmailDialog({
         </label>
       )}
     >
-      <DialogContent sx={{ height: 300, width: 300 }} className="text-center">
+      <DialogContent sx={{}} className="text-center">
         <VerifyEmailComponents userId={userId} email={email} />
       </DialogContent>
     </DialogForm>
@@ -502,21 +499,6 @@ export function PostSummaryDetailDialog({
   };
   return (
     <>
-      <div className="inline-block">
-        <s.SecondHead className="float-start mr-4">{room.title} </s.SecondHead>
-        {room.contract ? (
-          <StyleComponent content="VerifyRoom" />
-        ) : (
-          <StyleComponent content="UnverifyRoom" />
-        )}
-      </div>
-      {room.private ? (
-        <p className="font-sm text-black font-bold">공개</p>
-      ) : (
-        <p className="font-sm text-gray-600 font-bold">비공개</p>
-      )}
-      {/* 공개 변경 버튼 추가 */}
-      <hr className="h-px bg-gray-200 border-0" />
       {Object.keys(info_list).map((k, index) => (
         <Information
           key={index}
