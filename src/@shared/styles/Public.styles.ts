@@ -32,7 +32,7 @@ export const DeleteButton = styled.button`
   position: relative;
   margin-right: 12px;
   float: right;
-  ${tw`bg-[#F62424] hover:bg-red-700 text-white font-semibold py-2 px-4 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5`}
 `;
 
 export const NormalButton = styled.button`
@@ -40,7 +40,15 @@ export const NormalButton = styled.button`
     background-color: rgb(156 163 175);
     color: rgb(17 24 39);
   }
-  ${tw`bg-black clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 text-sm`}
+`;
+
+export const UploadButton = styled.button`
+  &:hover {
+    background-color: rgb(156 163 175);
+    color: rgb(17 24 39);
+  }
+  ${tw`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}
 `;
 
 export const BlueNormalButton = styled.button`
@@ -50,21 +58,20 @@ export const BlueNormalButton = styled.button`
   }
   ${tw`bg-[#2196f3] clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
 `;
-
 export const RedNormalButton = styled.button`
   &:hover {
     background-color: rgb(252 165 165);
     color: rgb(17 24 39);
   }
-  ${tw`bg-[#F62424] clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5`}
 `;
 
 export const DisableButton = styled.button`
-  ${tw`bg-gray-400 float-end text-black font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`text-white bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 text-sm`}
 `;
 
 export const InfoButton = styled.button`
-  ${tw`bg-white hover:bg-gray-100 text-black font-semibold py-2 px-4 border border-gray-200 shadow-xl rounded-lg`}
+  ${tw`py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100`}
 `;
 
 export const Checkbox = styled.input`

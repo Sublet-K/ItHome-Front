@@ -239,8 +239,8 @@ export function Information({
 }) {
   return (
     <div>
-      <p className="ml-1 text-m font-bold">• {title}</p>
-      <s.NormalText className="ml-4 text-sm font-medium">{info}</s.NormalText>
+      <p className="text-xl font-semibold">{title}</p>
+      <s.NormalText className="text-sm font-thin">{info}</s.NormalText>
     </div>
   );
 }

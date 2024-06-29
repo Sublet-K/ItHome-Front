@@ -3,6 +3,7 @@ import {
   NormalButton,
   NormalText,
   SecondHead,
+  UploadButton,
 } from "@shared/styles/Public.styles";
 import {
   DateFormat,
@@ -37,7 +38,9 @@ function PostListComponent({
         <SecondHead className="inline">올린 방</SecondHead>
 
         {guestMode && (
-          <NormalButton onClick={setPostPopUpState}>방 올리기</NormalButton>
+          <UploadButton className="m-4" onClick={setPostPopUpState}>
+            방 올리기
+          </UploadButton>
         )}
       </div>
       {(postInfo && postInfo.length) > 0 ? (
