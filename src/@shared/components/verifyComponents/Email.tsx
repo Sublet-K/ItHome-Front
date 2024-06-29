@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, KeyboardEventHandler, useState } from "react";
 import {
   Alert,
   FailAlert,
@@ -66,6 +66,7 @@ export function VerifyEmailComponents({
         .catch(raiseError("FetchVerifyUser", true, setFailState));
     }
   };
+
   return (
     <>
       {activeVerify ? (

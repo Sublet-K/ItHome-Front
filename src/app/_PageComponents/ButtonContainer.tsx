@@ -17,10 +17,3 @@ const LinkLayout = styled(Link)`
   }
   ${tw`bg-black clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
 `;
-
-export const HomeTopButtonContainer = () => (
-  <Layout>
-    <LinkLayout href="/Request">요청서 제출하기</LinkLayout>
-    <LinkLayout href="/">같은 커뮤니티 확인하기</LinkLayout>
-  </Layout>
-);

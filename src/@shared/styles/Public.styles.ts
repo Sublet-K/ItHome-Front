@@ -37,27 +37,18 @@ export const DeleteButton = styled.button`
 
 export const NormalButton = styled.button`
   &:hover {
-    background-color: rgb(156 163 175);
-    color: rgb(17 24 39);
+    background-color: rgb(117, 118, 123);
   }
   ${tw`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 text-sm`}
 `;
 
 export const UploadButton = styled.button`
   &:hover {
-    background-color: rgb(156 163 175);
-    color: rgb(17 24 39);
+    background-color: rgb(0 51 154);
   }
   ${tw`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}
 `;
 
-export const BlueNormalButton = styled.button`
-  &:hover {
-    background-color: rgb(77 171 245);
-    color: rgb(17 24 39);
-  }
-  ${tw`bg-[#2196f3] clear-both float-end text-white font-semibold py-1 px-2 border border-gray-200 shadow-xl rounded-lg`}
-`;
 export const RedNormalButton = styled.button`
   &:hover {
     background-color: rgb(252 165 165);
@@ -81,7 +72,7 @@ export const Checkbox = styled.input`
 export const ImageUploadButton = styled.button``;
 
 export const Label = styled.label`
-  ${tw`block mb-0.5 text-sm font-semibold text-gray-900`}
+  ${tw`block mb-0.5 text-sm font-normal text-gray-900`}
 `;
 export const Image = styled.img`
   width: 100px;

@@ -1,9 +1,9 @@
 import {
   ChangeEventHandler,
   Dispatch,
-  MouseEventHandler,
   SetStateAction,
   useState,
+  KeyboardEventHandler,
 } from "react";
 import { DialogContent } from "@mui/material";
 import {
@@ -12,6 +12,7 @@ import {
   NormalButton,
   PolicyText,
   SecondHead,
+  UploadButton,
 } from "@shared/styles/Public.styles";
 import Link from "next/link";
 import { InputPassword } from "../Input/TextInputTag";
@@ -43,6 +44,7 @@ export const LoginContent = ({
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
+
   const loginHandled = () => {
     FetchLogin({
       id: idState,
@@ -57,6 +59,13 @@ export const LoginContent = ({
     if (setPopUpState) setPopUpState(false);
     setSignUpPopUpState();
   };
+
+  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === "Enter") {
+      loginHandled();
+    }
+  };
+
   return (
     <>
       <DialogContent>
@@ -66,7 +75,10 @@ export const LoginContent = ({
             합리적인 가격의 다양한 집을 확인하세요.
           </p>
         </div>
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div
+          className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm"
+          onKeyDown={handleKeyDown}
+        >
           <div>
             <Label htmlFor="id">Id</Label>
             <div className="mt-2">
@@ -77,41 +89,35 @@ export const LoginContent = ({
                 value={idState}
               />
             </div>
-          </div>{" "}
-          {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
+          </div>
           <div>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-4 flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
               <div className="text-sm">
                 <Link href="/resetpassword">
-                  <PolicyText>Forgot password?</PolicyText>
+                  <PolicyText>비밀번호 찾기</PolicyText>
                 </Link>
               </div>
             </div>
             <div className="mt-2">
               <InputPassword onChange={inputHandle} value={passwordState} />
             </div>
-          </div>{" "}
-          {/*// 이중 intent 되어서 입력 도중 렌더링 되는 것 같습니다. 위 컴포넌트 해제하고 여기에 직접 쓰면 정상 작동 합니다.*/}
+          </div>
         </div>
         <div>
           <NormalButton
             type="submit"
             onClick={loginHandled}
-            className="flex w-full justify-center mt-5"
+            className="flex w-full justify-center mt-4"
           >
             로그인 하기
           </NormalButton>
-        </div>
-        <div className="text-sm">
-          <Link href="#">
-            <PolicyText
-              className="mt-2 ml-1 text-m font-bold"
-              onClick={signUpHandled}
-            >
-              회원가입
-            </PolicyText>
-          </Link>
+          <UploadButton
+            className="flex w-full justify-center mt-4"
+            onClick={signUpHandled}
+          >
+            회원가입
+          </UploadButton>
         </div>
       </DialogContent>
     </>

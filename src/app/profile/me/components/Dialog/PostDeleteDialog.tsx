@@ -29,7 +29,7 @@ export const PostDeleteDialog = ({
       <DialogContent className="font-black text-center">
         <p className="text-lg font-extrabold ">게시글을 삭제하시겠습니까?</p>
         <p className="text-sm font-thin mt-1 float-left">
-          삭제를 하실 경우 과거 예약정보까지 전부 사라짐을 동의합니다.
+          삭제를 하실 경우 다시 올려야하는데 괜찮은가요?
         </p>
       </DialogContent>
       <DialogActions>

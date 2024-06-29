@@ -488,9 +488,9 @@ export const PostUploadDialog = () => {
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
               <div>
-                <s.BlueNormalButton className="ml-2" onClick={uploadPost}>
+                <s.UploadButton className="ml-2" onClick={uploadPost}>
                   방 올리기
-                </s.BlueNormalButton>
+                </s.UploadButton>
                 <s.NormalButton className="ml-2" onClick={savePost}>
                   임시 저장하기
                 </s.NormalButton>
