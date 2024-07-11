@@ -44,7 +44,10 @@ export default function RootLayout({
           content="Web site created using create-react-app"
         />
         <title>Sublet</title>
-
+        {/* <script
+          type="text/javascript"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS}&autoload=false`}
+        ></script> */}
         <script
           defer
           type="text/javascript"

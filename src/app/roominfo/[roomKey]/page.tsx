@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { SubletPostStore } from "@store/SubletPostStore";
-import Map from "@shared/components/Map/Map";
+import Map, { KakaoMap } from "@shared/components/Map/Map";
 import * as s from "@shared/styles/Public.styles";
 import { ShareDialog } from "@shared/components/Popup/Popup";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
@@ -222,21 +222,25 @@ export default function RoomInfo() {
           </RoomTitle>
           <RoomPrice nowRoomPost={nowRoomPost} />
           <RoomDetail nowRoomPost={nowRoomPost} />
+          <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
 
           <section className="mx-3 mb-6">
             <div className="text-xl font-bold">지도</div>
-            <div className="h-1/6 overflow-hidden px-10">
-              {/*postExist && <Map />*/}
+            <div className="items-center">
+              {postExist && (
+                <KakaoMap
+                  x={nowRoomPost.x_coordinate}
+                  y={nowRoomPost.y_coordinate}
+                />
+              )}
             </div>
           </section>
-
+          {/* 
           <RoomReservation
             nowRoomPost={nowRoomPost}
             moveToBooking={moveToBooking}
             searchDate={searchDate}
-          />
-
-          <RoomHost />
+          /> */}
         </>
       )}
     </>

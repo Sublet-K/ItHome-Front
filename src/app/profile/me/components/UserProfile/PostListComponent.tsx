@@ -35,7 +35,7 @@ function PostListComponent({
   return (
     <div className="">
       <div className="flex justify-between">
-        <SecondHead className="inline">내 방 보기</SecondHead>
+        <SecondHead className="inline">방 보기</SecondHead>
 
         {guestMode && (
           <UploadButton className="mb-4" onClick={setPostPopUpState}>
