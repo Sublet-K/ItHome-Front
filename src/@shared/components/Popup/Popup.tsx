@@ -68,6 +68,8 @@ import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
 import Link from "next/link";
 import { Post, RequestForm } from "@type/Type";
 import { LoginContent } from "../loginComponents/LoginContent";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleButton } from "../loginComponents/Google";
 
 export function DialogForm({
   name = "",
@@ -411,7 +413,7 @@ export function ShareDialog({
         <s.SecondHead>숙소를 공유하세요!</s.SecondHead>
         <s.NormalText> 복사하여 편하게 보내세요</s.NormalText>
       </div>
-      <div className="mt-2">
+      <div className="mt-4">
         {/* input 용도가 아니라서 컴포넌트화 하지 않았습니다. */}
         <s.InputText
           type="text"
@@ -419,18 +421,8 @@ export function ShareDialog({
           ref={copyLinkRef}
           value={resultUrl}
         />
-        <s.NormalButton className="ml-2" onClick={copyTextUrl}>
+        <s.NormalButton className="mt-4" onClick={copyTextUrl}>
           복사하기
-        </s.NormalButton>
-      </div>
-      <div className="mt-2">
-        <s.NormalButton
-          className="ml-2"
-          onClick={() => {
-            shareKakao();
-          }}
-        >
-          카카오 공유하기
         </s.NormalButton>
       </div>
       <div className="mt-4 center">{successState && <Alert />}</div>
@@ -521,21 +513,21 @@ export function SignUpDialog() {
 
   const [inputs, setInputs] = useState({
     idState: "",
-    passwordState: "",
+    passwordState: "googleLogin!2#1",
     userNameState: "",
     emailState: "",
     phoneState: "",
-    schoolState: "고려대학교",
-    genderState: "여",
+    schoolState: "temp",
+    genderState: "temp",
     studentIdState: "24",
-    jobState: "학생",
+    jobState: "temp",
   });
   const [birthState, setBirthState] = useState(dayjs(new Date()));
+  const [emailState, setEmailState] = useState("");
   const {
     idState,
     passwordState,
     userNameState,
-    emailState,
     phoneState,
     schoolState,
     genderState,
@@ -552,31 +544,13 @@ export function SignUpDialog() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
-
+  const idList = {
+    google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+  };
   const signUpHandled = () => {
     const birth = birthState.toDate();
-    if (checkEmailFormat(emailState, schoolState)) {
-      setEmailFormatState(true);
-      FetchSignUp({
-        userId: idState,
-        password: passwordState,
-        username: userNameState,
-        email: emailState,
-        phone: phoneState.replace(/-/gi, "").replace("010", "+8210"),
-        school: schoolState,
-        gender: genderState,
-        jobState: jobState,
-        birth: birth.toISOString(),
-        studentId: Number(studentIdState),
-      });
-      setSignUpPopUpState();
-    } else {
-      console.log("잘못된 이메일 양식입니다.", emailFormatState);
-      setEmailFormatState(false);
-    }
-
     FetchSignUp({
-      userId: idState,
+      userId: emailState,
       password: passwordState,
       username: userNameState,
       email: emailState,
@@ -605,27 +579,6 @@ export function SignUpDialog() {
       </DialogTitle>
       <DialogContent>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <s.JustifyBlock>
-            <div>
-              <s.Label htmlFor="id">아이디</s.Label>
-              <div className="mt-2">
-                <InputText
-                  name="idState"
-                  placeholder="아이디"
-                  onChange={inputHandle}
-                  value={idState}
-                />
-              </div>
-            </div>
-
-            <div className="ml-2">
-              <s.Label htmlFor="password">패스워드</s.Label>
-              <div className="mt-2">
-                <InputPassword onChange={inputHandle} value={passwordState} />
-              </div>
-            </div>
-          </s.JustifyBlock>
-
           <div>
             <div className="mt-2 flex items-center justify-between">
               <s.Label htmlFor="username">별명</s.Label>
@@ -640,7 +593,7 @@ export function SignUpDialog() {
             </div>
           </div>
           <div>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-4 flex items-center justify-between">
               <s.Label htmlFor="password">생년월일</s.Label>
             </div>
             <div className="mt-2">
@@ -658,122 +611,29 @@ export function SignUpDialog() {
           </div>
 
           <div>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-4 flex items-center justify-between">
               <s.Label htmlFor="phone">전화번호</s.Label>
             </div>
             <div className="mt-2">
               <InputTelePhone onChange={inputHandle} value={phoneState} />
             </div>
           </div>
-
-          <s.Horizon className="mt-2" />
-
-          <FormControl>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              defaultValue="학생"
-              name="jobState"
-              value={jobState}
-              onChange={inputHandle}
-              // required
-            >
-              <FormControlLabel value="학생" control={<Radio />} label="학생" />
-              <FormControlLabel
-                value="사업자"
-                control={<Radio />}
-                label="사업자"
-              />
-            </RadioGroup>
-          </FormControl>
-          {jobState === "학생" ? (
-            <>
-              <div>
-                <div className="mt-2 flex items-center justify-between">
-                  <s.Label htmlFor="university">대학교</s.Label>
-                </div>
-                <div className="mt-2">
-                  {/* <s.InputText type="text" name="schoolState" placeholder="대학교" onChange={inputHandle} value={schoolState} required /> */}
-                  <Select
-                    labelId="demo-simple-select-required-label"
-                    id="demo-simple-select-required"
-                    value={schoolState}
-                    label="대학교 *"
-                    // onChange={inputHandle}
-                  >
-                    <MenuItem value="고려대학교">고려대학교</MenuItem>
-                  </Select>
-                </div>
-              </div>
-              <div>
-                <div className="mt-2 flex items-center justify-between">
-                  <s.Label htmlFor="studentId">학번</s.Label>
-                </div>
-                <div className="mt-2">
-                  <InputStudentId
-                    onChange={inputHandle}
-                    value={studentIdState}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="mt-2 flex items-center justify-between">
-                  <s.Label htmlFor="email">대학교 이메일</s.Label>
-                </div>
-                <div className="mt-2">
-                  <InputEmail
-                    emailFormatState={emailFormatState}
-                    onChange={inputHandle}
-                    value={emailState}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div>
-                <div className="mt-2 flex items-center justify-between">
-                  <s.Label htmlFor="university">업체명</s.Label>
-                </div>
-                <div className="mt-2">
-                  {/* <s.InputText type="text" name="schoolState" placeholder="대학교" onChange={inputHandle} value={schoolState} required /> */}
-                  {/*<InputText name="schoolState" placeholder="업체명" />*/}
-                </div>
-              </div>
-              <div>
-                <div className="mt-2 flex items-center justify-between">
-                  <s.Label htmlFor="email">이메일</s.Label>
-                </div>
-                <div className="mt-2">
-                  <InputEmail
-                    emailFormatState={emailFormatState}
-                    onChange={inputHandle}
-                    value={emailState}
-                  />
-                </div>
-              </div>
-            </>
-          )}
-
           <div>
-            <div className="mt-2 flex items-center justify-between">
-              <s.Label htmlFor="gender">성별</s.Label>
+            <div className="mt-4 flex items-center justify-between">
+              <s.Label htmlFor="phone">이메일</s.Label>
             </div>
+
             <div className="mt-2">
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  defaultValue="여"
-                  name="genderState"
-                  value={genderState}
-                  onChange={inputHandle}
-                  /*required*/
-                >
-                  <FormControlLabel value="여" control={<Radio />} label="여" />
-                  <FormControlLabel value="남" control={<Radio />} label="남" />
-                </RadioGroup>
-              </FormControl>
+              {emailState == "" ? (
+                <GoogleOAuthProvider clientId={idList.google}>
+                  <GoogleButton
+                    purpose="signup"
+                    setEmailState={setEmailState}
+                  />
+                </GoogleOAuthProvider>
+              ) : (
+                <s.PolicyText>{emailState}</s.PolicyText>
+              )}{" "}
             </div>
           </div>
         </div>

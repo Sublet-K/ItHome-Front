@@ -396,6 +396,7 @@ function FetchSignUp({
       gender: gender,
       birth: birth,
       student_id: studentId,
+      smoking: "true",
     }),
 
     path: "/",

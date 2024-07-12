@@ -503,9 +503,6 @@ export const PostUploadDialog = () => {
                 <s.UploadButton className="ml-2" onClick={uploadPost}>
                   방 올리기
                 </s.UploadButton>
-                <s.NormalButton className="ml-2" onClick={savePost}>
-                  임시 저장하기
-                </s.NormalButton>
               </div>
             </p>
           </SwiperSlide>

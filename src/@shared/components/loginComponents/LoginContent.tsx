@@ -20,6 +20,8 @@ import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { FetchLogin } from "../FetchList/FetchList";
 import { useUserLikeStore } from "@store/UserLikeStore";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleButton } from "./Google";
 
 export const LoginContent = ({
   setPopUpState,
@@ -37,6 +39,9 @@ export const LoginContent = ({
     passwordState: "",
   });
   const { idState, passwordState } = inputs;
+  const idList = {
+    google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+  };
 
   const inputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs({
@@ -75,36 +80,12 @@ export const LoginContent = ({
             합리적인 가격의 다양한 집을 확인하세요.
           </p>
         </div>
-        <div
-          className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm"
-          onKeyDown={handleKeyDown}
-        >
-          <div>
-            <Label htmlFor="id">Id</Label>
-            <div className="mt-2">
-              <InputText
-                name="idState"
-                placeholder="아이디"
-                onChange={inputHandle}
-                value={idState}
-              />
-            </div>
-          </div>
-          <div>
-            <div className="mt-4 flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-              <div className="text-sm">
-                <Link href="/resetpassword">
-                  <PolicyText>비밀번호 찾기</PolicyText>
-                </Link>
-              </div>
-            </div>
-            <div className="mt-2">
-              <InputPassword onChange={inputHandle} value={passwordState} />
-            </div>
-          </div>
-        </div>
         <div>
+          <div>
+            <GoogleOAuthProvider clientId={idList.google}>
+              <GoogleButton purpose="login" />
+            </GoogleOAuthProvider>
+          </div>
           <NormalButton
             type="submit"
             onClick={loginHandled}

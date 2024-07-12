@@ -10,6 +10,7 @@ import {
   InputText,
   Label,
   NormalButton,
+  NormalText,
   PolicyText,
   SecondHead,
   UploadButton,
@@ -75,16 +76,13 @@ export const ContactDialog = ({
       <DialogContent>
         <div className="float-left">
           <SecondHead>연락처 입력</SecondHead>
-          <p className="text-base text-gray">
-            전화번호나 이메일을 입력해주세요.
-          </p>
+          <NormalText>상담 받으실 연락처를 입력해주세요.</NormalText>
         </div>
         <div
           className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm"
           onKeyDown={handleKeyDown}
         >
           <div>
-            <Label htmlFor="id">Id</Label>
             <div className="mt-2">
               <InputText
                 name="contactState"
@@ -94,9 +92,9 @@ export const ContactDialog = ({
               />
             </div>
           </div>
-          <p className="text-base text-gray">
+          <PolicyText className="mt-4 md-4">
             개인정보 수집 이용 및 제3자 제공에 동의합니다.
-          </p>
+          </PolicyText>
         </div>
         <div>
           <NormalButton
