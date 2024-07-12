@@ -363,15 +363,6 @@ export const PostUploadDialog = () => {
                     : ["시/군을 먼저 선택해주세요"]
                 }
               />
-              {/* <TextInputTag
-                id="dong"
-                label="동"
-                placeholder="동을 입력해주세요."
-                value={postState["dong"]}
-                name="dong"
-                onChange={onChange}
-                required={true}
-              /> */}
               <TextInputTag
                 id="street"
                 label="길(로)"
@@ -390,15 +381,6 @@ export const PostUploadDialog = () => {
                 onChange={onChange}
                 required={true}
               />
-              {/* <TextInputTag
-                id="postCode"
-                label="우편번호"
-                placeholder="우편번호를 입력해주세요."
-                value={postState["postCode"]}
-                name="postCode"
-                onChange={onChange}
-                required={true}
-              /> */}
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">

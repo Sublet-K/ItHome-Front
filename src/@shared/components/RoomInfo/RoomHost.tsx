@@ -19,7 +19,6 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
 
     router.push(`/profile/${user.user_id}`);
 
-    // navigate(`/roominfo/${room.Post.key}`, {
     //   room: room.Post,
     // });
   };
@@ -52,11 +51,6 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
               {user.username}
             </a>
           </div>
-          {/* <div className="text-sm">호스트 소개</div> */}
-          {/* <div className="flex space-x-4 mt-1">
-            <span className="text-sm text-gray-700">후기 1,220개</span>
-            <span className="text-sm text-gray-700">경력 7년</span>
-          </div> */}
         </div>
       </div>
 

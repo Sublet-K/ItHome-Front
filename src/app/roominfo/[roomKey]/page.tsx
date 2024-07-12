@@ -235,12 +235,6 @@ export default function RoomInfo() {
               )}
             </div>
           </section>
-          {/* 
-          <RoomReservation
-            nowRoomPost={nowRoomPost}
-            moveToBooking={moveToBooking}
-            searchDate={searchDate}
-          /> */}
         </>
       )}
     </>
