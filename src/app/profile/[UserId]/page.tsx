@@ -26,7 +26,6 @@ function HostInfo() {
             }}
           >
             <UserBaseComponent user={userInfo} />
-            <Horizon />
           </div>
 
           <div

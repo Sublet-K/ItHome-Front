@@ -35,6 +35,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { DialogForm } from "@shared/components/Popup/Popup";
+import { KakaoMap } from "@shared/components/Map/Map";
 
 const cities = Object.keys(AdministrativeDistricts) as string[];
 
@@ -333,6 +334,7 @@ export const PostUploadDialog = () => {
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
+              <p>예시: 서울특별시 송파구 올림픽로 240</p>
               시/도
               <DropBoxSelect
                 name="city"
@@ -362,17 +364,8 @@ export const PostUploadDialog = () => {
                 }
               />
               <TextInputTag
-                id="dong"
-                label="동"
-                placeholder="동을 입력해주세요."
-                value={postState["dong"]}
-                name="dong"
-                onChange={onChange}
-                required={true}
-              />
-              <TextInputTag
                 id="street"
-                label="길"
+                label="길(로)"
                 placeholder="길을 입력해주세요."
                 value={postState["street"]}
                 name="street"
@@ -388,27 +381,28 @@ export const PostUploadDialog = () => {
                 onChange={onChange}
                 required={true}
               />
-              <TextInputTag
-                id="postCode"
-                label="우편번호"
-                placeholder="우편번호를 입력해주세요."
-                value={postState["postCode"]}
-                name="postCode"
-                onChange={onChange}
-                required={true}
-              />
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>위치 정보가 정확한가요?</h3>
               <p>지도</p>
-              <LocationInput
-                pos={postState["pos"] as [number, number]}
-                currentPos={postState["pos"] as [number, number]} // Fix: Cast 'pos' as [number, number]
-                name="pos"
-                onChange={handleLocation}
-              />
+              {postState["street"] != "" &&
+                postState["streetNumber"] != "" &&
+                postState["gu"] != "" &&
+                postState["city"] != "" && (
+                  <KakaoMap
+                    name={
+                      postState["city"] +
+                      " " +
+                      postState["gu"] +
+                      " " +
+                      postState["street"] +
+                      " " +
+                      postState["streetNumber"]
+                    }
+                  />
+                )}
               정확하지 않다면 이전페이지에서 주소를 다시 수정해주세요. (여기에
               버튼 수정하기 버튼 추가해서 이전 슬라이더로 이동?)
             </p>
@@ -488,12 +482,9 @@ export const PostUploadDialog = () => {
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
               <div>
-                <s.BlueNormalButton className="ml-2" onClick={uploadPost}>
+                <s.UploadButton className="ml-2" onClick={uploadPost}>
                   방 올리기
-                </s.BlueNormalButton>
-                <s.NormalButton className="ml-2" onClick={savePost}>
-                  임시 저장하기
-                </s.NormalButton>
+                </s.UploadButton>
               </div>
             </p>
           </SwiperSlide>

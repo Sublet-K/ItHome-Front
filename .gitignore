@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+next.config.mjs
 
 # vercel
 .vercel
@@ -37,3 +38,4 @@ yarn-error.log*
 next-env.d.ts
 
 certificates
+next.config.mjs

@@ -396,6 +396,7 @@ function FetchSignUp({
       gender: gender,
       birth: birth,
       student_id: studentId,
+      smoking: "true",
     }),
 
     path: "/",
@@ -608,7 +609,27 @@ async function FetchReportPost(
     .then(notFoundError)
     .catch(raiseError("FetchReportPost"));
 }
-
+async function FetchContact({
+  contact,
+  user_contact,
+  title,
+}: {
+  contact: string;
+  user_contact: string;
+  title: string;
+}) {
+  const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/contactemail`;
+  return await fetch(link, {
+    ...headerOptions("POST"),
+    body: JSON.stringify({
+      user_contact: user_contact,
+      contact: contact,
+      title: title,
+    }),
+  })
+    .then(notFoundError)
+    .catch(raiseError("Send Contact"));
+}
 export {
   FetchVerifyUser,
   FetchResetPassword,
@@ -642,4 +663,5 @@ export {
   FetchLikePostsId,
   FetchPutReservation,
   FetchReportPost,
+  FetchContact,
 };
