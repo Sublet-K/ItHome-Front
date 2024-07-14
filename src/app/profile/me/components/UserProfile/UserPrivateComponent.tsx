@@ -10,9 +10,11 @@ import {
   NormalText,
   SecondHead,
   SvgHoverButton,
+  UploadButton,
 } from "@shared/styles/Public.styles";
 import { UserForm } from "@app/UserType";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+
 export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
   const { setEmailPopUpState, setPhonePopUpState, setVerifyEmailPopUpState } =
     guestInfoPopUpStore((state) => ({
@@ -27,53 +29,41 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
       .replace(/[^0-9]/g, "")
       .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
       .replace(/(\-{1,2})$/g, "");
-    return (
-      <div>
-        <SecondHead>사용자 정보</SecondHead>
 
+    return (
+      <div className="mt-6">
         <div className="ml-4 mt-4">
           <Label>이메일</Label>
-
-          <button
-            className="border-solid border-b border-black"
-            onClick={setEmailPopUpState}
-          >
-            <div>
-              <div className="inline-block">
-                <NormalText className="justify-start">{user.email}</NormalText>
-              </div>
-
-              {!user.verify_email && (
-                <div>
-                  <NormalButton
-                    className="float-left"
-                    onClick={setVerifyEmailPopUpState}
-                  >
-                    인증하기
-                  </NormalButton>
-                </div>
-              )}
-            </div>
-          </button>
+          <div className="flex items-center justify-between">
+            <button
+              className="border-b border-gray-300"
+              onClick={setEmailPopUpState}
+            >
+              <NormalText className="text-lg">{user.email}</NormalText>
+            </button>
+            {!user.verify_email && (
+              <UploadButton className="ml-4" onClick={setVerifyEmailPopUpState}>
+                인증하기
+              </UploadButton>
+            )}
+          </div>
           <EmailDialog originalEmail={user.email} schoolState={user.school} />
-          <Label>전화번호</Label>
-          <button
-            onClick={setPhonePopUpState}
-            className="border-solid border-b border-black"
-          >
-            <div>
-              <div className="inline-block">
-                <NormalText className="justify-start">{phoneNumber}</NormalText>
-              </div>
-            </div>
 
+          <div className="">
+            <Label>전화번호</Label>
+            <button
+              onClick={setPhonePopUpState}
+              className="border-b border-gray-300"
+            >
+              <NormalText className="text-lg">{phoneNumber}</NormalText>
+            </button>
             <PhoneDialog originalPhone={phoneNumber} />
-          </button>
+          </div>
         </div>
         <VerifyEmailDialog email={user.email} userId={user.user_id} />
       </div>
     );
   } else {
-    return;
+    return null;
   }
 };

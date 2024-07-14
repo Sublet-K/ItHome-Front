@@ -57,13 +57,13 @@ export function PostSummaryBlock({
 
   const infoButtonList: {
     detailDialogShow: string;
-    requestDialogShow: string;
-    reservationDialogShow: string;
+    // requestDialogShow: string;
+    // reservationDialogShow: string;
     editRoomDialogShow: string;
   } = {
     detailDialogShow: "상세 정보",
-    requestDialogShow: "받은 요청서",
-    reservationDialogShow: "예약현황",
+    // requestDialogShow: "받은 요청서",
+    // reservationDialogShow: "예약현황",
     editRoomDialogShow: "방 수정하기",
   };
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -136,11 +136,11 @@ export function PostSummaryBlock({
                 price={price}
                 address={address}
               />
-              <PostReservationDialog
+              {/* <PostReservationDialog
                 reservationDialogShow={reservationDialogShow}
                 onClick={onClick}
                 requestKey={key}
-              />
+              /> */}
 
               <PostDeleteDialog
                 deletelDialogShow={deletelDialogShow}

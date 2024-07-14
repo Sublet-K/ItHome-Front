@@ -3,6 +3,7 @@ import {
   NormalButton,
   NormalText,
   SecondHead,
+  UploadButton,
 } from "@shared/styles/Public.styles";
 import {
   DateFormat,
@@ -32,35 +33,39 @@ function PostListComponent({
   );
 
   return (
-    <div className="mb-4 mt-8">
+    <div className="">
       <div className="flex justify-between">
-        <SecondHead className="inline">방 현황</SecondHead>
+        <SecondHead className="inline">방 보기</SecondHead>
 
         {guestMode && (
-          <NormalButton onClick={setPostPopUpState}>방 올리기</NormalButton>
+          <UploadButton className="mb-4" onClick={setPostPopUpState}>
+            방 올리기
+          </UploadButton>
         )}
       </div>
-      {(postInfo && postInfo.length) > 0 ? (
-        postInfo.map((res, index) => {
-          const address = res.city + " " + res.gu + " " + res.dong;
-          const postDate = DateFormat(res.post_date);
-          const price = priceToString(res.price);
+      <div className="mt-4">
+        {(postInfo && postInfo.length) > 0 ? (
+          postInfo.map((res, index) => {
+            const address = res.city + " " + res.gu + " " + res.dong;
+            const postDate = DateFormat(res.post_date);
+            const price = priceToString(res.price);
 
-          return (
-            <PostSummaryBlock
-              key={index}
-              room={res}
-              postDate={postDate}
-              price={price}
-              address={address}
-              guestMode={guestMode}
-            />
-          );
-        })
-      ) : (
-        <NormalText>올린 방이 아직 없습니다.</NormalText>
-      )}
-      <PostUploadDialog />
+            return (
+              <PostSummaryBlock
+                key={index}
+                room={res}
+                postDate={postDate}
+                price={price}
+                address={address}
+                guestMode={guestMode}
+              />
+            );
+          })
+        ) : (
+          <NormalText>올린 방이 아직 없습니다.</NormalText>
+        )}
+        <PostUploadDialog />
+      </div>
     </div>
   );
 }

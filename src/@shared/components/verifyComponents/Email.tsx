@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, KeyboardEventHandler, useState } from "react";
 import {
   Alert,
   FailAlert,
@@ -66,6 +66,7 @@ export function VerifyEmailComponents({
         .catch(raiseError("FetchVerifyUser", true, setFailState));
     }
   };
+
   return (
     <>
       {activeVerify ? (
@@ -81,20 +82,27 @@ export function VerifyEmailComponents({
             />
           </form>
 
-          <div className="mt-4">
+          <div className="mt-4" style={{ marginBottom: "0" }}>
             {numberState.toString().length < 6 ? (
-              <DisableButton disabled>인증하기</DisableButton>
+              <DisableButton className="mr-4" disabled>
+                인증하기
+              </DisableButton>
             ) : (
-              <NormalButton onClick={numberHandled}>인증하기</NormalButton>
+              <NormalButton className="mr-4" onClick={numberHandled}>
+                인증하기
+              </NormalButton>
             )}
 
-            <NormalButton onClick={verifyEmailHandleAgain}>
+            <NormalButton
+              onClick={verifyEmailHandleAgain}
+              style={{ marginTop: "10px" }}
+            >
               다시 발송하기
             </NormalButton>
           </div>
         </div>
       ) : (
-        <NormalButton onClick={verifyEmailHandle}>
+        <NormalButton onClick={verifyEmailHandle} style={{ marginBottom: "0" }}>
           인증번호 발송하기
         </NormalButton>
       )}

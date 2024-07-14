@@ -1,7 +1,8 @@
 import React, { CSSProperties, Dispatch, SetStateAction } from "react";
-import SearchMap from "@shared/components/Map/SearchMap";
+// import Map from "./Map";
 import * as inputStyle from "../../styles/Input.styles";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { KakaoMap, SearchMap } from "../Map/Map";
 
 export const LocationInput = ({
   pos,
@@ -34,20 +35,19 @@ export const LocationInput = ({
   return (
     <div>
       <inputStyle.displayFilteringValueWhenModifyingFilter>
-        <span>posx: {pos[0]}</span>
         <span>,</span>
-        <span>posy: {pos[1]}</span>
       </inputStyle.displayFilteringValueWhenModifyingFilter>
       <div style={styles.searchByMap}>
-        <SearchMap
+        <KakaoMap name={name} />
+        {/* <Map
           type="searchByMarker"
           name={name}
           currentPos={currentPos}
           setPos={onChange}
-        />
-        <div style={styles.mapMarker}>
+        /> */}
+        {/* <div style={styles.mapMarker}>
           <LocationOnIcon />
-        </div>
+        </div> */}
       </div>
     </div>
   );

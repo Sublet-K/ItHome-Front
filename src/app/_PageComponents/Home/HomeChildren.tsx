@@ -3,7 +3,6 @@
 import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
 import { HomeMoreRoomButton } from "./components/HomeMoreRoomButton";
 import { HomeRoomContainer } from "./components/HomeRoomContainer";
-import { HomeTopButtonContainer } from "./components/HomeTopButtonContainer";
 
 import { Post } from "@type/Type";
 import { useTitle } from "../UseTitle";
@@ -57,7 +56,6 @@ export const HomeChildren = ({
 
   return (
     <>
-      <HomeTopButtonContainer isLogined={userInfo.id != undefined} />
       <HomeRoomContainer roomsData={roomsData} />
       <div ref={ref}></div>
     </>

@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { SubletPostStore } from "@store/SubletPostStore";
-import Map from "@shared/components/Map/Map";
+import Map, { KakaoMap } from "@shared/components/Map/Map";
 import * as s from "@shared/styles/Public.styles";
 import { ShareDialog } from "@shared/components/Popup/Popup";
 import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
@@ -96,6 +96,10 @@ export default function RoomInfo() {
     setReportPopUpState(false);
   };
 
+  const handleSharePopUpState = () => {
+    setSharePopUpState(false);
+  };
+
   return (
     <>
       <ImageCarousel>
@@ -115,39 +119,37 @@ export default function RoomInfo() {
       {postExist && nowRoomPost && (
         <>
           <div>
-            <span>
-              <s.NormalButton
+            <div className="flex justify-end">
+              <s.UploadButton
                 onClick={() => {
                   setSharePopUpState(true);
                 }}
               >
                 공유하기
-              </s.NormalButton>
+              </s.UploadButton>
               <s.RedNormalButton
+                className="ml-4"
                 onClick={() => {
                   setReportPopUpState(true);
                 }}
               >
                 신고하기
               </s.RedNormalButton>
-            </span>
-            <Dialog
-              open={sharePopUpState}
-              className="border border-gray-300 shadow-xl rounded-lg"
-            >
-              <DialogContent sx={{ height: 224 }} className="text-left">
-                <form className="flot-right">
-                  <s.NormalButton
-                    type="button"
-                    name="sharePopUpState"
-                    onClick={() => {
-                      setSharePopUpState(false);
-                    }}
-                  >
-                    <StyleComponent content="CloseButton" />
-                  </s.NormalButton>
-                </form>
+            </div>
 
+            <DialogForm
+              openState={sharePopUpState}
+              handleClose={handleSharePopUpState}
+              render={() => (
+                <label
+                  htmlFor="report_type"
+                  className="text-sm font-medium text-gray-900 float-left"
+                >
+                  공유하기
+                </label>
+              )}
+            >
+              <DialogContent sx={{ width: 400, height: 250 }}>
                 <ShareDialog
                   description={nowRoomPost.description}
                   title={nowRoomPost.title}
@@ -155,7 +157,8 @@ export default function RoomInfo() {
                   // className="clear-both"
                 />
               </DialogContent>
-            </Dialog>
+            </DialogForm>
+
             <DialogForm
               openState={reportPopUpState}
               handleClose={handleReportPopUpState}
@@ -163,13 +166,11 @@ export default function RoomInfo() {
                 <label
                   htmlFor="report_type"
                   className="block mb-2 text-sm font-medium text-gray-900 float-left"
-                >
-                  신고 사유
-                </label>
+                ></label>
               )}
             >
               <DialogContent
-                sx={{ width: 512, height: 512 }}
+                sx={{ width: 512, height: 200 }}
                 className="font-black text-center"
               >
                 <div className="mt-1.5">
@@ -192,6 +193,7 @@ export default function RoomInfo() {
                   />
                 </div>
                 <s.RedNormalButton
+                  className="mt-4"
                   onClick={() => {
                     if (reportType === "") {
                       alert("신고 사유를 선택해주세요.");
@@ -222,21 +224,19 @@ export default function RoomInfo() {
           </RoomTitle>
           <RoomPrice nowRoomPost={nowRoomPost} />
           <RoomDetail nowRoomPost={nowRoomPost} />
+          <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
 
           <section className="mx-3 mb-6">
             <div className="text-xl font-bold">지도</div>
-            <div className="h-1/6 overflow-hidden px-10">
-              {/*postExist && <Map />*/}
+            <div className="items-center">
+              {postExist && (
+                <KakaoMap
+                  x={nowRoomPost.x_coordinate}
+                  y={nowRoomPost.y_coordinate}
+                />
+              )}
             </div>
           </section>
-
-          <RoomReservation
-            nowRoomPost={nowRoomPost}
-            moveToBooking={moveToBooking}
-            searchDate={searchDate}
-          />
-
-          <RoomHost />
         </>
       )}
     </>
