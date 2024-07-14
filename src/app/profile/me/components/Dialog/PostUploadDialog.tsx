@@ -22,7 +22,10 @@ import {
 } from "@shared/components/Input/ValueViewer";
 import * as s from "@shared/styles/Public.styles";
 import * as psd from "@shared/styles/PostUploadDialog.styles";
-import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
+import {
+  formatDate,
+  priceToString,
+} from "@shared/components/StaticComponents/StaticComponents";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 
 // 필요한 Swiper 모듈들을 임포트
@@ -99,18 +102,6 @@ export const PostUploadDialog = () => {
     setPostPopUpState();
   };
 
-  function formatDate(date: Date | number) {
-    const d = new Date(date);
-    let month = "" + (d.getMonth() + 1); // 월은 0부터 시작하므로 1을 더해줍니다.
-    let day = "" + d.getDate();
-    const year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  }
-
   const makeFormData = () => {
     const formData = new FormData();
     formData.append("basic_info", postState["basicInfo"]);
@@ -176,6 +167,7 @@ export const PostUploadDialog = () => {
     }
     formData.append("local_save", "false");
     FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
+    setPostPopUpState();
   };
 
   const savePost = async () => {
@@ -252,12 +244,7 @@ export const PostUploadDialog = () => {
                 labelName="계약 형태"
                 labelId="accomodation_type"
                 id="accomodation_type"
-                menuItems={[
-                  "전대(sublet)",
-                  "전대(sublease)",
-                  "임대(lease)",
-                  "룸메이트",
-                ]}
+                menuItems={["양도/전대(sublet)", "임대", "월세", "룸메이트"]}
               />
 
               <div>
@@ -386,7 +373,6 @@ export const PostUploadDialog = () => {
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>위치 정보가 정확한가요?</h3>
-              <p>지도</p>
               {postState["street"] != "" &&
                 postState["streetNumber"] != "" &&
                 postState["gu"] != "" &&
@@ -403,8 +389,6 @@ export const PostUploadDialog = () => {
                     }
                   />
                 )}
-              정확하지 않다면 이전페이지에서 주소를 다시 수정해주세요. (여기에
-              버튼 수정하기 버튼 추가해서 이전 슬라이더로 이동?)
             </p>
           </SwiperSlide>
 
@@ -419,7 +403,7 @@ export const PostUploadDialog = () => {
 
               <InputInteger
                 id="price"
-                label="가격"
+                label="가격(일)"
                 name="price"
                 placeholder="가격을 입력해주세요."
                 value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
@@ -467,26 +451,69 @@ export const PostUploadDialog = () => {
               {postState["imageFiles"].length > 0 && (
                 <>이미지를 변경하려면 이미지를 클릭해주세요.</>
               )}
-              {Array.from({ length: postState["imageFiles"].length + 1 }).map(
-                (_, index) => (
-                  <ImageUploadComponent
-                    key={index}
-                    imgIndex={index}
-                    setImage={handleSetImages}
-                  />
-                )
-              )}
+              <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
-              <div>
-                <s.UploadButton className="ml-2" onClick={uploadPost}>
-                  방 올리기
-                </s.UploadButton>
-              </div>
             </p>
+            <div className="ml-20 text-left">
+              <s.SecondHead>
+                {postState.title == "" ? "제목 작성 안됨" : postState.title}
+              </s.SecondHead>
+              <s.NormalText className="mt-2 w-full">
+                방 정보: {postState.basicInfo}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                계약 형태:{" "}
+                {postState.accomodationType == ""
+                  ? "선택 안됨"
+                  : postState.accomodationType}{" "}
+              </s.NormalText>
+
+              <s.NormalText className="mt-2">
+                건물 유형:{" "}
+                {postState.buildingType == ""
+                  ? "선택 안됨"
+                  : postState.buildingType}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                최대 인원: {postState.limitPeople}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                방: 욕실 {postState.numberBathroom} 침실{" "}
+                {postState.numberBedroom}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                주소:{" "}
+                {postState["city"] +
+                  " " +
+                  postState["gu"] +
+                  " " +
+                  postState["street"] +
+                  " " +
+                  postState["streetNumber"]}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                최대 거주 기간: {postState.duration[0]} -{" "}
+                {postState.duration[1]}일
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                일일 가격: {postState.price}
+              </s.NormalText>
+              <s.NormalText className="mt-2">
+                입주 가능 성별: {postState.genderType}
+              </s.NormalText>
+            </div>
+            <div className="m-6">
+              <s.UploadButton
+                onClick={uploadPost}
+                className="w-full items-center justify-center"
+              >
+                바로 업로드하기
+              </s.UploadButton>
+            </div>
           </SwiperSlide>
         </Swiper>
       </DialogContent>

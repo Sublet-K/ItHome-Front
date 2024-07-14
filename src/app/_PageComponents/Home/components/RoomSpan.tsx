@@ -10,7 +10,6 @@ export const RoomSpan = ({ room }: { room: Post }) => {
   return (
     <Span onClick={() => router.push(`/roominfo/${room.key}`)}>
       <SecondHead>{`${room.city} ${room.gu} ${room.dong}`}</SecondHead>
-      <NormalText>₩{priceToString(room.price * 30)}/1개월</NormalText>
     </Span>
   );
 };

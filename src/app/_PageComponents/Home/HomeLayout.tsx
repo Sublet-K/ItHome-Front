@@ -71,6 +71,7 @@ export const HomeLayout = ({
               setLikes={setLikePostId}
             />
           ))}
+          <div ref={ref}></div> {/* 무힌스크롤하기 위한 위치 정보임. */}
         </div>
       </div>
     </section>
