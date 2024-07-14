@@ -7,7 +7,6 @@ import SearchPriceRange from "./components/SearchPriceRange";
 import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
-// import { useLocation } from "react-router-dom";
 import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
 import SearchLocation from "./components/SearchLocation";
@@ -22,8 +21,6 @@ const Header = () => {
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  // const location = useLocation();
-  // const router = useRouter();
 
   useEffect(() => {
     if (searchButtonClicked) {
@@ -76,7 +73,6 @@ const Header = () => {
               </span>
               <IconButton>
                 <Link href="/profile/me">
-                  {/* style={styles.profile} */}
                   <PersonIcon />
                 </Link>
               </IconButton>
@@ -85,7 +81,6 @@ const Header = () => {
                   FetchLogout(resetUserInfo, resetLikePostId).then(() => {
                     window.location.reload();
                   });
-                  // router.push("/");
                 }}
               >
                 Logout
@@ -105,31 +100,6 @@ const Header = () => {
 };
 
 export default Header;
-
-/* 키워드 검색 (보류)
-{searchButtonClicked ?
-  <span style={styles.searchByKeywordContainer}>
-    <span>
-      <input type="text" ref={inputRef} placeholder="필요한 숙소를 입력하세요" style={styles.serachByKeywordInput} />
-    </span>
-    <IconButton onClick={alert}>
-      <SearchIcon style={styles.searchIcon} />
-    </IconButton>
-  </span>
-  :
-  <IconButton onClick={() => setSearchButtonClicked(true)} style={styles.searchByKeywordContainer}>
-    <span style={styles.serachByKeyword} className="font-semibold leading-6 text-gray-900">
-      <div style={styles.searchKeywordBig}>
-        필요한 숙소를 입력하세요
-      </div>
-      <div style={styles.searchKeyworddescription}>
-        원하는 것을 키워드로 검색
-      </div>
-    </span>
-    <SearchIcon style={styles.searchIcon} />
-  </IconButton>
-}
-*/
 
 /* 추천 검색어 (보류)
 import * as makeTest from '../testdata/testdata.js'

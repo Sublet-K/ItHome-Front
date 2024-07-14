@@ -29,18 +29,20 @@ export const RoomProfile = ({
 
   if (!room) return <div></div>;
   return (
-    <div className="w-full md:w-1/2 xl:w-2/6 p-6 flex flex-col">
-      <img
-        src={imageLink}
-        className="hover:grow hover:shadow-lg"
-        alt="Room image"
-        onClick={() => moveToRoomInfo({ room })}
-      />
-      <div className="pt-3 flex items-center justify-between">
-        <RoomSpan room={room} />
-        <IconButton onClick={toggleLikes(room, likes, setLikes)}>
-          {likes[room.key] !== undefined ? <Favorite /> : <FavoriteBorder />}
-        </IconButton>
+    <div className="w-full min-w-[308px] md:w-1/2 xl:w-2/6 p-6 flex flex-col">
+      <div className="min-w-[308px] shadow-md px-12">
+        <span
+          className="flex justify-center"
+          onClick={() => moveToRoomInfo({ room })}
+        >
+          <NormalImage imageLink={imageLink} altContent="Room image" />
+        </span>
+        <div className="pt-3 flex items-center justify-between px-1">
+          <RoomSpan room={room} />
+          <IconButton onClick={toggleLikes(room, likes, setLikes)}>
+            {likes[room.key] !== undefined ? <Favorite /> : <FavoriteBorder />}
+          </IconButton>
+        </div>
       </div>
     </div>
   );

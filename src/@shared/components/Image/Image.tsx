@@ -8,7 +8,10 @@ export const NormalImage = ({
   altContent: string;
 }) => {
   return (
-    <div style={{ width: "308px", height: "292px", position: "relative" }}>
+    <div
+      style={{ width: "308px", height: "292px", position: "relative" }}
+      className="hover:grow hover:shadow-lg"
+    >
       <Image
         loader={() => imageLink}
         src={imageLink}

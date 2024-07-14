@@ -62,7 +62,7 @@ export const HomeLayout = ({
   return (
     <section className="bg-white py-8">
       <div className="bg-white text-gray-600">
-        <div className="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+        <div className="container mx-auto flex items-center justify-center flex-wrap pt-4">
           {roomsData.map((room, index) => (
             <RoomProfile
               key={index}
