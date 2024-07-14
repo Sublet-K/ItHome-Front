@@ -38,8 +38,8 @@ const Header = () => {
   };
 
   return (
-    <hs.Container className="bg-white">
-      <hs.HeaderContainer
+    <div className="bg-white border-b border-b-5 border-gray-700">
+      <div
         className="mx-auto flex max-w-xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
@@ -94,8 +94,8 @@ const Header = () => {
             </hs.RightNavigation>
           )}
         </div>
-      </hs.HeaderContainer>
-    </hs.Container>
+      </div>
+    </div>
   );
 };
 
