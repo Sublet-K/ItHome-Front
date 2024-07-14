@@ -1,61 +1,78 @@
-import React, {
-  useState,
-  useRef,
-  ChangeEvent,
-  ChangeEventHandler,
-} from "react";
+import React, { useState, useRef, ChangeEventHandler } from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { colors } from "@mui/material";
 import Image from "next/image";
+import { useDropzone } from "react-dropzone";
+import { StyleComponent } from "../StaticComponents/StaticComponents";
 
-export const ImageUploadComponent = ({
+interface ImageUploadComponentProps {
+  imgIndex: number;
+  setImage: (files: File[], idx: number) => void;
+}
+
+export const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({
   imgIndex,
   setImage,
-}: {
-  imgIndex: number;
-  setImage: (file: any, idx: number) => void;
 }) => {
-  const [preview, setPreview] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null); // 파일 입력에 대한 참조 생성
+  const [previews, setPreviews] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target.files) return;
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-      setImage(file, imgIndex);
-    }
+    const files = Array.from(e.target.files);
+    handleFiles(files);
   };
+
+  const handleFiles = (files: File[]) => {
+    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    setPreviews((currentPreviews) => [...currentPreviews, ...newPreviews]);
+    setImage(files, imgIndex);
+  };
+
+  const onDrop = (acceptedFiles: File[]) => {
+    handleFiles(acceptedFiles);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleClickImage = () => {
     if (!fileInputRef.current) return;
-    fileInputRef.current.click(); // 이미지 클릭 시 파일 입력 클릭 이벤트 트리거
+    fileInputRef.current.click();
   };
 
-  const imgSize = 500; // 이미지 크기, next 의 Image 태그는 width, height가 필수.
+  const imgSize = 500;
+
   return (
     <div>
-      {preview ? (
-        <Image
-          width={imgSize}
-          height={imgSize * 0.75}
-          src={preview}
-          alt="Image preview"
-          onClick={handleClickImage}
-          style={{ cursor: "pointer" }}
+      <div
+        {...getRootProps()}
+        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
+      >
+        <input
+          accept="image/jpg, image/jpeg, image/png"
+          id="dropzone-file"
+          className="hidden"
+          type="file"
+          multiple
+          onChange={handleImageChange}
+          ref={fileInputRef}
+          {...getInputProps()}
         />
-      ) : (
-        <button onClick={handleClickImage}>
-          <AddBoxIcon style={{ color: colors.blue[500], fontSize: 100 }} />
-        </button>
-      )}
-      <input
-        type="file"
-        onChange={handleImageChange}
-        accept="image/*"
-        style={{ display: "none" }} // 입력 필드를 숨김
-        ref={fileInputRef} // 참조 연결
-      />
+        <StyleComponent content="ImageDrop" />
+      </div>
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        {previews.map((preview, index) => (
+          <Image
+            key={index}
+            width={imgSize}
+            height={imgSize * 0.75}
+            src={preview}
+            alt={`Image preview ${index}`}
+            onClick={handleClickImage}
+            style={{ cursor: "pointer" }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

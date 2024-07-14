@@ -46,7 +46,6 @@ export function PostSummaryBlock({
     requestDialogShow: false,
     editRoomDialogShow: false,
   });
-
   const {
     detailDialogShow,
     reservationDialogShow,
@@ -54,7 +53,12 @@ export function PostSummaryBlock({
     requestDialogShow,
     editRoomDialogShow,
   } = inputs;
-
+  const setEditRoomDialogShow: () => void = () => {
+    setInputs({
+      ...inputs,
+      editRoomDialogShow: !inputs.editRoomDialogShow,
+    });
+  };
   const infoButtonList: {
     detailDialogShow: string;
     // requestDialogShow: string;
@@ -157,6 +161,7 @@ export function PostSummaryBlock({
               <PostEditRoomDialog
                 room={room}
                 editRoomDialogShow={editRoomDialogShow}
+                setEditRoomDialogShow={setEditRoomDialogShow}
                 onClick={onClick}
               />
             </>

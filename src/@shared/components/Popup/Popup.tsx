@@ -38,6 +38,7 @@ import {
   checkEmailFormat,
   notFoundError,
   raiseError,
+  formatDate,
 } from "../StaticComponents/StaticComponents";
 import {
   DialogTitle,
@@ -70,6 +71,7 @@ import { Post, RequestForm } from "@type/Type";
 import { LoginContent } from "../loginComponents/LoginContent";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleButton } from "../loginComponents/Google";
+import { DoubleSlideInput } from "../Input/DoubleSlideInput";
 
 export function DialogForm({
   name = "",
@@ -677,10 +679,16 @@ export function LoginDialog() {
   );
 }
 
-export const PostEditDialog = (post: { post: Post }) => {
+export const PostEditDialog = ({
+  setEditRoomDialogShow,
+  post,
+}: {
+  setEditRoomDialogShow: () => void;
+  post: Post;
+}) => {
   const image: File[] = [];
 
-  post.post.image_id.map((id) => {
+  post.image_id.map((id) => {
     // const i = FetchConverURLtoFile(id);
     // image.push(i.results);
   });
@@ -695,27 +703,29 @@ export const PostEditDialog = (post: { post: Post }) => {
   );
 
   const [inputs, setInputs] = useState({
-    limitPeople: post.post.limit_people,
-    buildingType: post.post.building_type,
-    numberBathroom: post.post.number_bathroom,
-    numberRoom: post.post.number_room,
-    numberBedroom: post.post.number_bedroom,
-    title: post.post.title,
-    basicInfo: post.post.basic_info,
-    startEndDay: [post.post.start_day, post.post.end_day],
-    // duration: [post.post.du]
-    // tempDuration:
-    price: String(post.post.price),
-    rule: post.post.rule,
-    benefit: post.post.benefit,
-    refundPolicy: post.post.refund_policy,
-    contract: post.post.contract,
+    limitPeople: post.limit_people,
+    buildingType: post.building_type,
+    numberBathroom: post.number_bathroom,
+    numberRoom: post.number_room,
+    numberBedroom: post.number_bedroom,
+    title: post.title,
+    basicInfo: post.basic_info,
+    startEndDay: [new Date(post.start_day), new Date(post.end_day)],
+    duration: [post.min_duration, post.max_duration],
+    tempDuration: ["1일", "170일"],
+    price: String(post.price),
+    rule: post.rule,
+    benefit: post.benefit,
+    refundPolicy: post.refund_policy,
+    contract: post.contract,
   });
   const {
     limitPeople,
     numberBathroom,
     numberRoom,
     numberBedroom,
+    duration,
+    tempDuration,
     title,
     basicInfo,
     startEndDay,
@@ -723,19 +733,25 @@ export const PostEditDialog = (post: { post: Post }) => {
     benefit,
   } = inputs;
 
-  const onChange: (event: Event, value: number | number[]) => void = (e) => {
-    if (!e.currentTarget) return;
-
-    setInputs({
-      ...inputs,
-      [(e.currentTarget as HTMLInputElement).name]: (
-        e.currentTarget as HTMLInputElement
-      ).value,
-    });
+  const onChange = (e: any) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
+
   const onClick = async () => {
     const formData = makeFormData();
-    FetchEditPost(post.post.key, formData);
+    FetchEditPost(setEditRoomDialogShow, post.key, formData);
+    setEditRoomDialogShow();
+  };
+  const handleStartEndDay = (date: [Date, Date]) => {
+    setInputs({ ...inputs, startEndDay: date });
+  };
+  const handleDuration = (event: Event, newValue: number[]) => {
+    // postState
+    setInputs({
+      ...inputs,
+      duration: newValue,
+      tempDuration: [newValue[0] + "일", newValue[1] + "일"],
+    });
   };
   const makeFormData = () => {
     const formData = new FormData();
@@ -746,13 +762,13 @@ export const PostEditDialog = (post: { post: Post }) => {
     formData.append("price", price.replace(/,/gi, ""));
     formData.append("basic_info", basicInfo);
     formData.append("benefit", benefit);
-    formData.append("end_day", new Date().toString());
-    // formData.append('min_duration', duration[0]);
-    // formData.append('max_duration', duration[1]);
+    formData.append("end_day", formatDate(startEndDay[1]));
+    formData.append("min_duration", duration[0].toString());
+    formData.append("max_duration", duration[1].toString());
     // formData.append('position', fullAddress);
     // formData.append('refund_policy', refundPolicy);
     // formData.append('rule', rule);
-    // formData.append('start_day', (new Date()).toString());
+    formData.append("start_day", formatDate(startEndDay[0]));
     formData.append("limit_people", limitPeople.toString());
     formData.append("number_room", numberRoom.toString());
     formData.append("number_bathroom", numberBathroom.toString());
@@ -786,7 +802,7 @@ export const PostEditDialog = (post: { post: Post }) => {
           </p> */}
         <div style={psd.gridStyle.mainContainer}>
           <p style={psd.gridStyle.inputContainer}>
-            <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
+            <h3 style={psd.gridStyle.infoType}>정보 수정하기</h3>
 
             <div>
               <div>
@@ -819,77 +835,75 @@ export const PostEditDialog = (post: { post: Post }) => {
                 />
               </div>
             </div>
-          </p>
-          <p style={psd.gridStyle.inputContainer}>
-            <h3 style={psd.gridStyle.infoType}>숙소의 매력을 작성하세요</h3>
+
+            <p className="mt-4 font-semibold text-lg text-left">제목</p>
+
             <TextInputTag
               id="title"
-              label="제목"
+              label=""
               placeholder="제목을 입력해주세요."
               name="title"
-              // onChange={onChange}
+              onChange={onChange}
               required={true}
               value={title}
             />
+            <p className="mt-4 font-semibold text-lg text-left">정보</p>
+
             <InputTextArea
               id="basic_info"
-              label="기본정보"
+              label=""
               placeholder="기본정보을 입력해주세요."
               name="basicInfo"
-              // handleState={onChange}
+              onChange={onChange}
               required={true}
               value={basicInfo}
             />
-          </p>
-
-          <p style={psd.gridStyle.inputContainer}>
-            <h3 style={psd.gridStyle.infoType}>기간 및 금액</h3>
-            <p>게시 날짜</p>
+            <p className="mt-8 font-semibold text-lg text-left">게시 날짜</p>
             <DoubleDatePicker
-              // name="startEndDay"
               dateData={startEndDay}
-              setDateData={onChange}
+              setDateData={handleStartEndDay}
             />
+            <p className="mt-4 font-semibold text-lg text-left">가격</p>
 
             <InputInteger
               id="price"
-              label="가격"
+              label=""
               placeholder="가격을 입력해주세요."
               name="price"
               value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
-              // handleState={onChange}
+              handleState={onChange}
               required={true}
             />
-            {/*             
-            <p>
-              최소-최대 계약 가능 기간 : <ValueRangeViewer arr={tempDuration} />
-            </p> */}
-            {/* <DoubleSlideInput
-              value={duration}
+
+            <p className="mt-8 font-semibold text-lg text-left">
+              최소-최대 계약 가능 기간 :
+              <ValueRangeViewer
+                arr={inputs["tempDuration"] as [string, string]}
+              />
+            </p>
+            <DoubleSlideInput
+              name="duration"
+              value={inputs["duration"] as [number, number]}
               onChange={handleDuration}
               minMax={[1, 730]}
-            /> */}
-          </p>
+            />
 
-          <p style={psd.gridStyle.inputContainer}>
-            <h3 style={psd.gridStyle.infoType}>숙소 사진을 올려주세요.</h3>
+            <p className="mt-8 font-semibold text-lg text-left">방 사진 변경</p>
             {imageFiles.length > 0 && (
               <>이미지를 변경하려면 이미지를 클릭해주세요.</>
             )}
-            {Array.from({ length: imageFiles.length + 1 }).map((_, index) => (
-              <ImageUploadComponent
-                key={index}
-                imgIndex={index}
-                setImage={handleSetImages}
-              />
-            ))}
+            <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
           </p>
         </div>
       </DialogContent>
-
-      <s.NormalButton className="ml-2" onClick={onClick}>
-        방 올리기
-      </s.NormalButton>
+      <div className="m-8">
+        <s.UploadButton
+          className="w-full items-center justify-center"
+          onClick={onClick}
+        >
+          방 수정하기
+        </s.UploadButton>
+      </div>
     </>
   );
 };

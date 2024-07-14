@@ -4,9 +4,11 @@ import { MouseEventHandler } from "react";
 
 export const PostEditRoomDialog = ({
   editRoomDialogShow,
+  setEditRoomDialogShow,
   onClick,
   room,
 }: {
+  setEditRoomDialogShow: () => void;
   editRoomDialogShow: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   room: Post;
@@ -25,7 +27,10 @@ export const PostEditRoomDialog = ({
         </label>
       )}
     >
-      <PostEditDialog post={room} />
+      <PostEditDialog
+        setEditRoomDialogShow={setEditRoomDialogShow}
+        post={room}
+      />
     </DialogForm>
   );
 };

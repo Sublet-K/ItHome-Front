@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  MouseEventHandler,
   SetStateAction,
   useCallback,
   useEffect,
@@ -11,6 +12,7 @@ import {
 } from "../StaticComponents/StaticComponents";
 import { SignUpInfo, UserForm } from "../../../app/UserType";
 import { Post, RequestForm, Reservation } from "@type/Type";
+import { headers } from "next/headers";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -179,13 +181,24 @@ async function FetchUploadPost(
     .catch(raiseError("FetchUploadPost"));
 }
 
-async function FetchEditPost(postKey: number, formData: FormData) {
+async function FetchEditPost(
+  setEditRoomDialogShow: () => void,
+  postKey: number,
+  formData: FormData
+) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
   await fetch(URL, {
-    ...headerOptions("PUT"),
-    ...formData,
+    credentials: "include",
+    method: "POST",
+    body: formData,
   })
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        console.log("d");
+        window.location.reload();
+      }
+    })
     .catch(raiseError("FetchEditPost"));
 }
 
