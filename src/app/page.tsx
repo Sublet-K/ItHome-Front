@@ -1,5 +1,4 @@
 import { HomeLayout } from "@app/_PageComponents/Home/HomeLayout";
-import { HomeChildren } from "@app/_PageComponents/Home/HomeChildren";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
   method: string,
@@ -34,9 +33,5 @@ export default async function Home() {
   let roomsData = await fetchRoomsDefault(numRooms, 1);
   let preRoomsData = await fetchRoomsDefault(numRooms, 2);
 
-  return (
-    <HomeLayout>
-      <HomeChildren roomsData={roomsData} preRoomsData={preRoomsData} />
-    </HomeLayout>
-  );
+  return <HomeLayout roomsData={roomsData} preRoomsData={preRoomsData} />;
 }

@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
-import Image from "next/image";
 import { NormalImage } from "@shared/components/Image/Image";
 
 export const RoomProfile = ({
@@ -20,17 +19,6 @@ export const RoomProfile = ({
   setLikes: Dispatch<SetStateAction<{ [key: number]: number }>>;
   userId?: string;
 }) => {
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 1em;
-  `;
-
-  const RoomTitleAndLike = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  `;
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${room.image_id[0]}.jpg`;
 
   const router = useRouter();
@@ -41,16 +29,21 @@ export const RoomProfile = ({
 
   if (!room) return <div></div>;
   return (
-    <Container>
-      <IconButton onClick={() => moveToRoomInfo({ room })}>
-        <NormalImage imageLink={imageLink} altContent="Room image" />
-      </IconButton>
-      <RoomTitleAndLike>
-        <RoomSpan room={room} />
-        <IconButton onClick={toggleLikes(room, likes, setLikes)}>
-          {likes[room.key] !== undefined ? <Favorite /> : <FavoriteBorder />}
-        </IconButton>
-      </RoomTitleAndLike>
-    </Container>
+    <div className="w-full min-w-[308px] md:w-1/2 xl:w-2/6 p-6 flex flex-col">
+      <div className="min-w-[308px] shadow-md px-12">
+        <span
+          className="flex justify-center"
+          onClick={() => moveToRoomInfo({ room })}
+        >
+          <NormalImage imageLink={imageLink} altContent="Room image" />
+        </span>
+        <div className="pt-3 flex items-center justify-between px-1">
+          <RoomSpan room={room} />
+          <IconButton onClick={toggleLikes(room, likes, setLikes)}>
+            {likes[room.key] !== undefined ? <Favorite /> : <FavoriteBorder />}
+          </IconButton>
+        </div>
+      </div>
+    </div>
   );
 };

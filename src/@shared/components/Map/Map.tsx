@@ -193,7 +193,6 @@ export default function Map(props: Post) {
 
   useEffect(() => {
     createMap();
-    props.type == "searchByMarker" && searchingByDragAdd();
     createMarker();
   }, [markerAll]);
 
@@ -211,7 +210,7 @@ export default function Map(props: Post) {
         searchAddressToCoordinate(post.position, mapRef.current);
       if (coordinate === undefined && mapRef.current) {
         coordinate = searchAddressToCoordinate(
-          `${props.city} ${props.gu} ${props.dong} ${props.street} ${props.street_number}`,
+          `${post.city} ${post.gu} ${post.dong} ${post.street} ${post.street_number}`,
           mapRef.current
         );
         if (coordinate === undefined) {
@@ -255,32 +254,7 @@ export default function Map(props: Post) {
     );
   }
 
-  const searchingByDragAdd = () => {
-    const { naver } = window as CustomWindow;
-    naver.maps.Event.addListener(mapRef.current, "dragend", dragendEvent);
-    const mapLatLng = new naver.maps.LatLng(
-      Number(props?.currentPos[0]),
-      Number(props?.currentPos[1])
-    );
-    mapRef.current.panTo(mapLatLng, {
-      x: props.currentPos[0],
-      y: props.currentPos[1],
-    });
-  };
-
-  const dragendEvent = () => {
-    if (!mapRef.current) return;
-    const center = mapRef.current.getCenter();
-    props.setPos([center.y, center.x]);
-  };
-
-  return props.type == "searchByMarker" ? (
-    <div
-      id="map"
-      className="h-screen w-full rounded-lg"
-      style={{ display: "flex", height: "calc(50vh)" }}
-    />
-  ) : (
+  return (
     <div
       id="map"
       className="h-screen w-full rounded-lg"

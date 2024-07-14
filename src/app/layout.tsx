@@ -37,6 +37,10 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
