@@ -1,5 +1,10 @@
 import { ContactDialog } from "@app/roominfo/[roomKey]/Components/Contact";
 import { UserForm } from "@app/UserType";
+import {
+  BlackButton,
+  InfoButton,
+  NormalButton,
+} from "@shared/styles/Public.styles";
 import * as RS from "@shared/styles/RoomInfo.styles";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -24,7 +29,7 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
   };
   return (
     <RS.RoomInfoSection>
-      <div className="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-md">
+      <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
         <div className="flex-shrink-0">
           <div
             style={{ width: "130px", height: "130px", position: "relative" }}
@@ -53,14 +58,15 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
           </div>
         </div>
       </div>
-
-      <button
-        onClick={clickHandler}
-        name="contactPopUpState"
-        className="w-full rounded-lg bg-gray-300 text-black p-1"
-      >
-        문의하기
-      </button>
+      <div>
+        <BlackButton
+          onClick={clickHandler}
+          name="contactPopUpState"
+          className="w-full rounded-lg p-2.5"
+        >
+          문의하기
+        </BlackButton>
+      </div>
       <ContactDialog
         setPopUpState={setPopUpState}
         clickHandler={clickHandler}

@@ -62,7 +62,7 @@ export const InputTelePhone = ({
     maxLength={13}
     type="tel"
     name="phoneState"
-    placeholder="전화번호"
+    placeholder=""
     onChange={onChange}
     value={value
       .replace(/[^0-9]/g, "")

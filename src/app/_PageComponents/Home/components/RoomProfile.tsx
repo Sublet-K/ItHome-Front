@@ -2,7 +2,7 @@ import { toggleLikes } from "@shared/components/FetchList/FetchList";
 import { useRouter } from "next/navigation";
 import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
-import { NormalImage } from "@shared/components/Image/Image";
+import { MainProfileImage } from "@shared/components/Image/Image";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 
 export const RoomProfile = ({
@@ -28,11 +28,11 @@ export const RoomProfile = ({
   return (
     <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
       <span onClick={() => moveToRoomInfo({ room })}>
-        <NormalImage imageLink={imageLink} altContent="Room image" />
+        <MainProfileImage imageLink={imageLink} altContent="Room image" />
       </span>
       <div className="pt-3 flex items-center justify-between">
         <a
-          className="text-xl font-semibold"
+          className="text-xl font-light"
           onClick={() => router.push(`/roominfo/${room.key}`)}
         >
           {`${room.city} ${room.gu} ${room.dong}`}
@@ -60,7 +60,7 @@ export const RoomProfile = ({
           )}
         </button>
       </div>
-      <p className="pt-1 text-gray-900">
+      <p className="pt-1 font-light text-gray-900">
         ₩{priceToString(room.price * 30)}/1개월
       </p>
     </div>

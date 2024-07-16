@@ -73,7 +73,7 @@ export const LoginContent = ({
 
   return (
     <>
-      <DialogContent>
+      <DialogContent sx={{ width: 512 }}>
         <div className="float-left">
           <SecondHead>로그인</SecondHead>
           <p className="text-base text-gray">
@@ -81,25 +81,19 @@ export const LoginContent = ({
           </p>
         </div>
         <div>
-          <div>
+          <button className="mt-4 w-full">
             <GoogleOAuthProvider clientId={idList.google}>
               <GoogleButton purpose="login" />
             </GoogleOAuthProvider>
-          </div>
-          <NormalButton
-            type="submit"
-            onClick={loginHandled}
-            className="flex w-full justify-center mt-4"
-          >
-            로그인 하기
-          </NormalButton>
-          <UploadButton
-            className="flex w-full justify-center mt-4"
-            onClick={signUpHandled}
-          >
-            회원가입
-          </UploadButton>
+          </button>
         </div>
+
+        <UploadButton
+          className="flex w-full justify-center mt-4"
+          onClick={signUpHandled}
+        >
+          회원가입
+        </UploadButton>
       </DialogContent>
     </>
   );
