@@ -15,29 +15,30 @@ function HostInfo() {
     const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
     FetchGetOneUser(userId, setUserInfo);
     return (
-      <Wrapper>
-        <div
-          style={{ fontFamily: "Pretendard" }}
-          className="flex grid grid-cols-7"
-        >
-          <div
-            style={{
-              margin: "20px 0px 20px 0px",
-            }}
-          >
-            <UserBaseComponent user={userInfo} />
-          </div>
-
-          <div
-            style={{
-              margin: "20px 0px 20px 0px",
-            }}
-          >
-            <PostListComponent userId={userInfo.user_id} guestMode={false} />
-            <Horizon />
-          </div>
+      <div
+        style={{
+          fontFamily: "Pretendard",
+          maxWidth: "900px", // Increase the width
+          margin: "0 auto",
+          backgroundColor: "white",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          padding: "20px",
+        }}
+        className="my-10 p-5"
+      >
+        <div style={{ marginBottom: "20px" }}>
+          <UserBaseComponent user={userInfo} />
         </div>
-      </Wrapper>
+
+        <div>
+          <PostListComponent userId={userInfo.user_id} />
+        </div>
+
+        {/* <PostUploadDialog /> */}
+
+        {/* <RequestListComponent /> */}
+      </div>
     );
   } else {
     return <></>;

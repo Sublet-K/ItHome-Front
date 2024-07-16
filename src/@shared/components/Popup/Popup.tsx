@@ -410,7 +410,7 @@ export function ShareDialog({
     }, 5000);
   };
   return (
-    <div className="z-10 inline-block mr-6">
+    <div className="z-10 inline-block mr-12">
       <div className="">
         <s.SecondHead>숙소를 공유하세요!</s.SecondHead>
         <s.NormalText> 복사하여 편하게 보내세요</s.NormalText>
@@ -427,7 +427,6 @@ export function ShareDialog({
           복사하기
         </s.NormalButton>
       </div>
-      <div className="mt-4 center">{successState && <Alert />}</div>
     </div>
   );
 
@@ -579,7 +578,7 @@ export function SignUpDialog() {
           <s.SecondHead>회원가입</s.SecondHead>
         </div>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ width: 512 }}>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div>
             <div className="mt-2 flex items-center justify-between">
@@ -588,7 +587,7 @@ export function SignUpDialog() {
             <div className="mt-2">
               <InputText
                 name="userNameState"
-                placeholder="별명"
+                placeholder=""
                 onChange={inputHandle}
                 value={userNameState}
               />
@@ -625,10 +624,11 @@ export function SignUpDialog() {
               <s.Label htmlFor="phone">이메일</s.Label>
             </div>
 
-            <div className="mt-2">
+            <div className="mt-2 w-full">
               {emailState == "" ? (
                 <GoogleOAuthProvider clientId={idList.google}>
                   <GoogleButton
+                    data-text="signup_with"
                     purpose="signup"
                     setEmailState={setEmailState}
                   />
@@ -641,13 +641,13 @@ export function SignUpDialog() {
         </div>
       </DialogContent>
       <DialogActions>
-        <s.NormalButton
+        <s.UploadButton
           type="submit"
           onClick={signUpHandled}
           className="flex w-full justify-center my-2"
         >
           회원가입
-        </s.NormalButton>
+        </s.UploadButton>
       </DialogActions>
     </Dialog>
   );

@@ -21,11 +21,11 @@ const SearchButton = () => {
       searchKeyword,
       setPosts
     ).then(() => {
-      if (location.pathname === "/searchtest") {
+      if (location.pathname === "/searchsubletinfo") {
         // searchtest
         window.location.reload();
       } else {
-        window.location.href = "/searchtest"; // searchtest
+        window.location.href = "/searchsubletinfo"; // searchtest
       }
     });
   };

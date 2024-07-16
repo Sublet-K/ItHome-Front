@@ -4,6 +4,9 @@ import Map from "@shared/components/Map/Map";
 import { SubletPostStore } from "@store/SubletPostStore";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 import styled from "styled-components";
+import { RoomProfile } from "@app/_PageComponents/Home/components/RoomProfile";
+import { useUserLikeStore } from "@store/UserLikeStore";
+import { SecondHead } from "@shared/styles/Public.styles";
 
 const HoverBtnDiv = styled.div`
   margin: 0 0 0 0;
@@ -60,7 +63,8 @@ function SubletInfo(
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="flex">
-        <HoverNewPageDiv
+        <div
+          className="flex"
           onClick={() => {
             window.open(`/roominfo/${props.id}`);
           }}
@@ -76,14 +80,9 @@ function SubletInfo(
             }}
             width="80"
           />
-          <div className="flex flex-col justify-between w-full">
+          <div className="flex flex-col justify-between w-full ml-6">
             <h2 className="text-lg font-semibold">{props.title}</h2>
-            <p className="text-sm">
-              {
-                // (props.position !== undefined) ? props.position : props.city + " " + props.gu + " " + props.dong + " " + props.street
-                props.position
-              }
-            </p>
+            <p className="text-sm">{props.position}</p>
             <p className="text-sm">
               {props.city +
                 " " +
@@ -107,15 +106,7 @@ function SubletInfo(
               / 30일
             </p>
           </div>
-        </HoverNewPageDiv>
-        <HoverBtnDiv
-          onClick={() => {
-            console.log("props.marker : ", props.marker);
-            props.marker?.trigger("click");
-          }}
-        >
-          <PinDropIcon></PinDropIcon>
-        </HoverBtnDiv>
+        </div>
       </div>
     </div>
   );
@@ -132,6 +123,7 @@ export default function SearchSubletInfo(props: any) {
     postExist: state.postExist,
     postAll: state.postAll,
   }));
+  const { likePostId, setLikePostId } = useUserLikeStore();
 
   useEffect(() => {
     // asyncGetPost(page);
@@ -140,44 +132,26 @@ export default function SearchSubletInfo(props: any) {
     }
   }, []);
 
-  // 이게 왜 있는 건지 아는 사람..? jihwanki? @JiHwanKi
-  //   ㄴ 이건 marker 안넣어주면 리렌더링 안해줘서 추가로 넣었어용
   useEffect(() => {}, [postAll[0]?.marker]);
 
   return (
-    <div className="max-w-7xl mx-auto p-5">
-      <div className="grid grid-cols-2 gap-4">
-        <WebkitScrollbar
-          className="col-span-1"
-          style={{
-            maxHeight: "calc(100vh - 250px)",
-            overflowY: "scroll",
-          }}
-        >
-          <div className="flex flex-col space-y-4">
-            {postExist &&
-              postAll?.map((ele) => (
-                <SubletInfo
-                  key={ele.key}
-                  id={ele.key}
-                  title={ele.title}
-                  position={ele.position}
-                  city={ele.city}
-                  gu={ele.gu}
-                  dong={ele.dong}
-                  street={ele.street}
-                  street_number={ele.street_number}
-                  price={ele.price}
-                  min_duration={ele.min_duration}
-                  start_day={ele.start_day}
-                  image_id={ele.image_id}
-                  marker={ele.marker}
-                />
-              ))}
-          </div>
-        </WebkitScrollbar>
-        <div className="col-span-1">{postExist && <Map {...props} />}</div>
+    <section className="bg-white py-8">
+      <div className="bg-white text-gray-600">
+        <p className="text-xl font-light container mx-auto flex flex-wrap pt-4">
+          검색 숙소:{postAll.length}개
+        </p>{" "}
+        <div className="container mx-auto flex items-center justify-center flex-wrap pt-4">
+          {postExist &&
+            postAll?.map((room, index) => (
+              <RoomProfile
+                key={index}
+                room={room}
+                likes={likePostId}
+                setLikes={setLikePostId}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

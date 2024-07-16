@@ -46,13 +46,18 @@ export const UploadButton = styled.button`
   &:hover {
     background-color: rgb(0 51 154);
   }
-  ${tw`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center`}
+  ${tw`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 items-center`}
+`;
+export const BlackButton = styled.button`
+  &:hover {
+    background-color: rgb(117, 118, 123);
+  }
+  ${tw`text-white bg-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 items-center`}
 `;
 
 export const RedNormalButton = styled.button`
   &:hover {
-    background-color: rgb(252 165 165);
-    color: rgb(17 24 39);
+    background-color: #f00;
   }
   ${tw`focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5`}
 `;

@@ -189,7 +189,7 @@ async function FetchEditPost(
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
   await fetch(URL, {
     credentials: "include",
-    method: "POST",
+    method: "PUT",
     body: formData,
   })
     .then(notFoundError)

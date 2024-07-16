@@ -16,7 +16,7 @@ import {
   RoomPrice,
   ImageCarousel,
 } from "@shared/components/RoomInfo";
-import { RoomTitle } from "@shared/styles/RoomInfo.styles";
+import { RoomInfoSection, RoomTitle } from "@shared/styles/RoomInfo.styles";
 import {
   FetchGetMyUser,
   FetchLogin,
@@ -27,7 +27,8 @@ import { Post } from "@app/PostType";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { DialogForm } from "@shared/components/Popup/Popup";
-
+import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 export default function RoomInfo() {
   // 새 창에서 열릴 때 props를 못 받아와서, zustand의 전역 저장소를 사용한다.
   const { roomKey } = useParams<{ roomKey: string }>();
@@ -102,24 +103,28 @@ export default function RoomInfo() {
 
   return (
     <>
-      <ImageCarousel>
-        {postExist &&
-          postAll
-            .find((post) => post.key == nowRoomNum)
-            ?.image_id.map((image_id, index) => (
-              <img
-                key={index}
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
-                alt={`image ${index}`}
-                className="h-full object-cover m-auto"
-              />
-            ))}
-      </ImageCarousel>
+      <div className="bg-black">
+        {postExist && (
+          <Carousel>
+            {postAll
+              .find((post) => post.key == nowRoomNum)
+              ?.image_id.map((image_id, index) => (
+                <Carousel.Item key={index}>
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
+                    alt={`image ${index}`}
+                    className="d-block w-2/6 h-full object-cover m-auto"
+                  />
+                </Carousel.Item>
+              ))}
+          </Carousel>
+        )}
+      </div>
 
       {postExist && nowRoomPost && (
         <>
           <div>
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-4">
               <s.UploadButton
                 onClick={() => {
                   setSharePopUpState(true);
@@ -149,7 +154,7 @@ export default function RoomInfo() {
                 </label>
               )}
             >
-              <DialogContent sx={{ width: 400, height: 250 }}>
+              <DialogContent>
                 <ShareDialog
                   description={nowRoomPost.description}
                   title={nowRoomPost.title}
@@ -219,24 +224,34 @@ export default function RoomInfo() {
           </div>
           {/* {console.log(nowRoomPost)} */}
 
-          <RoomTitle>
-            {nowRoomPost.title} {`(숙소번호 : ${nowRoomNum})`}
-          </RoomTitle>
           <RoomPrice nowRoomPost={nowRoomPost} />
           <RoomDetail nowRoomPost={nowRoomPost} />
-          <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
+          <div className="p-4">
+            <div className="text-xl font-bold">방 정보</div>
 
-          <section className="mx-3 mb-6">
-            <div className="text-xl font-bold">지도</div>
-            <div className="items-center">
-              {postExist && (
-                <KakaoMap
-                  x={nowRoomPost.x_coordinate}
-                  y={nowRoomPost.y_coordinate}
-                />
-              )}
+            <p className="ml-4 mt-4 text-lg font-light">
+              {nowRoomPost.description}
+            </p>
+          </div>
+          <RoomInfoSection>
+            <div className="text-xl font-bold">위치</div>
+            <div className="flex justify-center">
+              <div>
+                {postExist && (
+                  <KakaoMap
+                    x={nowRoomPost.x_coordinate}
+                    y={nowRoomPost.y_coordinate}
+                  />
+                )}
+                <p className="text-xl font-thin">
+                  주소: {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
+                  {nowRoomPost.street_number}
+                </p>
+              </div>
             </div>
-          </section>
+          </RoomInfoSection>
+
+          <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
         </>
       )}
     </>

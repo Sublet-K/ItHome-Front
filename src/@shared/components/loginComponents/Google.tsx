@@ -40,7 +40,6 @@ export function GoogleButton({
     <>
       <GoogleLogin
         onSuccess={(credentialResponse) => {
-          console.log(credentialResponse.credential);
           const decodeding = decodeJwtResponse(
             credentialResponse.credential as string
           );
@@ -49,7 +48,6 @@ export function GoogleButton({
             if (!setEmailState) return;
             setEmailState(email);
           } else if (purpose == "login") {
-            console.log(email, "s");
             FetchGetOneUser(email, setUserInfo).then((response) => {
               if (response) {
                 FetchLogin({
