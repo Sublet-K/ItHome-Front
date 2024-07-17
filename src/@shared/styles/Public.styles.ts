@@ -39,7 +39,7 @@ export const NormalButton = styled.button`
   &:hover {
     background-color: rgb(117, 118, 123);
   }
-  ${tw`text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-2.5 text-sm`}
+  ${tw`border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black`}
 `;
 
 export const UploadButton = styled.button`

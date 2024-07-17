@@ -34,38 +34,44 @@ function PostListComponent({
 
   return (
     <div className="">
-      <div className="flex justify-between">
-        <SecondHead className="inline">방 보기</SecondHead>
+      <div className="">
+        <h2 className="text-3xl font-semibold">호스팅 리스트</h2>
 
+        <div className="mt-1">
+          {(postInfo && postInfo.length) > 0 ? (
+            postInfo.map((res, index) => {
+              const address = res.city + " " + res.gu + " " + res.dong;
+              const postDate = DateFormat(res.post_date);
+              const price = priceToString(res.price);
+
+              return (
+                <PostSummaryBlock
+                  key={index}
+                  room={res}
+                  postDate={postDate}
+                  price={price}
+                  address={address}
+                  guestMode={guestMode}
+                />
+              );
+            })
+          ) : (
+            <NormalText>올린 방이 아직 없습니다.</NormalText>
+          )}
+        </div>
         {guestMode && (
-          <UploadButton className="mb-4" onClick={setPostPopUpState}>
-            방 올리기
-          </UploadButton>
+          <div className="mt-4">
+            <button
+              className="border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={setPostPopUpState}
+            >
+              <p className="text-base text-white font-light">호스팅하기</p>
+            </button>
+          </div>
         )}
       </div>
-      <div className="mt-4">
-        {(postInfo && postInfo.length) > 0 ? (
-          postInfo.map((res, index) => {
-            const address = res.city + " " + res.gu + " " + res.dong;
-            const postDate = DateFormat(res.post_date);
-            const price = priceToString(res.price);
 
-            return (
-              <PostSummaryBlock
-                key={index}
-                room={res}
-                postDate={postDate}
-                price={price}
-                address={address}
-                guestMode={guestMode}
-              />
-            );
-          })
-        ) : (
-          <NormalText>올린 방이 아직 없습니다.</NormalText>
-        )}
-        <PostUploadDialog />
-      </div>
+      <PostUploadDialog />
     </div>
   );
 }

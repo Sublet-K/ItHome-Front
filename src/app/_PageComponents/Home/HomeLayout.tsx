@@ -60,9 +60,9 @@ export const HomeLayout = ({
   if (!roomsData) return <div></div>;
 
   return (
-    <section className="bg-white py-8">
+    <section className="bg-white py-8 container mx-auto px-4">
       <div className="bg-white text-gray-600">
-        <div className="container mx-auto flex items-center justify-center flex-wrap pt-4">
+        <div className="flex items-center justify-center flex-wrap pt-4">
           {roomsData.map((room, index) => (
             <RoomProfile
               key={index}

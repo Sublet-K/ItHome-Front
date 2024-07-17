@@ -27,7 +27,7 @@ export function UserBaseComponent({ user }: { user: UserForm }) {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="max-w-lg mx-auto my-10 bg-white rounded-lg p-5">
+      <div className="max-w-lg mx-auto bg-white rounded-lg p-5">
         <div className="flex justify-center items-center">
           <ImageUploadButton onClick={setImagePopUpState}>
             <div className="w-32 h-32 rounded-full overflow-hidden">

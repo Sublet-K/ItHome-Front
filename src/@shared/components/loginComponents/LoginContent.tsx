@@ -87,13 +87,12 @@ export const LoginContent = ({
             </GoogleOAuthProvider>
           </button>
         </div>
-
-        <UploadButton
-          className="flex w-full justify-center mt-4"
+        <button
+          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
           onClick={signUpHandled}
         >
-          회원가입
-        </UploadButton>
+          <p className="text-base text-white font-light">회원가입</p>
+        </button>
       </DialogContent>
     </>
   );

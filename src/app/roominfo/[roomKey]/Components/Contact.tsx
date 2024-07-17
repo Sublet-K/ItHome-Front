@@ -69,7 +69,7 @@ export const ContactDialog = ({
       render={() => (
         <label
           htmlFor="test"
-          className="block mb-2 text-sm font-medium text-gray-900 float-left"
+          className="text-sm font-medium text-gray-900 float-left"
         ></label>
       )}
     >
@@ -97,13 +97,13 @@ export const ContactDialog = ({
           </PolicyText>
         </div>
         <div>
-          <NormalButton
+          <button
             type="submit"
+            className="w-full border p-2 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"
             onClick={contactHandled}
-            className="flex w-full justify-center mt-4"
           >
-            확인
-          </NormalButton>
+            <p className="text-sm text-white font-light">확인</p>
+          </button>
         </div>
       </DialogContent>
     </DialogForm>

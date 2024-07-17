@@ -120,140 +120,189 @@ export default function RoomInfo() {
           </Carousel>
         )}
       </div>
+      <div className="container mx-auto px-4">
+        {postExist && nowRoomPost && (
+          <>
+            <div>
+              <DialogForm
+                openState={sharePopUpState}
+                handleClose={handleSharePopUpState}
+                render={() => (
+                  <label
+                    htmlFor="report_type"
+                    className="text-sm font-medium text-gray-900 float-left"
+                  >
+                    공유하기
+                  </label>
+                )}
+              >
+                <DialogContent>
+                  <ShareDialog
+                    description={nowRoomPost.description}
+                    title={nowRoomPost.title}
+                    image_id={nowRoomPost.image_id}
+                    // className="clear-both"
+                  />
+                </DialogContent>
+              </DialogForm>
 
-      {postExist && nowRoomPost && (
-        <>
-          <div>
-            <div className="flex justify-end mt-4">
-              <s.UploadButton
-                onClick={() => {
-                  setSharePopUpState(true);
-                }}
+              <DialogForm
+                openState={reportPopUpState}
+                handleClose={handleReportPopUpState}
+                render={() => (
+                  <label
+                    htmlFor="report_type"
+                    className="block mb-2 text-sm font-medium text-gray-900 float-left"
+                  ></label>
+                )}
               >
-                공유하기
-              </s.UploadButton>
-              <s.RedNormalButton
-                className="ml-4"
-                onClick={() => {
-                  setReportPopUpState(true);
-                }}
-              >
-                신고하기
-              </s.RedNormalButton>
+                <DialogContent
+                  sx={{ width: 512, height: 200 }}
+                  className="font-black text-center"
+                >
+                  <div className="mt-1.5">
+                    <DropBoxSelect
+                      name="report_type"
+                      state={reportType}
+                      onChange={handleReportTypeState}
+                      labelName="신고 사유"
+                      labelId="report_type"
+                      id="report_type"
+                      menuItems={[
+                        "불법 콘텐츠",
+                        "차별적 행위",
+                        "부정확하거나 틀린 정보",
+                        "실제 숙소가 아님",
+                        "사기",
+                        "불쾌함",
+                        "기타",
+                      ]}
+                    />
+                  </div>
+                  <s.RedNormalButton
+                    className="mt-4"
+                    onClick={() => {
+                      if (reportType === "") {
+                        alert("신고 사유를 선택해주세요.");
+                        return;
+                      }
+                      if (userInfo.id === "") {
+                        alert("로그인이 필요합니다.");
+                        return;
+                      }
+                      FetchReportPost(userInfo.id, nowRoomNum, reportType).then(
+                        () => {
+                          alert("신고가 접수되었습니다.");
+                        }
+                      );
+                      setReportPopUpState(false);
+                      setReportType("");
+                    }}
+                  >
+                    신고 접수하기
+                  </s.RedNormalButton>
+                </DialogContent>
+              </DialogForm>
+            </div>
+            {/* {console.log(nowRoomPost)} */}
+
+            <RoomPrice nowRoomPost={nowRoomPost} />
+
+            <RoomDetail nowRoomPost={nowRoomPost} />
+
+            <div>
+              <div className="flex justify-between">
+                <p className="text-2xl">방 정보</p>
+
+                <div className="flex justify-end">
+                  <button
+                    className="flex hover:bg-gray-100 mr-4"
+                    onClick={() => {
+                      setSharePopUpState(true);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 50 50"
+                      enable-background="new 0 0 50 50"
+                      width="25"
+                      height="25"
+                      className="mt-3"
+                    >
+                      <path d="M30.3 13.7L25 8.4l-5.3 5.3-1.4-1.4L25 5.6l6.7 6.7z" />
+                      <path d="M24 7h2v21h-2z" />
+                      <path d="M35 40H15c-1.7 0-3-1.3-3-3V19c0-1.7 1.3-3 3-3h7v2h-7c-.6 0-1 .4-1 1v18c0 .6.4 1 1 1h20c.6 0 1-.4 1-1V19c0-.6-.4-1-1-1h-7v-2h7c1.7 0 3 1.3 3 3v18c0 1.7-1.3 3-3 3z" />
+                    </svg>
+                    <p className="mt-3 text-thin text-sm text-black">
+                      공유하기
+                      <hr />
+                    </p>
+                  </button>
+                  <button
+                    className="flex justify-between hover:bg-gray-100"
+                    onClick={() => {
+                      setReportPopUpState(true);
+                    }}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      className="mt-3"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        {" "}
+                        <path
+                          d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                          stroke="#76767f"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>{" "}
+                      </g>
+                    </svg>
+                    <p className="mt-3 text-thin text-sm text-black">
+                      신고하기
+                      <hr />
+                    </p>
+                  </button>
+                </div>
+              </div>
+              <p className="ml-2 mt-2s text-lg">{nowRoomPost.description}</p>
             </div>
 
-            <DialogForm
-              openState={sharePopUpState}
-              handleClose={handleSharePopUpState}
-              render={() => (
-                <label
-                  htmlFor="report_type"
-                  className="text-sm font-medium text-gray-900 float-left"
-                >
-                  공유하기
-                </label>
-              )}
-            >
-              <DialogContent>
-                <ShareDialog
-                  description={nowRoomPost.description}
-                  title={nowRoomPost.title}
-                  image_id={nowRoomPost.image_id}
-                  // className="clear-both"
-                />
-              </DialogContent>
-            </DialogForm>
-
-            <DialogForm
-              openState={reportPopUpState}
-              handleClose={handleReportPopUpState}
-              render={() => (
-                <label
-                  htmlFor="report_type"
-                  className="block mb-2 text-sm font-medium text-gray-900 float-left"
-                ></label>
-              )}
-            >
-              <DialogContent
-                sx={{ width: 512, height: 200 }}
-                className="font-black text-center"
-              >
-                <div className="mt-1.5">
-                  <DropBoxSelect
-                    name="report_type"
-                    state={reportType}
-                    onChange={handleReportTypeState}
-                    labelName="신고 사유"
-                    labelId="report_type"
-                    id="report_type"
-                    menuItems={[
-                      "불법 콘텐츠",
-                      "차별적 행위",
-                      "부정확하거나 틀린 정보",
-                      "실제 숙소가 아님",
-                      "사기",
-                      "불쾌함",
-                      "기타",
-                    ]}
-                  />
+            <hr className="my-4" />
+            <div>
+              <div className="text-2xl">위치</div>
+              <div className="flex justify-center">
+                <div>
+                  <p className="text-xl mb-2">
+                    {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
+                    {nowRoomPost.street_number}
+                  </p>
+                  {postExist && (
+                    <KakaoMap
+                      x={nowRoomPost.x_coordinate}
+                      y={nowRoomPost.y_coordinate}
+                    />
+                  )}
                 </div>
-                <s.RedNormalButton
-                  className="mt-4"
-                  onClick={() => {
-                    if (reportType === "") {
-                      alert("신고 사유를 선택해주세요.");
-                      return;
-                    }
-                    if (userInfo.id === "") {
-                      alert("로그인이 필요합니다.");
-                      return;
-                    }
-                    FetchReportPost(userInfo.id, nowRoomNum, reportType).then(
-                      () => {
-                        alert("신고가 접수되었습니다.");
-                      }
-                    );
-                    setReportPopUpState(false);
-                    setReportType("");
-                  }}
-                >
-                  신고 접수하기
-                </s.RedNormalButton>
-              </DialogContent>
-            </DialogForm>
-          </div>
-          {/* {console.log(nowRoomPost)} */}
-
-          <RoomPrice nowRoomPost={nowRoomPost} />
-          <RoomDetail nowRoomPost={nowRoomPost} />
-          <div className="p-4">
-            <div className="text-xl font-bold">방 정보</div>
-
-            <p className="ml-4 mt-4 text-lg font-light">
-              {nowRoomPost.description}
-            </p>
-          </div>
-          <RoomInfoSection>
-            <div className="text-xl font-bold">위치</div>
-            <div className="flex justify-center">
-              <div>
-                {postExist && (
-                  <KakaoMap
-                    x={nowRoomPost.x_coordinate}
-                    y={nowRoomPost.y_coordinate}
-                  />
-                )}
-                <p className="text-xl font-thin">
-                  주소: {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
-                  {nowRoomPost.street_number}
-                </p>
               </div>
             </div>
-          </RoomInfoSection>
 
-          <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
-        </>
-      )}
+            <RoomHost user={nowRoomPost.postuser} title={nowRoomPost.title} />
+          </>
+        )}
+        <div className="mb-4"></div>
+      </div>
     </>
   );
 }
