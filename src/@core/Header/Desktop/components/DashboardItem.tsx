@@ -1,6 +1,6 @@
 import React from "react";
 
-const DashboardLayout = ({ href, desc }: { href: string; desc: string }) => {
+const DashboardItem = ({ href, desc }: { href: string; desc: string }) => {
   return (
     <a
       href={href}
@@ -13,4 +13,4 @@ const DashboardLayout = ({ href, desc }: { href: string; desc: string }) => {
   );
 };
 
-export default DashboardLayout;
+export default DashboardItem;

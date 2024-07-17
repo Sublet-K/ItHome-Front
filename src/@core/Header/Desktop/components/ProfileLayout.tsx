@@ -51,19 +51,19 @@ const ProfileLayout = () => {
           From: "transform opacity-100 scale-100"
           To: "transform opacity-0 scale-95"
       */}
-
-      <div
+      {/* 뭔가 내려와서 선택 가능한 메뉴. */}
+      {/* Active: "bg-gray-100", Not Active: "" */}
+      {/* <div
         className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="user-menu-button"
         tabIndex={-1}
-      >
-        {/* Active: "bg-gray-100", Not Active: "" */}
+      >  
         <MenuItem href={"href"} desc={"Your Profile"} id={0} />
         <MenuItem href={"href"} desc={"Settings"} id={1} />
         <MenuItem href={"href"} desc={"Sign out"} id={1} />
-      </div>
+      </div> */}
     </div>
   );
 };
