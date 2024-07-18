@@ -146,7 +146,7 @@ export function FailAlert() {
           />
         </svg>
       </span>
-      <span className="font-semibold text-black mr-2 text-left flex-auto">
+      <span className="text-base text-black font-light mr-2 text-left flex-auto">
         실패하였습니다.
       </span>
     </div>

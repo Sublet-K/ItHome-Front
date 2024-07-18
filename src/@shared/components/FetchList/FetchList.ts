@@ -160,7 +160,6 @@ async function FetchUploadPost(
   setPostPopUpState: () => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
-  formData.forEach((value, key) => console.log(key, value));
   await fetch(URL, {
     // 리팩토링 전 연락 바람. by ussr1285
     credentials: "include",
@@ -360,9 +359,7 @@ async function FetchGetOneUser(
       .catch(raiseError("FetchGetOneUser"));
     setUserInfo(json);
   };
-  useEffect(() => {
-    getUserInfo();
-  }, [userId]);
+  getUserInfo();
   return true;
 }
 

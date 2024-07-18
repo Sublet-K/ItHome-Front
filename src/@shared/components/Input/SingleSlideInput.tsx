@@ -1,5 +1,22 @@
 import React from "react";
 import Slider from "@mui/material/Slider";
+import { styled } from "@mui/material/styles";
+
+const CustomSlider = styled(Slider)({
+  color: "black",
+  transition: "none", // 애니메이션 효과 제거
+  "& .MuiSlider-thumb": {
+    "&:hover, &.Mui-focusVisible, &.Mui-active": {
+      boxShadow: "none", // 애니메이션 효과 제거
+    },
+  },
+  "& .MuiSlider-rail": {
+    color: "black",
+  },
+  "& .MuiSlider-track": {
+    color: "black",
+  },
+});
 
 export const SingleSlideInput = ({
   name = "",
@@ -13,7 +30,7 @@ export const SingleSlideInput = ({
   minMax: [number, number];
 }) => {
   return (
-    <Slider
+    <CustomSlider
       name={name}
       value={value}
       onChange={onChange}

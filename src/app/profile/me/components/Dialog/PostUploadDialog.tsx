@@ -23,6 +23,8 @@ import {
 import * as s from "@shared/styles/Public.styles";
 import * as psd from "@shared/styles/PostUploadDialog.styles";
 import {
+  Alert,
+  FailAlert,
   formatDate,
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
@@ -92,7 +94,7 @@ export const PostUploadDialog = () => {
   // };
 
   const handleClose = () => confirmAction();
-
+  const [requiredForm, setRequiredForm] = useState(false);
   const confirmAction = async () => {
     // if (windows.confirm('임시저장 하시겠습니까?')) {
     //   const formData = makeFormData();
@@ -161,13 +163,47 @@ export const PostUploadDialog = () => {
 
   const uploadPost = async () => {
     const formData = makeFormData();
-    if (formData === null) {
-      alert("모든 정보를 입력해주세요.");
-      return;
+    var count = 0;
+    formData.forEach((value, key) => {
+      if (
+        [
+          "accomodation_type",
+          "building_type",
+          "title",
+          "basic_info",
+          "city",
+          "gu",
+          "dong",
+          "street",
+          "street_number",
+        ].includes(key) &&
+        value == ""
+      ) {
+        setRequiredForm(true);
+      } else if (
+        [
+          "accomodation_type",
+          "building_type",
+          "title",
+          "basic_info",
+          "city",
+          "gu",
+          "dong",
+          "street",
+          "street_number",
+        ].includes(key)
+      ) {
+        count += 1;
+        if (count == 8) {
+          setRequiredForm(false);
+        }
+      }
+    });
+    if (requiredForm == false) {
+      formData.append("local_save", "false");
+      FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
+      setPostPopUpState();
     }
-    formData.append("local_save", "false");
-    FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
-    setPostPopUpState();
   };
 
   const savePost = async () => {
@@ -216,7 +252,7 @@ export const PostUploadDialog = () => {
         </label>
       )}
     >
-      <DialogContent className="text-center">
+      <DialogContent className="">
         <Swiper
           // Swiper 인스턴스에 사용될 모듈들
           modules={[Pagination, Navigation]}
@@ -234,7 +270,7 @@ export const PostUploadDialog = () => {
           style={psd.gridStyle.mainContainer}
         >
           {/* Swiper 내의 개별 슬라이드 */}
-          <SwiperSlide className="swiper-no-swiping">
+          <SwiperSlide className="swiper-no-swiping px-8">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
               <DropBoxSelect
@@ -247,7 +283,16 @@ export const PostUploadDialog = () => {
                 menuItems={["양도/전대(sublet)", "임대", "월세", "룸메이트"]}
               />
 
-              <div>
+              <div className="mt-4">
+                <DropBoxSelect
+                  name="buildingType"
+                  state={postState["buildingType"]}
+                  onChange={onChange}
+                  labelName="건물 유형"
+                  labelId="building_type"
+                  id="building_type"
+                  menuItems={["오피스텔", "원룸", "아파트", "빌라", "기타"]}
+                />
                 <div>
                   <SingleValueViewer
                     value={"최대인원: " + postState["limitPeople"] + "명"}
@@ -259,15 +304,6 @@ export const PostUploadDialog = () => {
                     minMax={[1, 10]}
                   />
                 </div>
-                <DropBoxSelect
-                  name="buildingType"
-                  state={postState["buildingType"]}
-                  onChange={onChange}
-                  labelName="건물 유형"
-                  labelId="building_type"
-                  id="building_type"
-                  menuItems={["오피스텔", "원룸", "아파트", "빌라", "기타"]}
-                />
               </div>
               <div>
                 <div>
@@ -278,7 +314,7 @@ export const PostUploadDialog = () => {
                     name="numberBathroom"
                     value={postState["numberBathroom"]}
                     onChange={onChange}
-                    minMax={[1, 10]}
+                    minMax={[1, 4]}
                   />
                 </div>
                 <div>
@@ -289,7 +325,7 @@ export const PostUploadDialog = () => {
                     name="numberBedroom"
                     value={postState["numberBedroom"]}
                     onChange={onChange}
-                    minMax={[1, 10]}
+                    minMax={[1, 4]}
                   />
                 </div>
               </div>
@@ -307,22 +343,22 @@ export const PostUploadDialog = () => {
                 onChange={onChange}
                 required={true}
               />
-              <InputTextArea
-                id="basic_info"
-                label="기본정보"
-                placeholder="기본정보을 입력해주세요."
-                value={postState["basicInfo"]}
-                name="basicInfo"
-                onChange={onChange}
-                required={true}
-              />
+              <div className="mt-4">
+                <InputTextArea
+                  id="basic_info"
+                  label="기본정보"
+                  placeholder="기본정보을 입력해주세요."
+                  value={postState["basicInfo"]}
+                  name="basicInfo"
+                  onChange={onChange}
+                  required={true}
+                />
+              </div>
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
               <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
-              <p>예시: 서울특별시 송파구 올림픽로 240</p>
-              시/도
               <DropBoxSelect
                 name="city"
                 state={postState["city"]}
@@ -332,7 +368,7 @@ export const PostUploadDialog = () => {
                 id="city"
                 menuItems={cities}
               />
-              구/시/군/면
+              <br />
               <DropBoxSelect
                 name="gu"
                 state={postState["gu"]}
@@ -350,24 +386,28 @@ export const PostUploadDialog = () => {
                     : ["시/군을 먼저 선택해주세요"]
                 }
               />
-              <TextInputTag
-                id="street"
-                label="길(로)"
-                placeholder="길을 입력해주세요."
-                value={postState["street"]}
-                name="street"
-                onChange={onChange}
-                required={true}
-              />
-              <TextInputTag
-                id="streetNumber"
-                label="번지"
-                placeholder="번지를 입력해주세요."
-                value={postState["streetNumber"]}
-                name="streetNumber"
-                onChange={onChange}
-                required={true}
-              />
+              <div className=" mt-4">
+                <TextInputTag
+                  id="street"
+                  label="길(로)"
+                  placeholder="길을 입력해주세요."
+                  value={postState["street"]}
+                  name="street"
+                  onChange={onChange}
+                  required={true}
+                />
+              </div>
+              <div className=" mt-4">
+                <TextInputTag
+                  id="streetNumber"
+                  label="번지"
+                  placeholder="번지를 입력해주세요."
+                  value={postState["streetNumber"]}
+                  name="streetNumber"
+                  onChange={onChange}
+                  required={true}
+                />
+              </div>
             </p>
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
@@ -394,29 +434,36 @@ export const PostUploadDialog = () => {
 
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>기간 및 금액</h3>
-              <p>게시 날짜</p>
-              <DoubleDatePicker
-                dateData={postState["startEndDay"]}
-                setDateData={handleStartEndDay}
-              />
-
-              <InputInteger
-                id="price"
-                label="가격(일)"
-                name="price"
-                placeholder="가격을 입력해주세요."
-                value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
-                handleState={onChange}
-                required={true}
-              />
-
-              <p>
-                최소-최대 계약 가능 기간 :
+              <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
+              <div className="mb-8">
+                <p className="block text-lg font-light text-gray-900">
+                  입주 가능일
+                </p>{" "}
+                <br />
+                <DoubleDatePicker
+                  dateData={postState["startEndDay"]}
+                  setDateData={handleStartEndDay}
+                />
+              </div>
+              <div className="clear-both mb-4">
+                <InputInteger
+                  id="price"
+                  label="가격(일)"
+                  name="price"
+                  placeholder="가격을 입력해주세요."
+                  value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
+                  handleState={onChange}
+                  required={true}
+                />
+              </div>
+              <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+                최소-최대 입주일 :
+              </p>
+              <div className="clear-both">
                 <ValueRangeViewer
                   arr={postState["tempDuration"] as [string, string]}
                 />
-              </p>
+              </div>
               <DoubleSlideInput
                 name="duration"
                 value={postState["duration"] as [number, number]}
@@ -447,7 +494,7 @@ export const PostUploadDialog = () => {
           </SwiperSlide>
           <SwiperSlide className="swiper-no-swiping">
             <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>숙소 사진을 올려주세요.</h3>
+              <h3 style={psd.gridStyle.infoType}>사진을 올려주세요.</h3>
               {postState["imageFiles"].length > 0 && (
                 <>이미지를 변경하려면 이미지를 클릭해주세요.</>
               )}
@@ -506,7 +553,14 @@ export const PostUploadDialog = () => {
                 입주 가능 성별: {postState.genderType}
               </s.NormalText>
             </div>
+
             <div className="m-6">
+              {requiredForm && (
+                <div className="text-center">
+                  <p className="text-xl font-bold">정보를 다 입력해주세요</p>
+                  <hr />
+                </div>
+              )}
               <button
                 className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
                 onClick={uploadPost}
