@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import tw from 'twin.macro';
+import styled from "styled-components";
+import tw from "twin.macro";
 
 export const ImgContainer = styled.div`
   display: inline-flex;
@@ -10,7 +10,7 @@ export const ImgContainer = styled.div`
 `;
 
 export const RoomInfoSection = styled.section`
-  ${tw`bg-white p-4 rounded-lg shadow-md mx-3 mb-6`}
+  ${tw`bg-white p-4 rounded-lg mx-3 mb-6 shadow-lg drop-shadow-md	`}
 `;
 
 export const RoomTitle = styled.section`

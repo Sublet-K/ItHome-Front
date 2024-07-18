@@ -8,7 +8,11 @@ import {
   InfoButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
-import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
+import {
+  formatMonthDate,
+  priceToString,
+  StyleComponent,
+} from "@shared/components/StaticComponents/StaticComponents";
 import { MouseEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PostEditDialog } from "@shared/components/Popup/Popup";
@@ -89,28 +93,32 @@ export function PostSummaryBlock({
     // });
   };
   return (
-    <div className="border-solid border-2 rounded-lg hover:shadow-lg">
+    <div className="border-solid border-2 rounded-lg hover:shadow-lg mt-4">
       <div className="mt-4 flex justify-center items-center">
         <NormalImage imageLink={imageLink} altContent={"Post Image"} />
       </div>
-      <div className="ml-4">
-        <SecondHead>
-          <a
-            href=""
-            onClick={() => {
-              MoveToRoomInfo({ room });
-            }}
-          >
-            {room.title}
-          </a>
-        </SecondHead>
-
-        <DetailParagraph>주소: {address}</DetailParagraph>
-        <DetailParagraph>숙박료: {price}</DetailParagraph>
+      <div className="ml-8 mt-4">
+        <a
+          className="cursor-pointer"
+          onClick={() => {
+            MoveToRoomInfo({ room });
+          }}
+        >
+          <p className="font-semibold text-2xl text-gray-900">{`${room.title}`}</p>
+          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.dong}`}</p>
+          <p className="text-sm text-gray-500">
+            {" "}
+            {formatMonthDate(new Date(room.start_day))} ~{" "}
+            {formatMonthDate(new Date(room.end_day))}
+          </p>
+          <p className="pt-0.5 font-semibold text-lg text-gray-900">
+            ₩{priceToString(room.price)}/ 일
+          </p>{" "}
+        </a>
       </div>
       <div className="mb-2 ml-3 col-span-4">
         <div className="block">
-          {guestMode && (
+          {!guestMode && (
             <>
               {Object.keys(infoButtonList).map((k, index) => {
                 return (
@@ -166,7 +174,7 @@ export function PostSummaryBlock({
               />
             </>
           )}
-          <div className="mt-4" />
+          <div className="my-4" />
         </div>
       </div>
     </div>

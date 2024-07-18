@@ -507,12 +507,15 @@ export const PostUploadDialog = () => {
               </s.NormalText>
             </div>
             <div className="m-6">
-              <s.UploadButton
+              <button
+                className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
                 onClick={uploadPost}
-                className="w-full items-center justify-center"
               >
-                바로 업로드하기
-              </s.UploadButton>
+                <p className="text-base text-white font-light">
+                  {" "}
+                  바로 업로드하기
+                </p>
+              </button>
             </div>
           </SwiperSlide>
         </Swiper>

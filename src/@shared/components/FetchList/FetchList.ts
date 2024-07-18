@@ -15,14 +15,11 @@ import { Post, RequestForm, Reservation } from "@type/Type";
 import { headers } from "next/headers";
 
 const headerOptions: (method: string, contentType?: string) => RequestInit = (
-  method: string,
-  contentType = "application/json"
+  method: string
 ) => ({
   credentials: "include",
   method: method,
-  headers: {
-    "Content-Type": contentType,
-  },
+  headers: {},
 });
 
 const bodyData = (data: any) => ({
@@ -163,8 +160,7 @@ async function FetchUploadPost(
   setPostPopUpState: () => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
-  // formData.forEach((value, key) => console.log(key, value));
-
+  formData.forEach((value, key) => console.log(key, value));
   await fetch(URL, {
     // 리팩토링 전 연락 바람. by ussr1285
     credentials: "include",
@@ -195,7 +191,6 @@ async function FetchEditPost(
     .then(notFoundError)
     .then((res) => {
       if (res.ok) {
-        console.log("d");
         window.location.reload();
       }
     })
@@ -337,9 +332,9 @@ async function FetchLogout(
 }
 
 async function FetchImage(formData: FormData) {
-  console.log("x", formData);
   return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/image`, {
-    ...headerOptions("PUT", "image/jpeg"),
+    credentials: "include",
+    method: "PUT",
     body: formData,
   });
 }

@@ -3,7 +3,11 @@ import { useRouter } from "next/navigation";
 import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
 import { MainProfileImage } from "@shared/components/Image/Image";
-import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
+import {
+  formatDate,
+  formatMonthDate,
+  priceToString,
+} from "@shared/components/StaticComponents/StaticComponents";
 
 export const RoomProfile = ({
   room,
@@ -32,10 +36,16 @@ export const RoomProfile = ({
       </span>
       <div className="pt-3 flex items-center justify-between">
         <a
-          className="text-xl font-light"
+          className="cursor-pointer"
           onClick={() => router.push(`/roominfo/${room.key}`)}
         >
-          {`${room.city} ${room.gu} ${room.dong}`}
+          <p className="font-semibold text-lg text-gray-900">{`${room.title}`}</p>
+          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.dong}`}</p>
+          <p className="text-sm text-gray-500">
+            {" "}
+            {formatMonthDate(new Date(room.start_day))} ~{" "}
+            {formatMonthDate(new Date(room.end_day))}
+          </p>
         </a>
         <button onClick={toggleLikes(room, likes, setLikes)}>
           {likes[room.key] !== undefined ? (
@@ -60,8 +70,8 @@ export const RoomProfile = ({
           )}
         </button>
       </div>
-      <p className="pt-1 font-light text-gray-900">
-        ₩{priceToString(room.price * 30)}/1개월
+      <p className="pt-0.5 font-semibold text-lg text-gray-900">
+        ₩{priceToString(room.price * 30)}/ 월
       </p>
     </div>
   );
