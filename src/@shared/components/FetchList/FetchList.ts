@@ -360,7 +360,9 @@ async function FetchGetOneUser(
       .catch(raiseError("FetchGetOneUser"));
     setUserInfo(json);
   };
-  getUserInfo();
+  useEffect(() => {
+    getUserInfo();
+  }, [userId]);
   return true;
 }
 

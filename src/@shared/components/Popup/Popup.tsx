@@ -528,6 +528,7 @@ export function SignUpDialog() {
     genderState: "temp",
     studentIdState: "24",
     jobState: "temp",
+    smoking: false,
   });
   const [birthState, setBirthState] = useState(dayjs(new Date()));
   const [emailState, setEmailState] = useState("");

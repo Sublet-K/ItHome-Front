@@ -4,6 +4,7 @@ import "./globals.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
 import Header from "@core/Header/Desktop/Header";
+import ErrorBoundaryWrapper from "./ErrorBoundaryWrapper";
 // import { MobileHeader } from "./_PageComponents/MobileHeader";
 
 export const Mobile = ({ children }: { children: React.ReactNode }) => {
@@ -72,7 +73,7 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
-        {children}
+        <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
       </body>
     </html>
   );
