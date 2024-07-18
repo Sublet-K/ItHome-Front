@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useTitle } from "@shared/components/hook/HookCollect.js";
-import { PostUploadDialog } from "@shared/components/Popup/Popup";
 import { RequestListComponent } from "./components/UserProfile/RequsetListComponent";
 import { UserPrivateComponent } from "./components/UserProfile/UserPrivateComponent";
 import { Horizon, Wrapper } from "@shared/styles/Public.styles";
@@ -18,26 +17,16 @@ function GuestInfo() {
     <div
       style={{
         fontFamily: "Pretendard",
-        maxWidth: "900px", // Increase the width
-        margin: "0 auto",
-        backgroundColor: "white",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        padding: "20px",
       }}
-      className="my-10 p-5"
+      className="container mx-auto px-4"
     >
-      <div style={{ marginBottom: "20px" }}>
-        <UserBaseComponent user={userInfo} />
-      </div>
+      <UserBaseComponent user={userInfo} />
+      <hr className="my-4" />
 
-      <div style={{ marginBottom: "20px" }}>
-        <UserPrivateComponent user={userInfo} />
-      </div>
+      <UserPrivateComponent user={userInfo} />
+      <hr className="my-4" />
 
-      <div>
-        <PostListComponent userId={userInfo.user_id} />
-      </div>
+      <PostListComponent userId={userInfo.user_id} />
 
       {/* <PostUploadDialog /> */}
 

@@ -7,7 +7,7 @@ import BathtubIcon from "@mui/icons-material/Bathtub";
 import { NormalText, SecondHead } from "@shared/styles/Public.styles";
 export function RoomPrice({ nowRoomPost }: { nowRoomPost: Post }) {
   return (
-    <RS.RoomInfoSection>
+    <div>
       <RS.RoomTitle>{nowRoomPost.title}</RS.RoomTitle>
 
       <div className="flex w-1/4 flex-wrap content-center flex-row justify-around mt-4">
@@ -27,6 +27,7 @@ export function RoomPrice({ nowRoomPost }: { nowRoomPost: Post }) {
           화장실 {nowRoomPost.number_bathroom} 개
         </div>
       </div>
-    </RS.RoomInfoSection>
+      <hr className="my-4" />
+    </div>
   );
 }

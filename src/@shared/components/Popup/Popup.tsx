@@ -157,12 +157,7 @@ export function ImageDialog() {
       <DialogContent sx={{ width: 512 }} className="font-black text-center">
         <div className="mb-8">
           {imgFile !== "" ? (
-            <>
-              {
-                "a"
-                //<img src={imgFile} alt="프로필 이미지" />
-              }
-            </>
+            <>{<img src={imgFile} alt="프로필 이미지" />}</>
           ) : (
             <label
               htmlFor="dropzone-file"
@@ -183,15 +178,23 @@ export function ImageDialog() {
         </div>
         <div className="mt-8">
           {imgFile !== "" ? (
-            <s.NormalButton onClick={onClick}>업로드하기</s.NormalButton>
+            <button
+              className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={onClick}
+            >
+              <p className="text-base text-white font-light">
+                {" "}
+                프로필 수정하기
+              </p>
+            </button>
           ) : (
-            <s.DisableButton disabled>업로드하기</s.DisableButton>
+            <button className="w-full mt-4 border p-2.5 bg-gray-500 border-black rounded-lg">
+              <p className="text-base text-white font-light">
+                {" "}
+                바로 업로드하기
+              </p>
+            </button>
           )}
-
-          <div>
-            {successState && <Alert />}
-            {failState && <FailAlert />}
-          </div>
         </div>
       </DialogContent>
     </DialogForm>
@@ -289,11 +292,12 @@ export function EmailDialog({
             value={emailState}
           />
           <div className="mt-4">
-            <s.NormalButton onClick={onClick}>수정하기</s.NormalButton>
-            <div>
-              {successState && <Alert />}
-              {failState && <FailAlert />}
-            </div>
+            <button
+              className="w-full border p-2 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={onClick}
+            >
+              <p className="text-sm text-white font-light">수정하기</p>
+            </button>
           </div>
         </DialogContent>
       </DialogForm>
@@ -332,9 +336,7 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
           <label
             htmlFor="tel"
             className="block mb-2 text-sm font-medium text-gray-900 float-left"
-          >
-            Phone number
-          </label>
+          ></label>
         )}
       >
         <DialogContent sx={{ height: 120, width: 312 }} className="text-center">
@@ -342,11 +344,12 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
             <InputTelePhone onChange={onChange} value={phoneState} />
           </form>
           <div className="mt-4">
-            <s.NormalButton onClick={onClick}>수정하기</s.NormalButton>
-            <div>
-              {successState && <Alert />}
-              {failState && <FailAlert />}
-            </div>
+            <button
+              className="w-full border p-2 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={onClick}
+            >
+              <p className="text-sm text-white font-light">수정하기</p>
+            </button>
           </div>
         </DialogContent>
       </DialogForm>
@@ -423,9 +426,12 @@ export function ShareDialog({
           ref={copyLinkRef}
           value={resultUrl}
         />
-        <s.NormalButton className="mt-4" onClick={copyTextUrl}>
-          복사하기
-        </s.NormalButton>
+        <button
+          className="border p-2 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"
+          onClick={copyTextUrl}
+        >
+          <p className="text-sm text-white font-light">복사하기</p>
+        </button>
       </div>
     </div>
   );
@@ -641,13 +647,13 @@ export function SignUpDialog() {
         </div>
       </DialogContent>
       <DialogActions>
-        <s.UploadButton
+        <button
+          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
           type="submit"
           onClick={signUpHandled}
-          className="flex w-full justify-center my-2"
         >
-          회원가입
-        </s.UploadButton>
+          <p className="text-base text-white font-light">회원가입</p>
+        </button>
       </DialogActions>
     </Dialog>
   );
@@ -897,12 +903,12 @@ export const PostEditDialog = ({
         </div>
       </DialogContent>
       <div className="m-8">
-        <s.UploadButton
-          className="w-full items-center justify-center"
+        <button
+          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
           onClick={onClick}
         >
-          방 수정하기
-        </s.UploadButton>
+          <p className="text-base text-white font-light"> 방 수정하기</p>
+        </button>
       </div>
     </>
   );

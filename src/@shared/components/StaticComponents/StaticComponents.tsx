@@ -26,6 +26,18 @@ export const formatDate = (date: Date | number) => {
 
   return [year, month, day].join("-");
 };
+
+export const formatMonthDate = (date: Date | number) => {
+  const d = new Date(date);
+  let month = "" + (d.getMonth() + 1); // 월은 0부터 시작하므로 1을 더해줍니다.
+  let day = "" + d.getDate();
+  const year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return month + "월" + day + "일";
+};
 export const notFoundError = (
   res: Response,
   animation = false,

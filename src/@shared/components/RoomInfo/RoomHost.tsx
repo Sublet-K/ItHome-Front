@@ -28,7 +28,7 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
     // });
   };
   return (
-    <RS.RoomInfoSection>
+    <div className="shadow-lg drop-shadow-md rounded-lg mt-4">
       <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
         <div className="flex-shrink-0">
           <div
@@ -37,7 +37,7 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
             <Image
               loader={() => imageLink}
               src={imageLink}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
               layout="fill"
               objectFit="contain stroke-gray-50	"
               alt="호스트 프로필"
@@ -48,7 +48,7 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
         <div>
           <div className="text-2xl font-bold">
             <a
-              href=""
+              className="cursor-pointer"
               onClick={() => {
                 MoveToProfileInfo();
               }}
@@ -58,14 +58,14 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
           </div>
         </div>
       </div>
-      <div>
-        <BlackButton
-          onClick={clickHandler}
+      <div className="items-center p-4">
+        <button
+          className="w-full border p-2 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"
           name="contactPopUpState"
-          className="w-full rounded-lg p-2.5"
+          onClick={clickHandler}
         >
-          문의하기
-        </BlackButton>
+          <p className="text-sm text-white font-light">문의하기</p>
+        </button>
       </div>
       <ContactDialog
         setPopUpState={setPopUpState}
@@ -74,6 +74,6 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
         user_contact={user.email}
         title={title}
       />
-    </RS.RoomInfoSection>
+    </div>
   );
 }
