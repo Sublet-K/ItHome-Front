@@ -252,327 +252,289 @@ export const PostUploadDialog = () => {
         </label>
       )}
     >
-      <DialogContent className="">
-        <Swiper
-          // Swiper 인스턴스에 사용될 모듈들
-          modules={[Pagination, Navigation]}
-          // Swiper 초기화될 때 실행할 콜백 함수
-          // onSwiper={(swiper: any) => console.log("Swiper 인스턴스:", swiper)}
-          // 한 번에 보여줄 슬라이드 수
-          slidesPerView={1}
-          // 슬라이드 간의 간격(픽셀 단위)
-          spaceBetween={50}
-          // 네비게이션 컨트롤 활성화
-          navigation={true}
-          // 페이지네이션 설정
-          pagination={{ type: "progressbar", clickable: true }} // 페이지네이션 도트 클릭 가능하게 설정
-          noSwiping={true} // 스와이핑 방지 전체적용
-          style={psd.gridStyle.mainContainer}
-        >
-          {/* Swiper 내의 개별 슬라이드 */}
-          <SwiperSlide className="swiper-no-swiping px-8">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
-              <DropBoxSelect
-                name="accomodationType"
-                state={postState["accomodationType"]}
-                onChange={onChange}
-                labelName="계약 형태"
-                labelId="accomodation_type"
-                id="accomodation_type"
-                menuItems={["양도/전대(sublet)", "임대", "월세", "룸메이트"]}
-              />
+      <DialogContent className="container mx-auto flex-wrap pt-4">
+        {/* Swiper 내의 개별 슬라이드 */}
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
+          <DropBoxSelect
+            name="accomodationType"
+            state={postState["accomodationType"]}
+            onChange={onChange}
+            labelName="계약 형태"
+            labelId="accomodation_type"
+            id="accomodation_type"
+            menuItems={["양도/전대(sublet)", "임대", "월세", "룸메이트"]}
+          />
 
-              <div className="mt-4">
-                <DropBoxSelect
-                  name="buildingType"
-                  state={postState["buildingType"]}
-                  onChange={onChange}
-                  labelName="건물 유형"
-                  labelId="building_type"
-                  id="building_type"
-                  menuItems={["오피스텔", "원룸", "아파트", "빌라", "기타"]}
-                />
-                <div>
-                  <SingleValueViewer
-                    value={"최대인원: " + postState["limitPeople"] + "명"}
-                  />
-                  <SingleSlideInput
-                    name="limitPeople"
-                    value={postState["limitPeople"]}
-                    onChange={onChange}
-                    minMax={[1, 10]}
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <SingleValueViewer
-                    value={"욕실 개수: " + postState["numberBathroom"]}
-                  />
-                  <SingleSlideInput
-                    name="numberBathroom"
-                    value={postState["numberBathroom"]}
-                    onChange={onChange}
-                    minMax={[1, 4]}
-                  />
-                </div>
-                <div>
-                  <SingleValueViewer
-                    value={"침실 개수: " + postState["numberBedroom"]}
-                  />
-                  <SingleSlideInput
-                    name="numberBedroom"
-                    value={postState["numberBedroom"]}
-                    onChange={onChange}
-                    minMax={[1, 4]}
-                  />
-                </div>
-              </div>
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>숙소의 매력을 작성하세요</h3>
-              <TextInputTag
-                id="title"
-                label="제목"
-                placeholder="제목을 입력해주세요."
-                value={postState["title"]}
-                name="title"
-                onChange={onChange}
-                required={true}
+          <div className="mt-4">
+            <DropBoxSelect
+              name="buildingType"
+              state={postState["buildingType"]}
+              onChange={onChange}
+              labelName="건물 유형"
+              labelId="building_type"
+              id="building_type"
+              menuItems={["오피스텔", "원룸", "아파트", "빌라", "기타"]}
+            />
+            <div>
+              <SingleValueViewer
+                value={"최대인원: " + postState["limitPeople"] + "명"}
               />
-              <div className="mt-4">
-                <InputTextArea
-                  id="basic_info"
-                  label="기본정보"
-                  placeholder="기본정보을 입력해주세요."
-                  value={postState["basicInfo"]}
-                  name="basicInfo"
-                  onChange={onChange}
-                  required={true}
-                />
-              </div>
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
-              <DropBoxSelect
-                name="city"
-                state={postState["city"]}
+              <SingleSlideInput
+                name="limitPeople"
+                value={postState["limitPeople"]}
                 onChange={onChange}
-                labelName="시/도"
-                labelId="city"
-                id="city"
-                menuItems={cities}
+                minMax={[1, 10]}
               />
-              <br />
-              <DropBoxSelect
-                name="gu"
-                state={postState["gu"]}
+            </div>
+          </div>
+          <div>
+            <div>
+              <SingleValueViewer
+                value={"욕실 개수: " + postState["numberBathroom"]}
+              />
+              <SingleSlideInput
+                name="numberBathroom"
+                value={postState["numberBathroom"]}
                 onChange={onChange}
-                labelName="구/시/군/면"
-                labelId="gu"
-                id="gu"
-                menuItems={
-                  postState["city"]
-                    ? AdministrativeDistricts[
-                        postState[
-                          "city"
-                        ] as keyof typeof AdministrativeDistricts
-                      ]
-                    : ["시/군을 먼저 선택해주세요"]
-                }
+                minMax={[1, 4]}
               />
-              <div className=" mt-4">
-                <TextInputTag
-                  id="street"
-                  label="길(로)"
-                  placeholder="길을 입력해주세요."
-                  value={postState["street"]}
-                  name="street"
-                  onChange={onChange}
-                  required={true}
+            </div>
+            <div>
+              <SingleValueViewer
+                value={"침실 개수: " + postState["numberBedroom"]}
+              />
+              <SingleSlideInput
+                name="numberBedroom"
+                value={postState["numberBedroom"]}
+                onChange={onChange}
+                minMax={[1, 4]}
+              />
+            </div>
+          </div>
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>숙소의 매력을 작성하세요</h3>
+          <TextInputTag
+            id="title"
+            label="제목"
+            placeholder="제목을 입력해주세요."
+            value={postState["title"]}
+            name="title"
+            onChange={onChange}
+            required={true}
+          />
+          <div className="mt-4">
+            <InputTextArea
+              id="basic_info"
+              label="기본정보"
+              placeholder="기본정보을 입력해주세요."
+              value={postState["basicInfo"]}
+              name="basicInfo"
+              onChange={onChange}
+              required={true}
+            />
+          </div>
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
+          <DropBoxSelect
+            name="city"
+            state={postState["city"]}
+            onChange={onChange}
+            labelName="시/도"
+            labelId="city"
+            id="city"
+            menuItems={cities}
+          />
+          <br />
+          <DropBoxSelect
+            name="gu"
+            state={postState["gu"]}
+            onChange={onChange}
+            labelName="구/시/군/면"
+            labelId="gu"
+            id="gu"
+            menuItems={
+              postState["city"]
+                ? AdministrativeDistricts[
+                    postState["city"] as keyof typeof AdministrativeDistricts
+                  ]
+                : ["시/군을 먼저 선택해주세요"]
+            }
+          />
+          <div className=" mt-4">
+            <TextInputTag
+              id="street"
+              label="길(로)"
+              placeholder="길을 입력해주세요."
+              value={postState["street"]}
+              name="street"
+              onChange={onChange}
+              required={true}
+            />
+          </div>
+          <div className=" mt-4">
+            <TextInputTag
+              id="streetNumber"
+              label="번지"
+              placeholder="번지를 입력해주세요."
+              value={postState["streetNumber"]}
+              name="streetNumber"
+              onChange={onChange}
+              required={true}
+            />
+          </div>
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>위치 정보 확인</h3>
+          <div className="">
+            {postState["street"] != "" &&
+              postState["streetNumber"] != "" &&
+              postState["gu"] != "" &&
+              postState["city"] != "" && (
+                <KakaoMap
+                  name={
+                    postState["city"] +
+                    " " +
+                    postState["gu"] +
+                    " " +
+                    postState["street"] +
+                    " " +
+                    postState["streetNumber"]
+                  }
                 />
-              </div>
-              <div className=" mt-4">
-                <TextInputTag
-                  id="streetNumber"
-                  label="번지"
-                  placeholder="번지를 입력해주세요."
-                  value={postState["streetNumber"]}
-                  name="streetNumber"
-                  onChange={onChange}
-                  required={true}
-                />
-              </div>
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>위치 정보가 정확한가요?</h3>
-              {postState["street"] != "" &&
-                postState["streetNumber"] != "" &&
-                postState["gu"] != "" &&
-                postState["city"] != "" && (
-                  <KakaoMap
-                    name={
-                      postState["city"] +
-                      " " +
-                      postState["gu"] +
-                      " " +
-                      postState["street"] +
-                      " " +
-                      postState["streetNumber"]
-                    }
-                  />
-                )}
-            </p>
-          </SwiperSlide>
+              )}
+          </div>
+        </p>
 
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
-              <div className="mb-8">
-                <p className="block text-lg font-light text-gray-900">
-                  입주 가능일
-                </p>{" "}
-                <br />
-                <DoubleDatePicker
-                  dateData={postState["startEndDay"]}
-                  setDateData={handleStartEndDay}
-                />
-              </div>
-              <div className="clear-both mb-4">
-                <InputInteger
-                  id="price"
-                  label="가격(일)"
-                  name="price"
-                  placeholder="가격을 입력해주세요."
-                  value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
-                  handleState={onChange}
-                  required={true}
-                />
-              </div>
-              <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-                최소-최대 입주일 :
-              </p>
-              <div className="clear-both">
-                <ValueRangeViewer
-                  arr={postState["tempDuration"] as [string, string]}
-                />
-              </div>
-              <DoubleSlideInput
-                name="duration"
-                value={postState["duration"] as [number, number]}
-                onChange={handleDuration}
-                minMax={[1, 730]}
-              />
-              {/* <DoubleSlideInput
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>입주 정보</h3>
+          <div className="mb-8">
+            <p className="block text-lg font-light text-gray-900">
+              입주 가능일
+            </p>{" "}
+            <br />
+            <DoubleDatePicker
+              dateData={postState["startEndDay"]}
+              setDateData={handleStartEndDay}
+            />
+          </div>
+          <div className="clear-both mb-4">
+            <InputInteger
+              id="price"
+              label="가격(일)"
+              name="price"
+              placeholder="가격을 입력해주세요."
+              value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
+              handleState={onChange}
+              required={true}
+            />
+          </div>
+          <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+            최소-최대 입주일 :
+          </p>
+          <div className="clear-both">
+            <ValueRangeViewer
+              arr={postState["tempDuration"] as [string, string]}
+            />
+          </div>
+          <DoubleSlideInput
+            name="duration"
+            value={postState["duration"] as [number, number]}
+            onChange={handleDuration}
+            minMax={[1, 730]}
+          />
+          {/* <DoubleSlideInput
                 value={postState['duration']}
                 name="duration"
                 onChange={handleDuration}
                 minMax={[1, 730]}
               /> */}
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
-              <DropBoxSelect
-                name="genderType"
-                state={postState["genderType"]}
-                onChange={onChange}
-                labelName="성별"
-                labelId="genderType"
-                id="genderType"
-                menuItems={["모두", "남", "여"]}
-              />
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>사진을 올려주세요.</h3>
-              {postState["imageFiles"].length > 0 && (
-                <>이미지를 변경하려면 이미지를 클릭해주세요.</>
-              )}
-              <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
-            </p>
-          </SwiperSlide>
-          <SwiperSlide className="swiper-no-swiping">
-            <p style={psd.gridStyle.inputContainer}>
-              <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
-            </p>
-            <div className="ml-20 text-left">
-              <s.SecondHead>
-                {postState.title == "" ? "제목 작성 안됨" : postState.title}
-              </s.SecondHead>
-              <s.NormalText className="mt-2 w-full">
-                방 정보: {postState.basicInfo}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                계약 형태:{" "}
-                {postState.accomodationType == ""
-                  ? "선택 안됨"
-                  : postState.accomodationType}{" "}
-              </s.NormalText>
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
+          <DropBoxSelect
+            name="genderType"
+            state={postState["genderType"]}
+            onChange={onChange}
+            labelName="성별"
+            labelId="genderType"
+            id="genderType"
+            menuItems={["모두", "남", "여"]}
+          />
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>사진을 올려주세요.</h3>
+          {postState["imageFiles"].length > 0 && (
+            <>이미지를 변경하려면 이미지를 클릭해주세요.</>
+          )}
+          <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
+        </p>
+        <div className="ml-20 text-left">
+          <s.SecondHead>
+            {postState.title == "" ? "제목 작성 안됨" : postState.title}
+          </s.SecondHead>
+          <s.NormalText className="mt-2 w-full">
+            방 정보: {postState.basicInfo}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            계약 형태:{" "}
+            {postState.accomodationType == ""
+              ? "선택 안됨"
+              : postState.accomodationType}{" "}
+          </s.NormalText>
 
-              <s.NormalText className="mt-2">
-                건물 유형:{" "}
-                {postState.buildingType == ""
-                  ? "선택 안됨"
-                  : postState.buildingType}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                최대 인원: {postState.limitPeople}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                방: 욕실 {postState.numberBathroom} 침실{" "}
-                {postState.numberBedroom}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                주소:{" "}
-                {postState["city"] +
-                  " " +
-                  postState["gu"] +
-                  " " +
-                  postState["street"] +
-                  " " +
-                  postState["streetNumber"]}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                최대 거주 기간: {postState.duration[0]} -{" "}
-                {postState.duration[1]}일
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                일일 가격: {postState.price}
-              </s.NormalText>
-              <s.NormalText className="mt-2">
-                입주 가능 성별: {postState.genderType}
-              </s.NormalText>
-            </div>
+          <s.NormalText className="mt-2">
+            건물 유형:{" "}
+            {postState.buildingType == ""
+              ? "선택 안됨"
+              : postState.buildingType}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            최대 인원: {postState.limitPeople}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            방: 욕실 {postState.numberBathroom} 침실 {postState.numberBedroom}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            주소:{" "}
+            {postState["city"] +
+              " " +
+              postState["gu"] +
+              " " +
+              postState["street"] +
+              " " +
+              postState["streetNumber"]}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            최대 거주 기간: {postState.duration[0]} - {postState.duration[1]}일
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            일일 가격: {postState.price}
+          </s.NormalText>
+          <s.NormalText className="mt-2">
+            입주 가능 성별: {postState.genderType}
+          </s.NormalText>
+        </div>
 
-            <div className="m-6">
-              {requiredForm && (
-                <div className="text-center">
-                  <p className="text-xl font-bold">정보를 다 입력해주세요</p>
-                  <hr />
-                </div>
-              )}
-              <button
-                className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-                onClick={uploadPost}
-              >
-                <p className="text-base text-white font-light">
-                  {" "}
-                  바로 업로드하기
-                </p>
-              </button>
+        <div className="m-6">
+          {requiredForm && (
+            <div className="text-center">
+              <p className="text-xl font-bold">정보를 다 입력해주세요</p>
+              <hr />
             </div>
-          </SwiperSlide>
-        </Swiper>
+          )}
+          <button
+            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+            onClick={uploadPost}
+          >
+            <p className="text-base text-white font-light"> 바로 업로드하기</p>
+          </button>
+        </div>
       </DialogContent>
     </DialogForm>
   );
