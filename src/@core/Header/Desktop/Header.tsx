@@ -8,13 +8,17 @@ import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
 import { LoginDialog } from "@shared/components/Popup/Popup";
-import { FetchLogout } from "@shared/components/FetchList/FetchList";
+import {
+  FetchGetLikePosts,
+  FetchLogout,
+} from "@shared/components/FetchList/FetchList";
 import SearchLocation from "./components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import * as hs from "./Header.styles";
 import SearchButton from "./components/SearchButton";
 import { useUserLikeStore } from "@store/UserLikeStore";
 import { SearchKeyword } from "./components/SearchKeyword";
+import { SubletPostStore } from "@store/SubletPostStore";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
@@ -35,6 +39,17 @@ const Header = () => {
     } else {
       window.location.href = "/";
     }
+  };
+  const { setPosts } = SubletPostStore();
+  const doSearch = () => {
+    FetchGetLikePosts(setPosts).then(() => {
+      if (location.pathname === "/savesublet") {
+        // searchtest
+        window.location.reload();
+      } else {
+        window.location.href = "/savesublet"; // searchtest
+      }
+    });
   };
 
   return (
@@ -66,8 +81,8 @@ const Header = () => {
               <span>
                 <IconButton>
                   {/* style={styles.favorite} */}
-                  <Link href="/SaveSublet">
-                    <Favorite />
+                  <Link href="/savesublet">
+                    <Favorite onClick={doSearch} />
                   </Link>
                 </IconButton>
               </span>

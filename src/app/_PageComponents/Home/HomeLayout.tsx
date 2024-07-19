@@ -6,17 +6,11 @@ import { Post } from "@type/Type";
 import { useTitle } from "../UseTitle";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { FetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
-import styled from "styled-components";
-import { PolicyText } from "@shared/styles/Public.styles";
 import { useInView } from "react-intersection-observer";
 
 import { RoomProfile } from "./components/RoomProfile";
 import { useUserLikeStore } from "@store/UserLikeStore";
-import styles from "@shared/styles/Interactive.module.css";
 
-const NoButtonLayout = styled(PolicyText)`
-  margin-top: 3rem;
-`;
 export const HomeLayout = ({
   roomsData: initRoomsData,
   preRoomsData: initPreRoomsData,
@@ -42,7 +36,11 @@ export const HomeLayout = ({
 
   const callback = () => {
     if (preRoomsData.length === 0) {
-      return <NoButtonLayout>더 불러올 방이 없습니다.</NoButtonLayout>;
+      return (
+        <div className="mt-12 text-center text-gray-600">
+          더 불러올 방이 없습니다.
+        </div>
+      );
     } else {
       FetchMoreRoomsDefault(
         listRoomAmount,
@@ -60,9 +58,9 @@ export const HomeLayout = ({
   if (!roomsData) return <div></div>;
 
   return (
-    <section className="bg-white py-8 container mx-auto px-4">
+    <section className="bg-white py-8 mx-auto px-4">
       <div className="bg-white text-gray-600">
-        <div className="flex items-center justify-center flex-wrap pt-4">
+        <div className="flex flex-wrap justify-center items-center pt-4">
           {roomsData.map((room, index) => (
             <RoomProfile
               key={index}
@@ -71,7 +69,7 @@ export const HomeLayout = ({
               setLikes={setLikePostId}
             />
           ))}
-          <div ref={ref}></div> {/* 무힌스크롤하기 위한 위치 정보임. */}
+          <div ref={ref}></div> {/* 무한 스크롤을 위한 위치 정보 */}
         </div>
       </div>
     </section>

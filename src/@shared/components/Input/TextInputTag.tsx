@@ -128,7 +128,7 @@ export const TextInputTag = ({
   <div>
     <label
       htmlFor={id}
-      className="block mb-2 text-sm font-medium text-gray-900 float-left"
+      className="block mb-2 text-lg font-light text-gray-900 float-left"
     >
       {label}
     </label>
@@ -137,7 +137,7 @@ export const TextInputTag = ({
         type="text"
         id={id}
         name={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="border border-black text-sm font-thin rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         onChange={onChange}
         value={value}
         placeholder={placeholder}
@@ -148,7 +148,7 @@ export const TextInputTag = ({
         type="text"
         name={name}
         id={id}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="border border-black font-thin text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         onChange={onChange}
         value={value}
         placeholder={placeholder}
@@ -177,7 +177,7 @@ export const InputTextArea = ({
   <div>
     <label
       htmlFor={id}
-      className="block mb-2 text-sm font-medium text-gray-900 float-left"
+      className="block mb-2 text-sm text-lg font-light text-gray-900 float-left"
     >
       {label}
     </label>
@@ -185,19 +185,21 @@ export const InputTextArea = ({
       <textarea
         id={id}
         name={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        style={{ resize: "none" }} // 넓히기 아이콘 제거
         required
       />
     ) : (
       <textarea
         id={id}
         name={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         onChange={onChange}
         placeholder={placeholder}
+        style={{ resize: "none" }} // 넓히기 아이콘 제거
         value={value}
       />
     )}
@@ -224,7 +226,7 @@ export const InputInteger = ({
   <div>
     <label
       htmlFor={id}
-      className="block mb-2 text-sm font-medium text-gray-900 float-left"
+      className="block mb-2 text-lg font-light text-gray-900 float-left"
     >
       {label}
     </label>
@@ -233,7 +235,7 @@ export const InputInteger = ({
         type="tel"
         id={id}
         name={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="border border-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         value={value}
         min="1"
         max="2147483640"
@@ -247,7 +249,7 @@ export const InputInteger = ({
         type="tel"
         id={id}
         name={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         value={value}
         min="1"
         max="2147483640"
