@@ -252,7 +252,19 @@ export const PostUploadDialog = () => {
         </label>
       )}
     >
-      <DialogContent className="container mx-auto flex-wrap pt-4">
+      <DialogContent
+        sx={{
+          width: "100%", // 모든 화면 크기에서 100% 너비
+          maxWidth: {
+            xs: "100%",
+            sm: "100%",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+          }, // 화면 크기에 따라 최대 너비 조정
+        }}
+        className="container mx-auto flex-wrap pt-4"
+      >
         {/* Swiper 내의 개별 슬라이드 */}
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>

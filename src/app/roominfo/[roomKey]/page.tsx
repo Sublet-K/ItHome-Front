@@ -113,14 +113,14 @@ export default function RoomInfo() {
                   <img
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                     alt={`image ${index}`}
-                    className="d-block w-2/6 h-full object-cover m-auto"
+                    className="block w-full h-full object-cover"
                   />
                 </Carousel.Item>
               ))}
           </Carousel>
         )}
       </div>
-      <div className="container mx-auto px-4">
+      <div className="">
         {postExist && nowRoomPost && (
           <>
             <div>
@@ -141,7 +141,6 @@ export default function RoomInfo() {
                     description={nowRoomPost.description}
                     title={nowRoomPost.title}
                     image_id={nowRoomPost.image_id}
-                    // className="clear-both"
                   />
                 </DialogContent>
               </DialogForm>
@@ -156,10 +155,7 @@ export default function RoomInfo() {
                   ></label>
                 )}
               >
-                <DialogContent
-                  sx={{ width: 512, height: 200 }}
-                  className="font-black text-center"
-                >
+                <DialogContent className="w-full max-w-2xl min-w-[28rem] p-10 text-center font-black">
                   <div className="mt-1.5">
                     <DropBoxSelect
                       name="report_type"
@@ -179,8 +175,8 @@ export default function RoomInfo() {
                       ]}
                     />
                   </div>
-                  <s.RedNormalButton
-                    className="mt-4"
+                  <button
+                    className="mt-4 bg-red-500 text-white px-4 py-2 font-thin rounded"
                     onClick={() => {
                       if (reportType === "") {
                         alert("신고 사유를 선택해주세요.");
@@ -200,11 +196,10 @@ export default function RoomInfo() {
                     }}
                   >
                     신고 접수하기
-                  </s.RedNormalButton>
+                  </button>
                 </DialogContent>
               </DialogForm>
             </div>
-            {/* {console.log(nowRoomPost)} */}
 
             <RoomPrice nowRoomPost={nowRoomPost} />
 
@@ -212,8 +207,7 @@ export default function RoomInfo() {
 
             <div>
               <div className="flex justify-between">
-                <p className="text-2xl">방 정보</p>
-
+                <p className="text-2xl md:text-xl">방 정보</p>
                 <div className="flex justify-end">
                   <button
                     className="flex hover:bg-gray-100 mr-4"
@@ -224,16 +218,13 @@ export default function RoomInfo() {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 50 50"
-                      enable-background="new 0 0 50 50"
-                      width="25"
-                      height="25"
-                      className="mt-3"
+                      className="w-6 h-6 mt-3"
                     >
                       <path d="M30.3 13.7L25 8.4l-5.3 5.3-1.4-1.4L25 5.6l6.7 6.7z" />
                       <path d="M24 7h2v21h-2z" />
                       <path d="M35 40H15c-1.7 0-3-1.3-3-3V19c0-1.7 1.3-3 3-3h7v2h-7c-.6 0-1 .4-1 1v18c0 .6.4 1 1 1h20c.6 0 1-.4 1-1V19c0-.6-.4-1-1-1h-7v-2h7c1.7 0 3 1.3 3 3v18c0 1.7-1.3 3-3 3z" />
                     </svg>
-                    <p className="mt-3 text-thin text-sm text-black">
+                    <p className="mt-3 text-sm md:text-xs text-black">
                       공유하기
                       <hr />
                     </p>
@@ -248,43 +239,34 @@ export default function RoomInfo() {
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      className="mt-3"
+                      className="w-5 h-5 mt-3"
                     >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                      <g
-                        id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></g>
-                      <g id="SVGRepo_iconCarrier">
-                        {" "}
-                        <path
-                          d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                          stroke="#76767f"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>{" "}
-                      </g>
+                      <path
+                        d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                        stroke="#76767f"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
-                    <p className="mt-3 text-thin text-sm text-black">
+                    <p className="mt-3 text-sm md:text-xs text-black">
                       신고하기
                       <hr />
                     </p>
                   </button>
                 </div>
               </div>
-              <p className="ml-2 mt-2s text-lg">{nowRoomPost.description}</p>
+              <p className="ml-2 mt-2 text-lg md:text-sm">
+                {nowRoomPost.description}
+              </p>
             </div>
 
             <hr className="my-4" />
             <div>
-              <div className="text-2xl">위치</div>
-              <div className="flex justify-center">
+              <div className="text-2xl md:text-xl">위치</div>
+              <div className="flex justify-between">
                 <div>
-                  <p className="text-xl mb-2">
+                  <p className="text-xl mb-2 md:text-lg">
                     {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
                     {nowRoomPost.street_number}
                   </p>

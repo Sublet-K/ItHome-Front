@@ -85,7 +85,14 @@ export const KakaoMap = ({
     kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
   }, [name, x, y]);
 
-  return <div id="map" style={{ width: "500px", height: "500px" }}></div>;
+  return (
+    <div className="w-full flex justify-center">
+      <div
+        id="map"
+        className="w-full h-64 md:h-96 lg:h-[500px] lg:w-[500px]"
+      ></div>
+    </div>
+  );
 };
 
 function markerHTML(price: number) {

@@ -18,7 +18,6 @@ function GuestInfo() {
       style={{
         fontFamily: "Pretendard",
       }}
-      className="container mx-auto px-4"
     >
       <UserBaseComponent user={userInfo} />
       <hr className="my-4" />

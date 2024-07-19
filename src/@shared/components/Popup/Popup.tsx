@@ -154,7 +154,14 @@ export function ImageDialog() {
         </label>
       )}
     >
-      <DialogContent sx={{ width: 512 }} className="font-black text-center">
+      <DialogContent
+        sx={{
+          width: "100%",
+          maxWidth: "512px", // PC에서는 최대 512px
+          mx: "auto", // 가운데 정렬
+        }}
+        className="font-black text-center"
+      >
         <div className="mb-8">
           {imgFile !== "" ? (
             <>{<img src={imgFile} alt="프로필 이미지" />}</>
@@ -182,17 +189,11 @@ export function ImageDialog() {
               className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
               onClick={onClick}
             >
-              <p className="text-base text-white font-light">
-                {" "}
-                프로필 수정하기
-              </p>
+              <p className="text-base text-white font-light">프로필 수정하기</p>
             </button>
           ) : (
             <button className="w-full mt-4 border p-2.5 bg-gray-500 border-black rounded-lg">
-              <p className="text-base text-white font-light">
-                {" "}
-                바로 업로드하기
-              </p>
+              <p className="text-base text-white font-light">바로 업로드하기</p>
             </button>
           )}
         </div>
