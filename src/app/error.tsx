@@ -13,10 +13,17 @@ const ErrorPage = ({ error, reset }) => {
   }, [error]);
 
   return (
-    <div>
-      <h1>Something went wrong!</h1>
-      <button onClick={() => reset()}>Try again</button>
-      <button onClick={() => router.push("/")}>Go to Home</button>
+    <div className="container mx-auto px-4 text-center">
+      <h1 className="text-8xl font-bold">Error</h1>
+      <p className="mt-4 font-thin">오류가 생겼어요.</p>
+      <p className="font-thin">다른 방을 찾으러 가봐요.</p>
+
+      <button
+        className="border p-3 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"
+        onClick={() => router.push("/")}
+      >
+        <p className="text text-white font-light">홈으로</p>
+      </button>
     </div>
   );
 };
