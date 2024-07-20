@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 export const DoubleDatePicker = ({ dateData, setDateData }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
-      <span>
+      <span className="">
         <DatePicker
           value={dayjs(dateData[0])}
           onChange={(newDate) => {
@@ -20,7 +20,7 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
           }}
         />
       </span>
-      <p>~</p>
+      <div className="mt-2"></div>
       <span>
         <DatePicker
           value={dayjs(dateData[1])}

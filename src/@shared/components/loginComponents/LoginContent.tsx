@@ -70,30 +70,25 @@ export const LoginContent = ({
       loginHandled();
     }
   };
-
   return (
-    <>
-      <DialogContent sx={{ width: 512 }}>
-        <div className="float-left">
-          <SecondHead>로그인</SecondHead>
-          <p className="text-base text-gray">
-            합리적인 가격의 다양한 집을 확인하세요.
-          </p>
-        </div>
-        <div>
-          <button className="mt-4 w-full">
-            <GoogleOAuthProvider clientId={idList.google}>
-              <GoogleButton purpose="login" />
-            </GoogleOAuthProvider>
-          </button>
-        </div>
-        <button
-          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-          onClick={signUpHandled}
-        >
-          <p className="text-base text-white font-light">회원가입</p>
-        </button>
-      </DialogContent>
-    </>
+    <DialogContent sx={{ width: { xs: "90%", sm: 512 }, maxWidth: "100%" }}>
+      <div className=" mb-4">
+        <SecondHead>로그인</SecondHead>
+        <p className="text-base text-gray-600 sm:text-sm">
+          합리적인 가격의 다양한 집을 확인하세요.
+        </p>
+      </div>
+      <div className="w-full mt-4">
+        <GoogleOAuthProvider clientId={idList.google}>
+          <GoogleButton purpose="login" />
+        </GoogleOAuthProvider>
+      </div>
+      <button
+        className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+        onClick={signUpHandled}
+      >
+        <p className="text-base text-white font-light">회원가입</p>
+      </button>
+    </DialogContent>
   );
 };

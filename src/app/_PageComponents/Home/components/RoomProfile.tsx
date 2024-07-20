@@ -30,7 +30,7 @@ export const RoomProfile = ({
 
   if (!room) return <div></div>;
   return (
-    <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+    <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2 flex flex-col">
       <span onClick={() => moveToRoomInfo({ room })}>
         <MainProfileImage imageLink={imageLink} altContent="Room image" />
       </span>
@@ -42,7 +42,6 @@ export const RoomProfile = ({
           <p className="font-semibold text-lg text-gray-900">{`${room.title}`}</p>
           <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.dong}`}</p>
           <p className="text-sm text-gray-500">
-            {" "}
             {formatMonthDate(new Date(room.start_day))} ~{" "}
             {formatMonthDate(new Date(room.end_day))}
           </p>

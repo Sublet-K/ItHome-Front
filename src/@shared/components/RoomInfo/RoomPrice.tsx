@@ -8,22 +8,23 @@ import { NormalText, SecondHead } from "@shared/styles/Public.styles";
 export function RoomPrice({ nowRoomPost }: { nowRoomPost: Post }) {
   return (
     <div>
-      <RS.RoomTitle>{nowRoomPost.title}</RS.RoomTitle>
+      <h2 className="text-2xl md:text-xl font-semibold">{nowRoomPost.title}</h2>
 
-      <div className="flex w-1/4 flex-wrap content-center flex-row justify-around mt-4">
-        <div className="font-light">
-          <PersonIcon />
+      <div className="flex flex-wrap content-center justify-around mt-4">
+        <div className="font-light text-lg md:text-sm">
+          <PersonIcon className="inline-block mr-1" />
           최대 {nowRoomPost.limit_people} 인
         </div>
-        <div className="font-light">
-          <SingleBedIcon />방 {nowRoomPost.number_room} 개
+        <div className="font-light text-lg md:text-sm">
+          <SingleBedIcon className="inline-block mr-1" />방{" "}
+          {nowRoomPost.number_room} 개
         </div>
-        <div className="font-light">
-          <HomeIcon />
+        <div className="font-light text-lg md:text-sm">
+          <HomeIcon className="inline-block mr-1" />
           침실 {nowRoomPost.number_bedroom} 개
         </div>
-        <div className="font-light">
-          <BathtubIcon />
+        <div className="font-light text-lg md:text-sm">
+          <BathtubIcon className="inline-block mr-1" />
           화장실 {nowRoomPost.number_bathroom} 개
         </div>
       </div>

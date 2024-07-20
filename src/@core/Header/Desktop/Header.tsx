@@ -6,9 +6,18 @@ import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
 import { LoginDialog } from "@shared/components/Popup/Popup";
+<<<<<<< HEAD
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
+=======
+import {
+  FetchGetLikePosts,
+  FetchLogout,
+} from "@shared/components/FetchList/FetchList";
+import SearchLocation from "./components/SearchLocation";
+>>>>>>> a4d1c47dd7584456c261e1c8f38374a7556f0e77
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
+<<<<<<< HEAD
 
 import MobileMenuLayout from "./components/MobileMenuLayout";
 import DashboardItem from "./components/DashboardItem";
@@ -20,6 +29,10 @@ import ProfileLayout from "./components/ProfileLayout";
 // import { SearchKeyword } from "./components/SearchKeyword";
 // import SearchLocation from "./components/SearchLocation";
 // import SearchButton from "./components/SearchButton";
+=======
+import { SearchKeyword } from "./components/SearchKeyword";
+import { SubletPostStore } from "@store/SubletPostStore";
+>>>>>>> a4d1c47dd7584456c261e1c8f38374a7556f0e77
 
 const Header = () => {
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
@@ -32,6 +45,17 @@ const Header = () => {
     } else {
       window.location.href = "/";
     }
+  };
+  const { setPosts } = SubletPostStore();
+  const doSearch = () => {
+    FetchGetLikePosts(setPosts).then(() => {
+      if (location.pathname === "/savesublet") {
+        // searchtest
+        window.location.reload();
+      } else {
+        window.location.href = "/savesublet"; // searchtest
+      }
+    });
   };
 
   // <hs.LogoContainer onClick={handleReload} className="-m-1.5 p-1.5"></hs.LogoContainer>

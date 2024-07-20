@@ -160,7 +160,6 @@ async function FetchUploadPost(
   setPostPopUpState: () => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
-  formData.forEach((value, key) => console.log(key, value));
   await fetch(URL, {
     // 리팩토링 전 연락 바람. by ussr1285
     credentials: "include",
@@ -574,9 +573,7 @@ const toggleLikes =
     }
   };
 
-async function FetchGetLikePosts( // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
-  setLikePosts: Dispatch<SetStateAction<Post[]>>
-) {
+async function FetchGetLikePosts(setLikePosts: (posts: Post[]) => void) { // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
   const json = await fetch(URL, headerOptions("GET"))
     .then(notFoundError)

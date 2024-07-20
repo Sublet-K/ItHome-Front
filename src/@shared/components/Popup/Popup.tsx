@@ -154,7 +154,14 @@ export function ImageDialog() {
         </label>
       )}
     >
-      <DialogContent sx={{ width: 512 }} className="font-black text-center">
+      <DialogContent
+        sx={{
+          width: "100%",
+          maxWidth: "512px", // PC에서는 최대 512px
+          mx: "auto", // 가운데 정렬
+        }}
+        className="font-black text-center"
+      >
         <div className="mb-8">
           {imgFile !== "" ? (
             <>{<img src={imgFile} alt="프로필 이미지" />}</>
@@ -182,17 +189,11 @@ export function ImageDialog() {
               className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
               onClick={onClick}
             >
-              <p className="text-base text-white font-light">
-                {" "}
-                프로필 수정하기
-              </p>
+              <p className="text-base text-white font-light">프로필 수정하기</p>
             </button>
           ) : (
             <button className="w-full mt-4 border p-2.5 bg-gray-500 border-black rounded-lg">
-              <p className="text-base text-white font-light">
-                {" "}
-                바로 업로드하기
-              </p>
+              <p className="text-base text-white font-light">바로 업로드하기</p>
             </button>
           )}
         </div>
@@ -528,6 +529,7 @@ export function SignUpDialog() {
     genderState: "temp",
     studentIdState: "24",
     jobState: "temp",
+    smoking: false,
   });
   const [birthState, setBirthState] = useState(dayjs(new Date()));
   const [emailState, setEmailState] = useState("");
@@ -743,8 +745,50 @@ export const PostEditDialog = ({
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const [requiredForm, setRequiredForm] = useState(false);
   const onClick = async () => {
     const formData = makeFormData();
+    var count = 0;
+    formData.forEach((value, key) => {
+      if (
+        [
+          "accomodation_type",
+          "building_type",
+          "title",
+          "basic_info",
+          "city",
+          "gu",
+          "dong",
+          "street",
+          "street_number",
+        ].includes(key) &&
+        value == ""
+      ) {
+        setRequiredForm(true);
+      } else if (
+        [
+          "accomodation_type",
+          "building_type",
+          "title",
+          "basic_info",
+          "city",
+          "gu",
+          "dong",
+          "street",
+          "street_number",
+        ].includes(key)
+      ) {
+        count += 1;
+        if (count == 8) {
+          setRequiredForm(false);
+        }
+      }
+    });
+    if (requiredForm == false) {
+      FetchEditPost(setEditRoomDialogShow, post.key, formData);
+      setEditRoomDialogShow();
+    }
+
     FetchEditPost(setEditRoomDialogShow, post.key, formData);
     setEditRoomDialogShow();
   };
@@ -802,7 +846,7 @@ export const PostEditDialog = ({
 
   return (
     <>
-      <DialogContent sx={{ width: "500px" }} className="text-center">
+      <DialogContent sx={{ width: "500px" }} className="">
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
           </p> */}
@@ -842,7 +886,9 @@ export const PostEditDialog = ({
               </div>
             </div>
 
-            <p className="mt-4 font-semibold text-lg text-left">제목</p>
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              제목
+            </p>
 
             <TextInputTag
               id="title"
@@ -853,7 +899,9 @@ export const PostEditDialog = ({
               required={true}
               value={title}
             />
-            <p className="mt-4 font-semibold text-lg text-left">정보</p>
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              정보
+            </p>
 
             <InputTextArea
               id="basic_info"
@@ -864,12 +912,16 @@ export const PostEditDialog = ({
               required={true}
               value={basicInfo}
             />
-            <p className="mt-8 font-semibold text-lg text-left">게시 날짜</p>
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              게시 날짜
+            </p>
             <DoubleDatePicker
               dateData={startEndDay}
               setDateData={handleStartEndDay}
             />
-            <p className="mt-4 font-semibold text-lg text-left">가격</p>
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              가격
+            </p>
 
             <InputInteger
               id="price"
@@ -881,8 +933,8 @@ export const PostEditDialog = ({
               required={true}
             />
 
-            <p className="mt-8 font-semibold text-lg text-left">
-              최소-최대 계약 가능 기간 :
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              최소-최대 입주일 :
               <ValueRangeViewer
                 arr={inputs["tempDuration"] as [string, string]}
               />
@@ -894,15 +946,20 @@ export const PostEditDialog = ({
               minMax={[1, 730]}
             />
 
-            <p className="mt-8 font-semibold text-lg text-left">방 사진 변경</p>
-            {imageFiles.length > 0 && (
-              <>이미지를 변경하려면 이미지를 클릭해주세요.</>
-            )}
+            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+              사진 변경
+            </p>
             <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
           </p>
         </div>
       </DialogContent>
       <div className="m-8">
+        {requiredForm && (
+          <div className="text-center">
+            <p className="text-xl font-bold">정보를 다 입력해주세요</p>
+            <hr />
+          </div>
+        )}
         <button
           className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
           onClick={onClick}

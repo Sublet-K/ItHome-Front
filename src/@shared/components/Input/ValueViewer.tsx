@@ -4,19 +4,23 @@ import { priceToString } from "../StaticComponents/StaticComponents";
 
 export const SingleValueViewer = ({ value }: { value: string }) => {
   return (
-    <inputStyle.displayFilteringValueWhenModifyingFilter>
-      <span>{value}</span>
+    <inputStyle.displayFilteringValueWhenModifyingFilter className="float-left">
+      <p className="font-thin text-lg">{value}</p>
     </inputStyle.displayFilteringValueWhenModifyingFilter>
   );
 };
 
-export const ValueRangeViewer = ({ arr }: { arr: [number, number] | [string, string] }) => {
+export const ValueRangeViewer = ({
+  arr,
+}: {
+  arr: [number, number] | [string, string];
+}) => {
   return (
-    <inputStyle.displayFilteringValueWhenModifyingFilter>
+    <p className="font-light text-gray-900">
       <span>{arr[0]}</span>
       <span>~</span>
       <span>{arr[1]}</span>
-    </inputStyle.displayFilteringValueWhenModifyingFilter>
+    </p>
   );
 };
 
