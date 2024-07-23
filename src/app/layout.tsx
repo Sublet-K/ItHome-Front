@@ -72,9 +72,11 @@ export default function RootLayout({
           src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_KEY}&submodules=geocoder`}
         ></script>
       </head>
-      <body className="container mx-auto px-8">
+      <body>
         <Header />
-        <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
+        <div className="container mx-auto px-8">
+          <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
+        </div>
       </body>
     </html>
   );
