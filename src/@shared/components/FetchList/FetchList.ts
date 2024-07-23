@@ -14,12 +14,16 @@ import { SignUpInfo, UserForm } from "../../../app/UserType";
 import { Post, RequestForm, Reservation } from "@type/Type";
 import { headers } from "next/headers";
 
-const headerOptions: (method: string, contentType?: string) => RequestInit = (
-  method: string
-) => ({
+const headerOptions = (
+  method: string,
+  contentType: string = "application/json"
+): RequestInit => ({
+  headers: {
+    "Content-Type": contentType,
+    Accept: "*/*",
+  },
   credentials: "include",
   method: method,
-  headers: {},
 });
 
 const bodyData = (data: any) => ({
@@ -162,8 +166,7 @@ async function FetchUploadPost(
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
   await fetch(URL, {
     // 리팩토링 전 연락 바람. by ussr1285
-    credentials: "include",
-    method: "POST",
+    ...headerOptions("POST", "multipart/form-data"),
     body: formData,
   })
     .then(notFoundError)
@@ -183,8 +186,7 @@ async function FetchEditPost(
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
   await fetch(URL, {
-    credentials: "include",
-    method: "PUT",
+    ...headerOptions("PUT", "multipart/form-data"),
     body: formData,
   })
     .then(notFoundError)
@@ -573,7 +575,8 @@ const toggleLikes =
     }
   };
 
-async function FetchGetLikePosts(setLikePosts: (posts: Post[]) => void) { // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
+async function FetchGetLikePosts(setLikePosts: (posts: Post[]) => void) {
+  // 좋아요 누른 포스트 "방 정보(Post 타입)" 가져오기.
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/like`;
   const json = await fetch(URL, headerOptions("GET"))
     .then(notFoundError)
