@@ -1,8 +1,6 @@
 "use client";
-import { BookPriceAndDate } from "./Components/Info/BookPriceAndDate";
-import { BookRefundRule } from "./Components/Info/BookRefundRule";
-import { BookPaymentMethod } from "./Components/Info/BookPaymentMethod";
-import { useTitle } from "@shared/components/hook/HookCollect";
+import { FetchPutReservation } from "@shared/components/FetchList/FetchList";
+import { LoginContent } from "@shared/components/loginComponents/LoginContent";
 import {
   Alert,
   CalulateDate,
@@ -11,17 +9,17 @@ import {
   notFoundError,
   raiseError,
 } from "@shared/components/StaticComponents/StaticComponents";
-import { ChangeEvent, useState } from "react";
-import { FetchPutReservation } from "@shared/components/FetchList/FetchList";
-import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import {
   DisableButton,
   NormalButton,
   Wrapper,
 } from "@shared/styles/Public.styles";
+import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
-import { LoginContent } from "@shared/components/loginComponents/LoginContent";
-import { Reservation } from "@/@type/Type";
+import { ChangeEvent, useState } from "react";
+import { BookPaymentMethod } from "./Components/Info/BookPaymentMethod";
+import { BookPriceAndDate } from "./Components/Info/BookPriceAndDate";
+import { BookRefundRule } from "./Components/Info/BookRefundRule";
 
 export default function Booking(userId: string) {
   // useTitle('예약하기 | ItHome');

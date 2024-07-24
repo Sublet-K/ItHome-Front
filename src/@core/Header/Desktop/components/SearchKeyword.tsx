@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
 import { useSearchKeyword } from "@core/Header/store/SearchKeywordStore";
+import styled from "styled-components";
 
 const SearchContainer = styled.div`
   display: flex;

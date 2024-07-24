@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useRef, RefObject } from "react";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import { IconButton } from "@mui/material";
-import { useSearchDateStore } from "../../store/SearchDateStore";
-import * as s from "@shared/styles/Header.styles";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
+import * as s from "@shared/styles/Header.styles";
+import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
+import { useSearchDateStore } from "../../store/SearchDateStore";
 
 const SearchDate = () => {
   const [isListVisible, setIsListVisible] = useState(false);

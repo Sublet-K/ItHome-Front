@@ -1,6 +1,6 @@
+import { Post, Reservation, User } from "@type/Type";
 import { create } from "zustand";
 import { DateFormat } from "../@shared/components/StaticComponents/StaticComponents";
-import { Post, Reservation, User } from "@type/Type";
 
 export const bookingPopUpStore = create<{
   reservation: Reservation;

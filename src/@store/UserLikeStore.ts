@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import { Dispatch, SetStateAction } from "react";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export const useUserLikeStore = create<{
   likePostId: { [key: number]: number };

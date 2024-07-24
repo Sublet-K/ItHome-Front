@@ -1,8 +1,8 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { useUserInfoStore } from "@store/UserInfoStore";
-import { FetchGetOneUser, FetchLogin } from "../FetchList/FetchList";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { useUserInfoStore } from "@store/UserInfoStore";
 import { Dispatch, SetStateAction } from "react";
+import { FetchGetOneUser, FetchLogin } from "../FetchList/FetchList";
 
 function decodeJwtResponse(token: string) {
   const base64Url = token.split(".")[1];

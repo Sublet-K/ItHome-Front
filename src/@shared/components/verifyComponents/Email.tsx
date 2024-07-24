@@ -1,21 +1,21 @@
-import { ChangeEvent, KeyboardEventHandler, useState } from "react";
+import {
+  DisableButton,
+  InputText,
+  NormalButton,
+} from "@shared/styles/Public.styles";
+import { verifyStore } from "@store/ResetPasswordStore";
+import { ChangeEvent, useState } from "react";
+import {
+  FetchResetPassword,
+  FetchVerifyEmail,
+  FetchVerifyUser,
+} from "../FetchList/FetchList";
 import {
   Alert,
   FailAlert,
   notFoundError,
   raiseError,
 } from "../StaticComponents/StaticComponents";
-import {
-  FetchResetPassword,
-  FetchVerifyEmail,
-  FetchVerifyUser,
-} from "../FetchList/FetchList";
-import { verifyStore } from "@store/ResetPasswordStore";
-import {
-  DisableButton,
-  InputText,
-  NormalButton,
-} from "@shared/styles/Public.styles";
 
 export function VerifyEmailComponents({
   email,

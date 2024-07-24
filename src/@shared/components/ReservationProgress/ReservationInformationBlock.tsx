@@ -1,4 +1,3 @@
-import { Reservation } from "@app/ReservationType";
 import { NormalText, SecondHead } from "@shared/styles/Public.styles";
 
 export const ReservationInformationBlock = ({

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import Header from "@core/Header/Desktop/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
-import Header from "@core/Header/Desktop/Header";
 import ErrorBoundaryWrapper from "./ErrorBoundaryWrapper";
 // import { MobileHeader } from "./_PageComponents/MobileHeader";
 
@@ -43,13 +43,24 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
         />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+        />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#000000" />
+        <meta property="og:title" content="ItHome | 저렴한 방을 찾아보세요." />
+
         <meta
-          name="description"
-          content="Web site created using create-react-app"
+          property="og:image"
+          content={`${process.env.PUBLIC_URL}/image.png`}
         />
-        <title>Sublet</title>
+        <meta property="og:url" content="https://ithomes.kr" />
+        <meta property="og:type" content="website" />
+
+        <title>ItHome</title>
         <script
           type="text/javascript"
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS}&autoload=false`}

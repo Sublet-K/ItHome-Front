@@ -1,3 +1,4 @@
+import { RequestForm } from "@/app/RequestType";
 import {
   DateFormat,
   Information,
@@ -11,7 +12,6 @@ import {
   NormalText,
   SecondHead,
 } from "@shared/styles/Public.styles";
-import { RequestForm } from "@/app/RequestType";
 
 export function PostRequest({ requestInfo }: { requestInfo: RequestForm[] }) {
   return (

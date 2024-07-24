@@ -1,11 +1,4 @@
-import {
-  DisableButton,
-  Horizon,
-  NormalButton,
-  NormalText,
-  SecondHead,
-} from "@shared/styles/Public.styles";
-import { MouseEventHandler } from "react";
+import { Horizon, NormalText, SecondHead } from "@shared/styles/Public.styles";
 
 export const BookRefundRule = ({
   totalRefundDate,

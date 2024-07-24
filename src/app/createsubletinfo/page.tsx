@@ -5,4 +5,4 @@ export default function test() {
       <p>This is a new page.</p>
     </div>
   );
-};
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import * as inputStyle from "../../styles/Input.styles";
 import { priceToString } from "../StaticComponents/StaticComponents";
 

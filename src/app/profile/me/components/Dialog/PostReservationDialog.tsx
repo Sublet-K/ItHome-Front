@@ -20,9 +20,7 @@ export function PostReservationDialog({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent sx={{ width: 512 }} className="text-left">

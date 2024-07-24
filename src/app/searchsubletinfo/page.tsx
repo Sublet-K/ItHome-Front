@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
-import Map from "@shared/components/Map/Map";
-import { SubletPostStore } from "@store/SubletPostStore";
-import PinDropIcon from "@mui/icons-material/PinDrop";
-import styled from "styled-components";
 import { RoomProfile } from "@app/_PageComponents/Home/components/RoomProfile";
+import { useTitle } from "@app/_PageComponents/UseTitle";
+import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
-import { SecondHead } from "@shared/styles/Public.styles";
+import { useEffect } from "react";
+import styled from "styled-components";
 
 const HoverBtnDiv = styled.div`
   margin: 0 0 0 0;
@@ -56,7 +54,6 @@ function SubletInfo(
   // }
 ) {
   const start_day = new Date(props.start_day);
-
   // useEffect(() => {
   // }, [props.marker]);
 
@@ -124,6 +121,7 @@ export default function SearchSubletInfo(props: any) {
     postAll: state.postAll,
   }));
   const { likePostId, setLikePostId } = useUserLikeStore();
+  useTitle("검색 결과");
 
   useEffect(() => {
     // asyncGetPost(page);

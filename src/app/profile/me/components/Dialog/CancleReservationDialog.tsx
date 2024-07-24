@@ -1,3 +1,4 @@
+import { Checkbox, DialogActions, DialogContent } from "@mui/material";
 import { FetchDeleteReservation } from "@shared/components/FetchList/FetchList";
 import { DialogForm } from "@shared/components/Popup/Popup";
 import {
@@ -6,7 +7,6 @@ import {
   NormalText,
   PolicyText,
 } from "@shared/styles/Public.styles";
-import { Checkbox, DialogActions, DialogContent } from "@mui/material";
 import React from "react";
 
 export function CancleReservationDialog({
@@ -33,9 +33,7 @@ export function CancleReservationDialog({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent className="font-black text-center">

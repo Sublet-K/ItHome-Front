@@ -1,77 +1,60 @@
+import * as psd from "@/@shared/styles/PostUploadDialog.styles";
+import * as s from "@/@shared/styles/Public.styles";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
 import {
   ChangeEventHandler,
-  HtmlHTMLAttributes,
   MouseEventHandler,
   useEffect,
   useRef,
   useState,
 } from "react";
-import * as s from "@/@shared/styles/Public.styles";
-import {
-  InputEmail,
-  InputTelePhone,
-  InputText,
-  InputPassword,
-  InputStudentId,
-  TextInputTag,
-  InputTextArea,
-  InputInteger,
-} from "../Input/TextInputTag";
-import * as psd from "@/@shared/styles/PostUploadDialog.styles";
-import DialogContent from "@mui/material/DialogContent";
-import Dialog from "@mui/material/Dialog";
 import {
   FetchChangeEmail,
   FetchChangePhone,
   FetchEditPost,
   FetchImage,
-  FetchLogin,
   FetchSignUp,
-  FetchLikePostsId,
 } from "../FetchList/FetchList";
-
 import {
-  Alert,
+  InputEmail,
+  InputInteger,
+  InputTelePhone,
+  InputText,
+  InputTextArea,
+  TextInputTag,
+} from "../Input/TextInputTag";
+
+import { DialogActions, DialogTitle } from "@mui/material";
+import {
   Information,
   StyleComponent,
-  FailAlert,
   checkEmailFormat,
+  formatDate,
   notFoundError,
   raiseError,
-  formatDate,
 } from "../StaticComponents/StaticComponents";
-import {
-  DialogTitle,
-  DialogActions,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  FormControl,
-  Select,
-  MenuItem,
-} from "@mui/material";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 // import { GoogleButton } from "../loginComponents/Google";
 // import NaverLogin from "../loginComponents/Naver";
-import { VerifyEmailComponents } from "../verifyComponents/Email";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import { VerifyEmailComponents } from "../verifyComponents/Email";
 
+import { CustomWindow } from "@app/RoomType";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { Post } from "@type/Type";
+import { DoubleDatePicker } from "../Input/DoubleDatePicker";
+import { DoubleSlideInput } from "../Input/DoubleSlideInput";
+import { ImageUploadComponent } from "../Input/ImageInput";
 import { SingleSlideInput } from "../Input/SingleSlideInput";
 import { SingleValueViewer, ValueRangeViewer } from "../Input/ValueViewer";
-import { DoubleDatePicker } from "../Input/DoubleDatePicker";
-import { priceToString } from "../StaticComponents/StaticComponents";
-import { ImageUploadComponent } from "../Input/ImageInput";
-import { guestInfoPopUpStore } from "@store/GuestInfoStore";
-import { CustomWindow, RequestRoom, Room } from "@app/RoomType";
-import Link from "next/link";
-import { Post, RequestForm } from "@type/Type";
-import { LoginContent } from "../loginComponents/LoginContent";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleButton } from "../loginComponents/Google";
-import { DoubleSlideInput } from "../Input/DoubleSlideInput";
+import { LoginContent } from "../loginComponents/LoginContent";
+import { priceToString } from "../StaticComponents/StaticComponents";
 
 export function DialogForm({
   name = "",
@@ -227,9 +210,7 @@ export function VerifyEmailDialog({
         <label
           htmlFor="VerifyEmail"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          이메일 인증
-        </label>
+        ></label>
       )}
     >
       <DialogContent sx={{}} className="text-center">
@@ -283,9 +264,7 @@ export function EmailDialog({
           <label
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900 float-left"
-          >
-            Email address
-          </label>
+          ></label>
         )}
       >
         <DialogContent className="text-center" sx={{ height: 120, width: 312 }}>

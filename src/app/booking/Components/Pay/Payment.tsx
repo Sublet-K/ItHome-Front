@@ -8,9 +8,9 @@ import {
   formatPassword,
 } from "./utils";
 
-import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { TextField } from "@mui/material";
 import { NormalButton } from "@shared/styles/Public.styles";
+import "react-credit-cards-2/dist/es/styles-compiled.css";
 
 export default class PaymentForm extends React.Component {
   state = {

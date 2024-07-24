@@ -1,11 +1,11 @@
-import React, { useState, useRef, RefObject } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useSearchLocationStore } from "../../store/SearchLocationStore";
-import * as headerStyle from "@shared/styles/Header.styles";
-import styled from "styled-components";
 import { IconButton } from "@mui/material";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
+import * as headerStyle from "@shared/styles/Header.styles";
+import { RefObject, useRef, useState } from "react";
+import styled from "styled-components";
+import { useSearchLocationStore } from "../../store/SearchLocationStore";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;

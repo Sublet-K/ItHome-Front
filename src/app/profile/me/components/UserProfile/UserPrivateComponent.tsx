@@ -1,18 +1,10 @@
+import { UserForm } from "@app/UserType";
 import {
   EmailDialog,
   PhoneDialog,
   VerifyEmailDialog,
 } from "@shared/components/Popup/Popup";
-import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
-import {
-  Label,
-  NormalButton,
-  NormalText,
-  SecondHead,
-  SvgHoverButton,
-  UploadButton,
-} from "@shared/styles/Public.styles";
-import { UserForm } from "@app/UserType";
+import { NormalText } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 
 export const UserPrivateComponent = ({ user }: { user: UserForm }) => {

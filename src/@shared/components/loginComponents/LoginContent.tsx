@@ -1,26 +1,17 @@
+import { DialogContent } from "@mui/material";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { SecondHead } from "@shared/styles/Public.styles";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { useUserInfoStore } from "@store/UserInfoStore";
+import { useUserLikeStore } from "@store/UserLikeStore";
 import {
   ChangeEventHandler,
   Dispatch,
+  KeyboardEventHandler,
   SetStateAction,
   useState,
-  KeyboardEventHandler,
 } from "react";
-import { DialogContent } from "@mui/material";
-import {
-  InputText,
-  Label,
-  NormalButton,
-  PolicyText,
-  SecondHead,
-  UploadButton,
-} from "@shared/styles/Public.styles";
-import Link from "next/link";
-import { InputPassword } from "../Input/TextInputTag";
-import { guestInfoPopUpStore } from "@store/GuestInfoStore";
-import { useUserInfoStore } from "@store/UserInfoStore";
 import { FetchLogin } from "../FetchList/FetchList";
-import { useUserLikeStore } from "@store/UserLikeStore";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleButton } from "./Google";
 
 export const LoginContent = ({

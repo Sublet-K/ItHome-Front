@@ -1,12 +1,10 @@
 "use client";
-import { useState } from "react";
-import { useTitle } from "@shared/components/hook/HookCollect";
-import { usePathname } from "next/navigation";
-import { UserBaseComponent } from "./Components/UserImageProfile";
-import { Horizon, Wrapper } from "@shared/styles/Public.styles";
-import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
 import { UserForm } from "@app/UserType";
+import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { PostListComponent } from "../me/components/UserProfile/PostListComponent";
+import { UserBaseComponent } from "./Components/UserImageProfile";
 
 function HostInfo() {
   const params = usePathname();

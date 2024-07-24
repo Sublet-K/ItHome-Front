@@ -1,31 +1,25 @@
 import {
-  FetchDeleteReservation,
   FetchPutReservation,
   FetchReservationByPostKey,
 } from "@shared/components/FetchList/FetchList";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import {
   Alert,
-  DateFormat,
   FailAlert,
   notFoundError,
-  priceToString,
   raiseError,
 } from "@shared/components/StaticComponents/StaticComponents";
 import {
   DeleteButton,
   DetailParagraph,
   Horizon,
-  InfoButton,
   NormalButton,
   NormalText,
   SecondHead,
 } from "@shared/styles/Public.styles";
+import { Reservation } from "@type/Type";
 import { useState } from "react";
 import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
-import { ReservationInfo } from "./ReservationInfo";
-import { ReservationProgressInfo } from "./ReservationProgress";
-import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
-import { Reservation } from "@type/Type";
 
 export function ReservationByPostKeyInfo({
   requestKey,

@@ -1,7 +1,7 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { SubletPostStore } from "../../../@store/SubletPostStore";
-import { CustomWindow, Room } from "../../../app/RoomType";
 import { Post } from "@/@type/Type";
+import { useEffect, useRef, useState } from "react";
+import { SubletPostStore } from "../../../@store/SubletPostStore";
+import { CustomWindow } from "../../../app/RoomType";
 
 export const KakaoMap = ({
   x,

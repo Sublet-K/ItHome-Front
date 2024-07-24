@@ -1,7 +1,5 @@
-import React, { useState, useRef, ChangeEventHandler } from "react";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import { colors } from "@mui/material";
 import Image from "next/image";
+import React, { ChangeEventHandler, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { StyleComponent } from "../StaticComponents/StaticComponents";
 

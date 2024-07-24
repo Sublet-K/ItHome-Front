@@ -1,19 +1,10 @@
-import { Horizon, NormalText, SecondHead } from "@shared/styles/Public.styles";
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
-import { ChangeEvent, ReactNode } from "react";
-import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import { Reservation } from "@/@type/Type";
-import { BookPaymentForm } from "./BookPaymentForm";
+import { Box, Checkbox, SelectChangeEvent, TextField } from "@mui/material";
+import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
+import { Horizon, NormalText, SecondHead } from "@shared/styles/Public.styles";
+import { ChangeEvent, ReactNode } from "react";
 import PaymentForm from "../Pay/Payment";
+import { BookPaymentForm } from "./BookPaymentForm";
 
 export const BookPaymentMethod = ({
   onPaySelectHandle,

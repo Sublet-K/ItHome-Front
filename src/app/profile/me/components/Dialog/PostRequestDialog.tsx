@@ -1,14 +1,8 @@
+import { RequestForm } from "@app/RequestType";
+import { DialogContent } from "@mui/material";
 import { FetchGetRequestByRequestId } from "@shared/components/FetchList/FetchList";
 import { DialogForm } from "@shared/components/Popup/Popup";
-import { DialogContent } from "@mui/material";
-import React, {
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
-  useState,
-} from "react";
-import { RequestForm } from "@app/RequestType";
-import { RequestRoom } from "@app/RoomType";
+import { MouseEventHandler, useState } from "react";
 import { PostRequest } from "../Info/GetPostRequest";
 
 export function PostRequestDialog({
@@ -35,9 +29,7 @@ export function PostRequestDialog({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent sx={{ width: 512 }} className="text-left">
