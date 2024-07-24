@@ -10,7 +10,7 @@ export const MainProfileImage = ({
   return (
     <div
       style={{ width: "100%", height: "292px", position: "relative" }}
-      className="hover:grow hover:shadow-lg"
+      className="hover:grow hover:shadow-lg cursor-pointer"
     >
       <Image
         loader={() => imageLink}

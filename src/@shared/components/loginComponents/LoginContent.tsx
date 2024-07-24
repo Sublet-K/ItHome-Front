@@ -43,6 +43,8 @@ export const LoginContent = ({
     google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
   };
 
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const inputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs({
       ...inputs,
@@ -70,6 +72,7 @@ export const LoginContent = ({
       loginHandled();
     }
   };
+
   return (
     <DialogContent sx={{ width: { xs: "90%", sm: 512 }, maxWidth: "100%" }}>
       <div className=" mb-4">
@@ -80,9 +83,14 @@ export const LoginContent = ({
       </div>
       <div className="w-full mt-4">
         <GoogleOAuthProvider clientId={idList.google}>
-          <GoogleButton purpose="login" />
+          <GoogleButton purpose="login" setErrorMessage={setErrorMessage} />
         </GoogleOAuthProvider>
       </div>
+      {errorMessage && (
+        <div className="w-full mt-4 text-red-500 text-center">
+          {errorMessage}
+        </div>
+      )}
       <button
         className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
         onClick={signUpHandled}
