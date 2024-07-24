@@ -118,7 +118,7 @@ export default function RoomInfo() {
                 render={() => (
                   <label
                     htmlFor="report_type"
-                    className="text-sm font-medium text-gray-900 float-left"
+                    className=" font-medium text-gray-900 float-left"
                   >
                     공유하기
                   </label>
@@ -139,7 +139,7 @@ export default function RoomInfo() {
                 render={() => (
                   <label
                     htmlFor="report_type"
-                    className="block mb-2 text-sm font-medium text-gray-900 float-left"
+                    className="block mb-2  font-medium text-gray-900 float-left"
                   ></label>
                 )}
               >
@@ -188,71 +188,66 @@ export default function RoomInfo() {
                 </DialogContent>
               </DialogForm>
             </div>
-
             <RoomPrice nowRoomPost={nowRoomPost} />
+            <div className="flex justify-end">
+              <div className="flex justify-end">
+                <button
+                  className="flex hover:bg-gray-100 mr-4"
+                  onClick={() => {
+                    setSharePopUpState(true);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 50 50"
+                    className="w-6 h-6 mt-3"
+                  >
+                    <path d="M30.3 13.7L25 8.4l-5.3 5.3-1.4-1.4L25 5.6l6.7 6.7z" />
+                    <path d="M24 7h2v21h-2z" />
+                    <path d="M35 40H15c-1.7 0-3-1.3-3-3V19c0-1.7 1.3-3 3-3h7v2h-7c-.6 0-1 .4-1 1v18c0 .6.4 1 1 1h20c.6 0 1-.4 1-1V19c0-.6-.4-1-1-1h-7v-2h7c1.7 0 3 1.3 3 3v18c0 1.7-1.3 3-3 3z" />
+                  </svg>
+                  <p className="mt-3  md:text-xs text-black">
+                    공유하기
+                    <hr />
+                  </p>
+                </button>
+                <button
+                  className="flex justify-between hover:bg-gray-100"
+                  onClick={() => {
+                    setReportPopUpState(true);
+                  }}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 mt-3"
+                  >
+                    <path
+                      d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
+                      stroke="#76767f"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <p className="mt-3  md:text-xs text-black">
+                    신고하기
+                    <hr />
+                  </p>
+                </button>
+              </div>
+            </div>
+            <div>
+              <p className="ml-2 mt-2 text-lg">{nowRoomPost.description}</p>
+            </div>
+            <hr className="my-4" />
 
             <RoomDetail nowRoomPost={nowRoomPost} />
 
-            <div>
-              <div className="flex justify-between">
-                <p className="text-2xl md:text-xl">방 정보</p>
-                <div className="flex justify-end">
-                  <button
-                    className="flex hover:bg-gray-100 mr-4"
-                    onClick={() => {
-                      setSharePopUpState(true);
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 50 50"
-                      className="w-6 h-6 mt-3"
-                    >
-                      <path d="M30.3 13.7L25 8.4l-5.3 5.3-1.4-1.4L25 5.6l6.7 6.7z" />
-                      <path d="M24 7h2v21h-2z" />
-                      <path d="M35 40H15c-1.7 0-3-1.3-3-3V19c0-1.7 1.3-3 3-3h7v2h-7c-.6 0-1 .4-1 1v18c0 .6.4 1 1 1h20c.6 0 1-.4 1-1V19c0-.6-.4-1-1-1h-7v-2h7c1.7 0 3 1.3 3 3v18c0 1.7-1.3 3-3 3z" />
-                    </svg>
-                    <p className="mt-3 text-sm md:text-xs text-black">
-                      공유하기
-                      <hr />
-                    </p>
-                  </button>
-                  <button
-                    className="flex justify-between hover:bg-gray-100"
-                    onClick={() => {
-                      setReportPopUpState(true);
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 mt-3"
-                    >
-                      <path
-                        d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7"
-                        stroke="#76767f"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <p className="mt-3 text-sm md:text-xs text-black">
-                      신고하기
-                      <hr />
-                    </p>
-                  </button>
-                </div>
-              </div>
-              <p className="ml-2 mt-2 text-lg md:text-sm">
-                {nowRoomPost.description}
-              </p>
-            </div>
-
-            <hr className="my-4" />
+            <div className="my-4" />
 
             <div>
-              <div className="text-2xl md:text-xl mb-4">위치</div>
               <div className="flex justify-between">
                 <div className="w-full flex flex-col items-center">
                   <p className="text-xl mb-2 md:text-lg">

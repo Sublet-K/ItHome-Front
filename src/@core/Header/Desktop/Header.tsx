@@ -1,51 +1,26 @@
 "use client";
 
-<<<<<<< HEAD
 import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
-import { IconButton } from "@mui/material";
-import {
-  FetchGetLikePosts,
-  FetchLogout,
-} from "@shared/components/FetchList/FetchList";
-import { LoginDialog } from "@shared/components/Popup/Popup";
-import { SubletPostStore } from "@store/SubletPostStore";
-import { useUserInfoStore } from "@store/UserInfoStore";
-import { useUserLikeStore } from "@store/UserLikeStore";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import * as hs from "./Header.styles";
-import SearchButton from "./components/SearchButton";
-import SearchDate from "./components/SearchDate";
-import { SearchKeyword } from "./components/SearchKeyword";
-import SearchLocation from "./components/SearchLocation";
-import SearchPriceRange from "./components/SearchPriceRange";
-=======
-import { useState, useRef, useEffect } from "react";
-import { IconButton } from "@mui/material";
-import { Favorite } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import Link from "next/link";
-import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
+import { LoginDialog } from "@shared/components/Popup/Popup";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
+import Link from "next/link";
+import { useRef } from "react";
 
-import MobileMenuLayout from "./components/MobileMenuLayout";
 import DashboardItem from "./components/DashboardItem";
 import MobileDashboardItem from "./components/MobileDashboardItem";
-import ProfileLayout from "./components/ProfileLayout"; // 재활용 가능
+import MobileMenuLayout from "./components/MobileMenuLayout";
 import SearchInput from "./components/SearchInput"; // 재활용 가능
 
-import SearchDate from "./components/SearchDate";
-import SearchPriceRange from "./components/SearchPriceRange";
-import { SearchKeyword } from "./components/SearchKeyword";
-import SearchLocation from "./components/SearchLocation";
 import SearchButton from "./components/SearchButton";
+import SearchDate from "./components/SearchDate";
+import SearchLocation from "./components/SearchLocation";
+import SearchPriceRange from "./components/SearchPriceRange";
 
-import { SubletPostStore } from "@store/SubletPostStore";
 import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
->>>>>>> 357e0ada3125c0664b8544c54601b506a62604ae
+import { SubletPostStore } from "@store/SubletPostStore";
 
 const Header = () => {
   const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)

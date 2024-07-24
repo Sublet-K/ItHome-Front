@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { Post } from "@type/Type";
-import { useTitle } from "../UseTitle";
-import { useUserInfoStore } from "@store/UserInfoStore";
 import { FetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
+import { useUserInfoStore } from "@store/UserInfoStore";
+import { Post } from "@type/Type";
 import { useInView } from "react-intersection-observer";
+import { useTitle } from "../UseTitle";
 
-import { RoomProfile } from "./components/RoomProfile";
 import { useUserLikeStore } from "@store/UserLikeStore";
+import { MarketingBanner } from "./components/MarketingBanner";
+import { RoomProfile } from "./components/RoomProfile";
 
 export const HomeLayout = ({
   roomsData: initRoomsData,
@@ -60,6 +61,9 @@ export const HomeLayout = ({
   return (
     <section className="bg-white py-8 mx-auto px-4">
       <div className="bg-white text-gray-600">
+        {/* Marketing Banner */}
+        <MarketingBanner />
+        {/* End of Marketing Banner */}
         <div className="flex flex-wrap justify-center items-center pt-4">
           {roomsData.map((room, index) => (
             <RoomProfile

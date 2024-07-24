@@ -5,8 +5,10 @@ import SingleBedIcon from "@mui/icons-material/SingleBed";
 import type { Post } from "@type/Type";
 export function RoomPrice({ nowRoomPost }: { nowRoomPost: Post }) {
   return (
-    <div>
-      <h2 className="text-2xl md:text-xl font-semibold">{nowRoomPost.title}</h2>
+    <div className="mt-4">
+      <h2 className="text-4xl md:text-4xl font-semibold">
+        {nowRoomPost.title}
+      </h2>
 
       <div className="flex flex-wrap content-center justify-around mt-4">
         <div className="font-light text-lg md:text-sm">

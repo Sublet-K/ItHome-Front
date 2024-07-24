@@ -25,18 +25,25 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
     <div className="shadow-lg drop-shadow-md rounded-lg mt-4">
       <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
         <div className="flex-shrink-0">
-          <div
-            style={{ width: "130px", height: "130px", position: "relative" }}
+          <a
+            className="cursor-pointer"
+            onClick={() => {
+              MoveToProfileInfo();
+            }}
           >
-            <Image
-              loader={() => imageLink}
-              src={imageLink}
-              className="rounded-full cursor-pointer"
-              layout="fill"
-              objectFit="contain stroke-gray-50	"
-              alt="호스트 프로필"
-            />
-          </div>
+            <div
+              style={{ width: "130px", height: "130px", position: "relative" }}
+            >
+              <Image
+                loader={() => imageLink}
+                src={imageLink}
+                className="rounded-full cursor-pointer"
+                layout="fill"
+                objectFit="contain stroke-gray-50	"
+                alt="호스트 프로필"
+              />
+            </div>
+          </a>
         </div>
 
         <div>
@@ -54,7 +61,7 @@ export function RoomHost({ user, title }: { user: UserForm; title: string }) {
       </div>
       <div className="items-center p-4">
         <button
-          className="w-full border p-2 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"
+          className="w-full border p-2 bg-gray-800 border-black rounded-lg hover:bg-black"
           name="contactPopUpState"
           onClick={clickHandler}
         >
