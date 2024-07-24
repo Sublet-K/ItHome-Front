@@ -1,4 +1,4 @@
-import * as hs from "../Header.styles";
+import * as hs from "./Header.styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
