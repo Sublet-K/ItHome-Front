@@ -147,11 +147,9 @@ export function ImageDialog() {
       handleClose={handleClose}
       render={() => (
         <label
-          htmlFor="test"
+          htmlFor=""
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent
@@ -185,14 +183,18 @@ export function ImageDialog() {
         </div>
         <div className="mt-8">
           {imgFile !== "" ? (
-            <button
-              className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-              onClick={onClick}
-            >
-              <p className="text-base text-white font-light">프로필 수정하기</p>
-            </button>
+            <form>
+              <button
+                className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+                onClick={onClick}
+              >
+                <p className="text-base text-white font-light">
+                  프로필 수정하기
+                </p>
+              </button>
+            </form>
           ) : (
-            <button className="w-full mt-4 border p-2.5 bg-gray-500 border-black rounded-lg">
+            <button className="w-full mt-4 border p-2.5 bg-gray-500 border-gray-500 rounded-lg">
               <p className="text-base text-white font-light">바로 업로드하기</p>
             </button>
           )}
@@ -649,13 +651,15 @@ export function SignUpDialog() {
         </div>
       </DialogContent>
       <DialogActions>
-        <button
-          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-          type="submit"
-          onClick={signUpHandled}
-        >
-          <p className="text-base text-white font-light">회원가입</p>
-        </button>
+        <form>
+          <button
+            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+            type="submit"
+            onClick={signUpHandled}
+          >
+            <p className="text-base text-white font-light">회원가입</p>
+          </button>
+        </form>
       </DialogActions>
     </Dialog>
   );
@@ -830,18 +834,16 @@ export const PostEditDialog = ({
 
     return formData;
   };
-
-  const handleSetImages: (file: any, idx: number) => void = (
-    newImage,
-    index: number
-  ) => {
-    const newImages = [...imageFiles];
-    if (index >= imageFiles.length) {
-      newImages.push(newImage);
-    } else {
-      newImages[index] = newImage;
-    }
-    setImageFiles(newImages);
+  const handleSetImages = (newImages: File[], index: number) => {
+    let updatedImages: File[] = [...imageFiles];
+    newImages.forEach((newImage, idx) => {
+      if (index + idx >= updatedImages.length) {
+        updatedImages.push(newImage);
+      } else {
+        updatedImages[index + idx] = newImage;
+      }
+    });
+    setImageFiles(updatedImages);
   };
 
   return (
@@ -853,7 +855,6 @@ export const PostEditDialog = ({
         <div style={psd.gridStyle.mainContainer}>
           <p style={psd.gridStyle.inputContainer}>
             <h3 style={psd.gridStyle.infoType}>정보 수정하기</h3>
-
             <div>
               <div>
                 <SingleValueViewer value={"최대인원: " + limitPeople + "명"} />
@@ -885,11 +886,9 @@ export const PostEditDialog = ({
                 />
               </div>
             </div>
-
             <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
               제목
             </p>
-
             <TextInputTag
               id="title"
               label=""
@@ -902,7 +901,6 @@ export const PostEditDialog = ({
             <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
               정보
             </p>
-
             <InputTextArea
               id="basic_info"
               label=""
@@ -912,27 +910,22 @@ export const PostEditDialog = ({
               required={true}
               value={basicInfo}
             />
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              게시 날짜
-            </p>
+            <p className="block text-lg font-light text-gray-900">
+              입주 가능일
+            </p>{" "}
             <DoubleDatePicker
               dateData={startEndDay}
               setDateData={handleStartEndDay}
             />
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              가격
-            </p>
-
             <InputInteger
               id="price"
-              label=""
+              label="가격(일)"
               placeholder="가격을 입력해주세요."
               name="price"
               value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
               handleState={onChange}
               required={true}
             />
-
             <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
               최소-최대 입주일 :
               <ValueRangeViewer
@@ -945,7 +938,6 @@ export const PostEditDialog = ({
               onChange={handleDuration}
               minMax={[1, 730]}
             />
-
             <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
               사진 변경
             </p>

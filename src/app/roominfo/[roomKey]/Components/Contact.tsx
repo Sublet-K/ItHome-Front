@@ -74,7 +74,7 @@ export const ContactDialog = ({
       )}
     >
       <DialogContent>
-        <div className="float-left">
+        <div className="">
           <SecondHead>연락처 입력</SecondHead>
           <NormalText>상담 받으실 연락처를 입력해주세요.</NormalText>
         </div>
@@ -92,7 +92,7 @@ export const ContactDialog = ({
               />
             </div>
           </div>
-          <PolicyText className="mt-4 md-4">
+          <PolicyText className="mt-2 md-4">
             개인정보 수집 이용 및 제3자 제공에 동의합니다.
           </PolicyText>
         </div>

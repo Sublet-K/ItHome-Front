@@ -51,7 +51,7 @@ function PostListComponent({
                   postDate={postDate}
                   price={price}
                   address={address}
-                  guestMode={guestMode}
+                  guestMode={!guestMode}
                 />
               );
             })

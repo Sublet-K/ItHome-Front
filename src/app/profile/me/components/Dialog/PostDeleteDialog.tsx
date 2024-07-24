@@ -19,7 +19,7 @@ export const PostDeleteDialog = ({
       name="deletelDialogShow"
       render={() => (
         <label
-          htmlFor="test"
+          htmlFor=""
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
         >
           test

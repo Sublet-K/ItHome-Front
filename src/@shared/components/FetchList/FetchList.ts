@@ -13,6 +13,7 @@ import {
 import { SignUpInfo, UserForm } from "../../../app/UserType";
 import { Post, RequestForm, Reservation } from "@type/Type";
 import { headers } from "next/headers";
+import axios from "axios";
 
 const headerOptions = (
   method: string,
@@ -164,19 +165,25 @@ async function FetchUploadPost(
   setPostPopUpState: () => void
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
-  await fetch(URL, {
-    // 리팩토링 전 연락 바람. by ussr1285
-    ...headerOptions("POST", "multipart/form-data"),
-    body: formData,
-  })
-    .then(notFoundError)
-    .then((res) => {
-      if (res.ok) {
-        alert("게시물이 성공적으로 등록되었습니다.");
-        setPostPopUpState();
-      }
-    })
-    .catch(raiseError("FetchUploadPost"));
+
+  try {
+    const response = await axios.post(URL, formData, {
+      headers: {
+        Accept: "*/*",
+      },
+      withCredentials: true, // 쿠키 포함
+    });
+
+    // notFoundError 함수를 처리 (필요한 경우)
+    notFoundError(response);
+
+    if (response.status === 200) {
+      alert("게시물이 성공적으로 등록되었습니다.");
+      setPostPopUpState();
+    }
+  } catch (error) {
+    raiseError("FetchUploadPost")(error);
+  }
 }
 
 async function FetchEditPost(
@@ -186,7 +193,12 @@ async function FetchEditPost(
 ) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
   await fetch(URL, {
-    ...headerOptions("PUT", "multipart/form-data"),
+    headers: {
+      Accept: "*/*",
+    },
+    method: "PUT",
+
+    credentials: "include",
     body: formData,
   })
     .then(notFoundError)
@@ -352,17 +364,19 @@ async function FetchGetMyUser(setUserInfo: Dispatch<SetStateAction<UserForm>>) {
 async function FetchGetOneUser(
   userId: string,
   setUserInfo: Dispatch<SetStateAction<UserForm>>
-) {
+): Promise<UserForm | null> {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`;
 
-  const getUserInfo = async () => {
+  try {
     const json: UserForm = await fetch(URL, headerOptions("GET"))
       .then(notFoundError)
       .catch(raiseError("FetchGetOneUser"));
     setUserInfo(json);
-  };
-  getUserInfo();
-  return true;
+    return json;
+  } catch (error) {
+    console.error("User not found or error occurred:", error);
+    return null;
+  }
 }
 
 async function FetchGetRequest(

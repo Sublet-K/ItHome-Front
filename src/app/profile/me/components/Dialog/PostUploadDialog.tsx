@@ -68,10 +68,10 @@ export const PostUploadDialog = () => {
     fullAddress: "전체 주소.", // 테스트 데이터.
     city: "",
     gu: "",
-    dong: "",
+    dong: "temp",
     street: "",
     streetNumber: "",
-    postCode: "",
+    postCode: "temp",
     startEndDay: [
       new Date(),
       new Date().setFullYear(new Date().getFullYear() + 1),
@@ -143,10 +143,9 @@ export const PostUploadDialog = () => {
     // formData.append("category", "category"); // ?
     // formData.append("post_date", (new Date()).toISOString());
 
-    postState["imageFiles"].forEach((file, index) => {
+    postState["imageFiles"].forEach((file) => {
       formData.append("images", file);
     });
-
     formData.forEach((value, key) => {
       // console.log(`${key}: ${value}`);
       if (
@@ -212,16 +211,18 @@ export const PostUploadDialog = () => {
     FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
   };
 
-  const handleSetImages = (newImage: File, index: number) => {
-    let newImages: File[] = postState["imageFiles"];
-    if (index >= newImages.length) {
-      newImages.push(newImage);
-    } else {
-      newImages[index] = newImage;
-    }
-    setPostState({ ...postState, imageFiles: newImages });
+  const handleSetImages = (newImages: File[], index: number) => {
+    let updatedImages: File[] = [...postState["imageFiles"]];
+    newImages.forEach((newImage, idx) => {
+      if (index + idx >= updatedImages.length) {
+        updatedImages.push(newImage);
+      } else {
+        updatedImages[index + idx] = newImage;
+      }
+    });
+    console.log("Updated images array:", updatedImages);
+    setPostState({ ...postState, imageFiles: updatedImages });
   };
-
   const handleStartEndDay = (date: [Date, Date]) => {
     setPostState({ ...postState, startEndDay: date });
   };
@@ -540,12 +541,17 @@ export const PostUploadDialog = () => {
               <hr />
             </div>
           )}
-          <button
-            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-            onClick={uploadPost}
-          >
-            <p className="text-base text-white font-light"> 바로 업로드하기</p>
-          </button>
+          <form>
+            <button
+              className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={uploadPost}
+            >
+              <p className="text-base text-white font-light">
+                {" "}
+                바로 업로드하기
+              </p>
+            </button>
+          </form>
         </div>
       </DialogContent>
     </DialogForm>

@@ -103,9 +103,9 @@ export default function RoomInfo() {
 
   return (
     <>
-      <div className="bg-black">
+      <div className="max-w-xl mx-auto">
         {postExist && (
-          <Carousel>
+          <Carousel className="w-full h-96">
             {postAll
               .find((post) => post.key == nowRoomNum)
               ?.image_id.map((image_id, index) => (
@@ -113,7 +113,7 @@ export default function RoomInfo() {
                   <img
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                     alt={`image ${index}`}
-                    className="block w-full h-full object-cover"
+                    className="block w-full h-96 object-cover"
                   />
                 </Carousel.Item>
               ))}
@@ -262,10 +262,11 @@ export default function RoomInfo() {
             </div>
 
             <hr className="my-4" />
+
             <div>
-              <div className="text-2xl md:text-xl">위치</div>
+              <div className="text-2xl md:text-xl mb-4">위치</div>
               <div className="flex justify-between">
-                <div>
+                <div className="w-full flex flex-col items-center">
                   <p className="text-xl mb-2 md:text-lg">
                     {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
                     {nowRoomPost.street_number}
