@@ -1,15 +1,18 @@
 import React from "react";
 
-const DashboardItem = ({ href, desc }: { href: string; desc: string }) => {
+// `children`을 명시적으로 React.ReactNode로 타입을 지정
+type DashboardItemProps = {
+  children: React.ReactNode;
+};
+
+const DashboardItem: React.FC<DashboardItemProps> = ({ children }) => {
   return (
-    <a
-      href={href}
-      // className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+    <div
+      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-200 hover:text-white"
       aria-current="page"
     >
-      {desc}
-    </a>
+      {children}
+    </div>
   );
 };
 
