@@ -1,8 +1,8 @@
 // app/ErrorBoundaryWrapper.tsx
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import React, { ReactNode, useEffect, useState } from "react";
 import ErrorBoundary from "./ErrorBoundary";
 
 interface ErrorBoundaryWrapperProps {

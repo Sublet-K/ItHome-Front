@@ -1,14 +1,8 @@
 import { ContactDialog } from "@app/roominfo/[roomKey]/Components/Contact";
 import { UserForm } from "@app/UserType";
-import {
-  BlackButton,
-  InfoButton,
-  NormalButton,
-} from "@shared/styles/Public.styles";
-import * as RS from "@shared/styles/RoomInfo.styles";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 export function RoomHost({ user, title }: { user: UserForm; title: string }) {
   //추후 Host 정보 fetch로 받아오는 것으로 수정 필요

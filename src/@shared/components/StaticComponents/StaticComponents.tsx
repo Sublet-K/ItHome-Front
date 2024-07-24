@@ -1,7 +1,6 @@
 import "animate.css";
-import * as s from "../../styles/Public.styles";
 import type { Dispatch, SetStateAction } from "react";
-import { ok } from "assert";
+import * as s from "../../styles/Public.styles";
 
 const setStateOnandOff = (
   setState: Dispatch<SetStateAction<boolean>> | undefined

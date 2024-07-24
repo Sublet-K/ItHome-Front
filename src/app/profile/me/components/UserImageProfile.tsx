@@ -1,18 +1,10 @@
-import { ImageDialog } from "@shared/components/Popup/Popup";
-import {
-  ImageUploadButton,
-  NormalButton,
-  NormalText,
-  SecondHead,
-} from "@shared/styles/Public.styles";
-import { verifyFrame } from "../button-frames/UserImageFrame";
-import { VerifyList } from "./Info/VerifyList";
 import { UserForm } from "@/app/UserType";
+import { ProfileImage } from "@shared/components/Image/Image";
+import { ImageDialog } from "@shared/components/Popup/Popup";
+import { ImageUploadButton, SecondHead } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useState } from "react";
-import { StrongVerifyUserDialog } from "./Dialog/StrongVerfifyUserDialog";
-import Image from "next/image";
-import { NormalImage, ProfileImage } from "@shared/components/Image/Image";
+import { verifyFrame } from "../button-frames/UserImageFrame";
 
 export function UserBaseComponent({ user }: { user: UserForm }) {
   const frame = verifyFrame(user);

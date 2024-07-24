@@ -1,8 +1,8 @@
+import { DialogActions, DialogContent } from "@mui/material";
+import { FetchDeletePost } from "@shared/components/FetchList/FetchList";
 import { DialogForm } from "@shared/components/Popup/Popup";
 import { DeleteButton } from "@shared/styles/Public.styles";
-import { DialogActions, DialogContent } from "@mui/material";
-import React, { MouseEventHandler } from "react";
-import { FetchDeletePost } from "@shared/components/FetchList/FetchList";
+import { MouseEventHandler } from "react";
 export const PostDeleteDialog = ({
   onClick,
   deletelDialogShow,
@@ -21,9 +21,7 @@ export const PostDeleteDialog = ({
         <label
           htmlFor=""
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent className="font-black text-center">

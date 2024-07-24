@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SubletPostStore } from "../../../@store/SubletPostStore";
 import { CustomWindow, Room } from "../../../app/RoomType";
 

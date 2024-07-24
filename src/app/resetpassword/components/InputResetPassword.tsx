@@ -1,5 +1,5 @@
-import { NormalButton, NormalText } from "@shared/styles/Public.styles";
 import { InputPassword } from "@shared/components/Input/TextInputTag";
+import { NormalButton, NormalText } from "@shared/styles/Public.styles";
 import { ChangeEventHandler, MouseEventHandler } from "react";
 
 export const InputResetPassword = ({

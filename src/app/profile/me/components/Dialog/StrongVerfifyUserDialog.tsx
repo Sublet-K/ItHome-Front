@@ -1,13 +1,7 @@
-import { FetchDeleteRequest } from "@shared/components/FetchList/FetchList";
-import {
-  BoldText,
-  DeleteButton,
-  NormalText,
-  PolicyText,
-} from "@shared/styles/Public.styles";
-import { DialogActions, DialogContent } from "@mui/material";
-import React from "react";
+import { DialogContent } from "@mui/material";
 import { DialogForm } from "@shared/components/Popup/Popup";
+import { NormalText } from "@shared/styles/Public.styles";
+import React from "react";
 
 export const StrongVerifyUserDialog = ({
   popupState,
@@ -25,9 +19,7 @@ export const StrongVerifyUserDialog = ({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent>

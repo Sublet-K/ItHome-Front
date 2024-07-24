@@ -1,26 +1,19 @@
-import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-  useState,
-  KeyboardEventHandler,
-} from "react";
 import { DialogContent } from "@mui/material";
+import { FetchContact } from "@shared/components/FetchList/FetchList";
+import { DialogForm } from "@shared/components/Popup/Popup";
 import {
   InputText,
-  Label,
-  NormalButton,
   NormalText,
   PolicyText,
   SecondHead,
-  UploadButton,
 } from "@shared/styles/Public.styles";
-import Link from "next/link";
-import { guestInfoPopUpStore } from "@store/GuestInfoStore";
-import { useUserInfoStore } from "@store/UserInfoStore";
-import { useUserLikeStore } from "@store/UserLikeStore";
-import { FetchContact } from "@shared/components/FetchList/FetchList";
-import { DialogForm } from "@shared/components/Popup/Popup";
+import {
+  ChangeEventHandler,
+  Dispatch,
+  KeyboardEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 
 export const ContactDialog = ({
   setPopUpState,

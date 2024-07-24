@@ -18,7 +18,7 @@ export const HomeLayout = ({
   roomsData: Post[];
   preRoomsData: Post[];
 }) => {
-  useTitle("ItHome | 딱 맞는 숙소를 찾아봐요.");
+  useTitle("ItHome");
   const { userInfo } = useUserInfoStore();
 
   const [roomsData, setRoomsData] = useState<Post[]>(initRoomsData);

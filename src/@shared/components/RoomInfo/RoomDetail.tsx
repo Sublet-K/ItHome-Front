@@ -1,8 +1,3 @@
-import * as RS from "@shared/styles/RoomInfo.styles";
-import PersonIcon from "@mui/icons-material/Person";
-import SingleBedIcon from "@mui/icons-material/SingleBed";
-import HomeIcon from "@mui/icons-material/Home";
-import BathtubIcon from "@mui/icons-material/Bathtub";
 import type { Post } from "@type/Type";
 import {
   formatMonthDate,

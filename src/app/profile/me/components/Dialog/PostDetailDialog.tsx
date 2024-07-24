@@ -1,11 +1,10 @@
+import { Post } from "@/@type/Type";
+import { DialogContent } from "@mui/material";
 import {
   DialogForm,
   PostSummaryDetailDialog,
 } from "@shared/components/Popup/Popup";
-import { DialogContent } from "@mui/material";
 import { MouseEventHandler } from "react";
-import { RequestRoom } from "@app/RoomType";
-import { Post } from "@/@type/Type";
 
 export const PostDetailDialog = ({
   detailDialogShow,
@@ -31,9 +30,7 @@ export const PostDetailDialog = ({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        >
-          test
-        </label>
+        ></label>
       )}
     >
       <DialogContent sx={{ width: 512 }} className="text-left">

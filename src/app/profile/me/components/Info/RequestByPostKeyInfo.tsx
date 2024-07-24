@@ -1,11 +1,11 @@
+import { Post } from "@/@type/Type";
+import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
 import {
   DetailParagraph,
   Horizon,
   NormalButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
-import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
-import { Post } from "@/@type/Type";
 
 export function RequestByPostKeyInfo({ Post }: { Post: Post[] }) {
   return (

@@ -1,34 +1,21 @@
 "use client";
-import { Dialog, DialogContent } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import { SubletPostStore } from "@store/SubletPostStore";
-import Map, { KakaoMap } from "@shared/components/Map/Map";
-import * as s from "@shared/styles/Public.styles";
-import { ShareDialog } from "@shared/components/Popup/Popup";
-import { StyleComponent } from "@shared/components/StaticComponents/StaticComponents";
-import { bookingPopUpStore } from "@store/BookingPopUpStore";
-import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
-import {
-  RoomHost,
-  RoomReservation,
-  RoomDetail,
-  RoomPrice,
-  ImageCarousel,
-} from "@shared/components/RoomInfo";
-import { RoomInfoSection, RoomTitle } from "@shared/styles/RoomInfo.styles";
-import {
-  FetchGetMyUser,
-  FetchLogin,
-  FetchReportPost,
-} from "@shared/components/FetchList/FetchList";
-import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
+import { useTitle } from "@app/_PageComponents/UseTitle";
 import { Post } from "@app/PostType";
+import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
+import { DialogContent } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
+import { FetchReportPost } from "@shared/components/FetchList/FetchList";
+import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
+import { KakaoMap } from "@shared/components/Map/Map";
+import { DialogForm, ShareDialog } from "@shared/components/Popup/Popup";
+import { RoomDetail, RoomHost, RoomPrice } from "@shared/components/RoomInfo";
+import { bookingPopUpStore } from "@store/BookingPopUpStore";
+import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
-import { DialogForm } from "@shared/components/Popup/Popup";
-import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Carousel } from "react-bootstrap";
 export default function RoomInfo() {
   // 새 창에서 열릴 때 props를 못 받아와서, zustand의 전역 저장소를 사용한다.
   const { roomKey } = useParams<{ roomKey: string }>();
@@ -88,6 +75,7 @@ export default function RoomInfo() {
     //   alert('로그인이 필요합니다.');
     // }
   };
+  useTitle(nowRoomPost?.title + "님의  방");
 
   const handleReportTypeState = (event: SelectChangeEvent<string>) => {
     setReportType(event.target.value);

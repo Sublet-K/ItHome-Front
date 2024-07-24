@@ -1,8 +1,8 @@
 // app/error.tsx
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ErrorPage = ({ error, reset }) => {
   const router = useRouter();

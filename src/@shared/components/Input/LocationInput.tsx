@@ -1,8 +1,7 @@
-import React, { CSSProperties, Dispatch, SetStateAction } from "react";
+import { CSSProperties } from "react";
 // import Map from "./Map";
 import * as inputStyle from "../../styles/Input.styles";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { KakaoMap, SearchMap } from "../Map/Map";
+import { KakaoMap } from "../Map/Map";
 
 export const LocationInput = ({
   pos,

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import Header from "@core/Header/Desktop/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
-import Header from "@core/Header/Desktop/Header";
 import ErrorBoundaryWrapper from "./ErrorBoundaryWrapper";
 // import { MobileHeader } from "./_PageComponents/MobileHeader";
 

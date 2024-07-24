@@ -5,25 +5,17 @@ import {
   NormalButton,
   SecondHead,
 } from "@shared/styles/Public.styles";
-import Image from "next/image";
 
-import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
+import { DateFormat } from "@shared/components/StaticComponents/StaticComponents";
 import { useState } from "react";
-import {
-  DateFormat,
-  priceToString,
-} from "@shared/components/StaticComponents/StaticComponents";
+import { CancleReservationDialog } from "../Dialog/CancleReservationDialog";
 // import { useNavigate } from "react-router-dom";
-import { Post } from "@app/PostType";
-import { useRouter } from "next/navigation";
-import { ReservationInfo } from "../Info/ReservationInfo";
-import { ReservationProgressInfo } from "../Info/ReservationProgress";
-import { ReservationInformationBlock } from "@shared/components/ReservationProgress/ReservationInformationBlock";
-import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
 import { Reservation } from "@/@type/Type";
-import { ReservationDetailDialog } from "../Dialog/ReservationDetailDialog";
 import { NormalImage } from "@shared/components/Image/Image";
 import { bookingPopUpStore } from "@store/BookingPopUpStore";
+import { useRouter } from "next/navigation";
+import { ReservationDetailDialog } from "../Dialog/ReservationDetailDialog";
+import { ReservationProgressInfo } from "../Info/ReservationProgress";
 
 export function ReservationSummaryBlock({ room }: { room: Reservation }) {
   const [popupState, setpopupState] = useState(false);

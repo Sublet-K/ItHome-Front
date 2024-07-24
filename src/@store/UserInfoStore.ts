@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import { Reservation } from "@app/ReservationType";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 const defaultUserInfo = {
   id: "",

@@ -1,5 +1,5 @@
-import { NormalText } from "@shared/styles/Public.styles";
 import { VerifyEmailComponents } from "@shared/components/verifyComponents/Email";
+import { NormalText } from "@shared/styles/Public.styles";
 
 export const InputVerificationNumber = ({
   email,

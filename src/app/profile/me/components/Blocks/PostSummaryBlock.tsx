@@ -1,26 +1,15 @@
-import { PostDeleteDialog } from "../Dialog/PostDeleteDialog";
-import { PostDetailDialog } from "../Dialog/PostDetailDialog";
-import { PostRequestDialog } from "../Dialog/PostRequestDialog";
-import { PostReservationDialog } from "../Dialog/PostReservationDialog";
-import {
-  DeleteButton,
-  DetailParagraph,
-  InfoButton,
-  SecondHead,
-} from "@shared/styles/Public.styles";
+import { Post } from "@/@type/Type";
+import { NormalImage } from "@shared/components/Image/Image";
 import {
   formatMonthDate,
   priceToString,
-  StyleComponent,
 } from "@shared/components/StaticComponents/StaticComponents";
-import { MouseEventHandler, useState } from "react";
+import { DeleteButton, InfoButton } from "@shared/styles/Public.styles";
 import { useRouter } from "next/navigation";
-import { PostEditDialog } from "@shared/components/Popup/Popup";
+import { MouseEventHandler, useState } from "react";
+import { PostDeleteDialog } from "../Dialog/PostDeleteDialog";
+import { PostDetailDialog } from "../Dialog/PostDetailDialog";
 import { PostEditRoomDialog } from "../Dialog/PostEditDialog";
-import { ReservationProgress } from "@shared/components/ReservationProgress/ReservationProgress";
-import Image from "next/image";
-import { Post } from "@/@type/Type";
-import { NormalImage } from "@shared/components/Image/Image";
 
 export function PostSummaryBlock({
   room,

@@ -1,5 +1,4 @@
 "use client";
-import { verifyStore } from "@store/ResetPasswordStore";
 import { FetchChangePassword } from "@shared/components/FetchList/FetchList";
 import {
   Alert,
@@ -7,14 +6,15 @@ import {
   notFoundError,
   raiseError,
 } from "@shared/components/StaticComponents/StaticComponents";
+import { verifyStore } from "@store/ResetPasswordStore";
 // import { useNavigate } from "react-router-dom";
-import { InputVerificationNumber } from "./components/InputVerificationNumber";
-import { InputResetPassword } from "./components/InputResetPassword";
+import { UserForm } from "@app/UserType";
 import { Label, NormalText, SecondHead } from "@shared/styles/Public.styles";
-import { InputId } from "./components/InputId";
-import { User, UserForm } from "@app/UserType";
 import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
+import { InputId } from "./components/InputId";
+import { InputResetPassword } from "./components/InputResetPassword";
+import { InputVerificationNumber } from "./components/InputVerificationNumber";
 
 export default function ResetPassword() {
   const [inputs, setInputs] = useState({

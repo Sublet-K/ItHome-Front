@@ -1,11 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
-import Map from "@shared/components/Map/Map";
-import { SubletPostStore } from "@store/SubletPostStore";
-import PinDropIcon from "@mui/icons-material/PinDrop";
-import styled from "styled-components";
 import { RoomProfile } from "@app/_PageComponents/Home/components/RoomProfile";
-import { useUserLikeStore } from "@store/UserLikeStore";
+import { SubletPostStore } from "@store/SubletPostStore";
+import { useEffect } from "react";
 
 export function SavePost(props: any) {
   const { page, asyncGetPost, asyncGetPostAll } = SubletPostStore((state) => ({

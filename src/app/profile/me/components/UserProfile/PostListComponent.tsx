@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
-import {
-  NormalButton,
-  NormalText,
-  SecondHead,
-  UploadButton,
-} from "@shared/styles/Public.styles";
+import { FetchGetPost } from "@shared/components/FetchList/FetchList";
 import {
   DateFormat,
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
-import { FetchGetPost } from "@shared/components/FetchList/FetchList";
+import { NormalText } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
-import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 import { Post } from "@type/Type";
+import { useState } from "react";
+import { PostSummaryBlock } from "../Blocks/PostSummaryBlock";
 import { PostUploadDialog } from "../Dialog/PostUploadDialog";
 
 function PostListComponent({

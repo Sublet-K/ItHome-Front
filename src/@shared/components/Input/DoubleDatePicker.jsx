@@ -1,8 +1,7 @@
-import React from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import "dayjs/locale/ko";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
 
 export const DoubleDatePicker = ({ dateData, setDateData }) => {
   return (
