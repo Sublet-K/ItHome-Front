@@ -28,7 +28,6 @@ export const ImageUploadComponent: React.FC<ImageUploadComponentProps> = ({
     setPreviews((currentPreviews) => [...currentPreviews, ...newPreviews]);
     setImage(files, imgIndex);
   };
-
   const onDrop = (acceptedFiles: File[]) => {
     handleFiles(acceptedFiles);
   };

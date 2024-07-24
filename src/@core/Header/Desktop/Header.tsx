@@ -76,7 +76,7 @@ const Header = () => {
           <SearchButton />
         </hs.SearchBoxContainer>
         <div className="lg:flex lg:flex-1 lg:justify-end">
-          {userInfo.user_id ? (
+          {userInfo && userInfo.user_id ? (
             <hs.RightNavigation>
               <span>
                 <IconButton>
