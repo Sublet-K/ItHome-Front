@@ -34,20 +34,6 @@ const Header = () => {
       window.location.href = "/";
     }
   };
-  const { setPosts } = SubletPostStore();
-  const doSearch = () => {
-    FetchGetLikePosts(setPosts).then(() => {
-      if (location.pathname === "/savesublet") {
-        // searchtest
-        window.location.reload();
-      } else {
-        window.location.href = "/savesublet"; // searchtest
-      }
-    });
-  };
-
-  // <hs.LogoContainer onClick={handleReload} className="-m-1.5 p-1.5"></hs.LogoContainer>
-
   return (
     <nav className="border-b-4">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -55,7 +41,10 @@ const Header = () => {
           {/* Mobile menu button*/}
           <MobileMenuLayout />
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
+            <div
+              onClick={handleReload}
+              className="flex flex-shrink-0 items-center"
+            >
               {/* 로고는 여기 */}
               <img
                 className="h-11 w-auto"
@@ -73,7 +62,7 @@ const Header = () => {
           {/* 계정관련(북마크, 로그인/로그아웃) */}
           <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
             {userInfo.user_id ? (
-              <div>
+              <div className="flex justify-end flex-1 space-x-4">
                 <span>
                   {/* style={styles.favorite} */}
                   <Link href="/SaveSublet">
