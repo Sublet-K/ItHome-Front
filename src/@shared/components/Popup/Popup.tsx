@@ -143,7 +143,7 @@ export function ImageDialog() {
         }}
         className="font-black text-center"
       >
-        <div className="mb-8">
+        <div className="mb-4">
           {imgFile !== "" ? (
             <>{<img src={imgFile} alt="프로필 이미지" />}</>
           ) : (
@@ -164,7 +164,11 @@ export function ImageDialog() {
             </label>
           )}
         </div>
-        <div className="mt-8">
+        <p className="text-sm font-thin">
+          해상도가 256 x 256픽셀 이상인 사진을 사용하세요. <br />
+          이미지 사이즈가 큰 사진일수록 더 선명합니다.
+        </p>
+        <div className="mt-4">
           {imgFile !== "" ? (
             <form>
               <button
@@ -318,7 +322,9 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
           <label
             htmlFor="tel"
             className="block mb-2 text-sm font-medium text-gray-900 float-left"
-          ></label>
+          >
+            전화번호 수정하기
+          </label>
         )}
       >
         <DialogContent sx={{ height: 120, width: 312 }} className="text-center">
@@ -571,7 +577,7 @@ export function SignUpDialog() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div>
             <div className="mt-2 flex items-center justify-between">
-              <s.Label htmlFor="username">별명</s.Label>
+              <s.Label htmlFor="username">닉네임</s.Label>
             </div>
             <div className="mt-2">
               <InputText
@@ -630,15 +636,13 @@ export function SignUpDialog() {
         </div>
       </DialogContent>
       <DialogActions>
-        <form>
-          <button
-            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-            type="submit"
-            onClick={signUpHandled}
-          >
-            <p className="text-base text-white font-light">회원가입</p>
-          </button>
-        </form>
+        <button
+          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+          type="submit"
+          onClick={signUpHandled}
+        >
+          <p className="text-base text-white font-light">회원가입</p>
+        </button>
       </DialogActions>
     </Dialog>
   );

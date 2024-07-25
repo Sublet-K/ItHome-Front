@@ -29,10 +29,7 @@ export const Wrapper = styled.div`
 `;
 
 export const DeleteButton = styled.button`
-  position: relative;
-  margin-right: 12px;
-  float: right;
-  ${tw`focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5`}
+  ${tw`focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg text-sm px-5 py-2.5`}
 `;
 
 export const NormalButton = styled.button`
