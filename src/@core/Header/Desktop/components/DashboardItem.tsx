@@ -8,7 +8,7 @@ type DashboardItemProps = {
 const DashboardItem: React.FC<DashboardItemProps> = ({ children }) => {
   return (
     <div
-      className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-200 hover:text-white"
+      className="rounded-md px-3 py-2 text-sm hover:bg-gray-200"
       aria-current="page"
     >
       {children}

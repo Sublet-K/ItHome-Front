@@ -57,12 +57,10 @@ const SearchLocation = () => {
   };
 
   return (
-    <span className="font-semibold leading-6 text-gray-900">
+    <span>
       <IconButton ref={buttonRef} onClick={togglePosFilter}>
-        <headerStyle.blackBoldFont>
-          위치
-          <LocationOnIcon />
-        </headerStyle.blackBoldFont>
+        위치
+        <LocationOnIcon />
       </IconButton>
       {isListVisible && (
         <Popup buttonref={buttonRef}>

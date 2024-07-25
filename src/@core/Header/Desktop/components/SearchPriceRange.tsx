@@ -59,10 +59,8 @@ const SearchPriceRange = () => {
   return (
     <div>
       <IconButton ref={buttonRef} onClick={togglePriceFilter}>
-        <headerStyle.blackBoldFont>
-          가격 범위
-          <BarChartIcon />
-        </headerStyle.blackBoldFont>
+        가격 범위
+        <BarChartIcon />
       </IconButton>
       {isListVisible && (
         <div style={styles.priceRangeStyle}>

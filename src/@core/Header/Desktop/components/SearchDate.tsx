@@ -60,12 +60,10 @@ const SearchDate = () => {
   };
 
   return (
-    <span className="font-semibold leading-6 text-gray-900">
+    <span>
       <IconButton ref={buttonRef} onClick={toggleCalander}>
-        <s.blackBoldFont>
-          날짜
-          <DateRangeOutlinedIcon />
-        </s.blackBoldFont>
+        날짜
+        <DateRangeOutlinedIcon />
       </IconButton>
       {isListVisible && (
         <Popup buttonref={buttonRef}>

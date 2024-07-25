@@ -120,7 +120,7 @@ const Header = () => {
         </div>
 
         <div className="hidden sm:ml-6 sm:block">
-          <div className="flex space-x-12">
+          <div className="flex space-x-12 font-semibold leading-6">
             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
             <DashboardItem>
               <SearchLocation />
