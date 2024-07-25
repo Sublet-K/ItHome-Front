@@ -58,10 +58,11 @@ const Header = () => {
             <div className="flex flex-shrink-0 items-center">
               {/* 로고는 여기 */}
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                className="h-11 w-auto"
+                src="/svgs/logo.svg"
                 alt="Your Company"
               />
+              <svg></svg>
             </div>
           </div>
           {/* 검색창 */}
