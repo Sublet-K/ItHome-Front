@@ -38,7 +38,7 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
 
-        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="icon" href="/svgs/logo.svg" />
         <link
           rel="stylesheet"
           href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
