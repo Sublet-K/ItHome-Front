@@ -50,6 +50,7 @@ export const useUserInfoStore = create<{
     gender: string;
     smoking: false;
   };
+  userExist: false;
   setUserInfo: (newUserInfo: typeof defaultUserInfo) => void;
   resetUserInfo: () => void;
 }>()(
@@ -59,8 +60,9 @@ export const useUserInfoStore = create<{
       setUserInfo: (newUserInfo) =>
         set({
           userInfo: newUserInfo,
+          userExist: true,
         }),
-      resetUserInfo: () => set({ userInfo: defaultUserInfo }),
+      resetUserInfo: () => set({ userInfo: defaultUserInfo, userExist: false }),
     }),
     {
       name: "userInfoStore-storage",

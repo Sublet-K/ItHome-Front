@@ -1,46 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
-import { Dialog, DialogContent } from "@mui/material";
-import { guestInfoPopUpStore } from "@store/GuestInfoStore";
-import { useUserInfoStore } from "@store/UserInfoStore";
+import { DialogContent } from "@mui/material";
 import { FetchUploadPost } from "@shared/components/FetchList/FetchList";
-import { LocationInput } from "@shared/components/Input/LocationInput";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
-import { ImageUploadComponent } from "@shared/components/Input/ImageInput";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
+import { ImageUploadComponent } from "@shared/components/Input/ImageInput";
 import { SingleSlideInput } from "@shared/components/Input/SingleSlideInput";
 import {
-  TextInputTag,
-  InputTextArea,
   InputInteger,
+  InputTextArea,
+  TextInputTag,
 } from "@shared/components/Input/TextInputTag";
 import {
-  ValueRangeViewer,
   SingleValueViewer,
+  ValueRangeViewer,
 } from "@shared/components/Input/ValueViewer";
-import * as s from "@shared/styles/Public.styles";
-import * as psd from "@shared/styles/PostUploadDialog.styles";
 import {
-  Alert,
-  FailAlert,
   formatDate,
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
+import * as psd from "@shared/styles/PostUploadDialog.styles";
+import * as s from "@shared/styles/Public.styles";
+import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { useUserInfoStore } from "@store/UserInfoStore";
+import { useState } from "react";
 
 // 필요한 Swiper 모듈들을 임포트
 // Swiper 코어와 필요한 컴포넌트 임포트
 // Swiper 기본 스타일 임포트
-import {
-  Navigation, // 네비게이션 버튼(다음/이전) 활성화
-  Pagination, // 페이지네이션 도트 활성화
-} from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
-import { DialogForm } from "@shared/components/Popup/Popup";
 import { KakaoMap } from "@shared/components/Map/Map";
+import { DialogForm } from "@shared/components/Popup/Popup";
+import "swiper/swiper-bundle.css";
 
 const cities = Object.keys(AdministrativeDistricts) as string[];
 
@@ -249,7 +241,7 @@ export const PostUploadDialog = () => {
           htmlFor="PostUploadDialog"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
         >
-          방 게시하기
+          호스팅하기
         </label>
       )}
     >
@@ -268,7 +260,7 @@ export const PostUploadDialog = () => {
       >
         {/* Swiper 내의 개별 슬라이드 */}
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>숙소 기본정보를 작성하세요</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 정보 작성</h3>
           <DropBoxSelect
             name="accomodationType"
             state={postState["accomodationType"]}
@@ -327,7 +319,7 @@ export const PostUploadDialog = () => {
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>숙소의 매력을 작성하세요</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 방 설명</h3>
           <TextInputTag
             id="title"
             label="제목"
@@ -350,7 +342,7 @@ export const PostUploadDialog = () => {
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>숙소 위치 입력하기</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 위치 입력하기</h3>
           <DropBoxSelect
             name="city"
             state={postState["city"]}
@@ -400,7 +392,7 @@ export const PostUploadDialog = () => {
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>위치 정보 확인</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 지도 확인</h3>
           <div className="">
             {postState["street"] != "" &&
               postState["streetNumber"] != "" &&
@@ -422,7 +414,7 @@ export const PostUploadDialog = () => {
         </p>
 
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>입주 정보</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 날짜</h3>
           <div className="mb-8">
             <p className="block text-lg font-light text-gray-900">
               입주 가능일
@@ -478,7 +470,14 @@ export const PostUploadDialog = () => {
           />
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>사진을 올려주세요.</h3>
+          <h3 style={psd.gridStyle.infoType}>
+            사진을 올려주세요.
+            <p className="text-sm font-thin">
+              해상도가 1024 x 683픽셀 이상인 사진을 사용하세요. <br />
+              이미지 사이즈가 큰 사진일수록 더 선명합니다.
+            </p>
+          </h3>
+
           {postState["imageFiles"].length > 0 && (
             <>이미지를 변경하려면 이미지를 클릭해주세요.</>
           )}
@@ -487,7 +486,8 @@ export const PostUploadDialog = () => {
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
         </p>
-        <div className="ml-20 text-left">
+
+        <div className="ml-10" style={{ width: "320px" }}>
           <s.SecondHead>
             {postState.title == "" ? "제목 작성 안됨" : postState.title}
           </s.SecondHead>

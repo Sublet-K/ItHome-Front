@@ -301,7 +301,7 @@ async function FetchLogin({
   setUserInfo: (newUserInfo: any) => void;
   initFetchLikePostId: (newLikes: { [key: number]: number }) => void;
 }) {
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
     ...headerOptions("POST"),
     body: JSON.stringify({
       id: id,
@@ -388,6 +388,34 @@ async function FetchGetRequest(
   }, []);
 }
 
+async function FetchDeleteUser({
+  userId,
+  resetUserInfo,
+  resetLikePostId,
+}: {
+  resetUserInfo: () => void;
+  resetLikePostId: () => void;
+  userId: string;
+}) {
+  const requestOptions = {
+    ...headerOptions("DELETE"),
+    path: "/",
+  };
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`,
+    requestOptions
+  )
+    .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        resetUserInfo();
+        resetLikePostId();
+      }
+    })
+    .catch(raiseError("FetchDeleteUser"));
+}
+
 function FetchSignUp({
   userId,
   password,
@@ -402,7 +430,7 @@ function FetchSignUp({
   const requestOptions = {
     ...headerOptions("POST"),
     body: JSON.stringify({
-      user_id: userId,
+      user_id: email,
       password: password,
       username: username,
       email: email,
@@ -654,6 +682,7 @@ export {
   FetchDeletePost,
   FetchDeleteRequest,
   FetchDeleteReservation,
+  FetchDeleteUser,
   FetchEditPost,
   FetchGetLikePosts,
   FetchGetMyUser,

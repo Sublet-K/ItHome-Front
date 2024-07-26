@@ -23,7 +23,7 @@ import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
 
 const Header = () => {
-  const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
+  const { userInfo, userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,6 +34,7 @@ const Header = () => {
       window.location.href = "/";
     }
   };
+
   const { setPosts } = SubletPostStore();
   const doSearch = () => {
     FetchGetLikePosts(setPosts).then(() => {
@@ -71,7 +72,7 @@ const Header = () => {
           </div>
           {/* 계정관련(북마크, 로그인/로그아웃) */}
           <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
-            {userInfo.user_id ? (
+            {userExist ? (
               <div>
                 <span>
                   {/* style={styles.favorite} */}

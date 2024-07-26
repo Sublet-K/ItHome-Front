@@ -2,7 +2,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { Dispatch, SetStateAction } from "react";
-import { FetchGetOneUser, FetchLogin } from "../FetchList/FetchList";
+import { FetchLogin } from "../FetchList/FetchList";
 
 function decodeJwtResponse(token: string) {
   const base64Url = token.split(".")[1];
@@ -46,16 +46,14 @@ export function GoogleButton({
             if (!setEmailState) return;
             setEmailState(email);
           } else if (purpose === "login") {
-            const user = await FetchGetOneUser(email, setUserInfo);
-            if (user) {
+            try {
               FetchLogin({
                 id: email,
                 password: "googleLogin!2#1",
                 setUserInfo,
               });
-              window.location.reload();
-            } else {
-              if (setErrorMessage) {
+            } catch (e) {
+              if (e) {
                 setErrorMessage("이 이메일로 가입된 계정이 없습니다.");
               }
             }
