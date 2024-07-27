@@ -6,7 +6,7 @@ import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
 import * as s from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchDateStore } from "../../store/SearchDateStore";
+import { useSearchDateStore } from "../../../../store/SearchDateStore";
 
 const SearchDate = () => {
   const [isListVisible, setIsListVisible] = useState(false);

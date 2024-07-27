@@ -9,15 +9,11 @@ import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
 import { useRef } from "react";
 
-import DashboardItem from "./components/DashboardItem";
 import MobileDashboardItem from "./components/MobileDashboardItem";
 import MobileMenuLayout from "./components/MobileMenuLayout";
-import SearchInput from "./components/SearchInput"; // 재활용 가능
+import SearchInput from "./components/Search/SearchInput"; // 재활용 가능
 
-import SearchButton from "./components/SearchButton";
-import SearchDate from "./components/SearchDate";
-import SearchLocation from "./components/SearchLocation";
-import SearchPriceRange from "./components/SearchPriceRange";
+import SearchButton from "./components/Search/components/SearchButton";
 
 import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
@@ -54,11 +50,7 @@ const Header = () => {
               <svg></svg>
             </div>
           </div>
-          {/* 검색창 */}
-          <div className="flex flex-1">
-            <SearchInput />
-            <SearchButton />
-          </div>
+
           {/* 계정관련(북마크, 로그인/로그아웃) */}
           <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
             {userInfo.user_id ? (
@@ -108,20 +100,10 @@ const Header = () => {
             {/* <ProfileLayout /> */}
           </div>
         </div>
-
-        <div className="hidden sm:ml-6 sm:block">
-          <div className="flex space-x-12 font-semibold leading-6">
-            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-            <DashboardItem>
-              <SearchLocation />
-            </DashboardItem>
-            <DashboardItem>
-              <SearchPriceRange />
-            </DashboardItem>
-            <DashboardItem>
-              <SearchDate />
-            </DashboardItem>
-          </div>
+        {/* 검색창 */}
+        <div className="flex flex-1">
+          <SearchInput />
+          <SearchButton />
         </div>
       </div>
 

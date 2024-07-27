@@ -5,7 +5,7 @@ import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 import * as headerStyle from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchLocationStore } from "../../store/SearchLocationStore";
+import { useSearchLocationStore } from "../../../store/SearchLocationStore";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
@@ -21,14 +21,6 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   padding: 1.5em 1em 0 1em;
   z-index: 101;
   justify-content: center;
-`;
-
-const Layout = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
 `;
 
 const SearchLocation = () => {
@@ -58,13 +50,13 @@ const SearchLocation = () => {
 
   return (
     <span>
-      <IconButton ref={buttonRef} onClick={togglePosFilter}>
+      <button ref={buttonRef} onClick={togglePosFilter} className="flex">
         위치
         <LocationOnIcon />
-      </IconButton>
+      </button>
       {isListVisible && (
         <Popup buttonref={buttonRef}>
-          <Layout>
+          <div className="relative flex flex-col justify-between gap-2.5">
             시/도
             <DropBoxSelect
               name="city"
@@ -91,7 +83,7 @@ const SearchLocation = () => {
                   : ["시/군을 먼저 선택해주세요"]
               }
             />
-          </Layout>
+          </div>
           <headerStyle.acceptOrCancleButton>
             <button onClick={handleSubmit}>적용</button>
             <button onClick={handleCancel}>취소</button>

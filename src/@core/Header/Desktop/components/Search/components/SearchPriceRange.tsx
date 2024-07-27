@@ -7,7 +7,7 @@ import { IconButton } from "@mui/material";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
 import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
 import * as headerStyle from "@shared/styles/Header.styles";
-import { useSearchPriceStore } from "../../store/SearchPriceStore";
+import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = () => {
   const priceRangeMinMax: [number, number] = [0, 5000000]; // tempData
