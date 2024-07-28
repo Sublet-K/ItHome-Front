@@ -2,19 +2,19 @@
 
 import { useState, useRef, useEffect } from "react";
 import { IconButton } from "@mui/material";
-import SearchDate from "./SearchDate";
-import SearchPriceRange from "./SearchPriceRange";
+import SearchDate from "./Search/components/SearchDate";
+import SearchPriceRange from "./Search/components/SearchPriceRange";
 import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
 import { LoginDialog } from "@shared/components/Popup/Popup";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
-import SearchLocation from "./SearchLocation";
+import SearchLocation from "./Search/components/SearchLocation";
 import { useUserInfoStore } from "@store/UserInfoStore";
-import * as hs from "../../Header.styles";
-import SearchButton from "./SearchButton";
+import * as hs from "./Header.styles";
+import SearchButton from "./Search/components/SearchButton";
 import { useUserLikeStore } from "@store/UserLikeStore";
-import { SearchKeyword } from "./SearchKeyword";
+import { SearchKeyword } from "./Search/components/SearchKeyword";
 
 const Header = () => {
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);

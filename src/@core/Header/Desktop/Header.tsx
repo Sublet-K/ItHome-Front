@@ -9,14 +9,9 @@ import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
 import { useRef } from "react";
 
-import MobileDashboardItem from "./components/Search/components/MobileDashboardItem";
-import MobileMenuLayout from "./components/Search/components/MobileMenuLayout";
-import SearchInput from "./components/Search/SearchInput"; // 재활용 가능
-
-import SearchButton from "./components/Search/components/SearchButton";
-
-import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
-import { SubletPostStore } from "@store/SubletPostStore";
+import MobileDashboardItem from "./components/MobileDashboardItem";
+import MobileMenuLayout from "./components/MobileMenuLayout";
+import SearchInput from "./components/Search/SearchInput";
 
 const Header = () => {
   const { userInfo, userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
@@ -52,7 +47,7 @@ const Header = () => {
 
           {/* 계정관련(북마크, 로그인/로그아웃) */}
           <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
-            {userInfo.user_id ? (
+            {userExist ? (
               <div className="flex justify-end flex-1 space-x-4">
                 <span>
                   {/* style={styles.favorite} */}
