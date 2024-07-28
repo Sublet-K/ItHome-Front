@@ -1,4 +1,3 @@
-import React from "react";
 import * as s from "./MobileHeader.styles.js";
 
 export const MobileHeader = () => {
@@ -23,7 +22,7 @@ export const MobileHeader = () => {
             </svg>
             <div className="flex flex-col">
               <div className="text-base text-left">어디든지</div>
-              <span className="font-thin">원하는 사람과 날짜</span>
+              <span className="font-light">원하는 사람과 날짜</span>
             </div>
           </s.SearchBut>
         </div>

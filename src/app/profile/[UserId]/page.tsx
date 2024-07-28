@@ -1,4 +1,5 @@
 "use client";
+import { useTitle } from "@app/_PageComponents/UseTitle";
 import { UserForm } from "@app/UserType";
 import { FetchGetOneUser } from "@shared/components/FetchList/FetchList";
 import { usePathname } from "next/navigation";
@@ -9,9 +10,13 @@ import { UserBaseComponent } from "./Components/UserImageProfile";
 function HostInfo() {
   const params = usePathname();
   const userId = params.split("/")[2];
+  useTitle("호스트 프로필");
+
   if (typeof userId === "string") {
     const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
-    FetchGetOneUser(userId, setUserInfo);
+
+    const json = FetchGetOneUser(userId, setUserInfo);
+
     return (
       <div
         style={{
@@ -30,7 +35,7 @@ function HostInfo() {
         </div>
 
         <div>
-          <PostListComponent userId={userInfo.user_id} />
+          <PostListComponent userId={userInfo.user_id} guestMode={false} />
         </div>
 
         {/* <PostUploadDialog /> */}
@@ -41,7 +46,6 @@ function HostInfo() {
   } else {
     return <></>;
   }
-  // useTitle(title);
 }
 
 export default HostInfo;

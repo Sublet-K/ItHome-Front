@@ -3,7 +3,6 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
 import React, { useRef, useState } from "react";
 // import { BarChart } from "@mui/x-charts";
-import { IconButton } from "@mui/material";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
 import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
 import * as headerStyle from "@shared/styles/Header.styles";
@@ -19,7 +18,6 @@ const SearchPriceRange = () => {
   const styles: { [key: string]: React.CSSProperties } = {
     priceRangeStyle: {
       backgroundColor: "white",
-      border: "1px solid black",
       position: "absolute",
       width: "20em",
       top: `${
@@ -57,13 +55,17 @@ const SearchPriceRange = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <button ref={buttonRef} onClick={togglePriceFilter} className="text-lg">
         <BarChartIcon />
         가격 범위
       </button>
       {isListVisible && (
-        <div style={styles.priceRangeStyle}>
+        <div className="shadow-2xl" style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>
             <MoneyRangeViewer arr={tempPriceRange} />
             <DoubleSlideInput
@@ -74,8 +76,12 @@ const SearchPriceRange = () => {
             />
           </div>
           <headerStyle.acceptOrCancleButton>
-            <button onClick={handleSubmit}>적용</button>
-            <button onClick={handleCancel}>취소</button>
+            <button onClick={handleSubmit} className="text-base font-light">
+              적용
+            </button>
+            <button onClick={handleCancel} className="text-base font-light">
+              취소
+            </button>
           </headerStyle.acceptOrCancleButton>
         </div>
       )}

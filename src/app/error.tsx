@@ -13,10 +13,15 @@ const ErrorPage = ({ error, reset }) => {
   }, [error]);
 
   return (
-    <div className="container mx-auto px-4 text-center">
+    <div
+      className="container mx-auto px-4 text-center"
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <h1 className="text-8xl font-bold">Error</h1>
-      <p className="mt-4 font-thin">오류가 생겼어요.</p>
-      <p className="font-thin">다른 방을 찾으러 가봐요.</p>
+      <p className="mt-4 font-light">오류가 생겼어요.</p>
+      <p className="font-light">다른 방을 찾으러 가봐요.</p>
 
       <button
         className="border p-3 mt-4 bg-gray-800 border-black rounded-lg hover:bg-black"

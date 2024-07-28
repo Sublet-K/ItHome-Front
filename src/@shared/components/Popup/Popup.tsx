@@ -73,6 +73,9 @@ export function DialogForm({
     <Dialog
       open={openState}
       className="border border-gray-300 shadow-xl rounded-lg"
+      style={{
+        fontFamily: "Pretendard",
+      }}
     >
       <DialogTitle>
         {render()}
@@ -164,7 +167,7 @@ export function ImageDialog() {
             </label>
           )}
         </div>
-        <p className="text-sm font-thin">
+        <p className="text-sm font-light">
           해상도가 256 x 256픽셀 이상인 사진을 사용하세요. <br />
           이미지 사이즈가 큰 사진일수록 더 선명합니다.
         </p>
@@ -564,6 +567,9 @@ export function SignUpDialog() {
     <Dialog
       open={signUpPopUpState}
       className="border border-gray-300 shadow-xl rounded-lg"
+      style={{
+        fontFamily: "Pretendard",
+      }}
     >
       <DialogTitle>
         <s.SvgHoverButton type="button" onClick={setSignUpPopUpState}>
@@ -661,6 +667,9 @@ export function LoginDialog() {
       <Dialog
         open={popUpState}
         className="border border-gray-300 shadow-xl rounded-lg"
+        style={{
+          fontFamily: "Pretendard",
+        }}
       >
         <DialogTitle>
           <s.SvgHoverButton type="button" onClick={togglePopUpState}>

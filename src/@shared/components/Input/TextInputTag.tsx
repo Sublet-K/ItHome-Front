@@ -135,7 +135,7 @@ export const TextInputTag = ({
           type="text"
           id={id}
           name={name}
-          className="border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="border border-black font-light text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           style={{
             resize: "none",
             overflow: "auto",
@@ -155,7 +155,7 @@ export const TextInputTag = ({
           type="text"
           name={name}
           id={id}
-          className="border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="border border-black font-light text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           style={{
             resize: "none",
             overflow: "auto",
@@ -201,7 +201,7 @@ export const InputTextArea = ({
         <textarea
           id={id}
           name={name}
-          className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="h-60 border border-black font-light text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           onChange={onChange}
           placeholder={placeholder}
           style={{
@@ -219,7 +219,7 @@ export const InputTextArea = ({
         <textarea
           id={id}
           name={name}
-          className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className="h-60 border border-black font-light text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           onChange={onChange}
           placeholder={placeholder}
           style={{

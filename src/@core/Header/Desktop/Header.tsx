@@ -10,7 +10,6 @@ import Link from "next/link";
 import { useRef } from "react";
 
 import MobileDashboardItem from "./components/MobileDashboardItem";
-import MobileMenuLayout from "./components/MobileMenuLayout";
 import SearchInput from "./components/Search/SearchInput";
 
 const Header = () => {
@@ -25,18 +24,20 @@ const Header = () => {
       window.location.href = "/";
     }
   };
+
   return (
-    <nav className="border-b-4">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pb-8">
-        <div className="relative flex h-16 items-center justify-between">
-          {/* Mobile menu button*/}
-          <MobileMenuLayout />
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <button
-              onClick={handleReload}
-              className="flex flex-shrink-0 items-center"
-            >
-              {/* 로고는 여기 */}
+    <nav
+      className="border-b-4 pt-4 pb-4"
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
+      {" "}
+      {/* pt-4, pb-4 추가하여 위쪽과 아래쪽에 공간 확보 */}
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-16">
+          <div className="flex items-center justify-start">
+            <button onClick={handleReload} className="flex items-center">
               <img
                 className="h-11 w-auto"
                 src="/svgs/logo.svg"
@@ -45,16 +46,16 @@ const Header = () => {
             </button>
           </div>
 
-          {/* 계정관련(북마크, 로그인/로그아웃) */}
-          <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
+          <div className="flex items-center justify-center flex-1">
+            <SearchInput />
+          </div>
+
+          <div className="flex items-center justify-end">
             {userExist ? (
-              <div className="flex justify-end flex-1 space-x-4">
-                <span>
-                  {/* style={styles.favorite} */}
-                  <Link href="/SaveSublet">
-                    <Favorite />
-                  </Link>
-                </span>
+              <div className="flex items-center space-x-4">
+                <Link href="/SaveSublet">
+                  <Favorite />
+                </Link>
                 <Link href="/profile/me">
                   <PersonIcon />
                 </Link>
@@ -71,44 +72,15 @@ const Header = () => {
             ) : (
               <LoginDialog />
             )}
-            {/* 북마크한 방 목록 페이지 이동 */}
-            {/* <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="absolute -inset-1.5"></span>
-              <span className="sr-only">북마크한 방</span>
-              <svg
-                className="h-6 w-6 fill-current text-white hover:text-gray-500"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="#000000"
-                width="800px"
-                height="800px"
-              >
-                <path d="M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 01-.686 0 16.709 16.709 0 01-.465-.252 31.147 31.147 0 01-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0114 20.408z"></path>
-              </svg>
-            </button> */}
-
-            {/* Profile dropdown */}
-            {/* <ProfileLayout /> */}
           </div>
         </div>
-        {/* 검색창 */}
-        <div className="flex flex-1">
-          <SearchInput />
-        </div>
-      </div>
 
-      {/* Mobile menu, show/hide based on menu state. */}
-
-      <div className="sm:hidden" id="mobile-menu">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-          {/* <SearchInput /> */}
-          <MobileDashboardItem href="#" desc="위치" />
-          <MobileDashboardItem href="#" desc="가격" />
-          <MobileDashboardItem href="#" desc="날짜" />
+        <div className="sm:hidden" id="mobile-menu">
+          <div className="space-y-1 px-2 pb-3 pt-2">
+            <MobileDashboardItem href="#" desc="위치" />
+            <MobileDashboardItem href="#" desc="가격" />
+            <MobileDashboardItem href="#" desc="날짜" />
+          </div>
         </div>
       </div>
     </nav>
