@@ -6,14 +6,20 @@ import {
 } from "@shared/components/Popup/Popup";
 import { NormalText } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { UserDeleteDialog } from "../Dialog/UserDeleteDialog";
 
 export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
-  const { setEmailPopUpState, setPhonePopUpState, setVerifyEmailPopUpState } =
-    guestInfoPopUpStore((state) => ({
-      setEmailPopUpState: state.setEmailPopUpState,
-      setPhonePopUpState: state.setPhonePopUpState,
-      setVerifyEmailPopUpState: state.setVerifyEmailPopUpState,
-    }));
+  const {
+    setEmailPopUpState,
+    setPhonePopUpState,
+    setVerifyEmailPopUpState,
+    setDeleteUserPopUpState,
+  } = guestInfoPopUpStore((state) => ({
+    setEmailPopUpState: state.setEmailPopUpState,
+    setPhonePopUpState: state.setPhonePopUpState,
+    setVerifyEmailPopUpState: state.setVerifyEmailPopUpState,
+    setDeleteUserPopUpState: state.setDeleteUserPopUpState,
+  }));
 
   if (user.phone !== undefined) {
     const phoneNumber = user.phone
@@ -88,6 +94,17 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
               </div>
             </button>
             <PhoneDialog originalPhone={phoneNumber} />
+          </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              onClick={setDeleteUserPopUpState}
+              className="border-b border-gray-300"
+            >
+              <div className="">
+                <NormalText className="text-lg">탈퇴하기</NormalText>
+              </div>
+            </button>
+            <UserDeleteDialog userId={user.user_id} />
           </div>
         </div>
         <VerifyEmailDialog email={user.email} userId={user.user_id} />

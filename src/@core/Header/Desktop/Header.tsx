@@ -19,7 +19,7 @@ import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
 
 const Header = () => {
-  const { userInfo, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
+  const { userInfo, userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
   const inputRef = useRef<HTMLInputElement>(null);
 

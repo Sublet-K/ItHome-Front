@@ -126,33 +126,48 @@ export const TextInputTag = ({
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }) => (
   <div>
-    <label
-      htmlFor={id}
-      className="block mb-2 text-lg font-light text-gray-900 float-left"
-    >
+    <label htmlFor={id} className="block mb-2 text-lg font-light text-gray-900">
       {label}
     </label>
     {required ? (
-      <input
-        type="text"
-        id={id}
-        name={name}
-        className="border border-black text-sm font-thin rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-        required
-      />
+      <div style={{ width: "320px" }}>
+        <input
+          type="text"
+          id={id}
+          name={name}
+          className="border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          style={{
+            resize: "none",
+            overflow: "auto",
+            wordBreak: "break-word",
+            whiteSpace: "pre-wrap",
+            maxWidth: "400px",
+          }}
+          onChange={onChange}
+          value={value}
+          placeholder={placeholder}
+          required
+        />
+      </div>
     ) : (
-      <input
-        type="text"
-        name={name}
-        id={id}
-        className="border border-black font-thin text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-      />
+      <div style={{ width: "320px" }}>
+        <input
+          type="text"
+          name={name}
+          id={id}
+          className="border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          style={{
+            resize: "none",
+            overflow: "auto",
+            wordBreak: "break-word",
+            whiteSpace: "pre-wrap",
+            maxWidth: "400px",
+          }}
+          onChange={onChange}
+          value={value}
+          placeholder={placeholder}
+        />
+      </div>
     )}
   </div>
 );
@@ -177,31 +192,45 @@ export const InputTextArea = ({
   <div>
     <label
       htmlFor={id}
-      className="block mb-2 text-sm text-lg font-light text-gray-900 float-left"
+      className="block mb-2 text-sm text-lg font-light text-gray-900 "
     >
       {label}
     </label>
     {required ? (
-      <textarea
-        id={id}
-        name={name}
-        className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        onChange={onChange}
-        placeholder={placeholder}
-        value={value}
-        style={{ resize: "none" }} // 넓히기 아이콘 제거
-        required
-      />
+      <div style={{ width: "320px" }}>
+        <textarea
+          id={id}
+          name={name}
+          className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          onChange={onChange}
+          placeholder={placeholder}
+          style={{
+            resize: "none",
+            overflow: "auto",
+            wordBreak: "break-word",
+            whiteSpace: "pre-wrap",
+          }} // 넓히기 아이콘 제거
+          value={value}
+          required
+        />
+      </div>
     ) : (
-      <textarea
-        id={id}
-        name={name}
-        className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        onChange={onChange}
-        placeholder={placeholder}
-        style={{ resize: "none" }} // 넓히기 아이콘 제거
-        value={value}
-      />
+      <div style={{ width: "320px" }}>
+        <textarea
+          id={id}
+          name={name}
+          className="h-60 border border-black font-thin text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          onChange={onChange}
+          placeholder={placeholder}
+          style={{
+            resize: "none",
+            overflow: "auto",
+            wordBreak: "break-word",
+            whiteSpace: "pre-wrap",
+          }} // 넓히기 아이콘 제거
+          value={value}
+        />
+      </div>
     )}
   </div>
 );
