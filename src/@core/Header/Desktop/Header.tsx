@@ -13,9 +13,8 @@ import MobileDashboardItem from "./components/MobileDashboardItem";
 import SearchInput from "./components/Search/SearchInput";
 
 const Header = () => {
-  const { userInfo, userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
+  const { userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleReload = () => {
     if (location.pathname === "/") {

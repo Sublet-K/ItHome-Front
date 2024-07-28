@@ -116,17 +116,13 @@ async function FetchSearchPost(
   setPosts: (posts: Post[]) => void
 ) {
   let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}` + `/post/filter?`;
-  if (
-    searchLocation.city === "모두" ||
-    searchLocation.city === "" ||
-    searchLocation.gu === ""
-  ) {
+  if (searchLocation.city === "모두") {
     URL =
       URL +
       `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
         priceRange[0] / 30
       )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
-  } else if (searchLocation.gu === "" || searchLocation.gu === "모두") {
+  } else if (searchLocation.gu === "") {
     URL =
       URL +
       `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(

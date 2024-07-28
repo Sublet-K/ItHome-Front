@@ -2,10 +2,8 @@ import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { useSearchKeyword } from "@core/Header/store/SearchKeywordStore";
 import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
-import SearchIcon from "@mui/icons-material/Search";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import * as hs from "../../Header.styles";
 import DashboardItem from "./DashboardItem";
 
 const SearchButton = () => {

@@ -64,8 +64,8 @@ const SearchDate = () => {
       }}
     >
       <button ref={buttonRef} onClick={toggleCalander} className="text-lg">
-        날짜
         <DateRangeOutlinedIcon />
+        날짜
       </button>
       {isListVisible && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
