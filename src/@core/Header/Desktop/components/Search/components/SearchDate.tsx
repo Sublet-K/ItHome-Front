@@ -6,7 +6,7 @@ import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
 import * as s from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchDateStore } from "../../store/SearchDateStore";
+import { useSearchDateStore } from "../../../../store/SearchDateStore";
 
 const SearchDate = () => {
   const [isListVisible, setIsListVisible] = useState(false);
@@ -60,13 +60,11 @@ const SearchDate = () => {
   };
 
   return (
-    <span className="font-semibold leading-6 text-gray-900">
-      <IconButton ref={buttonRef} onClick={toggleCalander}>
-        <s.blackBoldFont>
-          날짜
-          <DateRangeOutlinedIcon />
-        </s.blackBoldFont>
-      </IconButton>
+    <span>
+      <button ref={buttonRef} onClick={toggleCalander} className="text-lg">
+        날짜
+        <DateRangeOutlinedIcon />
+      </button>
       {isListVisible && (
         <Popup buttonref={buttonRef}>
           <Layout>

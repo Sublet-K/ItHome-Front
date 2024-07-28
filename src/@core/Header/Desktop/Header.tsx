@@ -9,18 +9,9 @@ import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
 import { useRef } from "react";
 
-import DashboardItem from "./components/DashboardItem";
 import MobileDashboardItem from "./components/MobileDashboardItem";
 import MobileMenuLayout from "./components/MobileMenuLayout";
-import SearchInput from "./components/SearchInput"; // 재활용 가능
-
-import SearchButton from "./components/SearchButton";
-import SearchDate from "./components/SearchDate";
-import SearchLocation from "./components/SearchLocation";
-import SearchPriceRange from "./components/SearchPriceRange";
-
-import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
-import { SubletPostStore } from "@store/SubletPostStore";
+import SearchInput from "./components/Search/SearchInput";
 
 const Header = () => {
   const { userInfo, userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
@@ -34,46 +25,30 @@ const Header = () => {
       window.location.href = "/";
     }
   };
-
-  const { setPosts } = SubletPostStore();
-  const doSearch = () => {
-    FetchGetLikePosts(setPosts).then(() => {
-      if (location.pathname === "/savesublet") {
-        // searchtest
-        window.location.reload();
-      } else {
-        window.location.href = "/savesublet"; // searchtest
-      }
-    });
-  };
-
-  // <hs.LogoContainer onClick={handleReload} className="-m-1.5 p-1.5"></hs.LogoContainer>
-
   return (
     <nav className="border-b-4">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pb-8">
         <div className="relative flex h-16 items-center justify-between">
           {/* Mobile menu button*/}
           <MobileMenuLayout />
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
+            <button
+              onClick={handleReload}
+              className="flex flex-shrink-0 items-center"
+            >
               {/* 로고는 여기 */}
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                className="h-11 w-auto"
+                src="/svgs/logo.svg"
                 alt="Your Company"
               />
-            </div>
+            </button>
           </div>
-          {/* 검색창 */}
-          <div className="flex flex-1">
-            <SearchInput />
-            <SearchButton />
-          </div>
+
           {/* 계정관련(북마크, 로그인/로그아웃) */}
           <div className="flex flex-1 items-center justify-end sm:static sm:inset-auto sm:ml-6">
             {userExist ? (
-              <div>
+              <div className="flex justify-end flex-1 space-x-4">
                 <span>
                   {/* style={styles.favorite} */}
                   <Link href="/SaveSublet">
@@ -119,20 +94,9 @@ const Header = () => {
             {/* <ProfileLayout /> */}
           </div>
         </div>
-
-        <div className="hidden sm:ml-6 sm:block">
-          <div className="flex space-x-12">
-            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-            <DashboardItem>
-              <SearchLocation />
-            </DashboardItem>
-            <DashboardItem>
-              <SearchPriceRange />
-            </DashboardItem>
-            <DashboardItem>
-              <SearchDate />
-            </DashboardItem>
-          </div>
+        {/* 검색창 */}
+        <div className="flex flex-1">
+          <SearchInput />
         </div>
       </div>
 

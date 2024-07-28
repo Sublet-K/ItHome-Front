@@ -7,7 +7,7 @@ import { IconButton } from "@mui/material";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
 import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
 import * as headerStyle from "@shared/styles/Header.styles";
-import { useSearchPriceStore } from "../../store/SearchPriceStore";
+import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = () => {
   const priceRangeMinMax: [number, number] = [0, 5000000]; // tempData
@@ -58,12 +58,10 @@ const SearchPriceRange = () => {
 
   return (
     <div>
-      <IconButton ref={buttonRef} onClick={togglePriceFilter}>
-        <headerStyle.blackBoldFont>
-          가격 범위
-          <BarChartIcon />
-        </headerStyle.blackBoldFont>
-      </IconButton>
+      <button ref={buttonRef} onClick={togglePriceFilter} className="text-lg">
+        <BarChartIcon />
+        가격 범위
+      </button>
       {isListVisible && (
         <div style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>

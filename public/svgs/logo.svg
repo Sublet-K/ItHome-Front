@@ -1,0 +1,13 @@
+
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top border line -->
+  <line x1="10" y1="10" x2="190" y2="10" stroke="black" stroke-width="12"/>
+  <!-- Right border line -->
+  <line x1="190" y1="4" x2="190" y2="100" stroke="black" stroke-width="12"/>
+  <!-- Bottom border line -->
+  <line x1="100" y1="190" x2="10" y2="190" stroke="black" stroke-width="12"/>
+  <!-- Left border line -->
+  <line x1="10" y1="196" x2="10" y2="4" stroke="black" stroke-width="12"/>
+  <!-- Text -->
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="43"  font-weight="bolder" font-family="Arial" fill="black">ItHome</text>
+</svg>
