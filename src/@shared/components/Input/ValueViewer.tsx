@@ -4,7 +4,7 @@ import { priceToString } from "../StaticComponents/StaticComponents";
 export const SingleValueViewer = ({ value }: { value: string }) => {
   return (
     <inputStyle.displayFilteringValueWhenModifyingFilter className="float-left">
-      <p className="font-thin text-lg">{value}</p>
+      <p className="font-light text-lg">{value}</p>
     </inputStyle.displayFilteringValueWhenModifyingFilter>
   );
 };

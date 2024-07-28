@@ -28,7 +28,7 @@ export const UserDeleteDialog = ({ userId }: { userId: string }) => {
     >
       <DialogContent className="font-black text-center">
         <p className="text-lg font-extrabold ">정말 탈퇴하시겠어요?</p>
-        <p className="text-sm font-thin mt-1 float-left">
+        <p className="text-sm font-light mt-1 float-left">
           탈퇴 버튼 선택시, 계정은 삭제되며 복구되지 않습니다.
         </p>
       </DialogContent>

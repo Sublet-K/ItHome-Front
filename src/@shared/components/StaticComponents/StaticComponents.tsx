@@ -259,7 +259,7 @@ export function Information({
   return (
     <div>
       <p className="text-xl font-semibold">{title}</p>
-      <s.NormalText className="text-sm font-thin">{info}</s.NormalText>
+      <s.NormalText className="text-sm font-light">{info}</s.NormalText>
     </div>
   );
 }

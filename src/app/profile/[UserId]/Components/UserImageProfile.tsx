@@ -1,4 +1,3 @@
-import { useTitle } from "@app/_PageComponents/UseTitle";
 import { verifyFrame } from "@app/profile/me/button-frames/UserImageFrame";
 import { UserForm } from "@app/UserType";
 import { ProfileImage } from "@shared/components/Image/Image";
@@ -6,8 +5,6 @@ import { SecondHead } from "@shared/styles/Public.styles";
 // import { verifyFrame } from 'pages/GuestInfo/button-frames/UserImageFrame';
 
 export const UserBaseComponent = ({ user }: { user: UserForm }) => {
-  useTitle(user.username + "님의 프로필");
-
   const frame = verifyFrame(user);
   const imageLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/public_user/${user.image_id}.jpg`;
   return (

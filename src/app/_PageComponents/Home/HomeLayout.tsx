@@ -59,7 +59,12 @@ export const HomeLayout = ({
   if (!roomsData) return <div></div>;
 
   return (
-    <section className="bg-white py-8 mx-auto px-4">
+    <section
+      className="bg-white py-8 mx-auto px-4"
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <div className="bg-white text-gray-600">
         {/* Marketing Banner */}
         <MarketingBanner />

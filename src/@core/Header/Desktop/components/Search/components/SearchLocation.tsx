@@ -1,15 +1,13 @@
+import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { IconButton } from "@mui/material";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 import * as headerStyle from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
-  border: 1px solid black;
   position: absolute;
   width: 20em;
   top: ${({ buttonref }) =>
@@ -49,20 +47,24 @@ const SearchLocation = () => {
   };
 
   return (
-    <span>
+    <span
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <button ref={buttonRef} onClick={togglePosFilter} className="text-lg">
         <LocationOnIcon />
         지역
       </button>
       {isListVisible && (
-        <Popup buttonref={buttonRef}>
+        <Popup className="shadow-2xl" buttonref={buttonRef}>
           <div className="relative flex flex-col justify-between gap-2.5">
             시/도
             <DropBoxSelect
               name="city"
               state={tempPos["city"]}
               onChange={onChange}
-              labelName="시/도"
+              labelName=""
               labelId="city"
               id="city"
               menuItems={cities}
@@ -72,7 +74,7 @@ const SearchLocation = () => {
               name="gu"
               state={tempPos["gu"]}
               onChange={onChange}
-              labelName="구/시/군/면"
+              labelName="모두"
               labelId="gu"
               id="gu"
               menuItems={
@@ -85,8 +87,12 @@ const SearchLocation = () => {
             />
           </div>
           <headerStyle.acceptOrCancleButton>
-            <button onClick={handleSubmit}>적용</button>
-            <button onClick={handleCancel}>취소</button>
+            <button onClick={handleSubmit} className="text-base font-light">
+              적용
+            </button>
+            <button onClick={handleCancel} className="text-base font-light">
+              취소
+            </button>
           </headerStyle.acceptOrCancleButton>
         </Popup>
       )}

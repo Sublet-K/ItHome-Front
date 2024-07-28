@@ -75,7 +75,7 @@ export default function RoomInfo() {
     //   alert('로그인이 필요합니다.');
     // }
   };
-  useTitle(nowRoomPost?.title + "님의  방");
+  useTitle(userInfo.username + "님의  방");
 
   const handleReportTypeState = (event: SelectChangeEvent<string>) => {
     setReportType(event.target.value);
@@ -90,7 +90,11 @@ export default function RoomInfo() {
   };
 
   return (
-    <>
+    <div
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <div className="max-w-xl mx-auto">
         {postExist && (
           <Carousel className="w-full h-96">
@@ -119,9 +123,7 @@ export default function RoomInfo() {
                   <label
                     htmlFor="report_type"
                     className=" font-medium text-gray-900 float-left"
-                  >
-                    공유하기
-                  </label>
+                  ></label>
                 )}
               >
                 <DialogContent>
@@ -164,7 +166,7 @@ export default function RoomInfo() {
                     />
                   </div>
                   <button
-                    className="mt-4 bg-red-500 text-white px-4 py-2 font-thin rounded"
+                    className="mt-4 bg-red-500 text-white px-4 py-2 font-light rounded"
                     onClick={() => {
                       if (reportType === "") {
                         alert("신고 사유를 선택해주세요.");
@@ -269,6 +271,6 @@ export default function RoomInfo() {
         )}
         <div className="mb-4"></div>
       </div>
-    </>
+    </div>
   );
 }

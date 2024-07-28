@@ -1,7 +1,6 @@
 "use client";
 
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
-import { IconButton } from "@mui/material";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
 import * as s from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
@@ -22,7 +21,6 @@ const SearchDate = () => {
 
   const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
     background-color: white;
-    border: 1px solid black;
     position: absolute;
     width: 20em;
     top: ${({ buttonref }) =>
@@ -60,13 +58,17 @@ const SearchDate = () => {
   };
 
   return (
-    <span>
+    <span
+      style={{
+        fontFamily: "Pretendard",
+      }}
+    >
       <button ref={buttonRef} onClick={toggleCalander} className="text-lg">
         날짜
         <DateRangeOutlinedIcon />
       </button>
       {isListVisible && (
-        <Popup buttonref={buttonRef}>
+        <Popup className="shadow-2xl" buttonref={buttonRef}>
           <Layout>
             <DoubleDatePicker
               dateData={tempSearchDate}
@@ -74,8 +76,13 @@ const SearchDate = () => {
             />
           </Layout>
           <s.acceptOrCancleButton>
-            <button onClick={handleSubmit}>적용</button>
-            <button onClick={handleCancel}>취소</button>
+            {" "}
+            <button onClick={handleSubmit} className="text-base font-light">
+              적용
+            </button>
+            <button onClick={handleCancel} className="text-base font-light">
+              취소
+            </button>
           </s.acceptOrCancleButton>
         </Popup>
       )}

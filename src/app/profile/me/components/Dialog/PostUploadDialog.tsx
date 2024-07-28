@@ -472,7 +472,7 @@ export const PostUploadDialog = () => {
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>
             사진을 올려주세요.
-            <p className="text-sm font-thin">
+            <p className="text-sm font-light">
               해상도가 1024 x 683픽셀 이상인 사진을 사용하세요. <br />
               이미지 사이즈가 큰 사진일수록 더 선명합니다.
             </p>
