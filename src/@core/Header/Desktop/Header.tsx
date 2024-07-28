@@ -32,7 +32,7 @@ const Header = () => {
           {/* Mobile menu button*/}
           <MobileMenuLayout />
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div
+            <button
               onClick={handleReload}
               className="flex flex-shrink-0 items-center"
             >
@@ -42,7 +42,7 @@ const Header = () => {
                 src="/svgs/logo.svg"
                 alt="Your Company"
               />
-            </div>
+            </button>
           </div>
 
           {/* 계정관련(북마크, 로그인/로그아웃) */}

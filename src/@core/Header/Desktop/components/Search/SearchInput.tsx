@@ -9,7 +9,7 @@ const SearchInput = () => {
     <div className="flex-1 flex justify-center items-center h-16 sm:h-auto">
       <div className="hidden sm:ml-6 sm:block">
         <div className="flex space-x-12 font-semibold leading-6">
-          <div className="w-650px bg-white shadow-md h-14 rounded-full flex justify-center font-sans text-xs">
+          <div className="bg-white shadow-md h-14 rounded-full flex justify-center font-sans text-xs">
             <DashboardItem>
               <SearchLocation />
             </DashboardItem>
