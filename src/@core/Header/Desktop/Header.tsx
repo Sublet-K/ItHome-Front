@@ -9,8 +9,8 @@ import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
 import { useRef } from "react";
 
-import MobileDashboardItem from "./components/MobileDashboardItem";
-import MobileMenuLayout from "./components/MobileMenuLayout";
+import MobileDashboardItem from "./components/Search/components/MobileDashboardItem";
+import MobileMenuLayout from "./components/Search/components/MobileMenuLayout";
 import SearchInput from "./components/Search/SearchInput"; // 재활용 가능
 
 import SearchButton from "./components/Search/components/SearchButton";
@@ -32,7 +32,7 @@ const Header = () => {
   };
   return (
     <nav className="border-b-4">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pb-8">
         <div className="relative flex h-16 items-center justify-between">
           {/* Mobile menu button*/}
           <MobileMenuLayout />
@@ -47,7 +47,6 @@ const Header = () => {
                 src="/svgs/logo.svg"
                 alt="Your Company"
               />
-              <svg></svg>
             </div>
           </div>
 
@@ -103,7 +102,6 @@ const Header = () => {
         {/* 검색창 */}
         <div className="flex flex-1">
           <SearchInput />
-          <SearchButton />
         </div>
       </div>
 

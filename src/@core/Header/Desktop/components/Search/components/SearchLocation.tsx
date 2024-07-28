@@ -5,7 +5,7 @@ import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 import * as headerStyle from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchLocationStore } from "../../../store/SearchLocationStore";
+import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
@@ -50,9 +50,9 @@ const SearchLocation = () => {
 
   return (
     <span>
-      <button ref={buttonRef} onClick={togglePosFilter} className="flex">
-        위치
+      <button ref={buttonRef} onClick={togglePosFilter} className="text-lg">
         <LocationOnIcon />
+        지역
       </button>
       {isListVisible && (
         <Popup buttonref={buttonRef}>

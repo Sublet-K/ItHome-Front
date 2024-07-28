@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
 import * as hs from "../../Header.styles";
+import DashboardItem from "./DashboardItem";
 
 const SearchButton = () => {
   const { searchDate } = useSearchDateStore();
@@ -31,9 +32,14 @@ const SearchButton = () => {
   };
 
   return (
-    <hs.SearchIconStyle>
-      <SearchIcon onClick={doSearch} style={{ fontSize: "1.5em" }} />
-    </hs.SearchIconStyle>
+    <button
+      onClick={doSearch}
+      className="font-bold text-black opacity-90 text-base"
+    >
+      <DashboardItem>
+        <img src="/svgs/searchButton.svg" alt="search" />
+      </DashboardItem>
+    </button>
   );
 };
 

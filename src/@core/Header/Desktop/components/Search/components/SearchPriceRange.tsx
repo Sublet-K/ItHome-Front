@@ -58,10 +58,10 @@ const SearchPriceRange = () => {
 
   return (
     <div>
-      <IconButton ref={buttonRef} onClick={togglePriceFilter}>
-        가격 범위
+      <button ref={buttonRef} onClick={togglePriceFilter} className="text-lg">
         <BarChartIcon />
-      </IconButton>
+        가격 범위
+      </button>
       {isListVisible && (
         <div style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>
