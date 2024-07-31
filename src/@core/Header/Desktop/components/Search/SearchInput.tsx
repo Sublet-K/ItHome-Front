@@ -1,15 +1,15 @@
+import DashboardItem from "./components/DashboardItem";
+import SearchButton from "./components/SearchButton";
 import SearchDate from "./components/SearchDate";
 import SearchLocation from "./components/SearchLocation";
 import SearchPriceRange from "./components/SearchPriceRange";
-import DashboardItem from "./components/DashboardItem";
-import SearchButton from "./components/SearchButton";
 
 const SearchInput = () => {
   return (
     <div className="flex-1 flex justify-center items-center h-16 sm:h-auto">
       <div className="hidden sm:ml-6 sm:block">
         <div className="flex space-x-12 font-semibold leading-6">
-          <div className="bg-white shadow-md h-14 rounded-full flex justify-center font-sans text-xs">
+          <div className="border-1 border-black	shadow-black bg-white shadow-2xl h-14 rounded-full flex justify-center font-sans text-xs">
             <DashboardItem>
               <SearchLocation />
             </DashboardItem>

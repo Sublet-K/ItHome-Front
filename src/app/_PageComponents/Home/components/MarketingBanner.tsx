@@ -13,6 +13,21 @@ export const MarketingBanner = () => {
           신속하게 양도를 도와드릴게요.
         </p>
       </div>
+      <div className="grid grid-cols-5 gap-4 text-center">
+        <a
+          href="https://rose-palm-6f0.notion.site/ItHome-95ecc36d50f74a14878c825518ca0e41?pvs=4"
+          className="col-span-4 w-full mt-4 border p-2.5 bg-gray-400 border-gray-500 rounded-lg"
+        >
+          <p className="text-base text-white font-light">ItHome 가이드 보기</p>
+        </a>
+
+        <a
+          href="https://open.kakao.com/me/ithome"
+          className="w-full mt-4 border p-2.5 bg-gray-500 border-gray-500 rounded-lg"
+        >
+          <p className="text-base text-white font-light">문의하기</p>
+        </a>
+      </div>
     </div>
   );
 };
