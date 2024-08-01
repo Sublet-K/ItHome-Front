@@ -2,7 +2,7 @@ import * as psd from "@/@shared/styles/PostUploadDialog.styles";
 import * as s from "@/@shared/styles/Public.styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import {
+import React, {
   ChangeEventHandler,
   MouseEventHandler,
   useEffect,
@@ -844,71 +844,74 @@ export const PostEditDialog = ({
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
           </p> */}
-        <div style={psd.gridStyle.mainContainer}>
-          <p style={psd.gridStyle.inputContainer}>
-            <h3 style={psd.gridStyle.infoType}>정보 수정하기</h3>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>호스팅 정보 작성</h3>
+          <div>
             <div>
-              <div>
-                <SingleValueViewer value={"최대인원: " + limitPeople + "명"} />
-                <SingleSlideInput
-                  name="limitPeople"
-                  value={limitPeople}
-                  onChange={onChange}
-                  minMax={[1, 10]}
-                />
-              </div>
+              <SingleValueViewer value={"최대인원: " + limitPeople + "명"} />
+              <SingleSlideInput
+                name="limitPeople"
+                value={limitPeople}
+                onChange={onChange}
+                minMax={[1, 10]}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <SingleValueViewer value={"욕실 개수: " + numberBathroom} />
+              <SingleSlideInput
+                name="numberBathroom"
+                value={numberBathroom}
+                onChange={onChange}
+                minMax={[1, 10]}
+              />
             </div>
             <div>
-              <div>
-                <SingleValueViewer value={"욕실 개수: " + numberBathroom} />
-                <SingleSlideInput
-                  name="numberBathroom"
-                  value={numberBathroom}
-                  onChange={onChange}
-                  minMax={[1, 10]}
-                />
-              </div>
-              <div>
-                <SingleValueViewer value={"침실 개수: " + numberBedroom} />
-                <SingleSlideInput
-                  name="numberBedroom"
-                  value={numberBedroom}
-                  onChange={onChange}
-                  minMax={[1, 10]}
-                />
-              </div>
+              <SingleValueViewer value={"침실 개수: " + numberBedroom} />
+              <SingleSlideInput
+                name="numberBedroom"
+                value={numberBedroom}
+                onChange={onChange}
+                minMax={[1, 10]}
+              />
             </div>
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              제목
-            </p>
-            <TextInputTag
-              id="title"
-              label=""
-              placeholder="제목을 입력해주세요."
-              name="title"
-              onChange={onChange}
-              required={true}
-              value={title}
-            />
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              정보
-            </p>
-            <InputTextArea
-              id="basic_info"
-              label=""
-              placeholder="기본정보을 입력해주세요."
-              name="basicInfo"
-              onChange={onChange}
-              required={true}
-              value={basicInfo}
-            />
-            <p className="block text-lg font-light text-gray-900">
-              입주 가능일
-            </p>{" "}
+          </div>
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>호스팅 방 설명</h3>
+
+          <TextInputTag
+            id="title"
+            label="제목"
+            placeholder="제목을 입력해주세요."
+            name="title"
+            onChange={onChange}
+            required={true}
+            value={title}
+          />
+          <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+            정보
+          </p>
+          <InputTextArea
+            id="basic_info"
+            label=""
+            placeholder="기본정보을 입력해주세요."
+            name="basicInfo"
+            onChange={onChange}
+            required={true}
+            value={basicInfo}
+          />
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>호스팅 날짜</h3>
+          <div className="mb-8">
             <DoubleDatePicker
               dateData={startEndDay}
               setDateData={handleStartEndDay}
             />
+          </div>
+          <div className="clear-both mb-4">
             <InputInteger
               id="price"
               label="가격(일)"
@@ -918,23 +921,55 @@ export const PostEditDialog = ({
               handleState={onChange}
               required={true}
             />
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              최소-최대 입주일 :
-              <ValueRangeViewer
-                arr={inputs["tempDuration"] as [string, string]}
-              />
-            </p>
-            <DoubleSlideInput
-              name="duration"
-              value={inputs["duration"] as [number, number]}
-              onChange={handleDuration}
-              minMax={[1, 730]}
+            ₩{priceToString(Number(price.replace(/,/gi, "")) * 30)}/ 월
+          </div>
+          <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
+            최소-최대 입주일 :
+            <ValueRangeViewer
+              arr={inputs["tempDuration"] as [string, string]}
             />
-            <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
-              사진 변경
-            </p>
-            <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
           </p>
+          <DoubleSlideInput
+            name="duration"
+            value={inputs["duration"] as [number, number]}
+            onChange={handleDuration}
+            minMax={[1, 730]}
+          />
+        </p>
+
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>
+            사진을 올려주세요.
+            <p className="text-sm font-light">
+              해상도가 1024 x 683픽셀 이상인 사진을 사용하세요. <br />
+              이미지 사이즈가 큰 사진일수록 더 선명합니다.
+            </p>
+          </h3>
+          <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
+        </p>
+        <p style={psd.gridStyle.inputContainer}>
+          <h3 style={psd.gridStyle.infoType}>아래 내용이 맞을까요?</h3>
+        </p>
+        <div className="ml-10" style={{ width: "320px" }}>
+          <s.SecondHead>{title == "" ? "제목 작성 안됨" : title}</s.SecondHead>
+          <s.NormalText className="mt-2 w-full">
+            {basicInfo.split(/\r\n|\r|\n/).map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </s.NormalText>
+          <br />
+          <s.NormalText className="mt-2">최대 인원: {limitPeople}</s.NormalText>
+          <s.NormalText className="mt-2">
+            방: 욕실 {numberBathroom} 침실 {numberBedroom}
+          </s.NormalText>
+
+          <s.NormalText className="mt-2">
+            최대 거주 기간: {duration[0]} - {duration[1]}일
+          </s.NormalText>
+          <s.NormalText className="mt-2">일일 가격: {price}</s.NormalText>
         </div>
       </DialogContent>
       <div className="m-8">
