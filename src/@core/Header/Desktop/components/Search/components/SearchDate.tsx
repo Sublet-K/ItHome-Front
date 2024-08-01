@@ -13,8 +13,8 @@ const SearchDate = () => {
     searchDate,
     setSearchDate,
   }: {
-    searchDate: [Date, Date];
-    setSearchDate: (a: Date, b: Date) => void;
+    searchDate: [string, string];
+    setSearchDate: (a: string, b: string) => void;
   } = useSearchDateStore(); // useState([null, null]); // [start, end]
   const [tempSearchDate, setTempSearchDate] = useState(searchDate);
   const buttonRef = useRef<HTMLButtonElement>(null);

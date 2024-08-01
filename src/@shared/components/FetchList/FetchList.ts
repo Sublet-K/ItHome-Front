@@ -106,7 +106,7 @@ async function FetchGetPost(
 }
 
 async function FetchSearchPost(
-  searchDate: [Date, Date],
+  searchDate: [string, string],
   searchLocation: {
     city: string;
     gu: string;
@@ -115,26 +115,21 @@ async function FetchSearchPost(
   searchKeyword: string,
   setPosts: (posts: Post[]) => void
 ) {
+  // priceRange에 30을 나누면 한달 비용으로 바뀜. ex.  &fromPrice=${priceRange[0] / 30}&toPrice=${priceRange[1] / 30}
   let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}` + `/post/filter?`;
   if (searchLocation.city === "모두") {
     URL =
       URL +
-      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
-        priceRange[0] / 30
-      )}&toPrice=${Math.ceil(priceRange[1] / 30)}`;
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}`;
   } else if (searchLocation.gu === "") {
     URL =
       URL +
-      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
-        priceRange[0] / 30
-      )}&toPrice=${Math.ceil(priceRange[1] / 30)}
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}
     &city=${searchLocation.city}`;
   } else {
     URL =
       URL +
-      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${Math.floor(
-        priceRange[0] / 30
-      )}&toPrice=${Math.ceil(priceRange[1] / 30)}
+      `fromDate=${searchDate[0]}&toDate=${searchDate[1]}&fromPrice=${priceRange[0]}&toPrice=${priceRange[1]}
     &city=${searchLocation.city}&gu=${searchLocation.gu}`;
   }
   if (searchKeyword !== "") {

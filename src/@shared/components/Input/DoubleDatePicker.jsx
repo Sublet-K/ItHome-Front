@@ -9,12 +9,13 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
       <span className="">
         <DatePicker
           value={dayjs(dateData[0])}
-          onChange={(newDate) => {
-            if (!newDate) return;
-            if (newDate.$d > dateData[1]) {
-              setDateData([newDate.$d, newDate.$d]);
+          onChange={(selectedDate) => {
+            if (!selectedDate) return;
+            const newDate = dayjs(selectedDate).format("YYYY-MM-DD");
+            if (newDate > dateData[1]) {
+              setDateData([newDate, newDate]);
             } else {
-              setDateData([newDate.$d, dateData[1]]);
+              setDateData([newDate, dateData[1]]);
             }
           }}
         />
@@ -23,12 +24,13 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
       <span>
         <DatePicker
           value={dayjs(dateData[1])}
-          onChange={(newDate) => {
-            if (!newDate) return;
-            if (dateData[0] > newDate.$d) {
-              setDateData([newDate.$d, newDate.$d]);
+          onChange={(selectedDate) => {
+            if (!selectedDate) return;
+            const newDate = dayjs(selectedDate).format("YYYY-MM-DD");
+            if (dateData[0] > newDate) {
+              setDateData([newDate, newDate]);
             } else {
-              setDateData([dateData[0], newDate.$d]);
+              setDateData([dateData[0], newDate]);
             }
           }}
         />

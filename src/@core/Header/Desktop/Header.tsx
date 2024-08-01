@@ -8,6 +8,7 @@ import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 import MobileDashboardItem from "./components/MobileDashboardItem";
 import SearchInput from "./components/Search/SearchInput";
@@ -15,13 +16,10 @@ import SearchInput from "./components/Search/SearchInput";
 const Header = () => {
   const { userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
+  const router = useRouter();
 
   const handleReload = () => {
-    if (location.pathname === "/") {
-      window.location.reload();
-    } else {
-      window.location.href = "/";
-    }
+    router.push("/");
   };
 
   return (
@@ -61,7 +59,7 @@ const Header = () => {
                 <button
                   onClick={() => {
                     FetchLogout(resetUserInfo, resetLikePostId).then(() => {
-                      window.location.reload();
+                      router.push("/");
                     });
                   }}
                 >
