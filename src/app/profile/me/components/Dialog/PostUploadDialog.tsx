@@ -126,7 +126,7 @@ export const PostUploadDialog = () => {
     formData.append("dong", postState["dong"]);
     formData.append("street_number", postState["streetNumber"]);
     formData.append("post_code", postState["postCode"]);
-    formData.append("street", "street");
+    formData.append("street", postState["street"]);
     formData.append("gender_type", postState["genderType"]);
     // 뭔가 개선이 가능해 보이긴하나..
     // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.

@@ -14,7 +14,7 @@ import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 export default function RoomInfo() {
   // 새 창에서 열릴 때 props를 못 받아와서, zustand의 전역 저장소를 사용한다.
@@ -241,7 +241,16 @@ export default function RoomInfo() {
               </div>
             </div>
             <div>
-              <p className="ml-2 mt-2 text-lg">{nowRoomPost.description}</p>
+              <p className="ml-2 mt-2 text-lg">
+                {nowRoomPost.basic_info
+                  .split(/\r\n|\r|\n/)
+                  .map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}{" "}
+              </p>
             </div>
             <hr className="my-4" />
 
