@@ -35,7 +35,7 @@ export const formatMonthDate = (date: Date | number) => {
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
 
-  return month + "월" + day + "일";
+  return year - 2000 + "년 " + month + "월 " + day + "일";
 };
 export const notFoundError = (
   res: Response,

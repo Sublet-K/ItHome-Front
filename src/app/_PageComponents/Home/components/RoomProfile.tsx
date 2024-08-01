@@ -1,13 +1,12 @@
 import { toggleLikes } from "@shared/components/FetchList/FetchList";
-import { useRouter } from "next/navigation";
-import { Post } from "@type/Type";
-import { Dispatch, SetStateAction } from "react";
 import { MainProfileImage } from "@shared/components/Image/Image";
 import {
-  formatDate,
   formatMonthDate,
   priceToString,
 } from "@shared/components/StaticComponents/StaticComponents";
+import { Post } from "@type/Type";
+import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 export const RoomProfile = ({
   room,
@@ -40,7 +39,7 @@ export const RoomProfile = ({
           onClick={() => router.push(`/roominfo/${room.key}`)}
         >
           <p className="font-semibold text-lg text-gray-900">{`${room.title}`}</p>
-          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.dong}`}</p>
+          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.street}`}</p>
           <p className="text-sm text-gray-500">
             {formatMonthDate(new Date(room.start_day))} ~{" "}
             {formatMonthDate(new Date(room.end_day))}

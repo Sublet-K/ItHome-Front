@@ -25,7 +25,7 @@ import * as psd from "@shared/styles/PostUploadDialog.styles";
 import * as s from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
-import { useState } from "react";
+import React, { useState } from "react";
 
 // 필요한 Swiper 모듈들을 임포트
 // Swiper 코어와 필요한 컴포넌트 임포트
@@ -126,7 +126,7 @@ export const PostUploadDialog = () => {
     formData.append("dong", postState["dong"]);
     formData.append("street_number", postState["streetNumber"]);
     formData.append("post_code", postState["postCode"]);
-    formData.append("street", "street");
+    formData.append("street", postState["street"]);
     formData.append("gender_type", postState["genderType"]);
     // 뭔가 개선이 가능해 보이긴하나..
     // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
@@ -435,6 +435,8 @@ export const PostUploadDialog = () => {
               handleState={onChange}
               required={true}
             />
+            ₩{priceToString(Number(postState["price"].replace(/,/gi, "")) * 30)}
+            / 월
           </div>
           <p className="mt-4 block mb-2 text-lg font-light text-gray-900 float-left">
             최소-최대 입주일 :
@@ -484,7 +486,7 @@ export const PostUploadDialog = () => {
           <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>방을 업로드 하시겠습니까?</h3>
+          <h3 style={psd.gridStyle.infoType}>아래 내용이 맞을까요?</h3>
         </p>
 
         <div className="ml-10" style={{ width: "320px" }}>
@@ -492,8 +494,15 @@ export const PostUploadDialog = () => {
             {postState.title == "" ? "제목 작성 안됨" : postState.title}
           </s.SecondHead>
           <s.NormalText className="mt-2 w-full">
-            방 정보: {postState.basicInfo}
+            {postState.basicInfo.split(/\r\n|\r|\n/).map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
           </s.NormalText>
+          <br />
+
           <s.NormalText className="mt-2">
             계약 형태:{" "}
             {postState.accomodationType == ""
