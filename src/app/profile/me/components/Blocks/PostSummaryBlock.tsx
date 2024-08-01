@@ -94,7 +94,7 @@ export function PostSummaryBlock({
           }}
         >
           <p className="font-semibold text-2xl text-gray-900">{`${room.title}`}</p>
-          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.dong}`}</p>
+          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.street} ${room.street_number}`}</p>
           <p className="text-sm text-gray-500">
             {" "}
             {formatMonthDate(new Date(room.start_day))} ~{" "}

@@ -45,7 +45,7 @@ const Header = () => {
             </button>
           </div>
 
-          <div className="flex items-center justify-center flex-1">
+          <div className="ml-32 flex items-center justify-center flex-1">
             <SearchInput />
           </div>
 

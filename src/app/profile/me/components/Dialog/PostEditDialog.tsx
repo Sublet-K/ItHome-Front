@@ -22,7 +22,10 @@ export const PostEditRoomDialog = ({
         <label
           htmlFor="test"
           className="block mb-2 text-sm font-medium text-gray-900 float-left"
-        ></label>
+        >
+          {" "}
+          호스팅 정보 수정하기
+        </label>
       )}
     >
       <PostEditDialog
