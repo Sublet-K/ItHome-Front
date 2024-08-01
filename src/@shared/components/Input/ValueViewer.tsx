@@ -26,9 +26,9 @@ export const ValueRangeViewer = ({
 export const MoneyRangeViewer = ({ arr }: { arr: [number, number] }) => {
   return (
     <inputStyle.displayFilteringValueWhenModifyingFilter>
-      <span>₩{priceToString(arr[0])}</span>
+      <span>₩{priceToString(arr[0])} / 일</span>
       <span>~</span>
-      <span>₩{priceToString(arr[1])}</span>
+      <span>₩{priceToString(arr[1])} / 일</span>
     </inputStyle.displayFilteringValueWhenModifyingFilter>
   );
 };

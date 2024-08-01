@@ -9,7 +9,7 @@ import * as headerStyle from "@shared/styles/Header.styles";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = () => {
-  const priceRangeMinMax: [number, number] = [0, 5000000]; // tempData
+  const priceRangeMinMax: [number, number] = [0, 1000000]; // tempData
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const [tempPriceRange, setTempPriceRange] = useState(priceRange); // 그래프 표현을 위한 이중화. 실제 값은 priceRange에 저장
   const [isListVisible, setIsListVisible] = useState(false);
@@ -19,7 +19,7 @@ const SearchPriceRange = () => {
     priceRangeStyle: {
       backgroundColor: "white",
       position: "absolute",
-      width: "20em",
+      width: "30em",
       top: `${
         buttonRef.current
           ? buttonRef.current.offsetTop + buttonRef.current.offsetHeight
@@ -60,12 +60,12 @@ const SearchPriceRange = () => {
         fontFamily: "Pretendard",
       }}
     >
-      <button ref={buttonRef} onClick={togglePriceFilter} className="text-lg">
+      <button ref={buttonRef} onClick={togglePriceFilter} className="text-lg t">
         <BarChartIcon />
         가격 범위
       </button>
       {isListVisible && (
-        <div className="shadow-2xl" style={styles.priceRangeStyle}>
+        <div className="shadow-2xl px-3" style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>
             <MoneyRangeViewer arr={tempPriceRange} />
             <DoubleSlideInput

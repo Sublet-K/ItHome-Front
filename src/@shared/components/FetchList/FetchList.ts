@@ -106,7 +106,7 @@ async function FetchGetPost(
 }
 
 async function FetchSearchPost(
-  searchDate: [Date, Date],
+  searchDate: [string, string],
   searchLocation: {
     city: string;
     gu: string;
@@ -115,6 +115,8 @@ async function FetchSearchPost(
   searchKeyword: string,
   setPosts: (posts: Post[]) => void
 ) {
+  console.log("--------test--------");
+  console.log(searchDate, searchLocation, priceRange, searchKeyword);
   let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}` + `/post/filter?`;
   if (searchLocation.city === "모두") {
     URL =
@@ -146,6 +148,7 @@ async function FetchSearchPost(
       setPosts(res);
     })
     .catch(raiseError("FetchSearchPost"));
+  alert("검색이 완료되었습니다.");
 }
 
 async function FetchUploadPost(

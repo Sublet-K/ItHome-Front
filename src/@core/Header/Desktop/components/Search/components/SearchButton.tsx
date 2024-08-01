@@ -1,5 +1,4 @@
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
-import { useSearchKeyword } from "@core/Header/store/SearchKeywordStore";
 import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
@@ -10,8 +9,9 @@ const SearchButton = () => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();
-  const { searchKeyword } = useSearchKeyword();
+  const searchKeyword = "";
   const { setPosts } = SubletPostStore();
+
   const doSearch = () => {
     FetchSearchPost(
       searchDate,
