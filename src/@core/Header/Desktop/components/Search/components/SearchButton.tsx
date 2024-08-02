@@ -6,7 +6,7 @@ import { SubletPostStore } from "@store/SubletPostStore";
 import DashboardItem from "./DashboardItem";
 import { useRouter } from "next/navigation";
 
-const SearchButton = () => {
+const SearchButton = ({ setFilterState }) => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();
@@ -15,6 +15,7 @@ const SearchButton = () => {
   const router = useRouter();
 
   const doSearch = () => {
+    setFilterState([false, false, false]);
     FetchSearchPost(
       searchDate,
       searchLocation,
@@ -27,14 +28,16 @@ const SearchButton = () => {
   };
 
   return (
-    <button
-      onClick={doSearch}
-      className="font-bold text-black opacity-90 text-base"
-    >
-      <DashboardItem>
-        <img src="/svgs/searchButton.svg" alt="search" />
-      </DashboardItem>
-    </button>
+    <div>
+      <button
+        onClick={doSearch}
+        className="font-bold text-black opacity-90 text-base"
+      >
+        <DashboardItem>
+          <img src="/svgs/searchButton.svg" alt="search" />
+        </DashboardItem>
+      </button>
+    </div>
   );
 };
 

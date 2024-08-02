@@ -6,16 +6,16 @@ import "dayjs/locale/ko";
 export const DoubleDatePicker = ({ dateData, setDateData }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
-      <span className="">
+      <span>
         <DatePicker
           value={dayjs(dateData[0])}
           onChange={(selectedDate) => {
             if (!selectedDate) return;
             const newDate = dayjs(selectedDate).format("YYYY-MM-DD");
             if (newDate > dateData[1]) {
-              setDateData([newDate, newDate]);
+              setDateData(newDate, newDate);
             } else {
-              setDateData([newDate, dateData[1]]);
+              setDateData(newDate, dateData[1]);
             }
           }}
         />
@@ -28,9 +28,9 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
             if (!selectedDate) return;
             const newDate = dayjs(selectedDate).format("YYYY-MM-DD");
             if (dateData[0] > newDate) {
-              setDateData([newDate, newDate]);
+              setDateData(newDate, newDate);
             } else {
-              setDateData([dateData[0], newDate]);
+              setDateData(dateData[0], newDate);
             }
           }}
         />

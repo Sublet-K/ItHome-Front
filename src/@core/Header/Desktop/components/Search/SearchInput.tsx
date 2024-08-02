@@ -5,8 +5,7 @@ import SearchDate from "./components/SearchDate";
 import SearchLocation from "./components/SearchLocation";
 import SearchPriceRange from "./components/SearchPriceRange";
 
-const SearchInput = () => {
-  const [filterState, setFilterState] = useState([false, false, false]);
+const SearchInput = ({ filterState, setFilterState }) => {
   return (
     <div className="flex-1 flex justify-center items-center h-16 sm:h-auto">
       <div className="hidden sm:ml-6 sm:block">
@@ -31,7 +30,7 @@ const SearchInput = () => {
               />
             </DashboardItem>
           </div>
-          <SearchButton />
+          <SearchButton setFilterState={setFilterState} />
         </div>
       </div>
     </div>
