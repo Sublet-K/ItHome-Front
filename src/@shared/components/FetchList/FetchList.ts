@@ -115,7 +115,12 @@ async function FetchSearchPost(
   searchKeyword: string,
   setPosts: (posts: Post[]) => void
 ) {
+<<<<<<< HEAD
   // priceRange에 30을 나누면 한달 비용으로 바뀜. ex.  &fromPrice=${priceRange[0] / 30}&toPrice=${priceRange[1] / 30}
+=======
+  console.log("--------test--------");
+  console.log(searchDate, searchLocation, priceRange, searchKeyword);
+>>>>>>> 9c8e95c36a6a8ced3073cc47c85639509c6363ec
   let URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}` + `/post/filter?`;
   if (searchLocation.city === "모두") {
     URL =
@@ -141,6 +146,7 @@ async function FetchSearchPost(
       setPosts(res);
     })
     .catch(raiseError("FetchSearchPost"));
+  alert("검색이 완료되었습니다.");
 }
 
 async function FetchUploadPost(
