@@ -9,7 +9,7 @@ import * as headerStyle from "@shared/styles/Header.styles";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = ({ filterState, setFilterState }) => {
-  const priceRangeMinMax: [number, number] = [0, 1000000];
+  const priceRangeMinMax: [number, number] = [0, 500000];
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -65,6 +65,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
               value={priceRange}
               onChange={handlePriceChange}
               minMax={priceRangeMinMax}
+              step={1000}
             />
           </div>
           <button

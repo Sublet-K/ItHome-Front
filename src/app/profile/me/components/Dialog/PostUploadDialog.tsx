@@ -451,6 +451,7 @@ export const PostUploadDialog = () => {
             value={postState["duration"] as [number, number]}
             onChange={handleDuration}
             minMax={[1, 730]}
+            step={1}
           />
           {/* <DoubleSlideInput
                 value={postState['duration']}

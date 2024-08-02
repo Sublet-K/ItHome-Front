@@ -22,11 +22,13 @@ export const DoubleSlideInput = ({
   name = "",
   onChange,
   minMax,
+  step,
 }: {
   value: [number, number];
   name: string;
   onChange: (event: Event, value: number[]) => void;
   minMax: [number, number];
+  step: number;
 }) => {
   return (
     <CustomSlider
@@ -36,6 +38,7 @@ export const DoubleSlideInput = ({
       valueLabelDisplay="off"
       min={minMax[0]}
       max={minMax[1]}
+      step={step}
     />
   );
 };
