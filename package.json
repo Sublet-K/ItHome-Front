@@ -11,8 +11,8 @@
     "test": "next dev -H 0.0.0.0 -p 80"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@fancyapps/fancybox": "^3.5.7",
     "@fancyapps/ui": "^5.0.36",
     "@material-tailwind/react": "^2.1.9",
@@ -34,6 +34,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-intersection-observer": "^9.10.2",
+    "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
     "swiper": "^11.1.3",

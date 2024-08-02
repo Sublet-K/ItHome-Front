@@ -72,7 +72,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="sm:hidden" id="mobile-menu">
+        <div className="sm:hidden border-t border-gray-300" id="mobile-menu">
           <SearchInputMobile />
         </div>
       </div>

@@ -8,7 +8,7 @@ import SearchPriceRange from "./components/SearchPriceRange";
 const SearchInputMobile = () => {
   const [filterState, setFilterState] = useState([false, false, false]);
   return (
-    <div className="space-y-1 px-2 pb-3 pt-2">
+    <div className="space-y-1 px-2 pb-3 pt-2 flex flex-col">
       <MobileDashboardItem>
         <SearchLocation
           filterState={filterState}
@@ -24,7 +24,12 @@ const SearchInputMobile = () => {
           setFilterState={setFilterState}
         />
       </MobileDashboardItem>
-      <SearchButton />
+      <div
+        className="sm:hidden border-t border-gray-300 flex items-center justify-center h-16"
+        id="mobile-menu"
+      >
+        <SearchInputMobile />
+      </div>
     </div>
   );
 };

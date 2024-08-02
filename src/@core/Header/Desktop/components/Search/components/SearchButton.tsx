@@ -27,14 +27,16 @@ const SearchButton = () => {
   };
 
   return (
-    <button
-      onClick={doSearch}
-      className="font-bold text-black opacity-90 text-base"
-    >
-      <DashboardItem>
-        <img src="/svgs/searchButton.svg" alt="search" />
-      </DashboardItem>
-    </button>
+    <div>
+      <button
+        onClick={doSearch}
+        className="font-bold text-black opacity-90 text-base"
+      >
+        <DashboardItem>
+          <img src="/svgs/searchButton.svg" alt="search" />
+        </DashboardItem>
+      </button>
+    </div>
   );
 };
 

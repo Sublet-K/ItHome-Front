@@ -23,7 +23,6 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
 
 const SearchLocation = ({ filterState, setFilterState }) => {
   const { searchLocation, setSearchLocation } = useSearchLocationStore();
-  const [tempPos, setTempPos] = useState(searchLocation); // 실제 값은 priceRange에 저장 // 추후 위치 기반으로 초기화.
   const buttonRef = useRef<HTMLButtonElement>(null);
   const cities = Object.keys(AdministrativeDistricts) as string[];
 
@@ -31,18 +30,9 @@ const SearchLocation = ({ filterState, setFilterState }) => {
     setFilterState([!filterState[0], false, false]);
   };
 
-  const handleSubmit = () => {
-    setSearchLocation(tempPos["city"], tempPos["gu"]);
-    setFilterState([false, false, false]);
-  };
-
-  const handleCancel = () => {
-    setTempPos(searchLocation);
-    setFilterState([false, false, false]);
-  };
-
   const onChange = (e: any) => {
-    setTempPos({ ...tempPos, [e.target.name]: e.target.value });
+    if (e.target.name == "city") setSearchLocation(e.target.value, "");
+    else setSearchLocation(searchLocation["city"], e.target.value);
   };
 
   return (
@@ -57,11 +47,11 @@ const SearchLocation = ({ filterState, setFilterState }) => {
       </button>
       {filterState[0] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
-          <div className="relative flex flex-col justify-between gap-2.5">
+          <div className="relative flex flex-col justify-between gap-2.5 pb-3">
             시/도
             <DropBoxSelect
               name="city"
-              state={tempPos["city"]}
+              state={searchLocation["city"]}
               onChange={onChange}
               labelName=""
               labelId="city"
@@ -71,28 +61,20 @@ const SearchLocation = ({ filterState, setFilterState }) => {
             구/시/군/면
             <DropBoxSelect
               name="gu"
-              state={tempPos["gu"]}
+              state={searchLocation["gu"]}
               onChange={onChange}
               labelName="모두"
               labelId="gu"
               id="gu"
               menuItems={
-                tempPos["city"]
+                searchLocation["city"]
                   ? (AdministrativeDistricts as { [key: string]: string[] })[
-                      tempPos["city"]
+                      searchLocation["city"]
                     ]
                   : ["시/군을 먼저 선택해주세요"]
               }
             />
           </div>
-          <headerStyle.acceptOrCancleButton>
-            <button onClick={handleSubmit} className="text-base font-light">
-              적용
-            </button>
-            <button onClick={handleCancel} className="text-base font-light">
-              취소
-            </button>
-          </headerStyle.acceptOrCancleButton>
         </Popup>
       )}
     </span>
