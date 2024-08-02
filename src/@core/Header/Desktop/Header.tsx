@@ -10,8 +10,8 @@ import Link from "next/link";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
-import MobileDashboardItem from "./components/MobileDashboardItem";
 import SearchInput from "./components/Search/SearchInput";
+import SearchInputMobile from "./components/Search/SearchInputMobile";
 
 const Header = () => {
   const { userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
@@ -73,11 +73,7 @@ const Header = () => {
         </div>
 
         <div className="sm:hidden" id="mobile-menu">
-          <div className="space-y-1 px-2 pb-3 pt-2">
-            <MobileDashboardItem href="#" desc="위치" />
-            <MobileDashboardItem href="#" desc="가격" />
-            <MobileDashboardItem href="#" desc="날짜" />
-          </div>
+          <SearchInputMobile />
         </div>
       </div>
     </nav>

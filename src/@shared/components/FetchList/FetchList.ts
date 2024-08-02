@@ -141,7 +141,6 @@ async function FetchSearchPost(
       setPosts(res);
     })
     .catch(raiseError("FetchSearchPost"));
-  alert("검색이 완료되었습니다.");
 }
 
 async function FetchUploadPost(
