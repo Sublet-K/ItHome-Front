@@ -3,9 +3,11 @@ import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import DashboardItem from "./DashboardItem";
 import { useRouter } from "next/navigation";
 import { BlackButton } from "@shared/styles/Public.styles";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SearchButtonWithBox = ({ setFilterState }) => {
   const { searchDate } = useSearchDateStore();
@@ -25,6 +27,21 @@ const SearchButtonWithBox = ({ setFilterState }) => {
       setPosts
     ).then(() => {
       router.push("/searchsubletinfo");
+      toast("검색이 완료되었습니다.", {
+        position: "top-right", // 위치를 하단 중앙으로 설정
+        autoClose: 1000, // 1초 후에 자동으로 닫힘
+        hideProgressBar: true, // 진행 바 숨김
+        closeOnClick: true, // 클릭 시 닫힘
+        pauseOnHover: true, // 마우스 오버 시 일시 정지
+        draggable: true, // 드래그 가능
+        theme: "light", // 심플한 밝은 색상 테마
+        style: {
+          backgroundColor: "#333", // 어두운 배경색
+          color: "#fff", // 흰색 텍스트
+          borderRadius: "8px", // 약간의 둥근 모서리
+          padding: "10px", // 패딩 추가
+        },
+      });
     });
   };
 
