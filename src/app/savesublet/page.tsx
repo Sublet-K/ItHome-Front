@@ -1,9 +1,15 @@
 "use client";
+import { Post } from "@/@type/Type";
 import { RoomProfile } from "@app/_PageComponents/Home/components/RoomProfile";
+import { FetchGetLikePosts } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import { useEffect } from "react";
+import { useUserLikeStore } from "@store/UserLikeStore";
+import { useState } from "react";
 
 export function SavePost(props: any) {
+  const { likePostId, setLikePostId } = useUserLikeStore();
+  const [likePosts, setLikesPosts] = useState([] as Post[]);
+  FetchGetLikePosts(setLikesPosts);
   const { page, asyncGetPost, asyncGetPostAll } = SubletPostStore((state) => ({
     page: state.page,
     asyncGetPost: state.asyncGetPost,
@@ -15,31 +21,21 @@ export function SavePost(props: any) {
     postAll: state.postAll,
   }));
 
-  useEffect(() => {
-    // asyncGetPost(page);
-    if (!postExist) {
-      asyncGetPostAll();
-    }
-  }, []);
-
-  useEffect(() => {}, [postAll[0]?.marker]);
-
   return (
     <section className="bg-white py-8">
       <div className="bg-white text-gray-600">
         <p className="text-xl font-light container mx-auto flex flex-wrap pt-4">
-          검색 숙소:{postAll.length}개
+          저장한 숙소:{likePosts.length}개
         </p>{" "}
-        <div className="container mx-auto flex items-center justify-center flex-wrap pt-4">
-          {postExist &&
-            postAll?.map((room, index) => (
-              <RoomProfile
-                key={index}
-                room={room}
-                likes={likePostId}
-                setLikes={setLikePostId}
-              />
-            ))}
+        <div className="flex flex-wrap justify-center items-center pt-4">
+          {likePosts.map((room, index) => (
+            <RoomProfile
+              key={index}
+              room={room}
+              likes={likePostId}
+              setLikes={setLikePostId}
+            />
+          ))}
         </div>
       </div>
     </section>
