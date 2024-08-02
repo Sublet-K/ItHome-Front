@@ -46,6 +46,7 @@ import { VerifyEmailComponents } from "../verifyComponents/Email";
 import { CustomWindow } from "@app/RoomType";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { loginPopUpStore } from "@store/LoginPopUpStore";
 import { Post } from "@type/Type";
 import { DoubleDatePicker } from "../Input/DoubleDatePicker";
 import { DoubleSlideInput } from "../Input/DoubleSlideInput";
@@ -655,28 +656,23 @@ export function SignUpDialog() {
 }
 
 export function LoginDialog() {
-  const [popUpState, setPopUpState] = useState(false);
-
-  const togglePopUpState = () => {
-    setPopUpState(!popUpState);
-  };
+  const { loginPopUpState, setLoginPopUpState } = loginPopUpStore();
 
   return (
     <div>
-      <button onClick={togglePopUpState}>Login</button>
       <Dialog
-        open={popUpState}
+        open={loginPopUpState}
         className="border border-gray-300 shadow-xl rounded-lg"
         style={{
           fontFamily: "Pretendard",
         }}
       >
         <DialogTitle>
-          <s.SvgHoverButton type="button" onClick={togglePopUpState}>
+          <s.SvgHoverButton type="button" onClick={setLoginPopUpState}>
             <StyleComponent content="CloseButton" />
           </s.SvgHoverButton>
         </DialogTitle>
-        <LoginContent setPopUpState={setPopUpState} />
+        <LoginContent setPopUpState={setLoginPopUpState} />
       </Dialog>
       <SignUpDialog />
     </div>
