@@ -19,7 +19,13 @@ const Header = () => {
   const { resetLikePostId } = useUserLikeStore();
   const router = useRouter();
   const [filterState, setFilterState] = useState([false, false, false]);
+  const [searchFilterShow, setSearchFilterShow] = useState(false);
+
+  const toggleSearchFilterShow = () => {
+    setSearchFilterShow(!searchFilterShow);
+  };
   const { setLoginPopUpState } = loginPopUpStore();
+
   const handleReload = () => {
     router.push("/");
   };
@@ -53,6 +59,13 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-end">
+            <div className="sm:hidden">
+              <button onClick={toggleSearchFilterShow} className="flex px-4">
+                {!searchFilterShow && (
+                  <img src="/svgs/searchButton.svg" alt="search" />
+                )}
+              </button>
+            </div>
             {userExist ? (
               <div className="flex items-center space-x-4">
                 <Link href="/savesublet">
@@ -78,8 +91,10 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="sm:hidden border-t border-gray-300" id="mobile-menu">
+        <div className="sm:hidden" id="mobile-menu">
           <SearchInputMobile
+            searchFilterShow={searchFilterShow}
+            toggleSearchFilterShow={toggleSearchFilterShow}
             filterState={filterState}
             setFilterState={setFilterState}
           />

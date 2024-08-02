@@ -3,13 +3,13 @@ import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import DashboardItem from "./DashboardItem";
 import { useRouter } from "next/navigation";
+import { BlackButton } from "@shared/styles/Public.styles";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SearchButton = ({ setFilterState }) => {
+const SearchButtonWithBox = ({ setFilterState }) => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();
@@ -47,19 +47,21 @@ const SearchButton = ({ setFilterState }) => {
 
   return (
     <div>
-      <button
+      <BlackButton
         onClick={doSearch}
-        className="font-bold text-black opacity-90 text-base"
+        // text-black opacity-90 text-base
       >
-        <DashboardItem>
-          <div className="flex">
-            <img src="/svgs/searchButton.svg" alt="search" />
-            {/* 검색 */}
-          </div>
-        </DashboardItem>
-      </button>
+        <div className="flex">
+          <img
+            src="/svgs/searchButtonWhite.svg"
+            alt="search"
+            className="px-1"
+          />
+          검색하기
+        </div>
+      </BlackButton>
     </div>
   );
 };
 
-export default SearchButton;
+export default SearchButtonWithBox;

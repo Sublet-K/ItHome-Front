@@ -21,23 +21,7 @@ export default function SearchSubletInfo(props: any) {
   const { likePostId, setLikePostId } = useUserLikeStore();
   useTitle("검색 결과");
 
-  useEffect(() => {
-    toast("검색이 완료되었습니다.", {
-      position: "top-right", // 위치를 하단 중앙으로 설정
-      autoClose: 1000, // 1초 후에 자동으로 닫힘
-      hideProgressBar: true, // 진행 바 숨김
-      closeOnClick: true, // 클릭 시 닫힘
-      pauseOnHover: true, // 마우스 오버 시 일시 정지
-      draggable: true, // 드래그 가능
-      theme: "light", // 심플한 밝은 색상 테마
-      style: {
-        backgroundColor: "#333", // 어두운 배경색
-        color: "#fff", // 흰색 텍스트
-        borderRadius: "8px", // 약간의 둥근 모서리
-        padding: "10px", // 패딩 추가
-      },
-    });
-  }, [post[0]?.marker]);
+  useEffect(() => {}, [post[0]?.marker]);
 
   return (
     <section className="bg-white py-8">
