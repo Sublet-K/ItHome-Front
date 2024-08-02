@@ -8,11 +8,7 @@ import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
 import * as headerStyle from "@shared/styles/Header.styles";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
-<<<<<<< HEAD
 const SearchPriceRange = ({ filterState, setFilterState }) => {
-=======
-const SearchPriceRange = () => {
->>>>>>> 9c8e95c36a6a8ced3073cc47c85639509c6363ec
   const priceRangeMinMax: [number, number] = [0, 1000000]; // tempData
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const [tempPriceRange, setTempPriceRange] = useState(priceRange); // 그래프 표현을 위한 이중화. 실제 값은 priceRange에 저장
@@ -67,11 +63,7 @@ const SearchPriceRange = () => {
         <BarChartIcon />
         가격 범위
       </button>
-<<<<<<< HEAD
       {filterState[2] && (
-=======
-      {isListVisible && (
->>>>>>> 9c8e95c36a6a8ced3073cc47c85639509c6363ec
         <div className="shadow-2xl px-3" style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>
             <MoneyRangeViewer arr={tempPriceRange} />

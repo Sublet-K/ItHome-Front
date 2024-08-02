@@ -12,10 +12,7 @@ const SearchButton = () => {
   const { priceRange } = useSearchPriceStore();
   const searchKeyword = "";
   const { setPosts } = SubletPostStore();
-<<<<<<< HEAD
   const router = useRouter();
-=======
->>>>>>> 9c8e95c36a6a8ced3073cc47c85639509c6363ec
 
   const doSearch = () => {
     FetchSearchPost(
