@@ -580,7 +580,18 @@ export function SignUpDialog() {
           <s.SecondHead>회원가입</s.SecondHead>
         </div>
       </DialogTitle>
-      <DialogContent sx={{ width: 512 }}>
+      <DialogContent
+        sx={{
+          width: "100%", // 모든 화면 크기에서 100% 너비
+          maxWidth: {
+            xs: "100%",
+            sm: "100%",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+          }, // 화면 크기에 따라 최대 너비 조정
+        }}
+      >
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div>
             <div className="mt-2 flex items-center justify-between">
@@ -836,7 +847,16 @@ export const PostEditDialog = ({
 
   return (
     <>
-      <DialogContent sx={{ width: "500px" }} className="">
+      <DialogContent
+        sx={{
+          width: "100%", // Full width
+          maxWidth: "100%", // Set max width to 100% to cover the entire screen width
+          padding: 0, // Remove padding
+          margin: 0, // Remove margin
+        }}
+        className="w-full flex-wrap pt-4" // Use w-full to ensure it takes the full width
+      >
+        {" "}
         {/* <p>
             --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
           </p> */}
@@ -933,7 +953,6 @@ export const PostEditDialog = ({
             step={1}
           />
         </p>
-
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>
             사진을 올려주세요.
@@ -945,9 +964,9 @@ export const PostEditDialog = ({
           <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>아래 내용이 맞을까요?</h3>
+          <h3 style={psd.gridStyle.infoType}>정보 확인해주세요!</h3>
         </p>
-        <div className="ml-10" style={{ width: "320px" }}>
+        <div className="ml-10" style={{}}>
           <s.SecondHead>{title == "" ? "제목 작성 안됨" : title}</s.SecondHead>
           <s.NormalText className="mt-2 w-full">
             {basicInfo.split(/\r\n|\r|\n/).map((line, index) => (

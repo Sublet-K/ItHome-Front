@@ -25,7 +25,7 @@ export function SavePost(props: any) {
     <section className="bg-white py-8">
       <div className="bg-white text-gray-600">
         <p className="text-xl font-light container mx-auto flex flex-wrap pt-4">
-          저장한 숙소:{likePosts.length}개
+          저장한 호스팅:{likePosts.length}개
         </p>{" "}
         <div className="flex flex-wrap justify-center items-center pt-4">
           {likePosts.map((room, index) => (

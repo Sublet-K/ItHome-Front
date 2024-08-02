@@ -5,7 +5,7 @@ import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
 import { useEffect } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function SearchSubletInfo(props: any) {
@@ -27,7 +27,7 @@ export default function SearchSubletInfo(props: any) {
     <section className="bg-white py-8">
       <div className="bg-white text-gray-600">
         <p className="text-xl font-light container mx-auto flex flex-wrap pt-4">
-          검색 숙소:{post.length}개
+          검색 결과:{post.length}개
         </p>{" "}
         <div className="container mx-auto flex items-center justify-center flex-wrap pt-4">
           {postExist &&

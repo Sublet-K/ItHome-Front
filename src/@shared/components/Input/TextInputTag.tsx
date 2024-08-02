@@ -130,7 +130,7 @@ export const TextInputTag = ({
       {label}
     </label>
     {required ? (
-      <div style={{ width: "320px" }}>
+      <div style={{ width: "" }}>
         <input
           type="text"
           id={id}
@@ -150,7 +150,7 @@ export const TextInputTag = ({
         />
       </div>
     ) : (
-      <div style={{ width: "320px" }}>
+      <div style={{ width: "" }}>
         <input
           type="text"
           name={name}
@@ -197,7 +197,7 @@ export const InputTextArea = ({
       {label}
     </label>
     {required ? (
-      <div style={{ width: "320px" }}>
+      <div style={{}}>
         <textarea
           id={id}
           name={name}
@@ -215,7 +215,7 @@ export const InputTextArea = ({
         />
       </div>
     ) : (
-      <div style={{ width: "320px" }}>
+      <div style={{}}>
         <textarea
           id={id}
           name={name}
