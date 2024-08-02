@@ -34,7 +34,10 @@ const SearchButton = ({ setFilterState }) => {
         className="font-bold text-black opacity-90 text-base"
       >
         <DashboardItem>
-          <img src="/svgs/searchButton.svg" alt="search" />
+          <div className="flex">
+            <img src="/svgs/searchButton.svg" alt="search" />
+            {/* 검색 */}
+          </div>
         </DashboardItem>
       </button>
     </div>

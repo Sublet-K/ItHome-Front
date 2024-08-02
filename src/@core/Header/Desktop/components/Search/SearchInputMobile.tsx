@@ -15,15 +15,17 @@ const SearchInputMobile = ({ filterState, setFilterState }) => {
   return (
     <div className="pt-2">
       <div className="flex justify-center">
-        <img src="/svgs/searchButton.svg" alt="search" />
-        {searchFilterShow ? (
-          <button onClick={toggleSearchFilterShow}>검색 닫기</button>
-        ) : (
-          <button onClick={toggleSearchFilterShow}>검색하기</button>
+        {!searchFilterShow && (
+          <button onClick={toggleSearchFilterShow} className="flex">
+            <img src="/svgs/searchButton.svg" alt="search" /> 검색하기
+          </button>
         )}
       </div>
       {searchFilterShow && (
-        <div className="space-y-1 px-2 pb-3 pt-2 flex flex-col">
+        <div className="space-y-1 px-2 pb-2 pt-2 flex flex-col">
+          <div className="flex justify-end w-full">
+            <button onClick={toggleSearchFilterShow}>닫기</button>
+          </div>
           <MobileDashboardItem>
             <SearchLocation
               filterState={filterState}
