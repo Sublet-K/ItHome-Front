@@ -7,7 +7,7 @@ import { LoginDialog } from "@shared/components/Popup/Popup";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
-import { useRef } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import SearchInput from "./components/Search/SearchInput";
@@ -17,6 +17,7 @@ const Header = () => {
   const { userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
   const { resetLikePostId } = useUserLikeStore();
   const router = useRouter();
+  const [filterState, setFilterState] = useState([false, false, false]);
 
   const handleReload = () => {
     router.push("/");
@@ -44,7 +45,10 @@ const Header = () => {
           </div>
 
           <div className="ml-32 flex items-center justify-center flex-1">
-            <SearchInput />
+            <SearchInput
+              filterState={filterState}
+              setFilterState={setFilterState}
+            />
           </div>
 
           <div className="flex items-center justify-end">
@@ -73,7 +77,10 @@ const Header = () => {
         </div>
 
         <div className="sm:hidden border-t border-gray-300" id="mobile-menu">
-          <SearchInputMobile />
+          <SearchInputMobile
+            filterState={filterState}
+            setFilterState={setFilterState}
+          />
         </div>
       </div>
     </nav>
