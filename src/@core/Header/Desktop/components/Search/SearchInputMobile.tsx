@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import MobileDashboardItem from "./components/MobileDashboardItem";
 import SearchButtonWithBox from "./components/SearchButtonWithBox";
 import SearchDate from "./components/SearchDate";
