@@ -48,12 +48,12 @@ const SearchDate = ({ filterState, setFilterState }) => {
 
   const handleSubmit = () => {
     setSearchDate(tempSearchDate[0], tempSearchDate[1]);
-    setFilterState([false, filterState[1], false]);
+    setFilterState([false, false, false]);
   };
 
   const handleCancel = () => {
     setTempSearchDate([searchDate[0], searchDate[1]]);
-    setFilterState([false, filterState[1], false]);
+    setFilterState([false, false, false]);
   };
 
   return (

@@ -45,12 +45,12 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
 
   const handleSubmit = () => {
     setPriceRange(tempPriceRange[0], tempPriceRange[1]);
-    setFilterState([false, false, filterState[2]]);
+    setFilterState([false, false, false]);
   };
 
   const handleCancel = () => {
     setTempPriceRange(priceRange);
-    setFilterState([false, false, filterState[2]]);
+    setFilterState([false, false, false]);
   };
 
   return (
