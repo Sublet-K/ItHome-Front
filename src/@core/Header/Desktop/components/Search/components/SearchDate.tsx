@@ -7,14 +7,13 @@ import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
 import { useSearchDateStore } from "../../../../store/SearchDateStore";
 
-const SearchDate = () => {
-  const [isListVisible, setIsListVisible] = useState(false);
+const SearchDate = ({ filterState, setFilterState }) => {
   const {
     searchDate,
     setSearchDate,
   }: {
-    searchDate: [Date, Date];
-    setSearchDate: (a: Date, b: Date) => void;
+    searchDate: [string, string];
+    setSearchDate: (a: string, b: string) => void;
   } = useSearchDateStore(); // useState([null, null]); // [start, end]
   const [tempSearchDate, setTempSearchDate] = useState(searchDate);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -44,17 +43,17 @@ const SearchDate = () => {
   `;
 
   const toggleCalander = () => {
-    setIsListVisible(!isListVisible);
+    setFilterState([false, !filterState[1], false]);
   };
 
   const handleSubmit = () => {
     setSearchDate(tempSearchDate[0], tempSearchDate[1]);
-    setIsListVisible(false);
+    setFilterState([false, false, false]);
   };
 
   const handleCancel = () => {
     setTempSearchDate([searchDate[0], searchDate[1]]);
-    setIsListVisible(false);
+    setFilterState([false, false, false]);
   };
 
   return (
@@ -64,10 +63,10 @@ const SearchDate = () => {
       }}
     >
       <button ref={buttonRef} onClick={toggleCalander} className="text-lg">
-        날짜
         <DateRangeOutlinedIcon />
+        날짜
       </button>
-      {isListVisible && (
+      {filterState[1] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <Layout>
             <DoubleDatePicker

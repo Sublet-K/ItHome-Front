@@ -21,25 +21,24 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   justify-content: center;
 `;
 
-const SearchLocation = () => {
+const SearchLocation = ({ filterState, setFilterState }) => {
   const { searchLocation, setSearchLocation } = useSearchLocationStore();
   const [tempPos, setTempPos] = useState(searchLocation); // 실제 값은 priceRange에 저장 // 추후 위치 기반으로 초기화.
-  const [isListVisible, setIsListVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const cities = Object.keys(AdministrativeDistricts) as string[];
 
   const togglePosFilter = () => {
-    setIsListVisible(!isListVisible);
+    setFilterState([!filterState[0], false, false]);
   };
 
   const handleSubmit = () => {
     setSearchLocation(tempPos["city"], tempPos["gu"]);
-    setIsListVisible(false);
+    setFilterState([false, false, false]);
   };
 
   const handleCancel = () => {
     setTempPos(searchLocation);
-    setIsListVisible(false);
+    setFilterState([false, false, false]);
   };
 
   const onChange = (e: any) => {
@@ -56,7 +55,7 @@ const SearchLocation = () => {
         <LocationOnIcon />
         지역
       </button>
-      {isListVisible && (
+      {filterState[0] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <div className="relative flex flex-col justify-between gap-2.5">
             시/도

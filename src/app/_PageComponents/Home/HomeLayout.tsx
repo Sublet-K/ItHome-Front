@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import { FetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
-import { useUserInfoStore } from "@store/UserInfoStore";
 import { Post } from "@type/Type";
 import { useInView } from "react-intersection-observer";
 import { useTitle } from "../UseTitle";
@@ -20,7 +19,6 @@ export const HomeLayout = ({
   preRoomsData: Post[];
 }) => {
   useTitle("ItHome");
-  const { userInfo } = useUserInfoStore();
 
   const [roomsData, setRoomsData] = useState<Post[]>(initRoomsData);
   const [preRoomsData, setPreRoomsData] = useState<Post[]>(initPreRoomsData);
