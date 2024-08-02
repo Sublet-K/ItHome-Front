@@ -3,16 +3,16 @@
 import { Favorite } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import { FetchLogout } from "@shared/components/FetchList/FetchList";
-import { LoginDialog } from "@shared/components/Popup/Popup";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
 import Link from "next/link";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
+import { LoginDialog } from "@shared/components/Popup/Popup";
+import { loginPopUpStore } from "@store/LoginPopUpStore";
 import SearchInput from "./components/Search/SearchInput";
 import SearchInputMobile from "./components/Search/SearchInputMobile";
-import SearchButton from "./components/Search/components/SearchButton";
 
 const Header = () => {
   const { userExist, resetUserInfo } = useUserInfoStore(); // 로그인 테스트 (true: 로그인, false: 로그아웃)
@@ -24,6 +24,7 @@ const Header = () => {
   const toggleSearchFilterShow = () => {
     setSearchFilterShow(!searchFilterShow);
   };
+  const { setLoginPopUpState } = loginPopUpStore();
 
   const handleReload = () => {
     router.push("/");
@@ -67,7 +68,7 @@ const Header = () => {
             </div>
             {userExist ? (
               <div className="flex items-center space-x-4">
-                <Link href="/SaveSublet">
+                <Link href="/savesublet">
                   <Favorite />
                 </Link>
                 <Link href="/profile/me">
@@ -84,8 +85,9 @@ const Header = () => {
                 </button>
               </div>
             ) : (
-              <LoginDialog />
+              <button onClick={setLoginPopUpState}>Login</button>
             )}
+            <LoginDialog />
           </div>
         </div>
 

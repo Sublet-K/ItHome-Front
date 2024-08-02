@@ -1,6 +1,8 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
+import { loginPopUpStore } from "@store/LoginPopUpStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
+import { useUserLikeStore } from "@store/UserLikeStore";
 import { Dispatch, SetStateAction } from "react";
 import { FetchLogin } from "../FetchList/FetchList";
 
@@ -33,6 +35,8 @@ export function GoogleButton({
   const { setSignUpPopUpState } = guestInfoPopUpStore((state) => ({
     setSignUpPopUpState: state.setSignUpPopUpState,
   }));
+  const { initFetchLikePostId } = useUserLikeStore();
+  const { loginPopUpState, setLoginPopUpState } = loginPopUpStore();
 
   return (
     <>
@@ -51,7 +55,9 @@ export function GoogleButton({
                 id: email,
                 password: "googleLogin!2#1",
                 setUserInfo,
+                initFetchLikePostId,
               });
+              setLoginPopUpState();
             } catch (e) {
               if (e) {
                 setErrorMessage("이 이메일로 가입된 계정이 없습니다.");
