@@ -1,29 +1,28 @@
 import React, { useState } from "react";
 import MobileDashboardItem from "./components/MobileDashboardItem";
-import SearchButton from "./components/SearchButton";
+import SearchButtonWithBox from "./components/SearchButtonWithBox";
 import SearchDate from "./components/SearchDate";
 import SearchLocation from "./components/SearchLocation";
 import SearchPriceRange from "./components/SearchPriceRange";
 
-const SearchInputMobile = ({ filterState, setFilterState }) => {
-  const [searchFilterShow, setSearchFilterShow] = useState(false);
-
-  const toggleSearchFilterShow = () => {
-    setSearchFilterShow(!searchFilterShow);
-  };
-
+const SearchInputMobile = ({
+  searchFilterShow,
+  toggleSearchFilterShow,
+  filterState,
+  setFilterState,
+}) => {
   return (
     <div className="pt-2">
       <div className="flex justify-center">
-        {!searchFilterShow && (
+        {/* {!searchFilterShow && (
           <button onClick={toggleSearchFilterShow} className="flex">
             <img src="/svgs/searchButton.svg" alt="search" /> 검색하기
           </button>
-        )}
+        )} */}
       </div>
       {searchFilterShow && (
         <div className="space-y-1 px-2 pb-2 pt-2 flex flex-col">
-          <div className="flex justify-end w-full">
+          <div className="flex justify-end w-full pt-2 border-t border-gray-300">
             <button onClick={toggleSearchFilterShow}>닫기</button>
           </div>
           <MobileDashboardItem>
@@ -45,10 +44,10 @@ const SearchInputMobile = ({ filterState, setFilterState }) => {
             />
           </MobileDashboardItem>
           <div
-            className="sm:hidden border-t border-gray-300 flex items-center justify-center h-16"
+            className="sm:hidden flex items-center justify-center h-16"
             id="mobile-menu"
           >
-            <SearchButton setFilterState={setFilterState} />
+            <SearchButtonWithBox setFilterState={setFilterState} />
           </div>
         </div>
       )}
