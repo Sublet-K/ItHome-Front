@@ -21,9 +21,15 @@ const SearchInputMobile = ({
       </div>
       {searchFilterShow && (
         <div className="space-y-1 px-2 pb-2 pt-2 flex flex-col">
-          <div className="flex justify-end w-full pt-2 border-t border-gray-300">
-            <button onClick={toggleSearchFilterShow}>닫기</button>
+          <div className="flex justify-end w-full pt-2 border-t border-gray-300 ">
+            <button
+              onClick={toggleSearchFilterShow}
+              className="border-b-2 border-gray-400"
+            >
+              닫기
+            </button>
           </div>
+
           <MobileDashboardItem>
             <SearchLocation
               filterState={filterState}

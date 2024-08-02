@@ -930,6 +930,7 @@ export const PostEditDialog = ({
             value={inputs["duration"] as [number, number]}
             onChange={handleDuration}
             minMax={[1, 730]}
+            step={1}
           />
         </p>
 
