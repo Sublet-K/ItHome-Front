@@ -60,7 +60,9 @@ const Header = () => {
           <div className="flex items-center justify-end">
             <div className="sm:hidden">
               <button onClick={toggleSearchFilterShow} className="flex px-4">
-                <img src="/svgs/searchButton.svg" alt="search" />
+                {!searchFilterShow && (
+                  <img src="/svgs/searchButton.svg" alt="search" />
+                )}
               </button>
             </div>
             {userExist ? (
