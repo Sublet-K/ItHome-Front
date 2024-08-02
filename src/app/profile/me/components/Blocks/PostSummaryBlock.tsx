@@ -53,12 +53,10 @@ export function PostSummaryBlock({
     });
   };
   const infoButtonList: {
-    detailDialogShow: string;
     // requestDialogShow: string;
     // reservationDialogShow: string;
     editRoomDialogShow: string;
   } = {
-    detailDialogShow: "상세 정보",
     // requestDialogShow: "받은 요청서",
     // reservationDialogShow: "예약현황",
     editRoomDialogShow: "방 수정하기",
@@ -83,17 +81,17 @@ export function PostSummaryBlock({
   };
   return (
     <div className="border-solid border-2 rounded-lg hover:shadow-lg mt-4">
-      <div className="mt-4 flex justify-center items-center">
+      <div className=" flex justify-center items-center">
         <NormalImage imageLink={imageLink} altContent={"Post Image"} />
       </div>
-      <div className="ml-8 mt-4">
+      <div className="ml-2 mt-4">
         <a
           className="cursor-pointer"
           onClick={() => {
             MoveToRoomInfo({ room });
           }}
         >
-          <p className="font-semibold text-2xl text-gray-900">{`${room.title}`}</p>
+          <p className="font-semibold text-2xl text-gray-900 mr-2">{`${room.title}`}</p>
           <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.street} ${room.street_number}`}</p>
           <p className="text-sm text-gray-500">
             {" "}
@@ -105,7 +103,7 @@ export function PostSummaryBlock({
           </p>{" "}
         </a>
       </div>
-      <div className="mb-2 ml-3 col-span-4">
+      <div className="mb-2 col-span-4">
         <div className="block">
           {!guestMode && (
             <>
@@ -113,7 +111,7 @@ export function PostSummaryBlock({
                 return (
                   <InfoButton
                     key={index}
-                    className="ml-4"
+                    className="ml-2"
                     name={k}
                     onClick={onClick}
                   >
@@ -123,7 +121,7 @@ export function PostSummaryBlock({
               })}
 
               <DeleteButton
-                className="ml-4"
+                className="ml-2"
                 name="deletelDialogShow"
                 onClick={onClick}
               >
