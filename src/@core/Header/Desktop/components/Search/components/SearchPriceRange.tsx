@@ -8,11 +8,10 @@ import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
 import * as headerStyle from "@shared/styles/Header.styles";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
-const SearchPriceRange = () => {
+const SearchPriceRange = ({ filterState, setFilterState }) => {
   const priceRangeMinMax: [number, number] = [0, 1000000]; // tempData
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const [tempPriceRange, setTempPriceRange] = useState(priceRange); // 그래프 표현을 위한 이중화. 실제 값은 priceRange에 저장
-  const [isListVisible, setIsListVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const styles: { [key: string]: React.CSSProperties } = {
@@ -37,7 +36,7 @@ const SearchPriceRange = () => {
   };
 
   const togglePriceFilter = () => {
-    setIsListVisible(!isListVisible);
+    setFilterState([false, false, !filterState[2]]);
   };
 
   const handlePriceChange = (event: Event, newValue: number[]) => {
@@ -46,12 +45,12 @@ const SearchPriceRange = () => {
 
   const handleSubmit = () => {
     setPriceRange(tempPriceRange[0], tempPriceRange[1]);
-    setIsListVisible(false);
+    setFilterState([false, false, filterState[2]]);
   };
 
   const handleCancel = () => {
     setTempPriceRange(priceRange);
-    setIsListVisible(false);
+    setFilterState([false, false, filterState[2]]);
   };
 
   return (
@@ -64,7 +63,7 @@ const SearchPriceRange = () => {
         <BarChartIcon />
         가격 범위
       </button>
-      {isListVisible && (
+      {filterState[2] && (
         <div className="shadow-2xl px-3" style={styles.priceRangeStyle}>
           <div style={styles.priceRangeGraphStyle}>
             <MoneyRangeViewer arr={tempPriceRange} />

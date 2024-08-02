@@ -7,8 +7,7 @@ import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
 import { useSearchDateStore } from "../../../../store/SearchDateStore";
 
-const SearchDate = () => {
-  const [isListVisible, setIsListVisible] = useState(false);
+const SearchDate = ({ filterState, setFilterState }) => {
   const {
     searchDate,
     setSearchDate,
@@ -44,17 +43,17 @@ const SearchDate = () => {
   `;
 
   const toggleCalander = () => {
-    setIsListVisible(!isListVisible);
+    setFilterState([false, !filterState[1], false]);
   };
 
   const handleSubmit = () => {
     setSearchDate(tempSearchDate[0], tempSearchDate[1]);
-    setIsListVisible(false);
+    setFilterState([false, filterState[1], false]);
   };
 
   const handleCancel = () => {
     setTempSearchDate([searchDate[0], searchDate[1]]);
-    setIsListVisible(false);
+    setFilterState([false, filterState[1], false]);
   };
 
   return (
@@ -67,7 +66,7 @@ const SearchDate = () => {
         <DateRangeOutlinedIcon />
         날짜
       </button>
-      {isListVisible && (
+      {filterState[1] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <Layout>
             <DoubleDatePicker
