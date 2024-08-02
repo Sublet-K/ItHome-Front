@@ -18,7 +18,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
     priceRangeStyle: {
       backgroundColor: "white",
       position: "absolute",
-      width: "30em",
+      width: "20em",
       top: `${
         buttonRef.current
           ? buttonRef.current.offsetTop + buttonRef.current.offsetHeight
