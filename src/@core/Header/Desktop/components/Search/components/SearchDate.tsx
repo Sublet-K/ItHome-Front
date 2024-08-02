@@ -1,12 +1,12 @@
 "use client";
 
+import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
-// import * as s from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 
+// Popup 컴포넌트 정의
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
   position: absolute;
@@ -22,6 +22,21 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   justify-content: center;
 `;
 
+// Button 컴포넌트 정의
+const StyledButton = styled.button<{ isClicked: boolean }>`
+  width: 100%;
+  text-align: left;
+  padding: 0.5em;
+  font-size: 1.125rem; /* text-lg */
+  color: ${({ isClicked }) => (isClicked ? "white" : "black")};
+  background-color: ${({ isClicked }) =>
+    isClicked ? "#4B5563" : "transparent"}; /* bg-gray-700 */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
 const SearchDate = ({ filterState, setFilterState }) => {
   const {
     searchDate,
@@ -29,27 +44,44 @@ const SearchDate = ({ filterState, setFilterState }) => {
   }: {
     searchDate: [string, string];
     setSearchDate: (a: string, b: string) => void;
-  } = useSearchDateStore(); // useState([null, null]); // [start, end]
+  } = useSearchDateStore();
+
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // 버튼 클릭 여부를 추적하는 상태 추가
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   const toggleCalander = () => {
+    // 버튼 클릭 상태 토글
+    setIsButtonClicked(!isButtonClicked);
+
+    // 필터 상태 토글
     setFilterState([false, !filterState[1], false]);
   };
 
   const closePopup = () => {
     setFilterState([false, false, false]);
+    // 팝업을 닫을 때 버튼 상태를 클릭 해제로 설정
+    setIsButtonClicked(false);
   };
 
   return (
     <span
       style={{
         fontFamily: "Pretendard",
+        width: "100%", // 부모 컨테이너의 너비를 100%로 설정
+        display: "block", // 부모 span이 블록 요소로 작동하도록 설정
       }}
     >
-      <button ref={buttonRef} onClick={toggleCalander} className="text-lg">
+      <StyledButton
+        ref={buttonRef}
+        onClick={toggleCalander}
+        isClicked={isButtonClicked} // 상태에 따라 스타일 적용
+        className="rounded-md"
+      >
         <DateRangeOutlinedIcon />
         날짜
-      </button>
+      </StyledButton>
       {filterState[1] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <div className="relative flex flex-col justify-between items-center gap-2.5 pb-3">
@@ -69,4 +101,5 @@ const SearchDate = ({ filterState, setFilterState }) => {
     </span>
   );
 };
+
 export default SearchDate;

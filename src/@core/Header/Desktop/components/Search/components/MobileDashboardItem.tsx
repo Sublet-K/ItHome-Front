@@ -6,11 +6,7 @@ type DashboardItemProps = {
 };
 
 const MobileDashboardItem: React.FC<DashboardItemProps> = ({ children }) => {
-  return (
-    <div className="block rounded-md px-3 py-2 text-base font-medium font-semibold hover:bg-gray-700">
-      {children}
-    </div>
-  );
+  return <div className="">{children}</div>;
 };
 
 export default MobileDashboardItem;

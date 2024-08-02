@@ -1,11 +1,13 @@
+"use client";
+
 import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
-import * as headerStyle from "@shared/styles/Header.styles";
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
 
+// Popup 컴포넌트 정의
 const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   background-color: white;
   position: absolute;
@@ -21,34 +23,65 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
   justify-content: center;
 `;
 
+// Button 컴포넌트 정의
+const StyledButton = styled.button<{ isClicked: boolean }>`
+  width: 100%;
+  text-align: left;
+  padding: 0.5em;
+  font-size: 1.125rem; /* text-lg */
+  color: ${({ isClicked }) => (isClicked ? "white" : "black")};
+  background-color: ${({ isClicked }) =>
+    isClicked ? "#4B5563" : "transparent"}; /* bg-gray-700 */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
 const SearchLocation = ({ filterState, setFilterState }) => {
   const { searchLocation, setSearchLocation } = useSearchLocationStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const cities = Object.keys(AdministrativeDistricts) as string[];
 
+  // 버튼 클릭 여부를 추적하는 상태 추가
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   const togglePosFilter = () => {
+    // 버튼 클릭 상태 토글
+    setIsButtonClicked(!isButtonClicked);
+
+    // 필터 상태 토글
     setFilterState([!filterState[0], false, false]);
   };
 
   const onChange = (e: any) => {
-    if (e.target.name == "city") setSearchLocation(e.target.value, "");
+    if (e.target.name === "city") setSearchLocation(e.target.value, "");
     else setSearchLocation(searchLocation["city"], e.target.value);
   };
 
   const closePopup = () => {
     setFilterState([false, false, false]);
+    // 팝업을 닫을 때 버튼 상태를 클릭 해제로 설정
+    setIsButtonClicked(false);
   };
 
   return (
     <span
       style={{
         fontFamily: "Pretendard",
+        width: "100%", // 부모 컨테이너의 너비를 100%로 설정
+        display: "block", // 부모 span이 블록 요소로 작동하도록 설정
       }}
     >
-      <button ref={buttonRef} onClick={togglePosFilter} className="text-lg">
+      <StyledButton
+        ref={buttonRef}
+        onClick={togglePosFilter}
+        isClicked={isButtonClicked} // 상태에 따라 스타일 적용
+        className="rounded-md"
+      >
         <LocationOnIcon />
         지역
-      </button>
+      </StyledButton>
       {filterState[0] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <div className="relative flex flex-col justify-between gap-2.5 pb-3">
@@ -92,13 +125,3 @@ const SearchLocation = ({ filterState, setFilterState }) => {
 };
 
 export default SearchLocation;
-
-/* 지도로 위치 입력하던 부분 보류. -> 아예 지도 검색 부분은 다른 페이지로 넘어가서 하는게 나을 듯. searchedSublet 기반으로. <- 이 페이지가 직방 지도 검색하고 비슷한 느낌이어서
-import { LocationInput } from "@shared/components/Input/LocationInput";
-
-          <LocationInput
-            pos={tempPos}
-            currentPos={searchLocation}
-            onChange={setTempPos}
-          />
-*/

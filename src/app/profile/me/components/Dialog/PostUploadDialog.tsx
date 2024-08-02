@@ -247,20 +247,16 @@ export const PostUploadDialog = () => {
     >
       <DialogContent
         sx={{
-          width: "100%", // 모든 화면 크기에서 100% 너비
-          maxWidth: {
-            xs: "100%",
-            sm: "100%",
-            md: "768px",
-            lg: "1024px",
-            xl: "1280px",
-          }, // 화면 크기에 따라 최대 너비 조정
+          width: "100%", // Full width
+          maxWidth: "100%", // Set max width to 100% to cover the entire screen width
+          padding: 0, // Remove padding
+          margin: 0, // Remove margin
         }}
-        className="container mx-auto flex-wrap pt-4"
+        className="w-full flex-wrap pt-4" // Use w-full to ensure it takes the full width
       >
         {/* Swiper 내의 개별 슬라이드 */}
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 정보 작성</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 정보</h3>
           <DropBoxSelect
             name="accomodationType"
             state={postState["accomodationType"]}
@@ -319,7 +315,7 @@ export const PostUploadDialog = () => {
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 방 설명</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 방</h3>
           <TextInputTag
             id="title"
             label="제목"
@@ -342,7 +338,7 @@ export const PostUploadDialog = () => {
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 위치 입력하기</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 위치</h3>
           <DropBoxSelect
             name="city"
             state={postState["city"]}
@@ -368,7 +364,7 @@ export const PostUploadDialog = () => {
                 : ["시/군을 먼저 선택해주세요"]
             }
           />
-          <div className=" mt-4">
+          <div className="mt-4">
             <TextInputTag
               id="street"
               label="길(로)"
@@ -377,9 +373,10 @@ export const PostUploadDialog = () => {
               name="street"
               onChange={onChange}
               required={true}
+              className="w-full sm:w-3/4 lg:w-1/2" // Apply responsive width
             />
           </div>
-          <div className=" mt-4">
+          <div className="mt-4">
             <TextInputTag
               id="streetNumber"
               label="번지"
@@ -388,11 +385,12 @@ export const PostUploadDialog = () => {
               name="streetNumber"
               onChange={onChange}
               required={true}
+              className="w-full sm:w-3/4 lg:w-1/2" // Apply responsive width
             />
           </div>
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 지도 확인</h3>
+          <h3 style={psd.gridStyle.infoType}>호스팅 지도</h3>
           <div className="">
             {postState["street"] != "" &&
               postState["streetNumber"] != "" &&
@@ -487,10 +485,10 @@ export const PostUploadDialog = () => {
           <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
         </p>
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>아래 내용이 맞을까요?</h3>
+          <h3 style={psd.gridStyle.infoType}></h3>
         </p>
 
-        <div className="ml-10" style={{ width: "320px" }}>
+        <div className="ml-10" style={{}}>
           <s.SecondHead>
             {postState.title == "" ? "제목 작성 안됨" : postState.title}
           </s.SecondHead>
@@ -547,7 +545,7 @@ export const PostUploadDialog = () => {
         <div className="m-6">
           {requiredForm && (
             <div className="text-center">
-              <p className="text-xl font-bold">정보를 다 입력해주세요</p>
+              <p className="text-xl font-bold">정보 확인해주세요!</p>
               <hr />
             </div>
           )}
