@@ -27,7 +27,7 @@ const SearchInputMobile = ({ filterState, setFilterState }) => {
         className="sm:hidden border-t border-gray-300 flex items-center justify-center h-16"
         id="mobile-menu"
       >
-        <SearchButton />
+        <SearchButton setFilterState={setFilterState} />
       </div>
     </div>
   );

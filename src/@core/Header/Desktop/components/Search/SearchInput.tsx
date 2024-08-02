@@ -30,7 +30,7 @@ const SearchInput = ({ filterState, setFilterState }) => {
               />
             </DashboardItem>
           </div>
-          <SearchButton />
+          <SearchButton setFilterState={setFilterState} />
         </div>
       </div>
     </div>

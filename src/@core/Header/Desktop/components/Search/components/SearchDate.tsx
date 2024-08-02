@@ -36,6 +36,10 @@ const SearchDate = ({ filterState, setFilterState }) => {
     setFilterState([false, !filterState[1], false]);
   };
 
+  const closePopup = () => {
+    setFilterState([false, false, false]);
+  };
+
   return (
     <span
       style={{
@@ -46,17 +50,22 @@ const SearchDate = ({ filterState, setFilterState }) => {
         <DateRangeOutlinedIcon />
         날짜
       </button>
-      {filterState[1] &&
-        +(
-          <Popup className="shadow-2xl" buttonref={buttonRef}>
-            <div className="relative flex flex-col justify-between items-center gap-2.5 pb-3">
-              <DoubleDatePicker
-                dateData={searchDate}
-                setDateData={setSearchDate}
-              />
-            </div>
-          </Popup>
-        )}
+      {filterState[1] && (
+        <Popup className="shadow-2xl" buttonref={buttonRef}>
+          <div className="relative flex flex-col justify-between items-center gap-2.5 pb-3">
+            <DoubleDatePicker
+              dateData={searchDate}
+              setDateData={setSearchDate}
+            />
+          </div>
+          <button
+            className="flex mt-2 mb-2 justify-end w-full"
+            onClick={closePopup}
+          >
+            닫기
+          </button>
+        </Popup>
+      )}
     </span>
   );
 };

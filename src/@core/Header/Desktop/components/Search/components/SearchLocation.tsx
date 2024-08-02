@@ -35,6 +35,10 @@ const SearchLocation = ({ filterState, setFilterState }) => {
     else setSearchLocation(searchLocation["city"], e.target.value);
   };
 
+  const closePopup = () => {
+    setFilterState([false, false, false]);
+  };
+
   return (
     <span
       style={{
@@ -75,6 +79,12 @@ const SearchLocation = ({ filterState, setFilterState }) => {
               }
             />
           </div>
+          <button
+            className="flex mt-2 mb-2 justify-end w-full"
+            onClick={closePopup}
+          >
+            닫기
+          </button>
         </Popup>
       )}
     </span>

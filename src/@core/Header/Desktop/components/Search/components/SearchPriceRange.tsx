@@ -42,6 +42,10 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
     if (Array.isArray(newValue)) setPriceRange(newValue[0], newValue[1]);
   };
 
+  const closePopup = () => {
+    setFilterState([false, false, false]);
+  };
+
   return (
     <div
       style={{
@@ -63,6 +67,12 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
               minMax={priceRangeMinMax}
             />
           </div>
+          <button
+            className="flex mt-2 mb-2 justify-end w-full"
+            onClick={closePopup}
+          >
+            닫기
+          </button>
         </div>
       )}
     </div>
