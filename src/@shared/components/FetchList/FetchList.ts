@@ -150,20 +150,19 @@ async function FetchUploadPost(
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
 
   try {
-    const response = await axios.post(URL, formData, {
-      headers: {
-        Accept: "*/*",
-      },
-      withCredentials: true, // 쿠키 포함
-    });
-
+    await axios
+      .post(URL, formData, {
+        headers: {
+          Accept: "*/*",
+        },
+        withCredentials: true, // 쿠키 포함
+      })
+      .then((res) => {
+        if (res.status == 201) {
+          window.location.reload();
+        }
+      });
     // notFoundError 함수를 처리 (필요한 경우)
-    notFoundError(response);
-
-    if (response.status === 200) {
-      alert("게시물이 성공적으로 등록되었습니다.");
-      setPostPopUpState();
-    }
   } catch (error) {
     raiseError("FetchUploadPost")(error);
   }
@@ -278,6 +277,11 @@ async function FetchDeletePost(key: number) {
   const link = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${key}`;
   fetch(link, headerOptions("DELETE"))
     .then(notFoundError)
+    .then((res) => {
+      if (res.ok) {
+        window.location.reload();
+      }
+    })
     .catch(raiseError("FetchDeletePost"));
 }
 
@@ -304,6 +308,7 @@ async function FetchLogin({
       if (res.ok) {
         FetchGetMyUser(setUserInfo);
         FetchLikePostsId(initFetchLikePostId);
+        window.location.reload();
       }
     })
     .catch(raiseError("FetchLogin"));

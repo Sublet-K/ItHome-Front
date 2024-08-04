@@ -126,6 +126,11 @@ export function ImageDialog() {
   const onClick = () => {
     FetchImage(formData)
       .then((res) => notFoundError(res, true, setSuccessState))
+      .then((res) => {
+        if (res.ok) {
+          window.location.reload();
+        }
+      })
       .catch(raiseError("ImageDialog", true, setFailState));
   };
   return (
@@ -174,16 +179,12 @@ export function ImageDialog() {
         </p>
         <div className="mt-4">
           {imgFile !== "" ? (
-            <form>
-              <button
-                className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-                onClick={onClick}
-              >
-                <p className="text-base text-white font-light">
-                  프로필 수정하기
-                </p>
-              </button>
-            </form>
+            <button
+              className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+              onClick={onClick}
+            >
+              <p className="text-base text-white font-light">프로필 수정하기</p>
+            </button>
           ) : (
             <button className="w-full mt-4 border p-2.5 bg-gray-500 border-gray-500 rounded-lg">
               <p className="text-base text-white font-light">바로 업로드하기</p>
@@ -315,6 +316,11 @@ export function PhoneDialog({ originalPhone }: { originalPhone: string }) {
   const onClick = () => {
     FetchChangePhone(phoneState.replace(/-/gi, "").replace("010", "+8210"))
       .then((res) => notFoundError(res, true, setSuccessState))
+      .then((res) => {
+        if (res.ok) {
+          window.location.reload();
+        }
+      })
       .catch(raiseError("PhoneDialog", true, setFailState));
   };
   return (
