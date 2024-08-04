@@ -488,7 +488,7 @@ export const PostUploadDialog = () => {
           <h3 style={psd.gridStyle.infoType}></h3>
         </p>
 
-        <div className="ml-10" style={{}}>
+        <div className="ml-10" style={{ width: 320 }}>
           <s.SecondHead>
             {postState.title == "" ? "제목 작성 안됨" : postState.title}
           </s.SecondHead>
@@ -540,6 +540,10 @@ export const PostUploadDialog = () => {
           <s.NormalText className="mt-2">
             입주 가능 성별: {postState.genderType}
           </s.NormalText>
+          <p className="text-sm font-light">
+            {" "}
+            업로드 버튼 클릭 후 잠시 기다려주세요.
+          </p>
         </div>
 
         <div className="m-6">
@@ -549,17 +553,12 @@ export const PostUploadDialog = () => {
               <hr />
             </div>
           )}
-          <form>
-            <button
-              className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-              onClick={uploadPost}
-            >
-              <p className="text-base text-white font-light">
-                {" "}
-                바로 업로드하기
-              </p>
-            </button>
-          </form>
+          <button
+            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+            onClick={uploadPost}
+          >
+            <p className="text-base text-white font-light"> 바로 업로드하기</p>
+          </button>
         </div>
       </DialogContent>
     </DialogForm>
