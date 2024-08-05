@@ -1,5 +1,4 @@
 "use client";
-import { useTitle } from "@app/_PageComponents/UseTitle";
 import { Post } from "@app/PostType";
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { DialogContent } from "@mui/material";
@@ -75,7 +74,6 @@ export default function RoomInfo() {
     //   alert('로그인이 필요합니다.');
     // }
   };
-  useTitle(userInfo.username + "님의  방");
 
   const handleReportTypeState = (event: SelectChangeEvent<string>) => {
     setReportType(event.target.value);
@@ -88,7 +86,6 @@ export default function RoomInfo() {
   const handleSharePopUpState = () => {
     setSharePopUpState(false);
   };
-
   return (
     <div
       style={{
