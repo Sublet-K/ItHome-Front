@@ -3,14 +3,17 @@ export const MarketingBanner = () => {
     <div className="bg-black text-white p-6 sm:p-8">
       <div className="ml-2 sm:ml-4">
         <h2 className="mb-2 text-xl sm:text-3xl font-semibold">
-          빠르게 방을 <br></br>
-          양도해야하나요?
+          안쓰는 방 월세 <br />
+          너무 많이 나가지 않나요?
         </h2>
         <p className="mb-1 font-light text-base sm:text-lg">
-          무료 SNS 마케팅 받으세요.
+          안쓰는 방 양도 도와드릴게요.
         </p>
+
         <p className="mb-1 font-light text-base sm:text-lg">
-          신속하게 양도를 도와드릴게요.
+          그리고 양도된 방을 계약해
+          <br />
+          장기 계약의 혜택을 받으세요.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 text-center mt-4">

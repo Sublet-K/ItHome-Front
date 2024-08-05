@@ -1,9 +1,12 @@
+import { useTitle } from "@app/_PageComponents/UseTitle";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import SingleBedIcon from "@mui/icons-material/SingleBed";
 import type { Post } from "@type/Type";
 export function RoomPrice({ nowRoomPost }: { nowRoomPost: Post }) {
+  useTitle(nowRoomPost.title);
+
   return (
     <div className="mt-4">
       <h2 className="text-4xl md:text-4xl font-semibold">
