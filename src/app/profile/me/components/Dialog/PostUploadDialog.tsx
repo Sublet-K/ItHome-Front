@@ -44,7 +44,7 @@ export const PostUploadDialog = () => {
     })
   );
   const { userInfo } = useUserInfoStore();
-
+  const [posState, setPosState] = useState([37.574583, 126.994143]);
   const [postState, setPostState] = useState({
     accomodationType: "",
     limitPeople: 1,
@@ -56,7 +56,6 @@ export const PostUploadDialog = () => {
     basicInfo: "",
     duration: [1, 730],
     tempDuration: ["1일", "170일"],
-    pos: [37.574583, 126.994143], // xCoordinate, yCoordinate // 추후 위치 기반으로 초기화.,
     fullAddress: "전체 주소.", // 테스트 데이터.
     city: "",
     gu: "",
@@ -119,8 +118,8 @@ export const PostUploadDialog = () => {
     formData.append("accomodation_type", postState["accomodationType"]);
     formData.append("building_type", postState["buildingType"]);
     formData.append("contract", "true"); // 계약 관련
-    formData.append("x_coordinate", postState["pos"][0].toString());
-    formData.append("y_coordinate", postState["pos"][1].toString());
+    formData.append("x_coordinate", posState[0].toString());
+    formData.append("y_coordinate", posState[1].toString());
     formData.append("city", postState["city"]);
     formData.append("gu", postState["gu"]);
     formData.append("dong", postState["dong"]);
@@ -406,6 +405,7 @@ export const PostUploadDialog = () => {
                     " " +
                     postState["streetNumber"]
                   }
+                  setPosState={setPosState}
                 />
               )}
           </div>
