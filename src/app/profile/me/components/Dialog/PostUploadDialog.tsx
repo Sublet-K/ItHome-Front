@@ -1,7 +1,4 @@
-"use client";
-
 import { DialogContent } from "@mui/material";
-import { FetchUploadPost } from "@shared/components/FetchList/FetchList";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
@@ -16,6 +13,8 @@ import {
   SingleValueViewer,
   ValueRangeViewer,
 } from "@shared/components/Input/ValueViewer";
+import { KakaoMap } from "@shared/components/Map/Map";
+import { DialogForm } from "@shared/components/Popup/Popup";
 import {
   formatDate,
   priceToString,
@@ -25,13 +24,8 @@ import * as psd from "@shared/styles/PostUploadDialog.styles";
 import * as s from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
+import axios from "axios";
 import React, { useState } from "react";
-
-// 필요한 Swiper 모듈들을 임포트
-// Swiper 코어와 필요한 컴포넌트 임포트
-// Swiper 기본 스타일 임포트
-import { KakaoMap } from "@shared/components/Map/Map";
-import { DialogForm } from "@shared/components/Popup/Popup";
 import "swiper/swiper-bundle.css";
 
 const cities = Object.keys(AdministrativeDistricts) as string[];
@@ -66,32 +60,27 @@ export const PostUploadDialog = () => {
     startEndDay: [
       new Date(),
       new Date().setFullYear(new Date().getFullYear() + 1),
-    ], // new Date().setFullYear(new Date().getFullYear() + 1) // 2024년 2월 29일에 누르면, 2025년 2월 30일이 나오지는 않는지 확인 필요.
+    ],
     price: "10,000",
     imageFiles: [] as File[],
     rule: "규칙",
     benefit: "혜택",
     refundPolicy: "환불정책",
-    contract: "계약", // ?
-    genderType: "모두", // 성별
+    contract: "계약",
+    genderType: "모두",
   });
+
+  const [isUploading, setIsUploading] = useState(false); // 업로드 상태
+  const [uploadError, setUploadError] = useState<string | null>(null); // 업로드 오류 메시지
 
   const onChange = (e: any) => {
     setPostState({ ...postState, [e.target.name]: e.target.value });
   };
 
-  // const updatePostState = (key, value) => {
-  //   setFormState(prev => ({ ...prev, [key]: value }));
-  // };
-
   const handleClose = () => confirmAction();
   const [requiredForm, setRequiredForm] = useState(false);
+
   const confirmAction = async () => {
-    // if (windows.confirm('임시저장 하시겠습니까?')) {
-    //   const formData = makeFormData();
-    //   formData.append('local_save', true); // 임시저장 유무
-    //   FetchUploadPost(formData);
-    // }
     setPostPopUpState();
   };
 
@@ -99,9 +88,9 @@ export const PostUploadDialog = () => {
     const formData = new FormData();
     formData.append("basic_info", postState["basicInfo"]);
     formData.append("benefit", postState["benefit"]);
-    formData.append("description", "description"); // basic_info와 중복?
+    formData.append("description", "description");
     formData.append("end_day", formatDate(postState["startEndDay"][1]));
-    formData.append("extra_info", "extra_info"); // basic_info와 중복?
+    formData.append("extra_info", "extra_info");
     formData.append("max_duration", postState["duration"][1].toString());
     formData.append("min_duration", postState["duration"][0].toString());
     formData.append("start_day", formatDate(postState["startEndDay"][0]));
@@ -117,7 +106,7 @@ export const PostUploadDialog = () => {
     formData.append("school", userInfo.school);
     formData.append("accomodation_type", postState["accomodationType"]);
     formData.append("building_type", postState["buildingType"]);
-    formData.append("contract", "true"); // 계약 관련
+    formData.append("contract", "true");
     formData.append("x_coordinate", posState[0].toString());
     formData.append("y_coordinate", posState[1].toString());
     formData.append("city", postState["city"]);
@@ -127,33 +116,42 @@ export const PostUploadDialog = () => {
     formData.append("post_code", postState["postCode"]);
     formData.append("street", postState["street"]);
     formData.append("gender_type", postState["genderType"]);
-    // 뭔가 개선이 가능해 보이긴하나..
-    // formData.append("postuser_id", userInfo.user_id); // 사용자 정보에 따라서 해야함.
-
-    // formData.append("content", "content"); // ?
-    // formData.append("category", "category"); // ?
-    // formData.append("post_date", (new Date()).toISOString());
 
     postState["imageFiles"].forEach((file) => {
       formData.append("images", file);
     });
-    formData.forEach((value, key) => {
-      // console.log(`${key}: ${value}`);
-      if (
-        value === "" ||
-        value === null ||
-        value === undefined ||
-        postState["imageFiles"].length === 0
-      ) {
-        return null;
-      }
-    });
+
     return formData;
+  };
+
+  // 업로드 요청 함수
+  const fetchUploadPost = async (formData: FormData) => {
+    const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post`;
+    setIsUploading(true);
+    setUploadError(null);
+
+    try {
+      const res = await axios.post(URL, formData, {
+        headers: {
+          Accept: "*/*",
+        },
+        withCredentials: true,
+      });
+
+      if (res.status === 201) {
+        window.location.reload();
+      }
+    } catch (error) {
+      setUploadError("게시물 업로드에 실패했습니다. 다시 시도해주세요.");
+      console.error("Error during upload:", error);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const uploadPost = async () => {
     const formData = makeFormData();
-    var count = 0;
+    let count = 0;
     formData.forEach((value, key) => {
       if (
         [
@@ -191,35 +189,25 @@ export const PostUploadDialog = () => {
     });
     if (requiredForm == false) {
       formData.append("local_save", "false");
-      FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
-      setPostPopUpState();
+      await fetchUploadPost(formData);
     }
   };
 
   const savePost = async () => {
     const formData = makeFormData();
     formData.append("local_save", "true");
-    FetchUploadPost(formData, setPostPopUpState); // .catch(raiseError("PostUploadDialog", true, alert("게시물 업로드에 실패했습니다.")));
+    await fetchUploadPost(formData);
   };
 
   const handleSetImages = (newImages: File[], index: number) => {
-    let updatedImages: File[] = [...postState["imageFiles"]];
-    newImages.forEach((newImage, idx) => {
-      if (index + idx >= updatedImages.length) {
-        updatedImages.push(newImage);
-      } else {
-        updatedImages[index + idx] = newImage;
-      }
-    });
-    console.log("Updated images array:", updatedImages);
-    setPostState({ ...postState, imageFiles: updatedImages });
+    setPostState({ ...postState, imageFiles: newImages });
   };
+
   const handleStartEndDay = (date: [Date, Date]) => {
     setPostState({ ...postState, startEndDay: date });
   };
 
   const handleDuration = (event: Event, newValue: number[]) => {
-    // postState
     setPostState({
       ...postState,
       duration: newValue,
@@ -246,13 +234,28 @@ export const PostUploadDialog = () => {
     >
       <DialogContent
         sx={{
-          width: "100%", // Full width
-          maxWidth: "100%", // Set max width to 100% to cover the entire screen width
-          padding: 0, // Remove padding
-          margin: 0, // Remove margin
+          width: "100%",
+          maxWidth: "100%",
+          padding: 0,
+          margin: 0,
         }}
-        className="w-full flex-wrap pt-4" // Use w-full to ensure it takes the full width
+        className="w-full flex-wrap pt-4"
       >
+        {/* 로딩 상태 표시 */}
+        {isUploading && (
+          <div className="flex justify-center items-center">
+            <p>업로드 중입니다. 잠시만 기다려주세요...</p>
+            <div className="loader"></div> {/* 로딩 스피너 컴포넌트 */}
+          </div>
+        )}
+
+        {/* 업로드 오류 메시지 */}
+        {uploadError && (
+          <div className="text-red-500 text-center">
+            <p>{uploadError}</p>
+          </div>
+        )}
+
         {/* Swiper 내의 개별 슬라이드 */}
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>호스팅 정보</h3>
@@ -372,7 +375,7 @@ export const PostUploadDialog = () => {
               name="street"
               onChange={onChange}
               required={true}
-              className="w-full sm:w-3/4 lg:w-1/2" // Apply responsive width
+              className="w-full sm:w-3/4 lg:w-1/2"
             />
           </div>
           <div className="mt-4">
@@ -384,7 +387,7 @@ export const PostUploadDialog = () => {
               name="streetNumber"
               onChange={onChange}
               required={true}
-              className="w-full sm:w-3/4 lg:w-1/2" // Apply responsive width
+              className="w-full sm:w-3/4 lg:w-1/2"
             />
           </div>
         </p>
@@ -429,7 +432,7 @@ export const PostUploadDialog = () => {
               label="가격(일)"
               name="price"
               placeholder="가격을 입력해주세요."
-              value={priceToString(postState["price"].replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
+              value={priceToString(postState["price"].replace(/,/gi, ""))}
               handleState={onChange}
               required={true}
             />
@@ -451,12 +454,6 @@ export const PostUploadDialog = () => {
             minMax={[1, 730]}
             step={1}
           />
-          {/* <DoubleSlideInput
-                value={postState['duration']}
-                name="duration"
-                onChange={handleDuration}
-                minMax={[1, 730]}
-              /> */}
         </p>
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>입주 가능 성별</h3>
@@ -553,11 +550,20 @@ export const PostUploadDialog = () => {
               <hr />
             </div>
           )}
+
+          {/* 바로 업로드하기 버튼 */}
           <button
-            className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+            className={`w-full mt-4 border p-2.5 rounded-lg ${
+              isUploading || postState.imageFiles.length === 0
+                ? "bg-gray-400 cursor-not-allowed" // 비활성화일 때 회색 배경
+                : "bg-gray-800 hover:bg-black"
+            }`}
             onClick={uploadPost}
+            disabled={isUploading || postState.imageFiles.length === 0} // 이미지가 없거나 업로드 중일 때 버튼 비활성화
           >
-            <p className="text-base text-white font-light"> 바로 업로드하기</p>
+            <p className="text-base text-white font-light">
+              {isUploading ? "업로드 중..." : "바로 업로드하기"}
+            </p>
           </button>
         </div>
       </DialogContent>

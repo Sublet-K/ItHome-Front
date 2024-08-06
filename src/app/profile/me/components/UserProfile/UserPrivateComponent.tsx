@@ -1,9 +1,5 @@
 import { UserForm } from "@app/UserType";
-import {
-  EmailDialog,
-  PhoneDialog,
-  VerifyEmailDialog,
-} from "@shared/components/Popup/Popup";
+import { EmailDialog, VerifyEmailDialog } from "@shared/components/Popup/Popup";
 import { NormalText } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { UserDeleteDialog } from "../Dialog/UserDeleteDialog";
@@ -93,7 +89,7 @@ export const UserPrivateComponent = ({ user }: { user: UserForm }) => {
                 <NormalText className="text-lg">{phoneNumber}</NormalText>
               </div>
             </button>
-            <PhoneDialog originalPhone={phoneNumber} />
+            {/* <PhoneDialog originalPhone={phoneNumber} /> */}
           </div>
           <div className="mt-4 flex justify-end">
             <button

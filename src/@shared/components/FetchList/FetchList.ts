@@ -172,24 +172,23 @@ async function FetchEditPost(
   setEditRoomDialogShow: () => void,
   postKey: number,
   formData: FormData
-) {
+): Promise<Response> {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${postKey}`;
-  await fetch(URL, {
-    headers: {
-      Accept: "*/*",
-    },
-    method: "PUT",
+  try {
+    const response = await fetch(URL, {
+      headers: {
+        Accept: "*/*",
+      },
+      method: "PUT",
+      credentials: "include",
+      body: formData,
+    });
 
-    credentials: "include",
-    body: formData,
-  })
-    .then(notFoundError)
-    .then((res) => {
-      if (res.ok) {
-        window.location.reload();
-      }
-    })
-    .catch(raiseError("FetchEditPost"));
+    return response; // 응답 객체 반환
+  } catch (error) {
+    console.error("FetchEditPost error:", error);
+    throw error; // 오류 발생 시 예외 던지기
+  }
 }
 
 async function FetchReservation(
@@ -296,22 +295,28 @@ async function FetchLogin({
   setUserInfo: (newUserInfo: any) => void;
   initFetchLikePostId: (newLikes: { [key: number]: number }) => void;
 }) {
-  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
-    ...headerOptions("POST"),
-    body: JSON.stringify({
-      id: id,
-      password: password,
-    }),
-  })
-    .then(notFoundError)
-    .then((res) => {
-      if (res.ok) {
-        FetchGetMyUser(setUserInfo);
-        FetchLikePostsId(initFetchLikePostId);
-        window.location.reload();
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+      {
+        ...headerOptions("POST"),
+        body: JSON.stringify({
+          id: id,
+          password: password,
+        }),
       }
-    })
-    .catch(raiseError("FetchLogin"));
+    );
+
+    if (response.ok) {
+      FetchGetMyUser(setUserInfo);
+      FetchLikePostsId(initFetchLikePostId);
+      window.location.reload();
+    }
+    return response;
+  } catch (error) {
+    console.error("Login error:", error);
+    return { ok: false }; // 오류 발생 시 실패 객체 반환
+  }
 }
 
 async function FetchLogout(
@@ -441,8 +446,14 @@ function FetchSignUp({
     path: "/",
   };
 
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/`, requestOptions)
+  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/`, requestOptions)
     .then(notFoundError)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("회원가입에 실패했습니다."); // 실패 시 오류 발생
+      }
+      return response.json();
+    })
     .catch(raiseError("FetchSignUp"));
 }
 

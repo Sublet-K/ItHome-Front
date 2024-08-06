@@ -13,6 +13,7 @@ import {
   FetchChangeEmail,
   FetchChangePhone,
   FetchEditPost,
+  FetchGetMyUser,
   FetchImage,
   FetchSignUp,
 } from "../FetchList/FetchList";
@@ -47,6 +48,7 @@ import { CustomWindow } from "@app/RoomType";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { loginPopUpStore } from "@store/LoginPopUpStore";
+import { useUserInfoStore } from "@store/UserInfoStore";
 import { Post } from "@type/Type";
 import { DoubleDatePicker } from "../Input/DoubleDatePicker";
 import { DoubleSlideInput } from "../Input/DoubleSlideInput";
@@ -96,15 +98,18 @@ export function ImageDialog() {
       imagePopUpState: state.imagePopUpState,
     })
   );
+  const { setUserInfo } = useUserInfoStore();
+
   const [imgFile, setImgFile] = useState<string | ArrayBuffer>("");
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const [successState, setSuccessState] = useState(false);
-  const [failState, setFailState] = useState(false);
+  const [successState, setSuccessState] = useState<boolean | null>(null); // 성공 상태
+  const [failState, setFailState] = useState<boolean | null>(null); // 실패 상태
+  const [loading, setLoading] = useState<boolean>(false); // 로딩 상태
+
   const formData = new FormData();
 
-  // 이미지 업로드 input의 onChange
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
     if (!imgRef.current?.files) return;
@@ -116,23 +121,42 @@ export function ImageDialog() {
       setImgFile(reader.result);
     };
     setImageUpload(file);
+    FetchGetMyUser(setUserInfo);
   };
 
   const handleClose = () => {
     setImagePopUpState();
     setImgFile("");
+    setSuccessState(null);
+    setFailState(null);
   };
+
   if (imageUpload) formData.append("file", imageUpload);
-  const onClick = () => {
-    FetchImage(formData)
-      .then((res) => notFoundError(res, true, setSuccessState))
-      .then((res) => {
-        if (res.ok) {
-          window.location.reload();
-        }
-      })
-      .catch(raiseError("ImageDialog", true, setFailState));
+
+  const onClick = async () => {
+    if (!imageUpload) return;
+
+    setLoading(true); // 로딩 상태 활성화
+
+    try {
+      const res = await FetchImage(formData);
+      if (res.ok) {
+        setSuccessState(true); // 성공 상태 설정
+        setTimeout(() => {
+          setImagePopUpState();
+          window.location.reload(); // 페이지 새로고침
+        }, 2000);
+      } else {
+        setFailState(true); // 실패 상태 설정
+      }
+    } catch (error) {
+      setFailState(true); // 실패 상태 설정
+      raiseError("ImageDialog")(error); // 오류 처리
+    } finally {
+      setLoading(false); // 로딩 상태 비활성화
+    }
   };
+
   return (
     <DialogForm
       openState={imagePopUpState}
@@ -154,7 +178,7 @@ export function ImageDialog() {
       >
         <div className="mb-4">
           {imgFile !== "" ? (
-            <>{<img src={imgFile} alt="프로필 이미지" />}</>
+            <>{<img src={imgFile as string} alt="프로필 이미지" />}</>
           ) : (
             <label
               htmlFor="dropzone-file"
@@ -173,20 +197,40 @@ export function ImageDialog() {
             </label>
           )}
         </div>
+
+        {loading && (
+          <div className="text-center text-blue-500">업로드 중...</div>
+        )}
+        {successState && (
+          <div className="text-center text-green-500">
+            프로필 이미지가 성공적으로 변경되었습니다!
+          </div>
+        )}
+        {failState && (
+          <div className="text-center text-red-500">
+            이미지 업로드에 실패했습니다. 다시 시도해 주세요.
+          </div>
+        )}
+
         <p className="text-sm font-light">
           해상도가 256 x 256픽셀 이상인 사진을 사용하세요. <br />
           이미지 사이즈가 큰 사진일수록 더 선명합니다.
         </p>
+
         <div className="mt-4">
           {imgFile !== "" ? (
             <button
               className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
               onClick={onClick}
+              disabled={loading} // 로딩 중에는 버튼 비활성화
             >
               <p className="text-base text-white font-light">프로필 수정하기</p>
             </button>
           ) : (
-            <button className="w-full mt-4 border p-2.5 bg-gray-500 border-gray-500 rounded-lg">
+            <button
+              className="w-full mt-4 border p-2.5 bg-gray-500 border-gray-500 rounded-lg cursor-not-allowed"
+              disabled
+            >
               <p className="text-base text-white font-light">바로 업로드하기</p>
             </button>
           )}
@@ -530,6 +574,9 @@ export function SignUpDialog() {
   });
   const [birthState, setBirthState] = useState(dayjs(new Date()));
   const [emailState, setEmailState] = useState("");
+  const [signUpSuccess, setSignUpSuccess] = useState(false); // 회원가입 성공 상태
+  const [signUpError, setSignUpError] = useState<string | null>(null); // 회원가입 오류 메시지
+
   const {
     idState,
     passwordState,
@@ -553,21 +600,33 @@ export function SignUpDialog() {
   const idList = {
     google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
   };
-  const signUpHandled = () => {
-    const birth = birthState.toDate();
-    FetchSignUp({
-      userId: emailState,
-      password: passwordState,
-      username: userNameState,
-      email: emailState,
-      phone: phoneState.replace(/-/gi, "").replace("010", "+8210"),
-      school: schoolState,
-      gender: genderState,
-      birth: birth.toISOString(),
-      studentId: Number(studentIdState),
-      jobState: "",
-    });
-    setSignUpPopUpState();
+
+  const signUpHandled = async () => {
+    try {
+      const birth = birthState.toDate();
+      const response = await FetchSignUp({
+        userId: emailState,
+        password: passwordState,
+        username: userNameState,
+        email: emailState,
+        phone: phoneState.replace(/-/gi, "").replace("010", "+8210"),
+        school: schoolState,
+        gender: genderState,
+        birth: birth.toISOString(),
+        studentId: Number(studentIdState),
+        jobState: "",
+      });
+
+      if (response.ok) {
+        setSignUpSuccess(true); // 회원가입 성공
+        setSignUpPopUpState(); // 팝업 닫기
+      } else {
+        throw new Error("회원가입에 실패했습니다."); // 실패 시 오류 발생
+      }
+    } catch (error) {
+      setSignUpError("회원가입에 실패했습니다. 다시 시도해주세요."); // 회원가입 실패 메시지
+      console.error("Sign up error:", error);
+    }
   };
 
   return (
@@ -588,14 +647,14 @@ export function SignUpDialog() {
       </DialogTitle>
       <DialogContent
         sx={{
-          width: "100%", // 모든 화면 크기에서 100% 너비
+          width: "100%",
           maxWidth: {
             xs: "100%",
             sm: "100%",
             md: "768px",
             lg: "1024px",
             xl: "1280px",
-          }, // 화면 크기에 따라 최대 너비 조정
+          },
         }}
       >
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -617,7 +676,7 @@ export function SignUpDialog() {
               <s.Label htmlFor="password">생년월일</s.Label>
             </div>
             <div className="mt-2">
-              <LocalizationProvider dateAdapter={AdapterDayjs} /*required*/>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   name="birthState"
                   onChange={(newDate) => {
@@ -654,16 +713,41 @@ export function SignUpDialog() {
                 </GoogleOAuthProvider>
               ) : (
                 <s.PolicyText>{emailState}</s.PolicyText>
-              )}{" "}
+              )}
             </div>
           </div>
         </div>
+
+        {/* 회원가입 성공 메시지 */}
+        {signUpSuccess && (
+          <div className="mt-4 text-center text-green-600">
+            회원가입이 완료되었습니다!
+          </div>
+        )}
+
+        {/* 회원가입 오류 메시지 */}
+        {signUpError && (
+          <div className="mt-4 text-center text-red-600">{signUpError}</div>
+        )}
       </DialogContent>
       <DialogActions>
         <button
-          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+          className={`w-full mt-4 border p-2.5 rounded-lg ${
+            emailState === "" ||
+            phoneState === "" ||
+            birthState === "" ||
+            userNameState === ""
+              ? "bg-gray-400 cursor-not-allowed" // 비활성화 상태
+              : "bg-gray-800 hover:bg-black"
+          }`}
           type="submit"
           onClick={signUpHandled}
+          disabled={
+            emailState === "" ||
+            phoneState === "" ||
+            birthState === "" ||
+            userNameState === "" // 하나라도 비어 있으면 비활성화
+          }
         >
           <p className="text-base text-white font-light">회원가입</p>
         </button>
@@ -674,6 +758,7 @@ export function SignUpDialog() {
 
 export function LoginDialog() {
   const { loginPopUpState, setLoginPopUpState } = loginPopUpStore();
+  const [loginError, setLoginError] = useState<string | null>(null); // 로그인 오류 상태
 
   return (
     <div>
@@ -690,6 +775,10 @@ export function LoginDialog() {
           </s.SvgHoverButton>
         </DialogTitle>
         <LoginContent setPopUpState={setLoginPopUpState} />
+        {/* 로그인 오류 메시지 */}
+        {loginError && (
+          <div className="mt-4 text-center text-red-600">{loginError}</div>
+        )}
       </Dialog>
       <SignUpDialog />
     </div>
@@ -703,21 +792,40 @@ export const PostEditDialog = ({
   setEditRoomDialogShow: () => void;
   post: Post;
 }) => {
-  const image: File[] = [];
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [editSuccess, setEditSuccess] = useState<boolean | null>(null); // 수정 성공 상태
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // 오류 메시지 상태
+  // 이미지 제거 함수
+  const removeImage = (index: number) => {
+    // 이미지 파일 목록에서 해당 인덱스의 이미지를 제거
+    const updatedFiles = [...imageFiles];
+    updatedFiles.splice(index, 1);
+    setImageFiles(updatedFiles);
 
-  post.image_id.map((id) => {
-    // const i = FetchConverURLtoFile(id);
-    // image.push(i.results);
-  });
+    // 프리뷰 목록에서도 해당 인덱스의 이미지를 제거
+    const updatedPreviews = [...previews];
+    updatedPreviews.splice(index, 1);
+    setPreviews(updatedPreviews);
+  };
+  useEffect(() => {
+    const fetchImageFiles = async () => {
+      const images = await Promise.all(
+        post.image_id.map(async (id) => {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${id}.jpg`
+          );
+          const blob = await response.blob();
+          const file = new File([blob], `image_${id}.jpg`, { type: blob.type });
+          return file;
+        })
+      );
+      setImageFiles(images);
+      setPreviews(images.map((file) => URL.createObjectURL(file)));
+    };
 
-  const [imageFiles, setImageFiles] = useState<File[]>(image);
-  //image객체가 생성되어 속성들을 추가할수 있음    })]
-  const { setPostPopUpState, postPopUpState } = guestInfoPopUpStore(
-    (state) => ({
-      setPostPopUpState: state.setPostPopUpState,
-      postPopUpState: state.postPopUpState,
-    })
-  );
+    fetchImageFiles();
+  }, [post.image_id]);
 
   const [inputs, setInputs] = useState({
     limitPeople: post.limit_people,
@@ -736,6 +844,7 @@ export const PostEditDialog = ({
     refundPolicy: post.refund_policy,
     contract: post.contract,
   });
+
   const {
     limitPeople,
     numberBathroom,
@@ -755,9 +864,10 @@ export const PostEditDialog = ({
   };
 
   const [requiredForm, setRequiredForm] = useState(false);
+
   const onClick = async () => {
     const formData = makeFormData();
-    var count = 0;
+    let count = 0;
     formData.forEach((value, key) => {
       if (
         [
@@ -793,29 +903,47 @@ export const PostEditDialog = ({
         }
       }
     });
-    if (requiredForm == false) {
-      FetchEditPost(setEditRoomDialogShow, post.key, formData);
-      setEditRoomDialogShow();
+
+    if (requiredForm) {
+      return; // 필수 입력 항목이 누락된 경우 함수를 종료합니다.
     }
 
-    FetchEditPost(setEditRoomDialogShow, post.key, formData);
-    setEditRoomDialogShow();
+    try {
+      const response = await FetchEditPost(
+        setEditRoomDialogShow,
+        post.key,
+        formData
+      );
+      if (response.ok) {
+        setEditSuccess(true); // 성공 상태 설정
+        setTimeout(() => {
+          setEditRoomDialogShow();
+          window.location.reload();
+        }, 2000);
+      } else {
+        setEditSuccess(false);
+        setErrorMessage("방 수정에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      setEditSuccess(false);
+      setErrorMessage("방 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
+
   const handleStartEndDay = (date: [Date, Date]) => {
     setInputs({ ...inputs, startEndDay: date });
   };
+
   const handleDuration = (event: Event, newValue: number[]) => {
-    // postState
     setInputs({
       ...inputs,
       duration: newValue,
       tempDuration: [newValue[0] + "일", newValue[1] + "일"],
     });
   };
+
   const makeFormData = () => {
     const formData = new FormData();
-
-    // 모든 데이터가 적절히 입력되었는지 확인하고 아니라면 alert 띄워주기.
 
     formData.append("title", title);
     formData.append("price", price.replace(/,/gi, ""));
@@ -824,9 +952,6 @@ export const PostEditDialog = ({
     formData.append("end_day", formatDate(startEndDay[1]));
     formData.append("min_duration", duration[0].toString());
     formData.append("max_duration", duration[1].toString());
-    // formData.append('position', fullAddress);
-    // formData.append('refund_policy', refundPolicy);
-    // formData.append('rule', rule);
     formData.append("start_day", formatDate(startEndDay[0]));
     formData.append("limit_people", limitPeople.toString());
     formData.append("number_room", numberRoom.toString());
@@ -839,6 +964,7 @@ export const PostEditDialog = ({
 
     return formData;
   };
+
   const handleSetImages = (newImages: File[], index: number) => {
     let updatedImages: File[] = [...imageFiles];
     newImages.forEach((newImage, idx) => {
@@ -849,23 +975,20 @@ export const PostEditDialog = ({
       }
     });
     setImageFiles(updatedImages);
+    setPreviews(updatedImages.map((file) => URL.createObjectURL(file))); // 프리뷰 업데이트
   };
 
   return (
     <>
       <DialogContent
         sx={{
-          width: "100%", // Full width
-          maxWidth: "100%", // Set max width to 100% to cover the entire screen width
-          padding: 0, // Remove padding
-          margin: 0, // Remove margin
+          width: "100%",
+          maxWidth: "100%",
+          padding: 0,
+          margin: 0,
         }}
-        className="w-full flex-wrap pt-4" // Use w-full to ensure it takes the full width
+        className="w-full flex-wrap pt-4"
       >
-        {" "}
-        {/* <p>
-            --------------추후 슬라이더로 변경 (현재는 스크롤)---------------
-          </p> */}
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>호스팅 정보 작성</h3>
           <div>
@@ -939,7 +1062,7 @@ export const PostEditDialog = ({
               label="가격(일)"
               placeholder="가격을 입력해주세요."
               name="price"
-              value={priceToString(price.replace(/,/gi, ""))} // 숫자에 ,를 넣어주는 함수 필요
+              value={priceToString(price.replace(/,/gi, ""))}
               handleState={onChange}
               required={true}
             />
@@ -967,12 +1090,31 @@ export const PostEditDialog = ({
               이미지 사이즈가 큰 사진일수록 더 선명합니다.
             </p>
           </h3>
+          <div className="grid grid-cols-3 gap-4 mt-4">
+            {previews.map((preview, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={preview}
+                  alt={`Image preview ${index}`}
+                  className="w-full h-auto object-cover"
+                />
+                {/* 이미지 제거 버튼 */}
+                <button
+                  onClick={() => removeImage(index)}
+                  className="absolute top-0 right-0 mt-2 mr-2 bg-red-600 text-white rounded-full p-1"
+                  title="Remove image"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
           <ImageUploadComponent imgIndex={1} setImage={handleSetImages} />
         </p>
         <p style={psd.gridStyle.inputContainer}>
           <h3 style={psd.gridStyle.infoType}>정보 확인해주세요!</h3>
         </p>
-        <div className="ml-10" style={{}}>
+        <div className="ml-10">
           <s.SecondHead>{title == "" ? "제목 작성 안됨" : title}</s.SecondHead>
           <s.NormalText className="mt-2 w-full">
             {basicInfo.split(/\r\n|\r|\n/).map((line, index) => (
@@ -994,6 +1136,19 @@ export const PostEditDialog = ({
           <s.NormalText className="mt-2">일일 가격: {price}</s.NormalText>
         </div>
       </DialogContent>
+
+      {/* 수정 성공 메시지 */}
+      {editSuccess && (
+        <div className="text-center text-green-600">
+          방 수정이 완료되었습니다!
+        </div>
+      )}
+
+      {/* 오류 메시지 */}
+      {errorMessage && (
+        <div className="text-center text-red-600">{errorMessage}</div>
+      )}
+
       <div className="m-8">
         {requiredForm && (
           <div className="text-center">
@@ -1002,10 +1157,15 @@ export const PostEditDialog = ({
           </div>
         )}
         <button
-          className="w-full mt-4 border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+          className={`w-full mt-4 border p-2.5 rounded-lg ${
+            imageFiles.length === 0
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gray-800 hover:bg-black"
+          }`}
           onClick={onClick}
+          disabled={imageFiles.length === 0}
         >
-          <p className="text-base text-white font-light"> 방 수정하기</p>
+          <p className="text-base text-white font-light">방 수정하기</p>
         </button>
       </div>
     </>
