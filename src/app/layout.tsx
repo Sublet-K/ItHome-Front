@@ -6,6 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
 import ErrorBoundaryWrapper from "./ErrorBoundaryWrapper";
 // import { MobileHeader } from "./_PageComponents/MobileHeader";
+import GoogleAnalytics from "@core/Header/Desktop/GoogleAnalytics";
 
 export const Mobile = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMediaQuery("(max-width:743px)");
@@ -84,6 +85,9 @@ export default function RootLayout({
         ></script>
       </head>
       <body>
+        {process.env.NEXT_PUBLIC_GA_TRACKING_ID ? (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
+        ) : null}
         <Header />
         <div className="container mx-auto px-8">
           <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
