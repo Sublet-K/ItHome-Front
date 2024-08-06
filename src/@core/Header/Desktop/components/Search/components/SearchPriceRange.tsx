@@ -62,9 +62,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
         ref={buttonRef}
         onClick={togglePriceFilter}
         // 버튼 클릭 여부에 따라 텍스트 색상 및 배경 색상 변경
-        className={`board-b-2 board-gray-500 text-lg ${
-          filterState[2] ? "rounded-md text-white bg-gray-700" : "text-black"
-        }`}
+        className={`board-b-2 board-gray-500 text-lg`}
         style={styles.buttonStyle} // 버튼 스타일 적용
       >
         <BarChartIcon />
@@ -79,7 +77,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
               value={priceRange}
               onChange={handlePriceChange}
               minMax={priceRangeMinMax}
-              step={1000}
+              step={500}
             />
             <p className="text-sm font-thin">
               ₩{priceToString(priceRange[0] * 30)} ~ ₩

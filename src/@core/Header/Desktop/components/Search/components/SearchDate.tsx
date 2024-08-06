@@ -28,9 +28,6 @@ const StyledButton = styled.button<{ isClicked: boolean }>`
   text-align: left;
   padding: 0.5em;
   font-size: 1.125rem; /* text-lg */
-  color: ${({ isClicked }) => (isClicked ? "white" : "black")};
-  background-color: ${({ isClicked }) =>
-    isClicked ? "#4B5563" : "transparent"}; /* bg-gray-700 */
   border: none;
   cursor: pointer;
   display: flex;

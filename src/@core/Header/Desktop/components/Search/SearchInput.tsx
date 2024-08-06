@@ -10,19 +10,19 @@ const SearchInput = ({ filterState, setFilterState }) => {
       <div className="hidden sm:ml-6 sm:block">
         <div className="flex space-x-12 font-semibold leading-6">
           <div className="shadow-black bg-white shadow-2xl h-14 rounded-full flex items-center justify-center text-xs">
-            <DashboardItem>
+            <DashboardItem clickedState={filterState[0]}>
               <SearchLocation
                 filterState={filterState}
                 setFilterState={setFilterState}
               />
             </DashboardItem>
-            <DashboardItem>
+            <DashboardItem clickedState={filterState[1]}>
               <SearchDate
                 filterState={filterState}
                 setFilterState={setFilterState}
               />
             </DashboardItem>
-            <DashboardItem>
+            <DashboardItem clickedState={filterState[2]}>
               <SearchPriceRange
                 filterState={filterState}
                 setFilterState={setFilterState}
