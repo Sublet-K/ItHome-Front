@@ -9,7 +9,7 @@ const SearchInput = ({ filterState, setFilterState }) => {
     <div className="flex-1 flex justify-center items-center h-16 sm:h-auto">
       <div className="hidden sm:ml-6 sm:block">
         <div className="flex space-x-12 font-semibold leading-6">
-          <div className="shadow-black bg-white shadow-2xl h-14 rounded-full flex justify-center text-xs">
+          <div className="shadow-black bg-white shadow-2xl h-14 rounded-full flex items-center justify-center text-xs">
             <DashboardItem>
               <SearchLocation
                 filterState={filterState}

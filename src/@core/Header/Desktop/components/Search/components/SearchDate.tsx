@@ -48,21 +48,13 @@ const SearchDate = ({ filterState, setFilterState }) => {
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // 버튼 클릭 여부를 추적하는 상태 추가
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-
   const toggleCalander = () => {
-    // 버튼 클릭 상태 토글
-    setIsButtonClicked(!isButtonClicked);
-
     // 필터 상태 토글
     setFilterState([false, !filterState[1], false]);
   };
 
   const closePopup = () => {
     setFilterState([false, false, false]);
-    // 팝업을 닫을 때 버튼 상태를 클릭 해제로 설정
-    setIsButtonClicked(false);
   };
 
   return (
@@ -76,7 +68,7 @@ const SearchDate = ({ filterState, setFilterState }) => {
       <StyledButton
         ref={buttonRef}
         onClick={toggleCalander}
-        isClicked={isButtonClicked} // 상태에 따라 스타일 적용
+        isClicked={filterState[1]} // 상태에 따라 스타일 적용
         className="rounded-md"
       >
         <DateRangeOutlinedIcon />

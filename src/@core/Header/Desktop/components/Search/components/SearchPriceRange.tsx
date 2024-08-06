@@ -12,9 +12,6 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // 버튼 클릭 여부를 추적하는 상태 추가
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-
   const styles: { [key: string]: React.CSSProperties } = {
     priceRangeStyle: {
       backgroundColor: "white",
@@ -42,9 +39,6 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
   };
 
   const togglePriceFilter = () => {
-    // 버튼 클릭 상태를 토글
-    setIsButtonClicked(!isButtonClicked);
-
     // 필터 상태 토글
     setFilterState([false, false, !filterState[2]]);
   };
@@ -55,8 +49,6 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
 
   const closePopup = () => {
     setFilterState([false, false, false]);
-    // 팝업을 닫을 때 버튼 상태를 클릭 해제로 설정
-    setIsButtonClicked(false);
   };
 
   return (
@@ -71,7 +63,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
         onClick={togglePriceFilter}
         // 버튼 클릭 여부에 따라 텍스트 색상 및 배경 색상 변경
         className={`board-b-2 board-gray-500 text-lg ${
-          isButtonClicked ? "rounded-md text-white bg-gray-700" : "text-black"
+          filterState[2] ? "rounded-md text-white bg-gray-700" : "text-black"
         }`}
         style={styles.buttonStyle} // 버튼 스타일 적용
       >
