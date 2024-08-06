@@ -29,9 +29,12 @@ async function fetchRoomsDefault(
 
 export default async function Home() {
   const numRooms = 6;
-
   let roomsData = await fetchRoomsDefault(numRooms, 1);
   let preRoomsData = await fetchRoomsDefault(numRooms, 2);
 
-  return <HomeLayout roomsData={roomsData} preRoomsData={preRoomsData} />;
+  return (
+    <>
+      <HomeLayout roomsData={roomsData} preRoomsData={preRoomsData} />;
+    </>
+  );
 }
