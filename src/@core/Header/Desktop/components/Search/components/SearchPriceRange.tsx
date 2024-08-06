@@ -2,18 +2,15 @@
 
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
-import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
+import { MoneyRangeViewerWithInput } from "@shared/components/Input/ValueViewer";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = ({ filterState, setFilterState }) => {
-  const priceRangeMinMax: [number, number] = [0, 500000];
+  const priceRangeMinMax: [number, number] = [0, 30000];
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  // 버튼 클릭 여부를 추적하는 상태 추가
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   const styles: { [key: string]: React.CSSProperties } = {
     priceRangeStyle: {
@@ -42,9 +39,6 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
   };
 
   const togglePriceFilter = () => {
-    // 버튼 클릭 상태를 토글
-    setIsButtonClicked(!isButtonClicked);
-
     // 필터 상태 토글
     setFilterState([false, false, !filterState[2]]);
   };
@@ -55,8 +49,6 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
 
   const closePopup = () => {
     setFilterState([false, false, false]);
-    // 팝업을 닫을 때 버튼 상태를 클릭 해제로 설정
-    setIsButtonClicked(false);
   };
 
   return (
@@ -70,24 +62,28 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
         ref={buttonRef}
         onClick={togglePriceFilter}
         // 버튼 클릭 여부에 따라 텍스트 색상 및 배경 색상 변경
-        className={`board-b-2 board-gray-500 text-lg ${
-          isButtonClicked ? "rounded-md text-white bg-gray-700" : "text-black"
-        }`}
+        className={`board-b-2 board-gray-500 text-lg`}
         style={styles.buttonStyle} // 버튼 스타일 적용
       >
         <BarChartIcon />
         가격 범위
       </button>
       {filterState[2] && (
-        <div className="shadow-2xl px-3" style={styles.priceRangeStyle}>
+        <div
+          className="shadow-2xl px-3 text-black p-4"
+          style={styles.priceRangeStyle}
+        >
           <div style={styles.priceRangeGraphStyle}>
-            <MoneyRangeViewer arr={priceRange} />
+            <MoneyRangeViewerWithInput
+              arr={priceRange}
+              handlePriceChange={handlePriceChange}
+            />
             <DoubleSlideInput
               name="priceRange"
               value={priceRange}
               onChange={handlePriceChange}
               minMax={priceRangeMinMax}
-              step={1000}
+              step={500}
             />
             <p className="text-sm font-thin">
               ₩{priceToString(priceRange[0] * 30)} ~ ₩
@@ -95,7 +91,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
             </p>
           </div>
           <button
-            className="flex mt-2 mb-2 justify-end w-full"
+            className="flex mt-2 mb-2 justify-end w-full text-black"
             onClick={closePopup}
           >
             닫기

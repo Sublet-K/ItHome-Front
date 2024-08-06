@@ -13,12 +13,12 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
             if (!selectedDate) return;
             const newDate = dayjs(selectedDate);
             if (newDate.isAfter(dayjs(dateData[1]))) {
-              setDateData([
+              setDateData(
                 newDate.format("YYYY-MM-DD"),
-                newDate.format("YYYY-MM-DD"),
-              ]);
+                newDate.format("YYYY-MM-DD")
+              );
             } else {
-              setDateData([newDate.format("YYYY-MM-DD"), dateData[1]]);
+              setDateData(newDate.format("YYYY-MM-DD"), dateData[1]);
             }
           }}
         />
@@ -31,12 +31,12 @@ export const DoubleDatePicker = ({ dateData, setDateData }) => {
             if (!selectedDate) return;
             const newDate = dayjs(selectedDate);
             if (dayjs(dateData[0]).isAfter(newDate)) {
-              setDateData([
+              setDateData(
                 newDate.format("YYYY-MM-DD"),
-                newDate.format("YYYY-MM-DD"),
-              ]);
+                newDate.format("YYYY-MM-DD")
+              );
             } else {
-              setDateData([dateData[0], newDate.format("YYYY-MM-DD")]);
+              setDateData(dateData[0], newDate.format("YYYY-MM-DD"));
             }
           }}
         />

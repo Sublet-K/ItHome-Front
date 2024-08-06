@@ -24,7 +24,7 @@ const SearchInputMobile = ({
           <div className="flex justify-end w-full pt-2 border-t border-gray-300 ">
             <button
               onClick={toggleSearchFilterShow}
-              className="border-b-2 border-gray-400"
+              className="border-b-2 border-gray-400 text-black"
             >
               닫기
             </button>
