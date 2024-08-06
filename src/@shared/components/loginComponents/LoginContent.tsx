@@ -4,14 +4,7 @@ import { SecondHead } from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import { useUserLikeStore } from "@store/UserLikeStore";
-import {
-  ChangeEventHandler,
-  Dispatch,
-  KeyboardEventHandler,
-  SetStateAction,
-  useState,
-} from "react";
-import { FetchLogin } from "../FetchList/FetchList";
+import { Dispatch, SetStateAction, useState } from "react";
 import { GoogleButton } from "./Google";
 
 export const LoginContent = ({
@@ -25,48 +18,20 @@ export const LoginContent = ({
   const { setUserInfo } = useUserInfoStore();
   const { initFetchLikePostId } = useUserLikeStore();
 
-  const [inputs, setInputs] = useState({
-    idState: "",
-    passwordState: "",
-  });
-  const { idState, passwordState } = inputs;
   const idList = {
     google: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
   };
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const inputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputs({
-      ...inputs,
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
-  };
-
-  const loginHandled = () => {
-    FetchLogin({
-      id: idState,
-      password: passwordState,
-      setUserInfo,
-      initFetchLikePostId,
-    });
-    if (setPopUpState) setPopUpState(false);
-  };
-
   const signUpHandled = () => {
     if (setPopUpState) setPopUpState(false);
     setSignUpPopUpState();
   };
 
-  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    if (e.key === "Enter") {
-      loginHandled();
-    }
-  };
-
   return (
     <DialogContent sx={{ width: { xs: "90%", sm: 512 }, maxWidth: "100%" }}>
-      <div className=" mb-4">
+      <div className="mb-4">
         <SecondHead>로그인</SecondHead>
         <p className="text-base text-gray-600 sm:text-sm">
           합리적인 가격의 다양한 집을 확인하세요.

@@ -46,26 +46,41 @@ export function GoogleButton({
             credentialResponse.credential as string
           );
           const email = decodeding.email;
+
           if (purpose === "signup") {
             if (!setEmailState) return;
             setEmailState(email);
           } else if (purpose === "login") {
             try {
-              FetchLogin({
+              const response = await FetchLogin({
                 id: email,
                 password: "googleLogin!2#1",
                 setUserInfo,
                 initFetchLikePostId,
               });
-              setLoginPopUpState();
-            } catch (e) {
-              if (e) {
-                setErrorMessage("이 이메일로 가입된 계정이 없습니다.");
+
+              if (response.ok) {
+                if (setErrorMessage) setErrorMessage(""); // 로그인 성공 시 오류 메시지 초기화
+                setLoginPopUpState(); // 로그인 성공 시 팝업 닫기
+              } else {
+                if (setErrorMessage) {
+                  setErrorMessage("이 이메일로 가입된 계정이 없습니다."); // 로그인 실패 시 오류 메시지 설정
+                }
               }
+            } catch (e) {
+              if (setErrorMessage) {
+                setErrorMessage(
+                  "로그인 중 오류가 발생했습니다. 다시 시도해주세요."
+                );
+              }
+              console.error("Login error:", e);
             }
           }
         }}
         onError={() => {
+          if (setErrorMessage) {
+            setErrorMessage("Google 로그인에 실패했습니다. 다시 시도해주세요."); // Google 로그인 자체가 실패했을 때 오류 메시지
+          }
           console.log("Login Failed");
         }}
         useOneTap
