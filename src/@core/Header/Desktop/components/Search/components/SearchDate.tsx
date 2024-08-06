@@ -80,7 +80,7 @@ const SearchDate = ({ filterState, setFilterState }) => {
             />
           </div>
           <button
-            className="flex mt-2 mb-2 justify-end w-full"
+            className="flex mt-2 mb-2 justify-end w-full text-black"
             onClick={closePopup}
           >
             닫기

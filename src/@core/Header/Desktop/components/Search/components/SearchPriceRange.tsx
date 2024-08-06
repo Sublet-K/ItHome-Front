@@ -2,13 +2,13 @@
 
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
-import { MoneyRangeViewer } from "@shared/components/Input/ValueViewer";
+import { MoneyRangeViewerWithInput } from "@shared/components/Input/ValueViewer";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
 const SearchPriceRange = ({ filterState, setFilterState }) => {
-  const priceRangeMinMax: [number, number] = [0, 500000];
+  const priceRangeMinMax: [number, number] = [0, 30000];
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -69,9 +69,15 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
         가격 범위
       </button>
       {filterState[2] && (
-        <div className="shadow-2xl px-3" style={styles.priceRangeStyle}>
+        <div
+          className="shadow-2xl px-3 text-black p-4"
+          style={styles.priceRangeStyle}
+        >
           <div style={styles.priceRangeGraphStyle}>
-            <MoneyRangeViewer arr={priceRange} />
+            <MoneyRangeViewerWithInput
+              arr={priceRange}
+              handlePriceChange={handlePriceChange}
+            />
             <DoubleSlideInput
               name="priceRange"
               value={priceRange}
@@ -85,7 +91,7 @@ const SearchPriceRange = ({ filterState, setFilterState }) => {
             </p>
           </div>
           <button
-            className="flex mt-2 mb-2 justify-end w-full"
+            className="flex mt-2 mb-2 justify-end w-full text-black"
             onClick={closePopup}
           >
             닫기
