@@ -1,10 +1,10 @@
+import { User } from "@/@type/Type";
 import { ContactDialog } from "@app/roominfo/[roomKey]/Components/Contact";
-import { UserForm } from "@app/UserType";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function RoomHost({ user, title }: { user: UserForm; title: string }) {
+export function RoomHost({ user, title }: { user: User; title: string }) {
   //추후 Host 정보 fetch로 받아오는 것으로 수정 필요
   const [popupState, setPopUpState] = useState(false);
 

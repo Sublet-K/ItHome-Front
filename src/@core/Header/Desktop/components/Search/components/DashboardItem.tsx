@@ -9,7 +9,7 @@ type DashboardItemProps = {
 const DashboardItem: React.FC<DashboardItemProps> = ({
   children,
   clickedState,
-}) => {
+}: DashboardItemProps) => {
   return (
     <div
       className={`rounded-md px-6 py-3 relative ${

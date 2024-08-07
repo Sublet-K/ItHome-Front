@@ -164,7 +164,7 @@ async function FetchUploadPost(
       });
     // notFoundError 함수를 처리 (필요한 경우)
   } catch (error) {
-    raiseError("FetchUploadPost")(error);
+    raiseError("FetchUploadPost");
   }
 }
 
@@ -345,7 +345,7 @@ async function FetchImage(formData: FormData) {
   });
 }
 
-async function FetchGetMyUser(setUserInfo: Dispatch<SetStateAction<UserForm>>) {
+async function FetchGetMyUser(setUserInfo: (newUserInfo: any) => void) {
   const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`;
 
   const json: UserForm = await fetch(URL, headerOptions("GET"))

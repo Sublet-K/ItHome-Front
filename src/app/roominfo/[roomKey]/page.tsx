@@ -1,5 +1,5 @@
 "use client";
-import { Post } from "@app/PostType";
+import { Post } from "@/@type/Type";
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { DialogContent } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -12,6 +12,7 @@ import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
@@ -32,7 +33,7 @@ export default function RoomInfo() {
       asyncGetPostAll();
     }
     setNowRoomPost(postAll.find((post) => post.key === nowRoomNum));
-  }, [postExist]);
+  }, [postExist, postAll, nowRoomNum, asyncGetPostAll]);
 
   //페이지 이동 부분
   // const navigate = useNavigate();
@@ -99,7 +100,7 @@ export default function RoomInfo() {
               .find((post) => post.key == nowRoomNum)
               ?.image_id.map((image_id, index) => (
                 <Carousel.Item key={index}>
-                  <img
+                  <Image
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                     alt={`image ${index}`}
                     className="block w-full h-96 object-cover"

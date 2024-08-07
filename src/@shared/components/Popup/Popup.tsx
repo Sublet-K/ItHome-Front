@@ -152,7 +152,7 @@ export function ImageDialog() {
       }
     } catch (error) {
       setFailState(true); // 실패 상태 설정
-      raiseError("ImageDialog")(error); // 오류 처리
+      raiseError("ImageDialog"); // 오류 처리
     } finally {
       setLoading(false); // 로딩 상태 비활성화
     }

@@ -2,14 +2,19 @@ import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
+import { BlackButton } from "@shared/styles/Public.styles";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useRouter } from "next/navigation";
-import { BlackButton } from "@shared/styles/Public.styles";
+import { Dispatch, SetStateAction } from "react";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SearchButtonWithBox = ({ setFilterState }) => {
+const SearchButtonWithBox = ({
+  setFilterState,
+}: {
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
+}) => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();

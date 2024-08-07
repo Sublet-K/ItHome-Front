@@ -2,7 +2,11 @@ import { Post } from "@/@type/Type";
 import { useEffect, useRef, useState } from "react";
 import { SubletPostStore } from "../../../@store/SubletPostStore";
 import { CustomWindow } from "../../../app/RoomType";
-
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 export const KakaoMap = ({
   x,
   y,
@@ -34,7 +38,7 @@ export const KakaoMap = ({
           // 주소-좌표 변환 객체를 생성합니다
           var geocoder = new window.kakao.maps.services.Geocoder();
           // 주소로 좌표를 검색합니다
-          geocoder.addressSearch(name, function (result, status) {
+          geocoder.addressSearch(name, function (result: any, status: any) {
             // 정상적으로 검색이 완료됐으면
 
             if (

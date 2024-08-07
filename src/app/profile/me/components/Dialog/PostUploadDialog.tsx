@@ -215,10 +215,6 @@ export const PostUploadDialog = () => {
     });
   };
 
-  const handleLocation = (newValue: [number, number]) => {
-    setPostState({ ...postState, pos: newValue });
-  };
-
   return (
     <DialogForm
       openState={postPopUpState}
@@ -375,7 +371,6 @@ export const PostUploadDialog = () => {
               name="street"
               onChange={onChange}
               required={true}
-              className="w-full sm:w-3/4 lg:w-1/2"
             />
           </div>
           <div className="mt-4">
@@ -387,7 +382,6 @@ export const PostUploadDialog = () => {
               name="streetNumber"
               onChange={onChange}
               required={true}
-              className="w-full sm:w-3/4 lg:w-1/2"
             />
           </div>
         </p>

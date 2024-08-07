@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import MobileDashboardItem from "./components/MobileDashboardItem";
 import SearchButtonWithBox from "./components/SearchButtonWithBox";
 import SearchDate from "./components/SearchDate";
@@ -9,6 +10,11 @@ const SearchInputMobile = ({
   toggleSearchFilterShow,
   filterState,
   setFilterState,
+}: {
+  searchFilterShow: boolean;
+  toggleSearchFilterShow: () => void;
+  filterState: boolean[];
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
 }) => {
   return (
     <div className="pt-2">
