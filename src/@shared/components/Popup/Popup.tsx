@@ -75,6 +75,7 @@ export function DialogForm({
   return (
     <Dialog
       open={openState}
+      onClose={handleClose} // Ensure the dialog closes on Esc key
       className="border border-gray-300 shadow-xl rounded-lg"
       style={{
         fontFamily: "Pretendard",
@@ -625,6 +626,7 @@ export function SignUpDialog() {
   return (
     <Dialog
       open={signUpPopUpState}
+      onClose={setSignUpPopUpState} // Ensure the dialog closes on Esc key
       className="border border-gray-300 shadow-xl rounded-lg"
       style={{
         fontFamily: "Pretendard",
@@ -751,6 +753,7 @@ export function LoginDialog() {
     <div>
       <Dialog
         open={loginPopUpState}
+        onClose={setLoginPopUpState} // Ensure the dialog closes on Esc key
         className="border border-gray-300 shadow-xl rounded-lg"
         style={{
           fontFamily: "Pretendard",
