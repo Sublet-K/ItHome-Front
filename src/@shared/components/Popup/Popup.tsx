@@ -602,9 +602,9 @@ export function SignUpDialog() {
   };
 
   const signUpHandled = async () => {
-    try {
-      const birth = birthState.toDate();
-      const response = await FetchSignUp({
+    const birth = birthState.toDate();
+    await FetchSignUp(
+      {
         userId: emailState,
         password: passwordState,
         username: userNameState,
@@ -615,18 +615,11 @@ export function SignUpDialog() {
         birth: birth.toISOString(),
         studentId: Number(studentIdState),
         jobState: "",
-      });
-
-      if (response.ok) {
-        setSignUpSuccess(true); // 회원가입 성공
-        setSignUpPopUpState(); // 팝업 닫기
-      } else {
-        throw new Error("회원가입에 실패했습니다."); // 실패 시 오류 발생
-      }
-    } catch (error) {
-      setSignUpError("회원가입에 실패했습니다. 다시 시도해주세요."); // 회원가입 실패 메시지
-      console.error("Sign up error:", error);
-    }
+      },
+      setSignUpSuccess,
+      setSignUpPopUpState,
+      setSignUpError
+    );
   };
 
   return (
@@ -733,20 +726,14 @@ export function SignUpDialog() {
       <DialogActions>
         <button
           className={`w-full mt-4 border p-2.5 rounded-lg ${
-            emailState === "" ||
-            phoneState === "" ||
-            birthState === "" ||
-            userNameState === ""
+            emailState === "" || phoneState === "" || userNameState === ""
               ? "bg-gray-400 cursor-not-allowed" // 비활성화 상태
               : "bg-gray-800 hover:bg-black"
           }`}
           type="submit"
           onClick={signUpHandled}
           disabled={
-            emailState === "" ||
-            phoneState === "" ||
-            birthState === "" ||
-            userNameState === "" // 하나라도 비어 있으면 비활성화
+            emailState === "" || phoneState === "" || userNameState === "" // 하나라도 비어 있으면 비활성화
           }
         >
           <p className="text-base text-white font-light">회원가입</p>

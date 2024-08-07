@@ -417,17 +417,22 @@ async function FetchDeleteUser({
     .catch(raiseError("FetchDeleteUser"));
 }
 
-function FetchSignUp({
-  userId,
-  password,
-  username,
-  email,
-  phone,
-  school,
-  gender,
-  birth,
-  studentId,
-}: SignUpInfo) {
+async function FetchSignUp(
+  {
+    userId,
+    password,
+    username,
+    email,
+    phone,
+    school,
+    gender,
+    birth,
+    studentId,
+  }: SignUpInfo,
+  setSignUpSuccess: React.Dispatch<React.SetStateAction<boolean>>,
+  setSignUpPopUpState: () => void,
+  setSignUpError: (value: React.SetStateAction<string | null>) => void
+) {
   const requestOptions = {
     ...headerOptions("POST"),
     body: JSON.stringify({
@@ -442,19 +447,30 @@ function FetchSignUp({
       student_id: studentId,
       smoking: "true",
     }),
-
     path: "/",
   };
 
-  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/`, requestOptions)
-    .then(notFoundError)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("회원가입에 실패했습니다."); // 실패 시 오류 발생
-      }
-      return response.json();
-    })
-    .catch(raiseError("FetchSignUp"));
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/`,
+      requestOptions
+    );
+
+    if (response.ok) {
+      setSignUpSuccess(true); // 회원가입 성공
+      setSignUpPopUpState(); // 팝업 닫기
+    } else {
+      // If response is not ok, set error state
+      const errorData = await response.json(); // Extract error details from response if available
+      setSignUpError(
+        errorData.message || "회원가입에 실패했습니다. 다시 시도해주세요."
+      ); // 회원가입 실패 메시지
+    }
+  } catch (error) {
+    // Handle network or unexpected errors
+    console.error("FetchSignUp error:", error);
+    setSignUpError("서버에 문제가 발생했습니다. 잠시 후 다시 시도해주세요."); // More informative error message
+  }
 }
 
 async function FetchGetRequestByRequestId(

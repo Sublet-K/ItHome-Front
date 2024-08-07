@@ -3,11 +3,11 @@ export const MarketingBanner = () => {
     <div className="bg-black text-white p-6 sm:p-8">
       <div className="ml-2 sm:ml-4">
         <h2 className="mb-2 text-xl sm:text-3xl font-semibold">
-          안쓰는 방 월세 <br />
-          너무 많이 나가지 않나요?
+          잠시 방을 비워야 하나요?
+          <br />
         </h2>
         <p className="mb-1 font-light text-base sm:text-lg">
-          안쓰는 방 양도 도와드릴게요.
+          무수수료로 간편하게 방을 양도하세요. 그리고 마케팅 혜택도 받아가세요
         </p>
 
         <p className="mb-1 font-light text-base sm:text-lg">
