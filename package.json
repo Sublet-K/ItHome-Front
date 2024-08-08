@@ -8,7 +8,7 @@
     "start-s": "next dev --experimental-https",
     "start": "next start",
     "lint": "next lint",
-    "test": "next dev -H 0.0.0.0 -p 80"
+    "test": "next dev -H 0.0.0.0 -p 443"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
