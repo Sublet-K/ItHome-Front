@@ -3,7 +3,7 @@
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
-import { RefObject, useRef, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useRef } from "react";
 import styled from "styled-components";
 
 // Popup 컴포넌트 정의
@@ -34,7 +34,13 @@ const StyledButton = styled.button<{ isClicked: boolean }>`
   align-items: center;
 `;
 
-const SearchDate = ({ filterState, setFilterState }) => {
+const SearchDate = ({
+  filterState,
+  setFilterState,
+}: {
+  filterState: boolean[];
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
+}) => {
   const {
     searchDate,
     setSearchDate,

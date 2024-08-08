@@ -1,9 +1,8 @@
-import { NormalButton } from "@shared/styles/Public.styles";
-import styled from "styled-components";
-import { PolicyText } from "@shared/styles/Public.styles";
+import { FetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
+import { NormalButton, PolicyText } from "@shared/styles/Public.styles";
 import { Post } from "@type/Type";
 import { Dispatch, SetStateAction } from "react";
-import { fetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
+import styled from "styled-components";
 
 const NoButtonLayout = styled(PolicyText)`
   margin-top: 3rem;
@@ -32,7 +31,7 @@ export const HomeMoreRoomButton = ({
     return (
       <NormalButton
         /*variant="contained"*/ onClick={() => {
-          fetchMoreRoomsDefault(
+          FetchMoreRoomsDefault(
             listRoomAmount,
             listPageAmount,
             roomsData,

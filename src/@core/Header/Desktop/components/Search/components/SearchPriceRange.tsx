@@ -4,10 +4,16 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { DoubleSlideInput } from "@shared/components/Input/DoubleSlideInput";
 import { MoneyRangeViewerWithInput } from "@shared/components/Input/ValueViewer";
 import { priceToString } from "@shared/components/StaticComponents/StaticComponents";
-import React, { useRef } from "react";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 import { useSearchPriceStore } from "../../../../store/SearchPriceStore";
 
-const SearchPriceRange = ({ filterState, setFilterState }) => {
+const SearchPriceRange = ({
+  filterState,
+  setFilterState,
+}: {
+  filterState: boolean[];
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
+}) => {
   const priceRangeMinMax: [number, number] = [0, 30000];
   const { priceRange, setPriceRange } = useSearchPriceStore();
   const buttonRef = useRef<HTMLButtonElement>(null);

@@ -3,13 +3,18 @@ import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import { useSearchPriceStore } from "@core/Header/store/SearchPriceStore";
 import { FetchSearchPost } from "@shared/components/FetchList/FetchList";
 import { SubletPostStore } from "@store/SubletPostStore";
-import DashboardItem from "./DashboardItem";
 import { useRouter } from "next/navigation";
+import DashboardItem from "./DashboardItem";
 
+import { Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SearchButton = ({ setFilterState }) => {
+const SearchButton = ({
+  setFilterState,
+}: {
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
+}) => {
   const { searchDate } = useSearchDateStore();
   const { searchLocation } = useSearchLocationStore();
   const { priceRange } = useSearchPriceStore();
@@ -51,7 +56,7 @@ const SearchButton = ({ setFilterState }) => {
         onClick={doSearch}
         className="font-bold text-black opacity-90 text-base"
       >
-        <DashboardItem>
+        <DashboardItem clickedState={false}>
           <div className="flex">
             <img src="/svgs/searchButton.svg" alt="search" />
             {/* 검색 */}

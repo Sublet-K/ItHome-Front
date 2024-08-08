@@ -12,9 +12,8 @@ function HostInfo() {
   const userId = params.split("/")[2];
   useTitle("호스트 프로필");
 
+  const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
   if (typeof userId === "string") {
-    const [userInfo, setUserInfo] = useState<UserForm>({} as UserForm);
-
     const json = FetchGetOneUser(userId, setUserInfo);
 
     return (

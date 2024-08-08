@@ -4,7 +4,7 @@ import { useSearchLocationStore } from "@core/Header/store/SearchLocationStore";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AdministrativeDistricts from "@shared/StaticData/AdministrativeDistricts";
 import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
-import { RefObject, useRef, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useRef } from "react";
 import styled from "styled-components";
 
 // Popup 컴포넌트 정의
@@ -35,7 +35,13 @@ const StyledButton = styled.button<{ isClicked: boolean }>`
   align-items: center;
 `;
 
-const SearchLocation = ({ filterState, setFilterState }) => {
+const SearchLocation = ({
+  filterState,
+  setFilterState,
+}: {
+  filterState: boolean[];
+  setFilterState: Dispatch<SetStateAction<boolean[]>>;
+}) => {
   const { searchLocation, setSearchLocation } = useSearchLocationStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const cities = Object.keys(AdministrativeDistricts) as string[];

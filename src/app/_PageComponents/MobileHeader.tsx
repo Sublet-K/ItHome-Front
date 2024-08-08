@@ -1,4 +1,4 @@
-import * as s from "./MobileHeader.styles.js";
+import * as s from "../../@core/Header/Mobile/MobileHeader.styles";
 
 export const MobileHeader = () => {
   const SearchButton = () => {
