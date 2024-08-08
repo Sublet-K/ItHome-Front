@@ -7,13 +7,9 @@ export const MarketingBanner = () => {
           <br />
         </h2>
         <p className="mb-1 font-light text-base sm:text-lg">
-          무수수료로 간편하게 방을 양도하세요. 그리고 마케팅 혜택도 받아가세요
-        </p>
-
-        <p className="mb-1 font-light text-base sm:text-lg">
-          그리고 양도된 방을 계약해
+          간편하게 방을 양도하고
           <br />
-          장기 계약의 혜택을 받으세요.
+          적극적으로 마케팅해드릴게요.
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 text-center mt-4">
