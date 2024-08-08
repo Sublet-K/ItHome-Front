@@ -12,7 +12,6 @@ import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
@@ -100,10 +99,10 @@ export default function RoomInfo() {
               .find((post) => post.key == nowRoomNum)
               ?.image_id.map((image_id, index) => (
                 <Carousel.Item key={index}>
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                     alt={`image ${index}`}
-                    className="block w-full h-96 object-cover"
+                    className="block w-full object-cover"
                   />
                 </Carousel.Item>
               ))}
@@ -260,8 +259,7 @@ export default function RoomInfo() {
               <div className="flex justify-between">
                 <div className="w-full flex flex-col items-center">
                   <p className="text-xl mb-2 md:text-lg">
-                    {nowRoomPost.city} {nowRoomPost.gu} {nowRoomPost.street}{" "}
-                    {nowRoomPost.street_number}
+                    {nowRoomPost.street}
                   </p>
                   {postExist && (
                     <KakaoMap
