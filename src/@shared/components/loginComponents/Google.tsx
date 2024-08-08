@@ -26,10 +26,12 @@ export function GoogleButton({
   purpose,
   setEmailState,
   setErrorMessage,
+  setLoading, // 로그인 중 상태 전달
 }: {
   purpose: string;
   setEmailState?: Dispatch<SetStateAction<string>>;
   setErrorMessage?: Dispatch<SetStateAction<string>>;
+  setLoading?: Dispatch<SetStateAction<boolean>>; // 로그인 중 상태 전달
 }) {
   const { setUserInfo } = useUserInfoStore();
   const { setSignUpPopUpState } = guestInfoPopUpStore((state) => ({
@@ -42,6 +44,7 @@ export function GoogleButton({
     <>
       <GoogleLogin
         onSuccess={async (credentialResponse) => {
+          if (setLoading) setLoading(true); // 로그인 시작
           const decodeding = decodeJwtResponse(
             credentialResponse.credential as string
           );
@@ -74,6 +77,8 @@ export function GoogleButton({
                 );
               }
               console.error("Login error:", e);
+            } finally {
+              if (setLoading) setLoading(false); // 로그인 완료
             }
           }
         }}
@@ -81,6 +86,7 @@ export function GoogleButton({
           if (setErrorMessage) {
             setErrorMessage("Google 로그인에 실패했습니다. 다시 시도해주세요."); // Google 로그인 자체가 실패했을 때 오류 메시지
           }
+          if (setLoading) setLoading(false); // 로그인 실패 시에도 상태 변경
           console.log("Login Failed");
         }}
         useOneTap

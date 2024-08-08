@@ -7,8 +7,8 @@ export const DoubleDatePicker = ({
   dateData,
   setDateData,
 }: {
-  dateData: string[],
-  setDateData: React.Dispatch<React.SetStateAction<string[]>>,
+  dateData: string[];
+  setDateData: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
@@ -55,8 +55,8 @@ export const DoubleDatePickerSearch = ({
   dateData,
   setDateData,
 }: {
-  dateData: string[],
-  setDateData: (a: string, b: string) => void,
+  dateData: string[];
+  setDateData: (a: string, b: string) => void;
 }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">

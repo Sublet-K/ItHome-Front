@@ -23,6 +23,7 @@ export const LoginContent = ({
   };
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false); // 로그인 중 상태 관리
 
   const signUpHandled = () => {
     if (setPopUpState) setPopUpState(false);
@@ -39,9 +40,18 @@ export const LoginContent = ({
       </div>
       <div className="w-full mt-4">
         <GoogleOAuthProvider clientId={idList.google}>
-          <GoogleButton purpose="login" setErrorMessage={setErrorMessage} />
+          <GoogleButton
+            purpose="login"
+            setErrorMessage={setErrorMessage}
+            setLoading={setLoading} // 로그인 중 상태 전달
+          />
         </GoogleOAuthProvider>
       </div>
+      {loading && (
+        <div className="w-full mt-4 text-center text-blue-500">
+          로그인 중...
+        </div> // 로그인 중 메시지 표시
+      )}
       {errorMessage && (
         <div className="w-full mt-4 text-red-500 text-center">
           {errorMessage}

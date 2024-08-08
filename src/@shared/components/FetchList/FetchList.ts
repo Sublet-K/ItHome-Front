@@ -310,7 +310,6 @@ async function FetchLogin({
     if (response.ok) {
       FetchGetMyUser(setUserInfo);
       FetchLikePostsId(initFetchLikePostId);
-      window.location.reload();
     }
     return response;
   } catch (error) {
