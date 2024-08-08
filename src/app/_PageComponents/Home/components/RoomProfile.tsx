@@ -50,7 +50,7 @@ export const RoomProfile = ({
             {" "}
             {truncateTitle(room.title, maxTitleLength)}
           </p>
-          <p className="text-sm text-gray-500">{`${room.city} ${room.gu} ${room.street}`}</p>
+          <p className="text-sm text-gray-500">{`${room.street}`}</p>
           <p className="text-sm text-gray-500">
             {formatMonthDate(new Date(room.start_day))} ~{" "}
             {formatMonthDate(new Date(room.end_day))}

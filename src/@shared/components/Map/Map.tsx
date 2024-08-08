@@ -226,7 +226,7 @@ export default function Map(props: Post) {
         searchAddressToCoordinate(post.position, mapRef.current);
       if (coordinate === undefined && mapRef.current) {
         coordinate = searchAddressToCoordinate(
-          `${post.city} ${post.gu} ${post.dong} ${post.street} ${post.street_number}`,
+          `${post.street}`,
           mapRef.current
         );
         if (coordinate === undefined) {

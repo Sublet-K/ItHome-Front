@@ -35,7 +35,7 @@ function PostListComponent({
         <div className="mt-1">
           {(postInfo && postInfo.length) > 0 ? (
             postInfo.map((res, index) => {
-              const address = res.city + " " + res.gu + " " + res.dong;
+              const address = res.street;
               const postDate = DateFormat(res.post_date);
               const price = priceToString(res.price);
 

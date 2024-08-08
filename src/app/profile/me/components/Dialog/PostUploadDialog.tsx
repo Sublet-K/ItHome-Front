@@ -335,38 +335,14 @@ export const PostUploadDialog = () => {
             />
           </div>
         </p>
+
         <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 위치</h3>
-          <DropBoxSelect
-            name="city"
-            state={postState["city"]}
-            onChange={onChange}
-            labelName="시/도"
-            labelId="city"
-            id="city"
-            menuItems={cities}
-          />
-          <br />
-          <DropBoxSelect
-            name="gu"
-            state={postState["gu"]}
-            onChange={onChange}
-            labelName="구/시/군/면"
-            labelId="gu"
-            id="gu"
-            menuItems={
-              postState["city"]
-                ? AdministrativeDistricts[
-                    postState["city"] as keyof typeof AdministrativeDistricts
-                  ]
-                : ["시/군을 먼저 선택해주세요"]
-            }
-          />
+          <h3 style={psd.gridStyle.infoType}>호스팅 지도</h3>
           <div className="mt-4">
             <TextInputTag
               id="street"
-              label="길(로)"
-              placeholder="길을 입력해주세요."
+              label="주소"
+              placeholder="주소를 입력해주세요."
               value={postState["street"]}
               name="street"
               onChange={onChange}
@@ -374,37 +350,9 @@ export const PostUploadDialog = () => {
             />
           </div>
           <div className="mt-4">
-            <TextInputTag
-              id="streetNumber"
-              label="번지"
-              placeholder="번지를 입력해주세요."
-              value={postState["streetNumber"]}
-              name="streetNumber"
-              onChange={onChange}
-              required={true}
-            />
-          </div>
-        </p>
-        <p style={psd.gridStyle.inputContainer}>
-          <h3 style={psd.gridStyle.infoType}>호스팅 지도</h3>
-          <div className="">
-            {postState["street"] != "" &&
-              postState["streetNumber"] != "" &&
-              postState["gu"] != "" &&
-              postState["city"] != "" && (
-                <KakaoMap
-                  name={
-                    postState["city"] +
-                    " " +
-                    postState["gu"] +
-                    " " +
-                    postState["street"] +
-                    " " +
-                    postState["streetNumber"]
-                  }
-                  setPosState={setPosState}
-                />
-              )}
+            {postState["street"] != "" && (
+              <KakaoMap name={postState["street"]} setPosState={setPosState} />
+            )}
           </div>
         </p>
 

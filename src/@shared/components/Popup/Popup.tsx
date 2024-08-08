@@ -865,11 +865,7 @@ export const PostEditDialog = ({
           "building_type",
           "title",
           "basic_info",
-          "city",
-          "gu",
-          "dong",
           "street",
-          "street_number",
         ].includes(key) &&
         value == ""
       ) {
@@ -880,11 +876,7 @@ export const PostEditDialog = ({
           "building_type",
           "title",
           "basic_info",
-          "city",
-          "gu",
-          "dong",
           "street",
-          "street_number",
         ].includes(key)
       ) {
         count += 1;
