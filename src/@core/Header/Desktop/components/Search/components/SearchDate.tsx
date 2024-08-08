@@ -2,7 +2,7 @@
 
 import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
-import { DoubleDatePicker } from "@shared/components/Input/DoubleDatePicker";
+import { DoubleDatePickerSearch } from "@shared/components/Input/DoubleDatePicker";
 import { Dispatch, RefObject, SetStateAction, useRef } from "react";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
 `;
 
 // Button 컴포넌트 정의
-const StyledButton = styled.button<{ isClicked: boolean }>`
+const StyledButton = styled.button`
   width: 100%;
   text-align: left;
   padding: 0.5em;
@@ -71,7 +71,6 @@ const SearchDate = ({
       <StyledButton
         ref={buttonRef}
         onClick={toggleCalander}
-        isClicked={filterState[1]} // 상태에 따라 스타일 적용
         className="rounded-md"
       >
         <DateRangeOutlinedIcon />
@@ -80,7 +79,7 @@ const SearchDate = ({
       {filterState[1] && (
         <Popup className="shadow-2xl" buttonref={buttonRef}>
           <div className="relative flex flex-col justify-between items-center gap-2.5 pb-3">
-            <DoubleDatePicker
+            <DoubleDatePickerSearch
               dateData={searchDate}
               setDateData={setSearchDate}
             />

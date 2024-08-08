@@ -24,7 +24,7 @@ const Popup = styled.div<{ buttonref: RefObject<HTMLButtonElement> }>`
 `;
 
 // Button 컴포넌트 정의
-const StyledButton = styled.button<{ isClicked: boolean }>`
+const StyledButton = styled.button`
   width: 100%;
   text-align: left;
   padding: 0.5em;
@@ -71,7 +71,6 @@ const SearchLocation = ({
       <StyledButton
         ref={buttonRef}
         onClick={togglePosFilter}
-        isClicked={filterState[0]} // 상태에 따라 스타일 적용
         className="rounded-md"
       >
         <LocationOnIcon />
