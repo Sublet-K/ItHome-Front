@@ -30,9 +30,20 @@ function PostListComponent({
   return (
     <div className="">
       <div className="">
-        <h2 className="text-3xl font-semibold">호스팅 리스트</h2>
-
-        <div className="mt-1">
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-semibold ">호스팅 리스트</h2>
+          {guestMode && (
+            <div className="mb-4">
+              <button
+                className="border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
+                onClick={setPostPopUpState}
+              >
+                <p className="text-base text-white font-light">호스팅하기</p>
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="clear-both">
           {(postInfo && postInfo.length) > 0 ? (
             postInfo.map((res, index) => {
               const address = res.street;
@@ -54,16 +65,6 @@ function PostListComponent({
             <NormalText>올린 방이 아직 없습니다.</NormalText>
           )}
         </div>
-        {guestMode && (
-          <div className="mt-4">
-            <button
-              className="border p-2.5 bg-gray-800 border-black rounded-lg hover:bg-black"
-              onClick={setPostPopUpState}
-            >
-              <p className="text-base text-white font-light">호스팅하기</p>
-            </button>
-          </div>
-        )}
       </div>
 
       <PostUploadDialog />
