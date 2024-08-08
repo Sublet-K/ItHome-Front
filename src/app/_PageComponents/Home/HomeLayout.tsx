@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { FetchMoreRoomsDefault } from "@shared/components/FetchList/FetchList";
+import { useUserLikeStore } from "@store/UserLikeStore";
 import { Post } from "@type/Type";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useTitle } from "../UseTitle";
-
-import { useUserLikeStore } from "@store/UserLikeStore";
 import { MarketingBanner } from "./components/MarketingBanner";
 import { RoomProfile } from "./components/RoomProfile";
 
@@ -58,7 +56,7 @@ export const HomeLayout = ({
 
   return (
     <section
-      className="bg-white py-8 mx-auto px-4"
+      className="bg-white py-8 mx-auto px-2" // 간격을 줄이기 위해 px-4를 px-2로 변경
       style={{
         fontFamily: "Pretendard",
       }}

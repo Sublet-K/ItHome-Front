@@ -10,6 +10,7 @@ import { RoomDetail, RoomHost, RoomPrice } from "@shared/components/RoomInfo";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
@@ -53,16 +54,29 @@ export default function RoomInfo() {
     >
       <div className="max-w-xl mx-auto">
         {postExist && (
-          <Carousel className="w-full h-96">
+          <Carousel className="w-full" style={{ height: "420px" }}>
             {postAll
               .find((post) => post.key == nowRoomNum)
               ?.image_id.map((image_id, index) => (
-                <Carousel.Item key={index} className="w-full h-96">
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
-                    alt={`image ${index}`}
-                    className="block w-full h-96 object-cover"
-                  />
+                <Carousel.Item
+                  key={index}
+                  className="w-full"
+                  style={{ height: "420px" }}
+                >
+                  <div className="relative w-full" style={{ height: "420px" }}>
+                    <Image
+                      loader={() =>
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`
+                      }
+                      src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
+                      alt={`image ${index}`}
+                      layout="fill"
+                      objectFit="cover"
+                      sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="block"
+                      style={{ maxWidth: "560px", maxHeight: "420px" }}
+                    />
+                  </div>
                 </Carousel.Item>
               ))}
           </Carousel>
