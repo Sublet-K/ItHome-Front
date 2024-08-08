@@ -1,6 +1,5 @@
 "use client";
 import { Post } from "@/@type/Type";
-import { useSearchDateStore } from "@core/Header/store/SearchDateStore";
 import { DialogContent } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { FetchReportPost } from "@shared/components/FetchList/FetchList";
@@ -8,7 +7,6 @@ import DropBoxSelect from "@shared/components/Input/DropBoxSelect";
 import { KakaoMap } from "@shared/components/Map/Map";
 import { DialogForm, ShareDialog } from "@shared/components/Popup/Popup";
 import { RoomDetail, RoomHost, RoomPrice } from "@shared/components/RoomInfo";
-import { bookingPopUpStore } from "@store/BookingPopUpStore";
 import { SubletPostStore } from "@store/SubletPostStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,8 +22,8 @@ export default function RoomInfo() {
   const [sharePopUpState, setSharePopUpState] = useState(false);
   const [reportPopUpState, setReportPopUpState] = useState(false);
   const [reportType, setReportType] = useState("");
-  const { post, postExist, postAll } = SubletPostStore();
-  const { page, asyncGetPost, asyncGetPostAll } = SubletPostStore();
+  const { postExist, postAll } = SubletPostStore();
+  const { asyncGetPostAll } = SubletPostStore();
 
   useEffect(() => {
     if (!postExist) {
@@ -34,46 +32,7 @@ export default function RoomInfo() {
     setNowRoomPost(postAll.find((post) => post.key === nowRoomNum));
   }, [postExist, postAll, nowRoomNum, asyncGetPostAll]);
 
-  //페이지 이동 부분
-  // const navigate = useNavigate();
-  const { setStartDay, setEndDay, setDayPay, setTotalPay, setPostKey } =
-    bookingPopUpStore((state) => ({
-      setStartDay: state.setTempStartDayState,
-      setEndDay: state.setTempEndDayState,
-      setDayPay: state.setDayPayState,
-      setTotalPay: state.setTotalPayState,
-      setPostKey: state.setPostKey,
-    }));
-  const { searchDate } = useSearchDateStore();
   const { userInfo } = useUserInfoStore();
-  // const IsLogin = async () => {
-  //   const json = FetchIsLogin(setUserInfo);
-
-  //   if (json.statusCode === 403) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
-  const moveToBooking = () => {
-    //로그인 되어 있으면 booking.js로 넘기고, 로그인이 안 되어 있으면 로그인 모달 창 띄우기
-    //console.log(IsLogin()); //몰루겟다
-    // console.log(
-    //   IsLogin().then((result) => {
-    //     return result;
-    //   })
-    // );
-    // if (IsLogin().then((result) => { return result; })) {
-    //   setStartDay(searchDate[0]);
-    //   setEndDay(searchDate[1]);
-    //   setDayPay(nowRoomPost.price);
-    //   setTotalPay(nowRoomPost.price * getDateDiff(searchDate[0], searchDate[1]));
-    //   setPostKey(nowRoomNum);
-    //   navigate(`/booking`);
-    // } else {
-    //   alert('로그인이 필요합니다.');
-    // }
-  };
 
   const handleReportTypeState = (event: SelectChangeEvent<string>) => {
     setReportType(event.target.value);
@@ -98,11 +57,11 @@ export default function RoomInfo() {
             {postAll
               .find((post) => post.key == nowRoomNum)
               ?.image_id.map((image_id, index) => (
-                <Carousel.Item key={index}>
+                <Carousel.Item key={index} className="w-full h-96">
                   <img
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/public/${image_id}.jpg`}
                     alt={`image ${index}`}
-                    className="block w-full object-cover"
+                    className="block w-full h-96 object-cover"
                   />
                 </Carousel.Item>
               ))}
