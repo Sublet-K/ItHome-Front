@@ -825,7 +825,12 @@ export const PostEditDialog = ({
     numberBedroom: post.number_bedroom,
     title: post.title,
     basicInfo: post.basic_info,
-    startEndDay: [new Date(post.start_day), new Date(post.end_day)],
+    startEndDay: [
+      dayjs(new Date()).format("YYYY-MM-DD"),
+      dayjs(
+        new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+      ).format("YYYY-MM-DD"),
+    ],
     duration: [post.min_duration, post.max_duration],
     tempDuration: ["1일", "170일"],
     price: String(post.price),
@@ -912,7 +917,7 @@ export const PostEditDialog = ({
     }
   };
 
-  const handleStartEndDay = (date: [Date, Date]) => {
+  const handleStartEndDay = (date: [string, string]) => {
     setInputs({ ...inputs, startEndDay: date });
   };
 
@@ -931,10 +936,10 @@ export const PostEditDialog = ({
     formData.append("price", price.replace(/,/gi, ""));
     formData.append("basic_info", basicInfo);
     formData.append("benefit", benefit);
-    formData.append("end_day", formatDate(startEndDay[1]));
+    formData.append("end_day", startEndDay[1]);
     formData.append("min_duration", duration[0].toString());
     formData.append("max_duration", duration[1].toString());
-    formData.append("start_day", formatDate(startEndDay[0]));
+    formData.append("start_day", startEndDay[0]);
     formData.append("limit_people", limitPeople.toString());
     formData.append("number_room", numberRoom.toString());
     formData.append("number_bathroom", numberBathroom.toString());
