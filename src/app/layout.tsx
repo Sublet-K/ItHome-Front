@@ -60,7 +60,15 @@ export default function RootLayout({
         />
         <meta property="og:url" content="https://ithomes.kr" />
         <meta property="og:type" content="website" />
+        <meta
+          name="naver-site-verification"
+          content="6788646b1c436d88c166f7ca15e9dd07f23fab1a"
+        />
 
+        <meta
+          name="google-site-verification"
+          content="uP6Ln0z2J3KUavwHBD_RcM18FlRNvOgWVgIa_otZ7hE"
+        />
         <title>ItHome</title>
         <script
           type="text/javascript"
