@@ -25,6 +25,7 @@ import * as s from "@shared/styles/Public.styles";
 import { guestInfoPopUpStore } from "@store/GuestInfoStore";
 import { useUserInfoStore } from "@store/UserInfoStore";
 import axios from "axios";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import "swiper/swiper-bundle.css";
 
@@ -58,8 +59,10 @@ export const PostUploadDialog = () => {
     streetNumber: "",
     postCode: "temp",
     startEndDay: [
-      new Date(),
-      new Date().setFullYear(new Date().getFullYear() + 1),
+      dayjs(new Date()).format("YYYY-MM-DD"),
+      dayjs(
+        new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+      ).format("YYYY-MM-DD"),
     ],
     price: "10,000",
     imageFiles: [] as File[],
@@ -89,11 +92,11 @@ export const PostUploadDialog = () => {
     formData.append("basic_info", postState["basicInfo"]);
     formData.append("benefit", postState["benefit"]);
     formData.append("description", "description");
-    formData.append("end_day", formatDate(postState["startEndDay"][1]));
+    formData.append("end_day", postState["startEndDay"][1]);
     formData.append("extra_info", "extra_info");
     formData.append("max_duration", postState["duration"][1].toString());
     formData.append("min_duration", postState["duration"][0].toString());
-    formData.append("start_day", formatDate(postState["startEndDay"][0]));
+    formData.append("start_day", postState["startEndDay"][0]);
     formData.append("title", postState["title"]);
     formData.append("rule", postState["rule"]);
     formData.append("refund_policy", postState["refundPolicy"]);
@@ -203,7 +206,7 @@ export const PostUploadDialog = () => {
     setPostState({ ...postState, imageFiles: newImages });
   };
 
-  const handleStartEndDay = (date: [Date, Date]) => {
+  const handleStartEndDay = (date: [string, string]) => {
     setPostState({ ...postState, startEndDay: date });
   };
 
